@@ -1,0 +1,1 @@
+Ctrl -C : sert à envoyer le signal QUIT (SIGQUIT) au processus en cours d'execution.
