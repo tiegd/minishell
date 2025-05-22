@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/21 16:06:36 by jpiquet          ###   ########.fr       */
+/*   Created: 2024/11/13 13:38:44 by jpiquet           #+#    #+#             */
+/*   Updated: 2024/11/19 17:55:42 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_h
+#include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <limits.h>
+char	*ft_strrchr(const char *s, int c)
+{
+	int				i;
+	size_t			s_len;
+	unsigned char	char1;
 
-
-
-#endif
+	i = 0;
+	char1 = (unsigned char)c;
+	s_len = ft_strlen(s);
+	if (char1 == '\0')
+		return ((char *)&s[s_len]);
+	while (s_len > 0)
+	{
+		if (s[s_len] == char1)
+			return ((char *)&s[s_len]);
+		s_len--;
+	}
+	if (s[0] == char1)
+		return ((char *)&s[0]);
+	return (NULL);
+}

@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/21 16:06:36 by jpiquet          ###   ########.fr       */
+/*   Created: 2024/11/13 15:27:05 by jpiquet           #+#    #+#             */
+/*   Updated: 2024/11/19 17:53:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_h
+#include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <limits.h>
+int	ft_memcmp(const void *s1, const void *s2, size_t size)
+{
+	size_t				i;
+	const unsigned char	*s1_tmp;
+	const unsigned char	*s2_tmp;
 
-
-
-#endif
+	i = 0;
+	s1_tmp = (const unsigned char *)s1;
+	s2_tmp = (const unsigned char *)s2;
+	if (size == 0)
+		return (0);
+	while (i < size - 1)
+	{
+		if (s1_tmp[i] != s2_tmp[i])
+			return (s1_tmp[i] - s2_tmp[i]);
+		i++;
+	}
+	return (s1_tmp[i] - s2_tmp[i]);
+}
