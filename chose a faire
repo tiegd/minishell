@@ -10,3 +10,10 @@ Comme par exemple "e"ch'o' "quelque chose" cela doit marcher.
 Il faut tokeniser chaque chose qui sont entré dans le prompt.
 Par exemple dans une liste chainé mettre dans l'ordre chaques chose qu'on recoit et qui pourront être envoyé à l'execution.
 
+Checker en amont si c'est juste la commande ou le path complet qui est entré dans le prompt
+
+Si c'est dans le cadre d'un pipe, rajouter un bool pour savoir si la commande est valide ou pas
+
+Pipe à la fin.
+
+
