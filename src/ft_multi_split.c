@@ -6,13 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:45:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/26 09:30:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static int	ft_count_word(const char *s, char c, char d)
+int	ft_count_word(const char *s, char c, char d)
 {
 	int	nb_word;
 	int	i;
@@ -23,9 +24,9 @@ static int	ft_count_word(const char *s, char c, char d)
 	{
 		while (s[i] && (s[i] == c || s[i] == d))
 			i++;
-		if (s[i] && (s[i] != c || s[i] != d))
+		if (s[i] && (s[i] != c && s[i] != d))
 			nb_word++;
-		while (s[i] && (s[i] != c || s[i] != d))
+		while (s[i] && (s[i] != c && s[i] != d))
 			i++;
 	}
 	return (nb_word);
@@ -60,7 +61,7 @@ static char	**ft_new_str(char **double_tab, const char *s, char c, char d, int n
 		while ((s[i] == c || s[i] == d) && s[i])
 			i++;
 		index = i;
-		while ((s[i] != c || s[i] != d) && s[i])
+		while ((s[i] != c && s[i] != d) && s[i])
 			i++;
 		double_tab[count] = malloc((i - index + 1) * sizeof(char));
 		if (double_tab[count] == NULL)
@@ -98,6 +99,7 @@ char	**ft_multi_split(char const *s, char c, char d)
 	if (!check_empty_s(s, c, d))
 		return (NULL);
 	nb_word = ft_count_word(s, c, d);
+	printf("nb_word = %d\n", nb_word);
 	double_tab = malloc((nb_word + 1) * sizeof(char *));
 	if (!(double_tab))
 		return (NULL);
