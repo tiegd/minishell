@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:47:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/26 08:30:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-ft_check_prompt(char *input)
+int	ft_check_prompt(char *input)
 {
 	int		i;
 	char	**prompt;
