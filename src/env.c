@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/26 09:30:00 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/05/23 14:45:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
+#include "minishell.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <limits.h>
-#include "../Libft/libft.h"
-#include "struct.h"
+void	ft_env(char **env, int fd)
+{
+	int	i;
 
-void	ft_echo(t_cmd *cmd);
-int		ft_strcmp(char *s1, char *s2);
-void	ft_env(char **env, int fd);
-char	*expend(char *arg, char **env);
-
-#endif
+	i = 0;
+	if (dup2(fd, STDOUT_FILENO) == -1)
+		perror("error with dup2");
+	while (env[i] != NULL)
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+}

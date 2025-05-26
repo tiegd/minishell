@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/22 09:51:25 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/05/23 15:45:03 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,8 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -lreadline -Wall -Wextra
+CFLAGS = -Wall -Wextra -g3
 #CFLAGS = -lreadline -Wall -Wextra -Werror
-
-INC = inc/
-
-SRC =
-SRCDIR = src
-
-OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
-OBJDIR = obj
 
 #LIBFT
 
@@ -40,12 +32,27 @@ LIBFT_SRC = Libft/ft_atoi.c Libft/ft_bzero.c Libft/ft_calloc.c \
 
 LIBFT_INC = Libft/libft.h
 
+INC = inc
+
+SRCDIR = src
+
+SRC =	$(SRCDIR)/main.c \
+		$(SRCDIR)/echo.c \
+		$(SRCDIR)/env.c \
+		$(SRCDIR)/export.c \
+		$(SRCDIR)/expend.c \
+
+OBJDIR = obj
+OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
+
+LIBFT = $(LIBFTDIR)/libft.a
+
 #MAKE MINISHELL
 
 all : $(LIBFT) $(NAME)
 
 $(NAME) : $(OBJ) $(INC)
-	$(CC) $(CFLAGS) -I $(INCDIR) -o $(NAME) $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -I $(INC) -o $(NAME) $(OBJ) $(LIBFT)
 	@echo "$(NAME) done successfully ✅"
 
 $(LIBFTDIR)/libft.a : $(LIBFT_SRC) $(LIBFT_INC)
@@ -53,7 +60,7 @@ $(LIBFTDIR)/libft.a : $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "Libft done successfully ✅"
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(INC) -o $@ -c $<
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
