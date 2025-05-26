@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/23 16:08:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/26 11:06:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,44 +62,44 @@
 
 // char	*
 
-char	*extract_env()
+// char	*extract_env()
 
-char	*expend(char *arg, char **env, bool malloc_error)
-{
-	int	i;
-	int	start;
-	int len;
-	char *temp;
-	char *expend;
-	(void)env;
+// char	*expend(char *arg, char **env, bool malloc_error)
+// {
+// 	int	i;
+// 	int	start;
+// 	int len;
+// 	char *temp;
+// 	char *expend;
+// 	(void)env;
 
-	i = 0;
-	start = 0;
-	printf("%s\n", arg);
-	// if (!there_is_var_env(arg))
-	// {
-	// 	expend = malloc(sizeof(char));
-	// 	expend[0] = '\0';
-	// 	return (expend);
-	// }
-	while (arg[i] != '\0' && arg[i] != '$')
-		i++;
-	start = i + 1;
-	if (arg[i] == '$')
-		i++;
-	while (arg[i] && ft_isalnum(arg[i]))
-	{
-		printf("%c\n", arg[i]);
-		i++;
-	}
-	len = i - start;
-	temp = ft_substr(arg, start, len);
-	if (!temp)
-	{
-		malloc_error = true;
-		return (NULL);
-	}
-	expend = extract_env(temp, env);
-	return (expend);
-}
+// 	i = 0;
+// 	start = 0;
+// 	printf("%s\n", arg);
+// 	// if (!there_is_var_env(arg))
+// 	// {
+// 	// 	expend = malloc(sizeof(char));
+// 	// 	expend[0] = '\0';
+// 	// 	return (expend);
+// 	// }
+// 	while (arg[i] != '\0' && arg[i] != '$')
+// 		i++;
+// 	start = i + 1;
+// 	if (arg[i] == '$')
+// 		i++;
+// 	while (arg[i] && ft_isalnum(arg[i]))
+// 	{
+// 		printf("%c\n", arg[i]);
+// 		i++;
+// 	}
+// 	len = i - start;
+// 	temp = ft_substr(arg, start, len);
+// 	if (!temp)
+// 	{
+// 		malloc_error = true;
+// 		return (NULL);
+// 	}
+// 	expend = extract_env(temp, env);
+// 	return (expend);
+// }
 
