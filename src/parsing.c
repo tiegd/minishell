@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:05:21 by gaducurt         ###   ########.fr       */
+/*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
+/*   Updated: 2025/05/22 15:47:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include "minishell.h"
+#include "libft.h"
 
-int	main()
+
+
+ft_check_prompt(char *input)
 {
-	char	*input;
+	int		i;
+	char	**prompt;
 
-	while (1)
+	prompt = ft_multi_split(input, ' ', '\t');
+	while (prompt[i])
 	{
-		input = readline("zizishell> ");
-		if (ft_check_prompt(input))
-			printf("%s\n", input);
+		printf("prompt[%d] = %s\n", prompt[i]);
+		i++;
 	}
+	return (1);
 }

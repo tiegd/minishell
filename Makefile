@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
+#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/22 09:51:25 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/05/22 15:55:42 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,15 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -lreadline -Wall -Wextra
+CFLAGS = -lreadline -Wall -Wextra -Werror 
 #CFLAGS = -lreadline -Wall -Wextra -Werror
 
 INC = inc/
 
-SRC =
+SRC =	main.c				\
+		parsing.c			\
+		ft_multi_split.c	\
+
 SRCDIR = src
 
 OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
