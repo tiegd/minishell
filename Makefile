@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/26 13:13:13 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/05/26 17:35:38 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,9 @@ BIN = bin/
 
 DIR_SRC = src/
 
-SRC = 	main.c				\
-		src/parsing.c			\
-		src/ft_multi_split.c	\
+SRC = 	main.c						\
+		src/parsing.c				\
+		src/ft_multi_split.c		\
 		builtins/echo.c				\
 		builtins/env.c				\
 		builtins/expend.c			\

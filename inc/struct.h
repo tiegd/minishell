@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/26 12:55:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:36:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 
 #include <stdbool.h>
 
+typedef struct s_token
+{
+	char			*content;
+	struct s_token	*next;
+}					t_token;
+
 typedef struct s_cmd
 {
-	char			*token;
 	char			*pathname;
 	char			**args;
 	char			*expend;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 11:27:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:27:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int	main()
 	while (1)
 	{
 		input = readline("zizishell> ");
-		if (ft_check_prompt(input))
+		if (!ft_parsing(input))
+		{
+			return (1);
 			printf("%s\n", input);
+		}
 	}
+	return (0);
 }
