@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 13:01:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:11:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,15 @@ void	ft_lst_addback(t_cmd *lst, char *s, int len)
 	}
 	last = ft_lstlast(lst);
 	last->next = new;
+}
+
+t_cmd	*ft_tab_to_lst(t_cmd *lst, char **prompt, int len_tab)
+{
+	int		i;
+	
+	i = 0;
+	while (i < len_tab)
+	{
+		ft_lst_addback(lst, prompt[i], len_tab);
+	}
 }
