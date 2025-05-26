@@ -1,32 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   linked_list.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 09:16:31 by gaducurt         ###   ########.fr       */
+/*   Created: 2025/05/26 13:00:26 by gaducurt          #+#    #+#             */
+/*   Updated: 2025/05/26 13:00:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "minishell.h"
-
-int	ft_check_prompt(char *input)
-{
-	int		i;
-	int		len_tab;
-	char	**prompt;
-
-	i = 0;
-	len_tab = ft_count_word(input, ' ', '\t');
-	printf("len_tab = %d\n", len_tab);
-	prompt = ft_multi_split(input, ' ', '\t');
-	while (i < len_tab)
-	{
-		printf("prompt[%d] = %s\n", i, prompt[i]);
-		i++;
-	}
-	return (1);
-}
