@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 17:02:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/27 19:53:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@ int		strcmp_until_char(char *s1, char *s2, char c)
 	int	i;
 	
 	i = 0;
-	printf("s1 = %s\n", s1); 
-	printf("s2 = %s\n", s2);
+	if (!s1 || !s2)
+		return (0);
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
 			return (0);
 		i++;
 	}
-	printf("ERROR\n");
-	if (s1[i] - s2[i] == 0 && s2[i + 1] == '=')
+	// printf("s1 = %c\n", s1[i]);
+	// printf("s2 = %c\n", s2[i]);
+	// printf("ERROR\n");
+	// printf("s2 - s2 = %d | s2[i+1] = %c\n", s1[i-1] - s2[i-1], s2[i]);
+	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == '=')
 		return (1);
-	printf("APRES COMPARAISON\n");
+	// printf("APRES COMPARAISON\n");
 	return (0);
 }
 
@@ -53,14 +56,14 @@ char	*env_result(char *env, bool malloc_error)
 	if (env[i] && env[i] == '=')
 		i++;
 	env += i;
-	printf("%s\n", env);
+	// printf("%s\n", env);
 	res = ft_strdup(env);
 	if (!res)
 	{
 		malloc_error = true;
 		return (NULL);
 	}
-	printf("res = %s\n", res);
+	// printf("res = %s\n", res);
 	return (res);
 }
 

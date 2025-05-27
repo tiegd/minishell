@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:09:18 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 16:54:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/27 19:53:43 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int main(int ac, char **av, char **env)
 	new_env = ft_export(env, "A=bonjour$HOME$LANG");
 	// new_env = ft_export(new_env, av[3]);
 	// new_env = ft_export(new_env, av[4]);
-	// ft_env(new_env, 1);
+	ft_env(new_env, 1);
 	return (0);
 }
