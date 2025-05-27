@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 17:23:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:00:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ int	ft_first_word(char *input)
 	return (0);
 }
 
+// Check if the command is valide.
+
+// int	ft_check_lst(t_token *lst)
+// {
+	
+// }
+
 /* Convert char *input in char **prompt and
 // convert char **prompt in t_token *lst.*/
 
@@ -110,5 +117,6 @@ int	ft_parsing(char *input)
 		i++;
 	}
 	lst = ft_tab_to_lst(lst, prompt, len_tab);
+	// ft_check_lst(lst);
 	return (1);
 }
