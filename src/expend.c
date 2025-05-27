@@ -6,63 +6,88 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/23 16:08:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/27 17:02:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int		charcmp(char *s1, char *s2, char s2_set)
-// {
-// 	int	i;
+int	exp_isalnum(int c) //is al num ou le '_' est autorisé
+{
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
+		return (1);
+	else
+		return (0);
+}
 
-// 	i = 0;
-// 	while (s1[i] && s2[i] && s2[i] != s2_set)
-// 	{
-// 		if (s1[i] != s2[i])
-// 			return (0);
-// 		i++;
-// 	}
-// 	if ((s1[i] == '\0' || s1[i] == 39) && s2[i] == s2_set)
-// 		return (1);
-// 	return (0);
-// }
+int		strcmp_until_char(char *s1, char *s2, char c)
+{
+	int	i;
+	
+	i = 0;
+	printf("s1 = %s\n", s1); 
+	printf("s2 = %s\n", s2);
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	printf("ERROR\n");
+	if (s1[i] - s2[i] == 0 && s2[i + 1] == '=')
+		return (1);
+	printf("APRES COMPARAISON\n");
+	return (0);
+}
 
-// void	print_envariable(char *str)
-// {
-// 		int	i;
+char	*env_result(char *env, bool malloc_error)
+{
+	int	i;
+	char *res;
 
-// 		i = 0;
-// 		while (str[i] != '\0' && str[i] != '=')
-// 			i++;
-// 		if (str[i] != '\0' && str[i] == '=')
-// 			i++;
-// 		while(str[i])
-// 			write(1, &str[i], 1);
-// }
+	i = 0;
+	while (env[i] && env[i] != '=')
+	{
+		i++;
+	}
+	if (env[i] && env[i] == '=')
+		i++;
+	env += i;
+	printf("%s\n", env);
+	res = ft_strdup(env);
+	if (!res)
+	{
+		malloc_error = true;
+		return (NULL);
+	}
+	printf("res = %s\n", res);
+	return (res);
+}
 
-// void	is_env_var(char	*str, char **env)
-// {
-// 	int	i;
-// 	int	j;
+char	*extract_env(char *temp, char **env, bool malloc_error)
+{
+	int	i;
+	int	temp_len;
+	char *extract;
 
-// 	i = 0;
-// 	j = 0;
-// 	*str++;
-// 	while (env[i])
-// 	{
-// 		if (charcmp(str, env[i], '='))
-// 		{
-// 			print_envariable(env[i]);
-// 			break;
-// 		}
-// 		i++;
-// 	}
-// }
-
-// char	*
-
-char	*extract_env()
+	i = 0;
+	temp_len = ft_strlen(temp);
+	while (env[i] != NULL)
+	{
+		if (strcmp_until_char(temp, env[i], '='))
+		{
+			extract = env_result(env[i], malloc_error);
+			if (!extract)
+			{
+				malloc_error = true;
+				return (NULL);
+			}
+			return (extract);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 char	*expend(char *arg, char **env, bool malloc_error)
 {
@@ -71,35 +96,27 @@ char	*expend(char *arg, char **env, bool malloc_error)
 	int len;
 	char *temp;
 	char *expend;
-	(void)env;
 
 	i = 0;
-	start = 0;
-	printf("%s\n", arg);
-	// if (!there_is_var_env(arg))
-	// {
-	// 	expend = malloc(sizeof(char));
-	// 	expend[0] = '\0';
-	// 	return (expend);
-	// }
 	while (arg[i] != '\0' && arg[i] != '$')
 		i++;
 	start = i + 1;
 	if (arg[i] == '$')
 		i++;
-	while (arg[i] && ft_isalnum(arg[i]))
+	while (arg[i] && exp_isalnum(arg[i]))
 	{
-		printf("%c\n", arg[i]);
 		i++;
 	}
 	len = i - start;
 	temp = ft_substr(arg, start, len);
+	// printf("temp = %s\n", temp);
 	if (!temp)
 	{
 		malloc_error = true;
 		return (NULL);
 	}
-	expend = extract_env(temp, env);
+	// printf("%s\n", temp);
+	expend = extract_env(temp, env, malloc_error);
 	return (expend);
 }
 
