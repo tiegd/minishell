@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/28 16:06:54 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/05/28 13:06:08 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/05/28 13:34:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//recuperer la variable d'environnement et la print dans le fd passsé en paramètre.
-void	ft_env(char **env, int fd)
-{
-	int	i;
 
-	i = 0;
-	if (dup2(fd, STDOUT_FILENO) == -1)
-		perror("error with dup2");
-	while (env[i] != NULL)
+void	pwd(int fd)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		printf("%s\n", env[i]);
-		i++;
+		perror("error with getcwd");
+		return ;
 	}
+	ft_putstr_fd(pwd, fd);
+	ft_putchar_fd('\n', fd);
+	free(pwd);
 }

@@ -1,3 +1,6 @@
 src/main.c
+misc/
 Makefile
 README.md
+.vscode/
+.gitignore

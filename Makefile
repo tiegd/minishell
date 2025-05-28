@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/23 15:45:03 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/05/28 16:14:24 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ SRC =	$(SRCDIR)/main.c \
 		$(SRCDIR)/env.c \
 		$(SRCDIR)/export.c \
 		$(SRCDIR)/expend.c \
+		$(SRCDIR)/pwd.c \
+		$(SRCDIR)/cd.c \
 
 OBJDIR = obj
 OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))

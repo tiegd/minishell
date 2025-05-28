@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 20:13:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/28 16:08:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strndup(const char *s, int n)
 	return (dest);
 }
 
-/*compte le nombre de string dans un char***/
+/*compte le nombre de string dans un char** */
 int	nb_var(char **env)
 {
 	int	i;
