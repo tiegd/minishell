@@ -6,12 +6,14 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 16:50:57 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/27 20:13:24 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+/*duplique une string jusqu'à n caractère*/
 char	*ft_strndup(const char *s, int n)
 {
 	int		i;
@@ -20,6 +22,8 @@ char	*ft_strndup(const char *s, int n)
 
 	i = 0;
 	len = ft_strlen(s);
+	if (n <= 0)
+		return (NULL);
 	dest = malloc(sizeof(char) * n + 1);
 	if (dest == 0)
 		return (0);
@@ -32,6 +36,7 @@ char	*ft_strndup(const char *s, int n)
 	return (dest);
 }
 
+/*compte le nombre de string dans un char***/
 int	nb_var(char **env)
 {
 	int	i;
@@ -42,6 +47,7 @@ int	nb_var(char **env)
 	return (i);
 }
 
+/*compte le nombre de séparateur dans la string*/
 int		char_nb(char *str, char c)
 {
 	int i;
@@ -60,6 +66,7 @@ int		char_nb(char *str, char c)
 	return (count);
 }
 
+/*avance jusqu'au séparateur et renvoie un char** de chaque spéparateur + la string qui suit*/
 char	**split_keep(char *str, char c)
 {
 	int 	i;
@@ -131,7 +138,7 @@ char	**ft_export(char **old_env, char *str)
 		}
 		i++;
 	}
-	//si il y a un '$' dans la string
+	//regarde si il y a un '$' dans la string
 	if (ft_strchr(str, '$'))//checker aussi si c'est entre simple quote ou pas
 	{
 		while (str[j] != '$')

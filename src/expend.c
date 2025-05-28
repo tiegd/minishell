@@ -6,13 +6,14 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 19:53:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/27 19:59:38 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exp_isalnum(int c) //is al num ou le '_' est autorisé
+//isalnum où le '_' est autorisé
+int	exp_isalnum(int c) 
 {
 	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (1);
@@ -20,6 +21,7 @@ int	exp_isalnum(int c) //is al num ou le '_' est autorisé
 		return (0);
 }
 
+/*compare la string jusqu'au caractère passé en paramètre*/
 int		strcmp_until_char(char *s1, char *s2, char c)
 {
 	int	i;
@@ -33,16 +35,12 @@ int		strcmp_until_char(char *s1, char *s2, char c)
 			return (0);
 		i++;
 	}
-	// printf("s1 = %c\n", s1[i]);
-	// printf("s2 = %c\n", s2[i]);
-	// printf("ERROR\n");
-	// printf("s2 - s2 = %d | s2[i+1] = %c\n", s1[i-1] - s2[i-1], s2[i]);
-	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == '=')
+	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
 		return (1);
-	// printf("APRES COMPARAISON\n");
 	return (0);
 }
 
+/*récupère le resultat d'une variable d'environnement*/
 char	*env_result(char *env, bool malloc_error)
 {
 	int	i;
@@ -56,17 +54,16 @@ char	*env_result(char *env, bool malloc_error)
 	if (env[i] && env[i] == '=')
 		i++;
 	env += i;
-	// printf("%s\n", env);
 	res = ft_strdup(env);
 	if (!res)
 	{
 		malloc_error = true;
 		return (NULL);
 	}
-	// printf("res = %s\n", res);
 	return (res);
 }
 
+//extrait la variable d'environnement si elle existe, sinon renvoie NULL.
 char	*extract_env(char *temp, char **env, bool malloc_error)
 {
 	int	i;
@@ -91,7 +88,8 @@ char	*extract_env(char *temp, char **env, bool malloc_error)
 	}
 	return (NULL);
 }
-
+/*fonction permettant de transforner un $SOMETHING en resultat de sa variable d'environnement, 
+renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 char	*expend(char *arg, char **env, bool malloc_error)
 {
 	int	i;
@@ -112,13 +110,11 @@ char	*expend(char *arg, char **env, bool malloc_error)
 	}
 	len = i - start;
 	temp = ft_substr(arg, start, len);
-	// printf("temp = %s\n", temp);
 	if (!temp)
 	{
 		malloc_error = true;
 		return (NULL);
 	}
-	// printf("%s\n", temp);
 	expend = extract_env(temp, env, malloc_error);
 	return (expend);
 }

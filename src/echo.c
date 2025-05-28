@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/26 15:27:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/28 10:26:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	echo_dollar(char *args, char *expend)
 	int	i;
 
 	i = 0;
+	// printf("EROOR\n");
 	while (args[i] && args[i] != '$')
 	{
 		write(1, &args[i], 1);
@@ -97,7 +98,7 @@ void	ft_echo(t_cmd *cmd)
 		while (cmd->args[i] != NULL)
 		{
 			//regarder si il y a une variable d'environnement et qu'elle n'est pas entre single quote.
-			if (cmd->is_env_var == true && cmd->quote != 1)
+			if (cmd->is_env_var == true && cmd->quote == 1)
 			{
 				echo_dollar(cmd->args[i], cmd->expend); //print la variable d'environnement
 				if (cmd->args[i + 1] == NULL)
