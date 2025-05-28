@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/28 09:38:31 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/05/28 10:44:44 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,14 @@ BIN = bin/
 
 DIR_SRC = src/
 
-SRC = 	main.c						\
-		parsing.c				\
-		ft_multi_split.c		\
+SRC = 	main.c				\
+		parsing.c			\
+		ft_multi_split.c	\
 		echo.c				\
 		env.c				\
 		expend.c			\
 		export.c			\
+		linked_list.c		\
 			
 LIBS = 	Libft/libft.a	\
 

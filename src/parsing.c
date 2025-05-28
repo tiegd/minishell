@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/28 10:29:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:55:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_is_builtin(char *input, int end_word)
 	i = 0;
 	while (i < end_word)
 	{
+		(void)input;
 		// checker si ca correspond à un nom de fonction
 		i++;
 	}
@@ -54,6 +55,7 @@ int	ft_is_bin(char *input, int end_word)
 	i = 0;
 	while (i < end_word)
 	{
+		(void)input;
 		// checker si ca correspond à un nom de fonction
 		i++;
 	}
@@ -118,7 +120,7 @@ int	ft_parsing(char *input)
 		printf("prompt[%d] = %s\n", i, prompt[i]);
 		i++;
 	}
-	lst = ft_tab_to_lst(lst, prompt, len_tab);
+	lst = ft_tab_to_lst(prompt, len_tab);
 	// ft_check_lst(lst);
 	return (1);
 }

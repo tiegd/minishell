@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 16:18:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:55:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,14 @@ void	ft_lst_addback(t_token *lst, char *s, int len)
 
 t_token	*ft_tab_to_lst(t_token *lst, char **prompt, int len_tab)
 {
+	t_token	*lst;
 	int		i;
 	
 	i = 0;
 	while (i < len_tab)
 	{
 		ft_lst_addback(lst, prompt[i], len_tab);
+		i++;
 	}
+	return (lst);
 }
