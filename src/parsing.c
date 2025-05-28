@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/27 17:00:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:29:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_is_builtin(char *input, int end_word)
 		// checker si ca correspond à un nom de fonction
 		i++;
 	}
+	return (1);
 }
 
 // Check if the first word is a bin commande.
@@ -56,6 +57,7 @@ int	ft_is_bin(char *input, int end_word)
 		// checker si ca correspond à un nom de fonction
 		i++;
 	}
+	return (1);
 }
 
 int	ft_str_digit(char *input, int end_word)
