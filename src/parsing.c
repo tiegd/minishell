@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/28 13:29:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:19:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,9 @@ int	ft_parsing(char *input)
 	// if (!ft_first_word(input))
 	// 	return (0);
 	len_tab = ft_count_word(input, ' ', '\t');
-	printf("len_tab = %d\n", len_tab);
 	prompt = ft_multi_split(input, ' ', '\t');
 	while (i < len_tab)
-	{
-		printf("prompt[%d] = %s\n", i, prompt[i]);
 		i++;
-	}
 	lst = ft_tab_to_lst(prompt, len_tab);
 	// ft_check_lst(lst);
 	return (1);
