@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/26 15:36:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/29 09:19:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_token
 {
 	char			*content;
+	int				index;
 	struct s_token	*next;
 }					t_token;
 

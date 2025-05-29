@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/28 16:47:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:27:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_token	*ft_lst_last(t_token *lst)
 
 // Add the new node at the end of the list.
 
-void	ft_lst_addback(t_token *lst, char *s, int len)
+t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 {
 	t_token	*new;
 	t_token	*last;
@@ -51,12 +51,16 @@ void	ft_lst_addback(t_token *lst, char *s, int len)
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-		return (ft_lstfree(lst));
+	{
+		ft_lstfree(lst);
+		return NULL;
+	}
 	new->content = malloc((len + 1) * sizeof(char));
 	if (!new->content)
 	{
 		free(new);
-		return (ft_lstfree(lst));
+		ft_lstfree(lst);
+		return NULL;
 	}
 	i = -1;
 	printf(RED"s = %s\n"RESET, s);
@@ -70,19 +74,21 @@ void	ft_lst_addback(t_token *lst, char *s, int len)
 	new->content[i] = '\0';
 	new->next = NULL;
 	printf(YELLOW"new->content[i] = %c\n"RESET, new->content[i]);
-	printf("i boucle = %d\n", i);
+	printf(GREEN"new->content = %s\n"RESET, new->content);
 	if (!lst)
 	{
+		printf("lst = new\n");
 		lst = new;
-		return ;
 	}
 	else
 	{
+		printf("last\n");
 		last = ft_lst_last(lst);
 		last->next = new;
 	}
 	printf(GREEN"new->content = %s\n"RESET, new->content);
 	printf("continue\n");
+	return (lst);
 }
 
 // Just for test the list. This function will be deleted.
@@ -105,15 +111,19 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 	int		len;
 	
 	i = 0;
-	lst = malloc(sizeof(t_token));
+	// lst = malloc(sizeof(t_token));
+	lst = NULL;
+	// if (!lst)
+	// 	return (0);
 	while (i < len_tab)
 	{
 		len = ft_strlen(prompt[i]);
 		printf(CYAN"len = %d\n"RESET, len);
-		ft_lst_addback(lst, prompt[i], len);
+		printf(GREEN"i = %d\n"RESET, i);
+		lst = ft_lst_addback(lst, prompt[i], len);
 		i++;
-		printf("i = %d\n", i);
 	}
+	// printf("fin de boucle\n");
 	ft_print_lst(lst);
 	return (lst);
 }
