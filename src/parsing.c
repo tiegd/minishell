@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/29 11:19:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:59:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,36 @@ int	ft_first_word(char *input)
 /* Convert char *input in char **prompt and
 // convert char **prompt in t_token *lst.*/
 
+bool	ft_is_pipe(t_token *lst)
+{
+	t_token	*tmp;
+
+	tmp = lst;
+	while (tmp->next)
+	{
+		if (tmp->content == '|')
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+// int	ft_check_lst(t_token *lst)
+// {
+// 	if (!ft_is_pipe(lst))
+// 		ft_check_lst(lst);
+// }
+
+void	ft_one_cmd(lst)
+{
+	if (lst )
+}
+
+void	ft_multi_cmd(lst)
+{
+	
+}
+
 int	ft_parsing(char *input)
 {
 	int		i;
@@ -110,13 +140,15 @@ int	ft_parsing(char *input)
 	t_token	*lst;
 
 	i = 0;
-	// if (!ft_first_word(input))
-	// 	return (0);
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
 	while (i < len_tab)
 		i++;
 	lst = ft_tab_to_lst(prompt, len_tab);
 	// ft_check_lst(lst);
+	if (ft_is_pipe(lst))
+		ft_multi_cmd(lst);
+	else
+		ft_one_cmd(lst);
 	return (1);
 }
