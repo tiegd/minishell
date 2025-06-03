@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/02 10:59:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:33:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdlib.h>
 
 // Check the index of the end of the first word.
 
@@ -122,9 +123,20 @@ bool	ft_is_pipe(t_token *lst)
 // 		ft_check_lst(lst);
 // }
 
+// Find $(PATH) with getenv(), check if the cmd exist with acces(),
+// run the cmd with execve(). 
+
 void	ft_one_cmd(lst)
 {
-	if (lst )
+	t_token	*tmp;
+	char	*paths;
+
+	tmp = lst;
+	if (ft_first_word(tmp))
+		return (0);
+	paths = getenv("PATH");
+	tmp = tmp->next;
+	// if (!)
 }
 
 void	ft_multi_cmd(lst)
