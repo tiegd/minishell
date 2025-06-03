@@ -6,30 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/03 15:33:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:39:02 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <stdlib.h>
-
-// Check the index of the end of the first word.
-
-int	ft_borne_first(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] != ' ' || input[i] != '\t' || input[i])
-		i++;
-	if (input[i] == ' ' || input[i] == '\t')
-	{
-		while (input[i] != ' ' || input[i] != '\t' || input[i])
-			i++;
-	}
-	return (i);
-}
 
 // Check if the first word is a builtin commande.
 
@@ -77,22 +60,6 @@ int	ft_str_digit(char *input, int end_word)
 	return (0);
 }
 
-// Before any malloc, doing some basics checks on the frst word.
-
-int	ft_first_word(char *input)
-{
-	int	end_first;
-
-	end_first = ft_borne_first(input);
-	if (end_first == 0)
-		return (0);
-	if (ft_str_digit(input, end_first))
-		return (0);
-	if (ft_is_builtin(input, end_first) || ft_is_bin(input, end_first))
-		return (1);
-	return (0);
-}
-
 // Check if the command is valide.
 
 // int	ft_check_lst(t_token *lst)
@@ -106,12 +73,18 @@ int	ft_first_word(char *input)
 bool	ft_is_pipe(t_token *lst)
 {
 	t_token	*tmp;
+	int		i;
 
 	tmp = lst;
 	while (tmp->next)
 	{
-		if (tmp->content == '|')
-			return (true);
+		i = 0;
+		while (tmp->content[i])
+		{
+			if (tmp->content[i] == '|')
+				return (true);
+			i++;
+		}
 		tmp = tmp->next;
 	}
 	return (false);
@@ -123,26 +96,47 @@ bool	ft_is_pipe(t_token *lst)
 // 		ft_check_lst(lst);
 // }
 
-// Find $(PATH) with getenv(), check if the cmd exist with acces(),
-// run the cmd with execve(). 
+// Test function.
 
-void	ft_one_cmd(lst)
+void	ft_print_tab(char **path)
 {
-	t_token	*tmp;
-	char	*paths;
-
-	tmp = lst;
-	if (ft_first_word(tmp))
-		return (0);
-	paths = getenv("PATH");
-	tmp = tmp->next;
-	// if (!)
+	int	i;
+	
+	i = 0;
+	while (i != 12)
+	{
+		printf(YELLOW"path = %s\n"RESET, path[i]);
+		i++;
+	}
 }
 
-void	ft_multi_cmd(lst)
+// Check if the firt word is a cmd or anything right.
+
+int	ft_first_word(t_token *input, char **paths)
 {
 	
 }
+
+// Find $(PATH) with getenv(), check if the cmd exist with acces(),
+// run the cmd with execve(). 
+
+void	ft_one_cmd(t_token *lst)
+{
+	t_token	*tmp;
+	char	**paths;
+
+	tmp = lst;
+	paths = ft_split(getenv("PATH"), ':');
+	ft_print_tab(paths);
+	if (ft_first_word(tmp, paths))
+		return (0);
+	tmp = tmp->next;
+}
+
+// void	ft_multi_cmd(lst)
+// {
+	
+// }
 
 int	ft_parsing(char *input)
 {
@@ -158,9 +152,9 @@ int	ft_parsing(char *input)
 		i++;
 	lst = ft_tab_to_lst(prompt, len_tab);
 	// ft_check_lst(lst);
-	if (ft_is_pipe(lst))
-		ft_multi_cmd(lst);
-	else
+	// if (ft_is_pipe(lst))
+	// 	ft_multi_cmd(lst);
+	// else
 		ft_one_cmd(lst);
 	return (1);
 }
