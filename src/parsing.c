@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/04 15:40:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:59:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@
 // Check if the first word is a builtin commande.
 
 int	ft_is_builtin(char *input, int end_word)
-{
-	int	i;
-
-	i = 0;
-	while (i < end_word)
-	{
-		(void)input;
-		// checker si ca correspond à un nom de fonction
-		i++;
-	}
-	return (1);
-}
-
-// Check if the first word is a bin commande.
-
-int	ft_is_bin(char *input, int end_word)
 {
 	int	i;
 
@@ -192,22 +176,19 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 
 // Check if the cmd exist with access().
 
-// char	ft_is_bin(char **paths, int nb_path)
-// {
-// 	int		i;
-// 	char	*new_path;
+char	*ft_is_bin(char **paths, int nb_path)
+{
+	int		i;
 
-// 	i = 0;
-// 	while (i <= nb_path)
-// 	{
-// 		if (access(paths[i], ) == 0)
-// 		{
-// 			return (new_path);
-// 		}
-// 		i++;
-// 	}
-// 	return NULL;
-// }
+	i = 0;
+	while (i <= nb_path)
+	{
+		if (access(paths[i], F_OK) == 0)
+			return (paths[i]);
+		i++;
+	}
+	return NULL;
+}
 
 // Check if the firt word is a cmd or anything right.
 
@@ -233,11 +214,12 @@ bool	ft_one_cmd(t_token *lst)
 	printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(lst, paths, nb_path);
 	ft_print_tab(paths, nb_path);
-	// if (ft_is_bin(paths, nb_path))
-	// {
-	// 	execve(tmp->content);
-	// 	return (true);
-	// }
+	if (ft_is_bin(paths, nb_path))
+	{
+		printf(RED"Right path = %s\n"RESET, ft_is_bin(paths, nb_path));
+		// execve(tmp->content);
+		return (true);
+	}
 	// if (ft_first_word(tmp))
 	// 	return (true);
 	// else
