@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/04 15:59:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:56:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,15 +192,15 @@ char	*ft_is_bin(char **paths, int nb_path)
 
 // Check if the firt word is a cmd or anything right.
 
-// int	ft_first_word(t_token *input)
+// int	ft_first_word(t_token *lst)
 // {
-	
+// 	if ()
 // }
 
 // Find $(PATH) with getenv(), check if the cmd exist with acces(),
 // run the cmd with execve(). 
 
-bool	ft_one_cmd(t_token *lst)
+bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
 {
 	t_token	*tmp;
 	char	**paths;
@@ -216,8 +216,9 @@ bool	ft_one_cmd(t_token *lst)
 	ft_print_tab(paths, nb_path);
 	if (ft_is_bin(paths, nb_path))
 	{
-		printf(RED"Right path = %s\n"RESET, ft_is_bin(paths, nb_path));
-		// execve(tmp->content);
+		cmd->pathname = ft_is_bin(paths, nb_path);
+		printf(RED"Right path = %s\n"RESET, cmd->pathname);
+		execve(cmd->pathname, cmd->args, env);
 		return (true);
 	}
 	// if (ft_first_word(tmp))
@@ -233,16 +234,19 @@ bool	ft_one_cmd(t_token *lst)
 	
 // }
 
-int	ft_parsing(char *input)
+int	ft_parsing(char *input, char **env)
 {
 	int		i;
 	int		len_tab;
 	char	**prompt;
 	t_token	*lst;
+	t_cmd	*cmd;
 
 	i = 0;
+	cmd = malloc(sizeof(t_cmd));
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
+	cmd->args = prompt;
 	while (i < len_tab)
 		i++;
 	lst = ft_tab_to_lst(prompt, len_tab);
@@ -250,6 +254,6 @@ int	ft_parsing(char *input)
 	// if (ft_is_pipe(lst))
 	// 	ft_multi_cmd(lst);
 	// else
-		ft_one_cmd(lst);
+		ft_one_cmd(lst, cmd, env);
 	return (1);
 }
