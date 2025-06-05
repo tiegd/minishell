@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/05 10:30:48 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/05 10:39:03 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,16 +29,23 @@ MLX = minilibx-linux
 VECT = vector
 			
 BIN = bin/
-SRC =	$(SRCDIR)/main.c \
-		$(SRCDIR)/echo.c \
-		$(SRCDIR)/env.c \
-		$(SRCDIR)/export.c \
-		$(SRCDIR)/expend.c \
-		$(SRCDIR)/pwd.c \
-		$(SRCDIR)/cd.c \
-		$(SRCDIR)/unset.c \
-		$(SRCDIR)/env_dash_i.c \
-
+SRC =	main.c \
+		echo.c \
+		env.c \
+		export.c \
+		expend.c \
+		pwd.c \
+		cd.c \
+		unset.c \
+		env_dash_i.c \
+		parsing.c			\
+		ft_multi_split.c	\
+		echo.c				\
+		env.c				\
+		expend.c			\
+		export.c			\
+		linked_list.c		\
+		
 DIR_SRC = src/
 
 SRC = 	main.c				\
