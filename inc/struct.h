@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/05 10:31:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:07:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct s_cmd
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;
 	struct s_cmd	*next;
-}t_cmd;
+}					t_cmd;
+
+typedef struct	s_fd
+{
+	int	infile;
+	int	outfile;
+	int	outpipe;
+	int	nb_cmb;
+}		t_fd;
 
 #endif
