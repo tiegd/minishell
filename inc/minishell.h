@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/26 10:55:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:55:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,19 @@
 #include "../Libft/libft.h"
 #include "struct.h"
 
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define RESET   "\033[0m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
 char	**ft_multi_split(char const *s, char c, char d);
 int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s, char c, char d);
+t_token	*ft_tab_to_lst(char **prompt, int len_tab);
+int 	ft_parsing(char *input, char **env);
+
 void	ft_echo(t_cmd *cmd);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_env(char **env, int fd);

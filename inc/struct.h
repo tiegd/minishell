@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/23 16:07:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/29 09:19:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #define STRUCT_H
 
 #include <stdbool.h>
+
+typedef struct s_token
+{
+	char			*content;
+	int				index;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct s_cmd
 {

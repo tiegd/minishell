@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/26 09:30:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:21:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ char	**ft_multi_split(char const *s, char c, char d)
 	if (!check_empty_s(s, c, d))
 		return (NULL);
 	nb_word = ft_count_word(s, c, d);
-	printf("nb_word = %d\n", nb_word);
 	double_tab = malloc((nb_word + 1) * sizeof(char *));
 	if (!(double_tab))
 		return (NULL);

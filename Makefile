@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/26 11:06:32 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/05/28 13:09:46 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC = 	main.c				\
 		env.c				\
 		expend.c			\
 		export.c			\
+		linked_list.c		\
 			
 LIBS = 	Libft/libft.a	\
 
