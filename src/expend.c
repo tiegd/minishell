@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/27 19:59:38 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/04 12:57:17 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exp_isalnum(int c)
 		return (0);
 }
 
-/*compare la string jusqu'au caractère passé en paramètre*/
+/*compare les strings jusqu'au caractère passé en paramètre*/
 int		strcmp_until_char(char *s1, char *s2, char c)
 {
 	int	i;
@@ -47,6 +47,7 @@ char	*env_result(char *env, bool malloc_error)
 	char *res;
 
 	i = 0;
+	// res = NULL;
 	while (env[i] && env[i] != '=')
 	{
 		i++;
@@ -97,6 +98,7 @@ char	*expend(char *arg, char **env, bool malloc_error)
 	int len;
 	char *temp;
 	char *expend;
+	(void)env;
 
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '$')
@@ -115,7 +117,8 @@ char	*expend(char *arg, char **env, bool malloc_error)
 		malloc_error = true;
 		return (NULL);
 	}
-	expend = extract_env(temp, env, malloc_error);
+	expend = getenv(temp); //extract_env(temp, env, malloc_error);
+	free(temp);
 	return (expend);
 }
 

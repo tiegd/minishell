@@ -6,12 +6,34 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/28 16:08:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:46:14 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*ft_strjoin_custom(char *s1, char *s2)
+{
+	int		tlen;
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	tlen = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(sizeof(char) * tlen + 1);
+	if (str == 0)
+		return (NULL);
+	while (s1[j] != '\0')
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
+	return (str);
+}
 
 /*duplique une string jusqu'à n caractère*/
 char	*ft_strndup(const char *s, int n)
@@ -24,7 +46,7 @@ char	*ft_strndup(const char *s, int n)
 	len = ft_strlen(s);
 	if (n <= 0)
 		return (NULL);
-	dest = malloc(sizeof(char) * n + 1);
+	dest = malloc(sizeof(char) * (n + 1));
 	if (dest == 0)
 		return (0);
 	while (s[i] != '\0' && i < n)
@@ -43,7 +65,10 @@ int	nb_var(char **env)
 
 	i = 0;
 	while(env[i] != NULL)
+	{
+		// printf("%s\n", env[i]);
 		i++;
+	}
 	return (i);
 }
 
@@ -79,7 +104,7 @@ char	**split_keep(char *str, char c)
 	i = 0;
 	j = 0;
 	count = char_nb(str, c);
-	res = malloc(sizeof(char *) * count);
+	res = malloc(sizeof(char *) * (count + 1));
 	if (!res)
 		return (NULL);
 	while (str[i])
@@ -107,27 +132,24 @@ char	**split_keep(char *str, char c)
 			index++;
 			start++;
 		}
+		res[j][index] = '\0';
 		j++;
 	}
 	res[j] = NULL;
 	return (res);
 }
 
-//on recupère la variable d'environnement et on y ajoute une nouvelle passé en argument
-char	**ft_export(char **old_env, char *str)
+/*duplique la variable d'environnement passé en paramètre et renvoie un char** ou NULL si il y a une erreur */
+char	**envdup(char **old_env)
 {
 	int		i;
-	int		j;
-	char	**new_env;
-	char	*exp;
-	char	**var_env_tab;
-	int		k;
+	int		env_len;
+	char 	**new_env;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	new_env = malloc(sizeof(char *) * (nb_var(old_env) + 1));
-	while (old_env[i] != NULL) //copier l'environnement dans 
+	env_len = nb_var(old_env);
+	new_env = malloc(sizeof(char *) * (env_len + 2));
+	while (old_env[i] != NULL) //copier l'environnement dans new env et retourner le tableau de string
 	{
 		new_env[i] = ft_strdup(old_env[i]);
 		if (!new_env)
@@ -138,35 +160,92 @@ char	**ft_export(char **old_env, char *str)
 		}
 		i++;
 	}
+	new_env[i] = NULL;
+	return (new_env);
+}
+//compare le nom de 2 variable d'environnement
+int		env_var_cmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] != '=' && s2[i] != '=')
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if (s1[i] - s2[i] == 0)
+		return (1);
+	return (0);
+}
+
+//on recupère la variable d'environnement et on y ajoute une nouvelle passé en argument
+char	**ft_export(char **old_env, char *str)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**new_env;
+	char	*exp;
+	char	**var_env_tab;
+	char	*new_variable;
+
+	j = 0;
+	k = 0;
+	new_env = envdup(old_env); //duplique lénvironnement dans un nouveau tableau de string
+	if (!new_env)
+		return (NULL);
+	new_variable = ft_strdup(str); //duplique la variable d'environnement qu'on va rajouter à l'environnement
+	if (!new_variable)
+		return (NULL);
 	//regarde si il y a un '$' dans la string
 	if (ft_strchr(str, '$'))//checker aussi si c'est entre simple quote ou pas
 	{
+		free(new_variable);
 		while (str[j] != '$')
 			j++;
-		new_env[i] = ft_strndup(str, j); //dup le debut de la string jusqu'au $
+		new_variable = ft_strndup(str, j); //dup le debut de la string jusqu'au $
+		// printf("new_variable = %s\n", new_variable);
 		var_env_tab = split_keep(str, '$'); //separé chaque $SOMETHING et les mettres dans un char**
-		while (var_env_tab[k])
+		while (var_env_tab[k] != NULL)
 		{
-			printf("%s\n", var_env_tab[k]);
-			exp = expend(var_env_tab[k], old_env, false); //expend chaque variable d'environnement recupéré
-			printf("%s\n", exp);
+			// printf("%s\n", var_env_tab[k]);
+			exp = expend(var_env_tab[k], old_env, false); //expend chaque variable d'environnement recupéré.
 			if (exp) //si exp n'est pas null
 			{
-				new_env[i] = ft_strjoin(new_env[i], exp); //les joindrent a la suite du nouvel environnement
-				free(exp);
+				new_variable = ft_strjoin_custom(new_variable, exp); //les joindrent a la suite de la nouvelle variable.
+				// free(exp);
 			}
 			k++;
 		}
+		free_all(var_env_tab);
 	}
-	else //sinon juste ajouter la string au nouvel environnement
+	//on regarde si la variable existe déjà et si oui on la remplace par la nouvelle
+	i = 0;
+	while (new_env[i])
 	{
-		new_env[i] = ft_strdup(str);
-		if (!new_env)
+		//si elle existe on renvoit le nouvelle environnement avec la variable remplacé
+		if (env_var_cmp(new_env[i], new_variable))
 		{
-			free_all(new_env);
-			return (NULL);
+			new_env[i] = ft_strdup(new_variable);
+			free(new_variable);
+			return (new_env);
 		}
+		i++;
+	}
+	//sinon juste ajouter la string au nouvel environnement
+	// printf("ERROR\n");
+	i = nb_var(old_env);
+	new_env[i] = ft_strdup(new_variable);
+	if (!new_env)
+	{
+		free_all(new_env);
+		return (NULL);
 	}
 	new_env[i + 1] = NULL;
+	free(new_variable);
 	return (new_env);
 }
+
+/*d'abord expend si il y a des $ dan la variable d'environnement et ensuite checker si elle existe deja ou si on doit juste l'ajouter a l'environnement*/
