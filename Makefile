@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/05 15:17:39 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/05 15:25:50 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,18 +32,19 @@ BIN = bin/
 			
 DIR_SRC = src/
 
-SRC =	main.c \
-		echo.c \
-		env.c \
-		export.c \
-		expend.c \
-		pwd.c \
-		cd.c \
-		unset.c \
-		env_dash_i.c \
+SRC =	main.c				\
+		echo.c				\
+		env.c				\
+		export.c			\
+		expend.c			\
+		pwd.c				\
+		cd.c				\
+		unset.c 			\
+		env_dash_i.c		\
 		parsing.c			\
 		ft_multi_split.c	\
 		linked_list.c		\
+		pipex.c				\
 			
 LIBS = 	Libft/libft.a	\
 
