@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/04 15:52:43 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/05/28 13:06:08 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/06/04 13:24:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//recuperer la variable d'environnement et la print dans le fd passsé en paramètre.
-void	ft_env(char **env, int fd)
+/*print le path dans lequel on se situe actuellement*/
+void	pwd(int fd)
 {
-	int	i;
+	char	*pwd;
 
-	i = 0;
-	if (!env)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		perror("env doesn´t exist");
+		perror("error with getcwd");
 		return ;
 	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-		perror("error with dup2");
-	while (env[i] != NULL)
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	// if (env[i] == NULL)
-	// 	printf("%s\n",env[i]);
+	ft_putstr_fd(pwd, fd);
+	ft_putchar_fd('\n', fd);
+	free(pwd);
 }
