@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/06 12:52:30 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:42:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #define MAGENTA "\033[35m"
 #define CYAN    "\033[36m"
 
+
+/*----------PARSING----------*/
+
 char	**ft_multi_split(char const *s, char c, char d);
 int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s, char c, char d);
@@ -42,6 +45,7 @@ char	**envdup(char **old_env);
 char	**env_dash_i(void);
 
 /*----------BUILT-IN----------*/
+
 void	ft_echo(t_cmd *cmd);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_env(char **env, int fd);
@@ -50,5 +54,9 @@ void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
 char	**unset(char *var, char **old_env);
 char	*expend(char *arg, char **env, bool malloc_error);
+
+/*------------PIPEX------------*/
+
+void	pipex(t_token *lst, t_cmd *cmd, char **env);
 
 #endif

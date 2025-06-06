@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/06 13:46:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:27:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,10 +236,9 @@ bool	ft_parsing(char *input, char **env)
 	prompt = ft_multi_split(input, ' ', '\t');
 	cmd->args = prompt;
 	lst = ft_tab_to_lst(prompt, len_tab);
-	// ft_check_lst(lst);
-	// if (ft_is_pipe(lst))
-	// 	pipex(lst);
-	// else
+	if (ft_is_pipe(lst))
+		pipex(lst, cmd, env);
+	else
 	{
 		if (!ft_one_cmd(lst, cmd, env))
 			return (false);
