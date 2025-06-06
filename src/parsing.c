@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/04 16:56:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/06 13:46:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,27 @@
 
 // Check if the first word is a builtin commande.
 
-int	ft_is_builtin(char *input, int end_word)
+bool	ft_is_builtin(char *input)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	while (i < end_word)
-	{
-		(void)input;
-		// checker si ca correspond à un nom de fonction
-		i++;
-	}
-	return (1);
+	len = ft_strlen(input);
+	if (len == 4 && ft_strncmp(input, "echo", len) == 0)
+		return (true);
+	if (len == 2 && ft_strncmp(input, "cd", len) == 0)
+		return (true);
+	if (len == 3 && ft_strncmp(input, "pwd", len) == 0)
+		return (true);
+	if (len == 6 && ft_strncmp(input, "export", len) == 0)
+		return (true);
+	if (len == 5 && ft_strncmp(input, "unset", len) == 0)
+		return (true);
+	if (len == 3 && ft_strncmp(input, "env", len) == 0)
+		return (true);
+	if (len == 4 && ft_strncmp(input, "exit", len) == 0)
+		return (true);
+	return (false);
 }
-
-int	ft_str_digit(char *input, int end_word)
-{
-	int	i;
-
-	i = 0;
-	while (i < end_word)
-	{
-		if (ft_isdigit(input[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-// Check if the command is valide.
-
-// int	ft_check_lst(t_token *lst)
-// {
-	
-// }
 
 /* Convert char *input in char **prompt and
 // convert char **prompt in t_token *lst.*/
@@ -73,12 +60,6 @@ bool	ft_is_pipe(t_token *lst)
 	}
 	return (false);
 }
-
-// int	ft_check_lst(t_token *lst)
-// {
-// 	if (!ft_is_pipe(lst))
-// 		ft_check_lst(lst);
-// }
 
 // Test function.
 
@@ -189,24 +170,39 @@ char	*ft_is_bin(char **paths, int nb_path)
 	}
 	return NULL;
 }
+// Run the builtin after checking.
+
+// void	ft_exec_builtin()
+// {
+	
+// }
 
 // Check if the firt word is a cmd or anything right.
 
-// int	ft_first_word(t_token *lst)
-// {
-// 	if ()
-// }
+bool	ft_first_word(t_token *lst)
+{
+	if (ft_strlen(lst->content) == 1 && lst->content[0] == '<')
+		return (true);
+	else if (ft_strlen(lst->content) == 2 && lst->content[0] == '<' && lst->content[1] == '<')
+		return (true);
+	else if (ft_is_builtin(lst->content))
+	{
+		printf(CYAN"Builtin = %s\n"RESET, lst->content);
+		// ft_exec_builtin();
+		return (true);
+	}
+	else
+		return (false);
+}
 
 // Find $(PATH) with getenv(), check if the cmd exist with acces(),
 // run the cmd with execve(). 
 
 bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
 {
-	t_token	*tmp;
 	char	**paths;
 	int		nb_path;
 
-	tmp = lst;
 	nb_path = ft_count_path(getenv("PATH"));
 	printf(GREEN"nb_path = %d\n"RESET, nb_path);
 	paths = ft_split(getenv("PATH"), ':');
@@ -214,27 +210,19 @@ bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
 	printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(lst, paths, nb_path);
 	ft_print_tab(paths, nb_path);
-	if (ft_is_bin(paths, nb_path))
+	if (ft_first_word(lst))
+		return (true);
+	else if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
 		printf(RED"Right path = %s\n"RESET, cmd->pathname);
 		execve(cmd->pathname, cmd->args, env);
 		return (true);
 	}
-	// if (ft_first_word(tmp))
-	// 	return (true);
-	// else
-	// 	return (false);
-	tmp = tmp->next;
-	return (true);
+	return (false);
 }
 
-// void	ft_multi_cmd(lst)
-// {
-	
-// }
-
-int	ft_parsing(char *input, char **env)
+bool	ft_parsing(char *input, char **env)
 {
 	int		i;
 	int		len_tab;
@@ -247,13 +235,14 @@ int	ft_parsing(char *input, char **env)
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
 	cmd->args = prompt;
-	while (i < len_tab)
-		i++;
 	lst = ft_tab_to_lst(prompt, len_tab);
 	// ft_check_lst(lst);
 	// if (ft_is_pipe(lst))
-	// 	ft_multi_cmd(lst);
+	// 	pipex(lst);
 	// else
-		ft_one_cmd(lst, cmd, env);
-	return (1);
+	{
+		if (!ft_one_cmd(lst, cmd, env))
+			return (false);
+	}
+	return (true);
 }

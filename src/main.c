@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/04 16:56:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:38:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **env)
 		if (!ft_parsing(input, env))
 		{
 			return (1);
-			printf("%s\n", input);
+			printf("Error input\n");
 		}
 	}
 	return (0);
