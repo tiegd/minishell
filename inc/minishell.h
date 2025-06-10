@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/04 16:55:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:23:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,31 @@
 #define MAGENTA "\033[35m"
 #define CYAN    "\033[36m"
 
+/*---------TOKEN---------*/
+
+#define	CMD 10			//	cat ls grep etc..
+#define	VAR 20 			//	$SOMETHING
+#define	PIPE 30 		//	|
+#define	INPUT 40 		//	<
+#define	OUTPUT 50 		//	>
+#define	APPEND 60		//	>>
+#define	HERE_DOC 70		//	<<
+#define PATH 80 		//	path/
+#define ARGS 90			//	something
+#define BUILTIN 100		//	cd pwd env etc..
+
+/*--------FUNCTION-------*/
+
 char	**ft_multi_split(char const *s, char c, char d);
 int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s, char c, char d);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
+int		ft_strcmp(char *s1, char *s2);
+
+/*--------UTILS----------*/
 
 void	ft_echo(t_cmd *cmd);
-int		ft_strcmp(char *s1, char *s2);
 void	ft_env(char **env, int fd);
 char	*expend(char *arg, char **env);
 

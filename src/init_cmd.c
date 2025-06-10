@@ -1,32 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/05 10:19:23 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/06/05 16:22:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include "minishell.h"
-
-int	main(int ac, char **av, char **env)
-{
-	char	*input;
-
-	(void)ac;
-	(void)av;
-	while (1)
-	{
-		input = readline("minizeub > ");
-		if (!ft_parsing(input, env))
-		{
-			return (1);
-			printf("%s\n", input);
-		}
-	}
-	return (0);
-}

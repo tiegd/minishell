@@ -1,0 +1,7 @@
+1/ Stocker le prompt dans une liste chainé de token,
+2/ Attribuer à chaque token un type.
+3/ En fonction de si c'est une commande ou pas et si il y a un pipe dans le prompt entré en paramètre remplire la liste chainé de commande.
+
+Si il y a 0 pipe : 
+
+checker le type de de chaque token, et remplir la struct cmd en consequence.

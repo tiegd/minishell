@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/04 16:56:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:56:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 #include "minishell.h"
 #include <stdlib.h>
 
-// Check if the first word is a builtin commande.
 
-int	ft_is_builtin(char *input, int end_word)
-{
-	int	i;
+// // Check if the first word is a builtin commande.
+// int	ft_is_builtin(char *input, int end_word)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < end_word)
-	{
-		(void)input;
-		// checker si ca correspond à un nom de fonction
-		i++;
-	}
-	return (1);
-}
+// 	i = 0;
+// 	while (i < end_word)
+// 	{
+// 		(void)input;
+// 		// checker si ca correspond à un nom de fonction
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
 int	ft_str_digit(char *input, int end_word)
 {
@@ -145,7 +145,6 @@ char	*ft_add_suf(t_token *lst, int j, char *str)
 }
 
 // Add the cmd at the end of each path.
-
 char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 {
 	char	**new_tab;
@@ -187,7 +186,7 @@ char	*ft_is_bin(char **paths, int nb_path)
 			return (paths[i]);
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 
 // Check if the firt word is a cmd or anything right.
@@ -239,21 +238,22 @@ int	ft_parsing(char *input, char **env)
 	int		i;
 	int		len_tab;
 	char	**prompt;
-	t_token	*lst;
-	t_cmd	*cmd;
+	t_token	*token;
+	// t_cmd	*cmd;
+	(void)env;
 
 	i = 0;
-	cmd = malloc(sizeof(t_cmd));
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
-	cmd->args = prompt;
-	while (i < len_tab)
-		i++;
-	lst = ft_tab_to_lst(prompt, len_tab);
+	token = ft_tab_to_lst(prompt, len_tab);
+	// cmd = malloc(sizeof(t_cmd));
+	// cmd->args = prompt;
+	// while (i < len_tab)
+	// 	i++;
 	// ft_check_lst(lst);
 	// if (ft_is_pipe(lst))
 	// 	ft_multi_cmd(lst);
 	// else
-		ft_one_cmd(lst, cmd, env);
+		// ft_one_cmd(lst, cmd, env);
 	return (1);
 }
