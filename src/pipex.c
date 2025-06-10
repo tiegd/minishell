@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 14:48:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:44:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,30 @@ void	ft_fill_lst(t_token *lst)
 	}
 }
 
+void	ft_init_fd(t_token *lst)
+{
+	t_token	*tmp;
+
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		if (tmp->type == INPUT || tmp->type == OUTPUT || tmp->type == APPEND)
+		{
+			tmp = tmp->next;
+			tmp->type = FD;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	ft_open_fd(t_token *lst, t_fd *fd)
 {
 	t_token	*tmp;
+	int		infile;
+	int		outfile;
 	
 	tmp = lst;
-	while (tmp->type != PIPE)
+	while (tmp->type != )
 	{
 		if (tmp->type == FD)
 	}
