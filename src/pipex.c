@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 10:51:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:48:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_count_pipe(t_token *lst)
 	count = 0;
 	while (tmp->next)
 	{
-		if (ft_strlen(tmp->content) == 1 && tmp->content[0] == '|')
+		if (tmp->type == '|')
 				count++;
 		tmp = tmp->next;
 	}
@@ -42,11 +42,22 @@ void	ft_fill_lst(t_token *lst)
 	index = 1;
 	while (tmp->next)
 	{
-		if (ft_strlen(tmp->content) == 1 && tmp->content[0] == '|')
+		if (tmp->type == '|')
 				index = 0;
 		tmp->index = index;
 		index++;
 		tmp = tmp->next;
+	}
+}
+
+void	ft_open_fd(t_token *lst, t_fd *fd)
+{
+	t_token	*tmp;
+	
+	tmp = lst;
+	while (tmp->type != PIPE)
+	{
+		if (tmp->type == FD)
 	}
 }
 
@@ -75,9 +86,11 @@ void	exec_multi_pipex(t_cmd *cmd, char *envp[], t_fd fd)
 void	pipex(t_token *lst, t_cmd *cmd, char **env)
 {
 	int	nb_pipe;
+	t_fd	fd;
 
 	nb_pipe = ft_count_pipe(lst);
 	ft_fill_index(lst);
+	ft_open_fd(lst, &fd);
 	if (nb_pipe == 1)
 	{
 		exec_one_pipex(cmd, env, fd);

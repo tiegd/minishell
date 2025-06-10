@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/06 14:42:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:54:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@
 #define MAGENTA "\033[35m"
 #define CYAN    "\033[36m"
 
+/*---------TOKEN---------*/
+
+#define	CMD 10			//	cat ls grep etc..
+#define	VAR 20			//	$SOMETHING
+#define	PIPE 30			//	|
+#define	INPUT 40		//	<
+#define	OUTPUT 50		//	>
+#define	APPEND 60		//	>>
+#define	HERE_DOC 70		//	<<
+#define PATH 80 		//	path/
+#define ARGS 90			//	something
+#define BUILTIN 100		//	cd pwd env etc..
+#define FD 110			//	file after <, >, >>.
 
 /*----------PARSING----------*/
 

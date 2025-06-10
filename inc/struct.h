@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/06 13:08:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:31:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_token
 {
 	char			*content;
 	int				index;
+	int				type;
 	struct s_token	*next;
 }					t_token;
 
@@ -41,7 +42,7 @@ typedef struct	s_fd
 	int	infile;
 	int	outfile;
 	int	outpipe;
-	int	nb_cmb;
+	int	nb_cmd;
 }		t_fd;
 
 #endif
