@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 11:48:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:20:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,31 @@ typedef struct s_redir
 {
 	char	*filename;
 	int		type;
-}t_redir;
+	t_redir	*next;
+}			t_redir;
 
+// typedef struct	s_fd
+// {
+// 	int		infile;
+// 	char	*path_in;
+// 	int		outfile;
+// 	char	*path_out;
+// }			t_fd;
 
 typedef struct s_cmd
 {
 	char			**args;
+	t_redir			*infile;
+	t_redir			*outfile;
 	// char			*expend;
-	int				infile; //initialiser a STDIN si pas de redirection
-	int				outfile; //initialiser a STDOUT si pas de redirection
+	int				fd_infile; //initialiser a STDIN si pas de redirection
+	int				fd_outfile; //initialiser a STDOUT si pas de redirection
+	// t_fd			*fd;
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;
 	struct s_cmd	*next;
 }					t_cmd;
-
-typedef struct	s_fd
-{
-	int		infile;
-	char	*path_in;
-	int		outfile;
-	char	*path_out;
-}			t_fd;
 
 #endif
