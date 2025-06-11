@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 10:16:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:11:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_count_pipe(t_token *lst)
 	while (tmp->next)
 	{
 		if (tmp->type == '|')
-				count++;
+			count++;
 		tmp = tmp->next;
 	}
 	return (count);
