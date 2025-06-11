@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 18:39:15 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/11 18:10:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 }
 
 // Check if the cmd exist with access().
-
 char	*ft_is_bin(char **paths, int nb_path)
 {
 	int		i;
@@ -199,39 +198,54 @@ char	*ft_is_bin(char **paths, int nb_path)
 // Find $(PATH) with getenv(), check if the cmd exist with acces(),
 // run the cmd with execve(). 
 
-bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
-{
-	t_token	*tmp;
-	char	**paths;
-	int		nb_path;
+// bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
+// {
+// 	t_token	*tmp;
+// 	char	**paths;
+// 	int		nb_path;
 
-	tmp = lst;
-	nb_path = ft_count_path(getenv("PATH"));
-	printf(GREEN"nb_path = %d\n"RESET, nb_path);
-	paths = ft_split(getenv("PATH"), ':');
-	ft_print_tab(paths, nb_path);
-	printf(RED"-------------------------------------------------------\n"RESET);
-	paths = ft_add_cmd(lst, paths, nb_path);
-	ft_print_tab(paths, nb_path);
-	if (ft_is_bin(paths, nb_path))
-	{
-		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf(RED"Right path = %s\n"RESET, cmd->pathname);
-		execve(cmd->pathname, cmd->args, env);
-		return (true);
-	}
-	// if (ft_first_word(tmp))
-	// 	return (true);
-	// else
-	// 	return (false);
-	tmp = tmp->next;
-	return (true);
-}
+// 	tmp = lst;
+// 	nb_path = ft_count_path(getenv("PATH"));
+// 	printf(GREEN"nb_path = %d\n"RESET, nb_path);
+// 	paths = ft_split(getenv("PATH"), ':');
+// 	ft_print_tab(paths, nb_path);
+// 	printf(RED"-------------------------------------------------------\n"RESET);
+// 	paths = ft_add_cmd(lst, paths, nb_path);
+// 	ft_print_tab(paths, nb_path);
+// 	if (ft_is_bin(paths, nb_path))
+// 	{
+// 		cmd->pathname = ft_is_bin(paths, nb_path);
+// 		printf(RED"Right path = %s\n"RESET, cmd->pathname);
+// 		execve(cmd->pathname, cmd->args, env);
+// 		return (true);
+// 	}
+// 	// if (ft_first_word(tmp))
+// 	// 	return (true);
+// 	// else
+// 	// 	return (false);
+// 	tmp = tmp->next;
+// 	return (true);
+// }
 
 // void	ft_multi_cmd(lst)
 // {
 	
 // }
+
+void	ft_print_cmd(t_cmd *lst)
+{
+	int i = 0;
+	while (lst)
+	{
+		while (lst->args[i] != NULL)
+		{
+			printf(RED"content = %s | type = %d\n"RESET, lst->args[i], lst->type);
+			// printf("type = %d\n")
+			i++;
+		}
+		lst = lst->next;
+	}
+}
 
 int	ft_parsing(char *input, char **env)
 {
@@ -239,13 +253,15 @@ int	ft_parsing(char *input, char **env)
 	int		len_tab;
 	char	**prompt;
 	t_token	*token;
-	// t_cmd	*cmd;
+	t_cmd	*cmd;
 	(void)env;
 
 	i = 0;
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
 	token = ft_tab_to_lst(prompt, len_tab);
+	cmd = ft_init_cmd(token);
+	// ft_print_cmd(cmd);
 	// cmd = ft_init_cmd(token);
 	// cmd = malloc(sizeof(t_cmd));
 	// cmd->args = prompt;

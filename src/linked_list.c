@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 15:49:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:34:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,12 @@ void	define_type(t_token *lst)
 			lst->type = VAR;
 		else if (ft_strchr(lst->content, '/'))
 			lst->type = PATH;
-		else if (is_builtin(lst->content))
-			lst->type = BUILTIN;
 		else
+		{
 			lst->type = ARGS;
+		}
+		// else if (is_builtin(lst->content))
+		// 	lst->type = BUILTIN;
 		lst = lst->next;
 	}
 }
@@ -176,6 +178,7 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 		i++;
 	}
 	define_type(lst);
+	// printf("nb_args = %d\n", lst->nb_args);
 	ft_print_lst(lst);
 	return (lst);
 }

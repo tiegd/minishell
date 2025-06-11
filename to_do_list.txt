@@ -12,3 +12,6 @@ faire ca tant qu'il y a des redirections.
 
 Attention lorsque l'on fait : "< infile > infile2 cat" cela revient a écrire : "< infile cat > infile2".
 
+crée le nombre de noeud qu'il faut en fonction du nombre de pipe qu'il y a.
+
+compter le nombre de pipe pour alloc le nombre d'args. 

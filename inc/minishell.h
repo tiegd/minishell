@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/10 18:51:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/11 14:32:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,26 @@
 
 enum e_types
 {
-	CMD,
-	VAR,
-	PIPE,
 	INPUT,
 	OUTPUT,
 	APPEND,
 	HERE_DOC,
-	PATH,
+	PIPE,
 	ARGS,
-	BUILTIN
+	VAR,
+	PATH
 };
 
 /*--------FUNCTION-------*/
 
 char	**ft_multi_split(char const *s, char c, char d);
-int		ft_check_prompt(char *input);
+// int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s, char c, char d);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
+t_cmd	*ft_init_cmd(t_token *token);
 int		ft_strcmp(char *s1, char *s2);
+
 
 /*--------UTILS----------*/
 
