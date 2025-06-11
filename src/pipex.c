@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 16:35:36 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:26:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,12 @@ void	pipex(t_token *lst, t_cmd *cmd, char **env)
 	ft_fill_index(lst);
 	while (i != nb_pipe)
 	{
+		ft_open_fd(cmd);
 		if (nb_pipe == 1)
 			exec_one_pipex(cmd, env);
 		if (nb_pipe > 1)
 			exec_multi_pipex(cmd, env);
+		ft_close_fd(cmd);
 		cmd = cmd->next;
 		i++;
 	}
