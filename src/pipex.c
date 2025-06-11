@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 15:44:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:16:24 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_open_fd(t_token *lst, t_fd *fd)
 	int		outfile;
 	
 	tmp = lst;
-	while (tmp->type != )
+	while (tmp->type != '|')
 	{
 		if (tmp->type == FD)
 	}

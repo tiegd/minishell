@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/10 14:31:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:46:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct s_cmd
 
 typedef struct	s_fd
 {
-	int	infile;
-	int	outfile;
-	int	outpipe;
-	int	nb_cmd;
+	int		infile;
+	char	*path_in;
+	int		outfile;
+	char	*path_out;
 }		t_fd;
 
 #endif
