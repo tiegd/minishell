@@ -1,0 +1,14 @@
+1/ Stocker le prompt dans une liste chainé de token,
+2/ Attribuer à chaque token un type.
+3/ En fonction de si c'est une commande ou pas et si il y a un pipe dans le prompt entré en paramètre remplire la liste chainé de commande.
+
+Si il y a 0 pipe : 
+
+checker le type de de chaque token, et remplir la struct cmd en consequence.
+
+si il y a une redirection "<", checker l'argument suivant et faire un open dessus.
+(peut etre faire le dup2 a ce moment la et faire le truc en continue tant qu'il y a des redirections)
+faire ca tant qu'il y a des redirections.
+
+Attention lorsque l'on fait : "< infile > infile2 cat" cela revient a écrire : "< infile cat > infile2".
+

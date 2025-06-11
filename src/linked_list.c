@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 15:11:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:57:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_token	*ft_lst_last(t_token *lst)
 }
 
 // Add the new node at the end of the list.
-
 t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 {
 	t_token	*new;
@@ -83,13 +82,85 @@ void	ft_print_lst(t_token *lst)
 {
 	while (lst)
 	{
-		printf(RED"content = %s\n"RESET, lst->content);
+		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
+		// printf("type = %d\n")
 		lst = lst->next;
 	}
 }
 
-// Move each element of the prompt in a linked list.
+int	is_builtin(char *content)
+{
+	if (ft_strcmp(content, "echo"))
+		return (1);
+	if (ft_strcmp(content, "cd"))
+		return (1);
+	if (ft_strcmp(content, "pwd"))
+		return (1);
+	if (ft_strcmp(content, "export"))
+		return (1);
+	if (ft_strcmp(content, "unset"))
+		return (1);
+	if (ft_strcmp(content, "env"))
+		return (1);
+	if (ft_strcmp(content, "exit"))
+		return (1);
+	else
+		return (0);
+}
 
+void	define_type(t_token *lst)
+{
+	while (lst != NULL)
+	{
+		if (ft_strcmp(lst->content, "|"))
+			lst->type = PIPE;
+		else if (ft_strcmp(lst->content, "<"))
+			lst->type = INPUT;
+		else if (ft_strcmp(lst->content, ">"))
+			lst->type = OUTPUT;
+		else if (ft_strcmp(lst->content, ">>"))
+			lst->type = APPEND;
+		else if (ft_strcmp(lst->content, "<<"))
+			lst->type = HERE_DOC;
+		else if (ft_strchr(lst->content, '$'))
+			lst->type = VAR;
+		else if (ft_strchr(lst->content, '/'))
+			lst->type = PATH;
+		else if (is_builtin(lst->content))
+			lst->type = BUILTIN;
+		else
+			lst->type = ARGS;
+		lst = lst->next;
+	}
+}
+
+// int	define_type(t_token *lst)
+// {
+// 	while (lst != NULL)
+// 	{
+// 		if (ft_strcmp(lst->content, "|"))
+// 			return (PIPE);
+// 		else if (ft_strcmp(lst->content, "<"))
+// 			return (INPUT);
+// 		else if (ft_strcmp(lst->content, ">"))
+// 			return (OUTPUT);
+// 		else if (ft_strcmp(lst->content, ">>"))
+// 			return (APPEND);
+// 		else if (ft_strcmp(lst->content, "<<"))
+// 			return (HERE_DOC);
+// 		else if (ft_strchr(lst->content, '$'))
+// 			return (VAR);
+// 		else if (ft_strchr(lst->content, '/'))
+// 			return (PATH);
+// 		// else if (is_builtin(content))
+// 		// 	return (BUILTIN);
+// 		else
+// 			 (ARGS);
+// 		lst = lst->next;
+// 	}
+// }
+
+// Move each element of the prompt in a linked list.
 t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 {
 	t_token	*lst;
@@ -104,6 +175,7 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 		lst = ft_lst_addback(lst, prompt[i], len);
 		i++;
 	}
+	define_type(lst);
 	ft_print_lst(lst);
 	return (lst);
 }

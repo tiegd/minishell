@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/06 14:27:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:00:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,21 @@
 #include "minishell.h"
 #include <stdlib.h>
 
-// Check if the first word is a builtin commande.
 
-bool	ft_is_builtin(char *input)
-{
-	size_t	len;
+// // Check if the first word is a builtin commande.
+// int	ft_is_builtin(char *input, int end_word)
+// {
+// 	int	i;
 
-	len = ft_strlen(input);
-	if (len == 4 && ft_strncmp(input, "echo", len) == 0)
-		return (true);
-	if (len == 2 && ft_strncmp(input, "cd", len) == 0)
-		return (true);
-	if (len == 3 && ft_strncmp(input, "pwd", len) == 0)
-		return (true);
-	if (len == 6 && ft_strncmp(input, "export", len) == 0)
-		return (true);
-	if (len == 5 && ft_strncmp(input, "unset", len) == 0)
-		return (true);
-	if (len == 3 && ft_strncmp(input, "env", len) == 0)
-		return (true);
-	if (len == 4 && ft_strncmp(input, "exit", len) == 0)
-		return (true);
-	return (false);
-}
+// 	i = 0;
+// 	while (i < end_word)
+// 	{
+// 		(void)input;
+// 		// checker si ca correspond à un nom de fonction
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
 /* Convert char *input in char **prompt and
 // convert char **prompt in t_token *lst.*/
@@ -126,7 +118,6 @@ char	*ft_add_suf(t_token *lst, int j, char *str)
 }
 
 // Add the cmd at the end of each path.
-
 char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 {
 	char	**new_tab;
@@ -168,7 +159,7 @@ char	*ft_is_bin(char **paths, int nb_path)
 			return (paths[i]);
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 // Run the builtin after checking.
 
@@ -222,26 +213,28 @@ bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
 	return (false);
 }
 
-bool	ft_parsing(char *input, char **env)
+int	ft_parsing(char *input, char **env)
 {
 	int		i;
 	int		len_tab;
 	char	**prompt;
-	t_token	*lst;
-	t_cmd	*cmd;
+	t_token	*token;
+	// t_cmd	*cmd;
+	(void)env;
 
 	i = 0;
-	cmd = malloc(sizeof(t_cmd));
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
-	cmd->args = prompt;
-	lst = ft_tab_to_lst(prompt, len_tab);
-	if (ft_is_pipe(lst))
-		pipex(lst, cmd, env);
-	else
-	{
-		if (!ft_one_cmd(lst, cmd, env))
-			return (false);
-	}
-	return (true);
+	token = ft_tab_to_lst(prompt, len_tab);
+	// cmd = ft_init_cmd(token);
+	// cmd = malloc(sizeof(t_cmd));
+	// cmd->args = prompt;
+	// while (i < len_tab)
+	// 	i++;
+	// ft_check_lst(lst);
+	// if (ft_is_pipe(lst))
+	// 	ft_multi_cmd(lst);
+	// else
+		// ft_one_cmd(lst, cmd, env);
+	return (1);
 }

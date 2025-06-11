@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_multi_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/05/29 11:21:10 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:19:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static int	check_empty_s(const char *s, char c, char d)
 	return (0);
 }
 
+//Pareil que split mais split sur a partir de char set.
 char	**ft_multi_split(char const *s, char c, char d)
 {
 	int		nb_word;
