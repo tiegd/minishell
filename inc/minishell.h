@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/05 16:23:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/10 18:51:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <limits.h>
+#include <fcntl.h>
 #include "../Libft/libft.h"
 #include "struct.h"
 
@@ -30,16 +31,30 @@
 
 /*---------TOKEN---------*/
 
-#define	CMD 10			//	cat ls grep etc..
-#define	VAR 20 			//	$SOMETHING
-#define	PIPE 30 		//	|
-#define	INPUT 40 		//	<
-#define	OUTPUT 50 		//	>
-#define	APPEND 60		//	>>
-#define	HERE_DOC 70		//	<<
-#define PATH 80 		//	path/
-#define ARGS 90			//	something
-#define BUILTIN 100		//	cd pwd env etc..
+// #define	CMD 10			//	cat ls grep etc..
+// #define	VAR 20 			//	$SOMETHING
+// #define	PIPE 30 		//	|
+// #define	INPUT 40 		//	<
+// #define	OUTPUT 50 		//	>
+// #define	APPEND 60		//	>>
+// #define	HERE_DOC 70		//	<<
+// #define PATH 80 			//	path/
+// #define ARGS 90			//	something
+// #define BUILTIN 100		//	cd pwd env etc..
+
+enum e_types
+{
+	CMD,
+	VAR,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HERE_DOC,
+	PATH,
+	ARGS,
+	BUILTIN
+};
 
 /*--------FUNCTION-------*/
 

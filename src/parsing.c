@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/10 10:56:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/10 18:39:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ int	ft_parsing(char *input, char **env)
 	len_tab = ft_count_word(input, ' ', '\t');
 	prompt = ft_multi_split(input, ' ', '\t');
 	token = ft_tab_to_lst(prompt, len_tab);
+	// cmd = ft_init_cmd(token);
 	// cmd = malloc(sizeof(t_cmd));
 	// cmd->args = prompt;
 	// while (i < len_tab)
