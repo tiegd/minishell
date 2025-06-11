@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 10:57:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:48:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ typedef struct	s_fd
 	char	*path_in;
 	int		outfile;
 	char	*path_out;
-}		t_fd;
+}			t_fd;
 
 #endif

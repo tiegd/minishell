@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 11:24:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:20:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,32 @@ void	ft_init_fd(t_token *lst)
 	}
 }
 
-void	ft_open_fd(t_token *lst, t_fd *fd)
+int	ft_open_fd(t_fd *fd)
 {
-	t_token	*tmp;
-	int		infile;
-	int		outfile;
+	fd->infile = open(fd->path_in, O_RDONLY);
+	fd->outfile = open(fd->infile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (fd->infile < 0 || fd->outfile < 0)
+		return (0);
+	return (1);
+}
+
+int	ft_close_fd(t_fd *fd)
+{
+	if (close(fd->infile) == -1)
+		return (0);
+	if (close(fd->outfile) == -1)
+		return (0);
+	return (1);
+}
+
+int	ft_is_redir()
+{
 	
-	tmp = lst;
-	while (tmp->type != '|')
-	{
-		if (tmp->type == FD)
-	}
 }
 
 static void	first_pipe(t_cmd *cmd, char *envp[], t_fd *fd, int i)
 {
+	if (ft_is_redir(cmd->fd))
 	return ;
 }
 
@@ -95,13 +106,13 @@ void	exec_one_pipex(t_cmd *cmd, char *envp[], t_fd fd)
 	last_pipe(cmd, envp, &fd, 1);
 }
 
-void	exec_multi_pipex(t_cmd *cmd, char *envp[], t_fd fd)
-{
-	first_pipe(cmd, envp, &fd, 0);
-	last_pipe(cmd, envp, &fd, 1);
-}
+// void	exec_multi_pipex(t_cmd *cmd, char *envp[], t_fd fd)
+// {
+// 	first_pipe(cmd, envp, &fd, 0);
+// 	last_pipe(cmd, envp, &fd, 1);
+// }
 
-void	pipex(t_token *lst, t_cmd *cmd, char **env)
+void	pipex(t_token *lst, t_cmd *cmd, char **env, t_redir *redir)
 {
 	t_fd	fd;
 	int		nb_pipe;
@@ -109,9 +120,10 @@ void	pipex(t_token *lst, t_cmd *cmd, char **env)
 
 	nb_pipe = ft_count_pipe(lst);
 	ft_fill_index(lst);
-	ft_open_fd(lst, &fd);
 	while (i != nb_pipe)
 	{
+		if (!ft_open_fd(&fd))
+			return ;
 		if (nb_pipe == 1)
 		{
 			exec_one_pipex(cmd, env, fd);
@@ -120,6 +132,9 @@ void	pipex(t_token *lst, t_cmd *cmd, char **env)
 		{
 			exec_multi_pipex(cmd, env, fd);
 		}
+		if (!ft_close_fd(&fd));
+			return ;
+		cmd = cmd->next;
 		i++;
 	}
 }
