@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 17:26:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 11:56:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,15 @@ int	ft_close_fd(t_cmd *cmd)
 
 static void	first_pipe(t_cmd *cmd, char *envp[], int i)
 {
-	if (cmd->args[0])
+	int	pid;
+	int	pipefd[2];
+
+	pipe(pipefd);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(cmd->fd_infile, STDIN_FILENO);
+	}
 	return ;
 }
 
@@ -121,13 +129,28 @@ static void	last_pipe(t_cmd *cmd, char *envp[], int i)
 	return ;
 }
 
-void	exec_one_pipex(t_cmd *cmd, char *envp[])
+static void	middle_pipe(t_cmd *cmd, char *envp[], int i)
 {
-	first_pipe(cmd, envp, 0);
-	last_pipe(cmd, envp, 1);
+	return ;
 }
 
-// void	exec_multi_pipex(t_cmd *cmd, char *envp[])
+void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
+{
+	int	i;
+
+	i = 0;
+	while (i < nb_pipe)
+	{
+		if (i == 0)
+			first_pipe(cmd, envp, i);
+		else if (i == nb_pipe - 1)
+			last_pipe(cmd, envp, i);
+		else
+			middle_pipe(cmd, envp, i);
+	}
+}
+
+// void	exec_multi_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
 // {
 // 	first_pipe(cmd, envp, &fd, 0);
 // 	last_pipe(cmd, envp, &fd, 1);
@@ -144,9 +167,9 @@ void	pipex(t_token *lst, t_cmd *cmd, char **env)
 	{
 		ft_open_fd(cmd);
 		if (nb_pipe == 1)
-			exec_one_pipex(cmd, env);
+			exec_one_pipex(cmd, env, nb_pipe);
 		if (nb_pipe > 1)
-			exec_multi_pipex(cmd, env);
+			exec_multi_pipex(cmd, env, nb_pipe);
 		ft_close_fd(cmd);
 		cmd = cmd->next;
 		i++;
