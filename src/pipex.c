@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 11:56:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:27:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_open_fd(t_cmd *cmd)
 	return (1);
 }
 
-int	ft_close_fd(t_cmd *cmd)
+int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
 	if (cmd->fd_infile >= 0)
 	{
@@ -107,34 +107,82 @@ int	ft_close_fd(t_cmd *cmd)
 		if (close(cmd->fd_outfile) == -1)
 			return (0);
 	}
+	if (pipefd[0] >= 0 )
+	{
+		if (close(pipefd) == -1)
+			return (0);
+	}
+	if (pipefd[1] >= 0)
+	{
+		if (close(pipefd[1]) == -1)
+			return (0);
+	}
 	return (1);
 }
 
-static void	first_pipe(t_cmd *cmd, char *envp[], int i)
+void	free_struct()
+
+void	exit_pid_error(int *pipefd, t_cmd *cmd)
+{
+	
+}
+
+void	exit_tab(t_cmd *cmd, t_token *lst, int code)
+{
+	free_struct(lst);
+	free_struct(cmd);
+	free_struct(cmd);
+	exit(code);
+}
+
+void	exit_fd(int fd, t_cmd *cmd, t_token *lst)
+{
+	if (fd > 0)
+		close(fd);
+	// free_struct(lst);
+	// free_struct(cmd->infile);
+	// free_struct(cmd->outfile);
+	// free_struct_cmd(cmd);
+	perror("No such file or directory");
+	exit(EXIT_FAILURE);
+}
+
+static void	first_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
 	int	pid;
 	int	pipefd[2];
 
-	pipe(pipefd);
+	if(pipe(pipefd) == -1)
+		exit_tab(cmd, lst, EXIT_FAILURE);
 	pid = fork();
+	// if (pid == -1)
+	// 	exit_pid_error();
 	if (pid == 0)
 	{
-		dup2(cmd->fd_infile, STDIN_FILENO);
+		ft_open_fd(cmd);
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(pipefd[1], cmd, lst);
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			exit_fd(cmd->fd_outfile, cmd, lst);
+		if (cmd->pathname != NULL)
+			execve(cmd->pathname, cmd->args, envp);
+		exit_tab(cmd, lst, EXIT_FAILURE);
+		ft_exec_builtin(cmd);
 	}
-	return ;
+	ft_close_fd(cmd, pipefd);
 }
 
-static void	last_pipe(t_cmd *cmd, char *envp[], int i)
+static void	last_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
 	return ;
 }
 
-static void	middle_pipe(t_cmd *cmd, char *envp[], int i)
+static void	middle_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
 	return ;
 }
 
-void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
+void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 {
 	int	i;
 
@@ -142,11 +190,12 @@ void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
 	while (i < nb_pipe)
 	{
 		if (i == 0)
-			first_pipe(cmd, envp, i);
+			first_pipe(cmd, envp, i, lst);
 		else if (i == nb_pipe - 1)
-			last_pipe(cmd, envp, i);
+			last_pipe(cmd, envp, i, lst);
 		else
-			middle_pipe(cmd, envp, i);
+			middle_pipe(cmd, envp, i, lst);
+		cmd = cmd->next;
 	}
 }
 
@@ -159,19 +208,11 @@ void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
 void	pipex(t_token *lst, t_cmd *cmd, char **env)
 {
 	int		nb_pipe;
-	int		i;
 
 	nb_pipe = ft_count_pipe(lst);
 	ft_fill_index(lst);
-	while (i != nb_pipe)
-	{
-		ft_open_fd(cmd);
-		if (nb_pipe == 1)
-			exec_one_pipex(cmd, env, nb_pipe);
-		if (nb_pipe > 1)
-			exec_multi_pipex(cmd, env, nb_pipe);
-		ft_close_fd(cmd);
-		cmd = cmd->next;
-		i++;
-	}
+	if (nb_pipe == 1)
+		exec_one_pipex(cmd, env, nb_pipe, lst);
+	if (nb_pipe > 1)
+		exec_multi_pipex(cmd, env, nb_pipe, lst);
 }

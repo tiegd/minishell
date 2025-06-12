@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 11:00:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 14:36:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ int	ft_parsing(char *input, char **env)
 	// 	i++;
 	// ft_check_lst(lst);
 	// if (ft_is_pipe(lst))
-	// 	ft_multi_cmd(lst);
+	// 	pipex(lst);
 	// else
 		// ft_one_cmd(lst, cmd, env);
 	return (1);
