@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 18:10:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/12 16:21:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,10 +257,12 @@ int	ft_parsing(char *input, char **env)
 	(void)env;
 
 	i = 0;
-	len_tab = ft_count_word(input, ' ', '\t');
+	len_tab = ft_count_word(input);
 	prompt = ft_multi_split(input, ' ', '\t');
 	token = ft_tab_to_lst(prompt, len_tab);
 	cmd = ft_init_cmd(token);
+	
+	/*-------------------useless---------------------------*/
 	// ft_print_cmd(cmd);
 	// cmd = ft_init_cmd(token);
 	// cmd = malloc(sizeof(t_cmd));
@@ -272,5 +274,5 @@ int	ft_parsing(char *input, char **env)
 	// 	ft_multi_cmd(lst);
 	// else
 		// ft_one_cmd(lst, cmd, env);
-	return (1);
+	return (0);
 }

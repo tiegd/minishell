@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 14:32:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/12 15:47:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <fcntl.h>
 #include "../Libft/libft.h"
 #include "struct.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -58,7 +60,7 @@ enum e_types
 
 char	**ft_multi_split(char const *s, char c, char d);
 // int		ft_check_prompt(char *input);
-int		ft_count_word(const char *s, char c, char d);
+int		ft_count_word(const char *s);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
 t_cmd	*ft_init_cmd(t_token *token);

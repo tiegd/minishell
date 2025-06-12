@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 18:11:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/11 18:33:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ t_cmd	*ft_init_cmd(t_token *token)
 		}
 		while (token && token->next != NULL && token->type != PIPE)
 		{
-			printf("error\n");
 			if (token->type == OUTPUT || token->type == APPEND)
 			{
 				cmd->outfiles = add_redir(cmd->outfiles, token);
