@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 16:22:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/12 16:54:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,30 +96,48 @@ static char	**free_split(char **double_tab, int nb_word)
 	return (NULL);
 }
 
-static char	**ft_new_str(char **double_tab, const char *s, char c, char d, int nb_word)
+static char	**ft_new_str(char **double_tab, const char *s, int nb_word)
 {
 	int		i;
 	int		index;
 	int		count;
 	int		j;
+	int		quote;
 
 	count = 0;
 	i = 0;
+	quote = 0;
 	while (s[i] && count < nb_word)
 	{
 		j = 0;
-		while ((s[i] == c || s[i] == d) && s[i])
+		while (s[i] && is_ws(s[i]) && quote % 2 == 0)
 			i++;
 		index = i;
-		while ((s[i] != c && s[i] != d) && s[i])
+		while (s[i] && !is_ws(s[i]))
+		{
+			if (is_quote(s[i]))
+				quote++;
 			i++;
-		double_tab[count] = malloc((i - index + 1) * sizeof(char));
-		if (double_tab[count] == NULL)
-			return (free_split(double_tab, count));
-		while (index < i)
-			double_tab[count][j++] = s[index++];
-		double_tab[count][j] = '\0';
-		count++;
+		}
+		if (quote % 2 == 0)
+		{
+			double_tab[count] = malloc((i - index + 1) * sizeof(char));
+			if (double_tab[count] == NULL)
+				return (free_split(double_tab, count));
+			while (index < i)
+				double_tab[count][j++] = s[index++];
+			double_tab[count][j] = '\0';
+			count++;
+		}
+		else
+		{
+			while (s[i] && quote % 2 == 1)
+			{
+				if (s[i] && is_quote(s[i]))
+					quote++;
+				i++;
+			}
+		}	
 	}
 	return (double_tab);
 }
@@ -154,6 +172,6 @@ char	**ft_multi_split(char const *s)
 	if (!(double_tab))
 		return (NULL);
 	double_tab[nb_word] = NULL;
-	double_tab = ft_new_str(double_tab, s, c, d, nb_word);
+	double_tab = ft_new_str(double_tab, s, nb_word);
 	return (double_tab);
 }

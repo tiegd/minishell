@@ -25,10 +25,13 @@ si il y a une erreur de syntaxe meme si il y a plusieur pipe on ne fait rien.
 
 
 
-LES QUOTE DE SES MORT:
+LES QUOTE DE SES MORTS:
 
 Si  il y a une double/simple quote continuer jusqu'a la prochaine
 Si il y a autre chose qu'un whitespace ou un \0 continuer a avancer 
 car ce n'est toujours pas considéré comme un seul token.
 Si le nb de quote est impaire continuer jusqu'a ce que ca le deviennent
 Tout rentrer dans un token et gerer les differente quote plus tard dans une fonction qui les supprimera en fonction.
+
+GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé.
+Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<').

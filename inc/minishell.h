@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/12 15:47:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/12 16:56:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ enum e_types
 
 /*--------FUNCTION-------*/
 
-char	**ft_multi_split(char const *s, char c, char d);
+char	**ft_multi_split(char const *s);
 // int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);

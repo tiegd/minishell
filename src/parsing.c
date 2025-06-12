@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 16:21:02 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/12 17:44:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,13 +239,15 @@ void	ft_print_cmd(t_cmd *lst)
 	{
 		while (lst->args[i] != NULL)
 		{
-			printf(RED"content = %s | type = %d\n"RESET, lst->args[i], lst->type);
+			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
 			// printf("type = %d\n")
 			i++;
 		}
 		lst = lst->next;
 	}
 }
+
+
 
 int	ft_parsing(char *input, char **env)
 {
@@ -257,11 +259,13 @@ int	ft_parsing(char *input, char **env)
 	(void)env;
 
 	i = 0;
+	syntaxe_error(input);
 	len_tab = ft_count_word(input);
-	prompt = ft_multi_split(input, ' ', '\t');
+	prompt = ft_multi_split(input);
 	token = ft_tab_to_lst(prompt, len_tab);
-	cmd = ft_init_cmd(token);
 	
+	cmd = ft_init_cmd(token);
+	ft_print_cmd(cmd);
 	/*-------------------useless---------------------------*/
 	// ft_print_cmd(cmd);
 	// cmd = ft_init_cmd(token);
