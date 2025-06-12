@@ -6,11 +6,10 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 16:27:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:18:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
 #include "minishell.h"
 
 // Count the number of '|' in the prompt.
@@ -30,122 +29,7 @@ int	ft_count_pipe(t_token *lst)
 	}
 	return (count);
 }
-
-// // Fill the index of each token in lst. Index is 1 afeter a pipe.
-
-// void	ft_fill_index(t_token *lst)
-// {
-// 	t_token	*tmp;
-// 	int		index;
-	
-// 	tmp = lst;
-// 	index = 1;
-// 	while (tmp->next)
-// 	{
-// 		if (tmp->type == PIPE)
-// 				index = 0;
-// 		tmp->index = index;
-// 		index++;
-// 		tmp = tmp->next;
-// 	}
-// }
-
-void	ft_init_fd(t_token *lst)
-{
-	t_token	*tmp;
-
-	tmp = lst;
-	while (tmp != NULL)
-	{
-		if (tmp->type == INPUT || tmp->type == OUTPUT || tmp->type == APPEND)
-		{
-			tmp = tmp->next;
-			tmp->type = FD;
-		}
-		tmp = tmp->next;
-	}
-}
-
-int	ft_open_fd(t_cmd *cmd)
-{
-	while (cmd->infile->next)
-	{
-		cmd->fd_infile = open(cmd->infile->filename, O_RDONLY);
-		if (cmd->fd_infile < 0)
-			return (0);
-		if (cmd->infile->next != NULL)
-		{
-			if (close(cmd->fd_infile) == -1)
-				return (0);
-		}
-		cmd->infile = cmd->infile->next;
-	}
-	while (cmd->outfile->next)
-	{
-		cmd->fd_outfile = open(cmd->outfile->filename, O_RDONLY | O_CREAT | O_TRUNC, 0666);
-		if (cmd->fd_outfile < 0)
-			return (0);
-		if (cmd->outfile->next != NULL)
-		{
-			if (close(cmd->fd_outfile) == -1)
-				return (0);
-		}
-		cmd->outfile = cmd->outfile->next;
-	}
-	return (1);
-}
-
-int	ft_close_fd(t_cmd *cmd, int *pipefd)
-{
-	if (cmd->fd_infile >= 0)
-	{
-		if (close(cmd->fd_infile) == -1)
-			return (0);
-	}
-	if (cmd->fd_outfile >= 0)
-	{
-		if (close(cmd->fd_outfile) == -1)
-			return (0);
-	}
-	if (pipefd[0] >= 0 )
-	{
-		if (close(pipefd) == -1)
-			return (0);
-	}
-	if (pipefd[1] >= 0)
-	{
-		if (close(pipefd[1]) == -1)
-			return (0);
-	}
-	return (1);
-}
-
-void	free_struct()
-
-void	exit_pid_error(int *pipefd, t_cmd *cmd)
-{
-	
-}
-
-void	exit_tab(t_cmd *cmd, t_token *lst, int code)
-{
-	free_struct(lst);
-	free_struct(cmd);
-	free_struct(cmd);
-	exit(code);
-}
-
-void	exit_fd(int fd, t_cmd *cmd, t_token *lst)
-{
-	if (fd > 0)
-		close(fd);
-	// free_struct(lst);
-	// free_struct(cmd->infile);
-	// free_struct(cmd->outfile);
-	// free_struct_cmd(cmd);
-	perror("No such file or directory");
-	exit(EXIT_FAILURE);
-}
+// Run the first command and redirect the output to the following command.
 
 static void	first_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
@@ -172,15 +56,21 @@ static void	first_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 	ft_close_fd(cmd, pipefd);
 }
 
+// Run the the command and redirect the output to the terminal.
+
 static void	last_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
 	return ;
 }
 
+// Run the a middle command and redirect the output to the following command.
+
 static void	middle_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 {
 	return ;
 }
+
+// Run two commands if we have a single pipe.
 
 void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 {
@@ -199,11 +89,15 @@ void	exec_one_pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 	}
 }
 
+// // Run several commands if we have more than one pipe.
+
 // void	exec_multi_pipex(t_cmd *cmd, char *envp[], int nb_pipe)
 // {
 // 	first_pipe(cmd, envp, &fd, 0);
 // 	last_pipe(cmd, envp, &fd, 1);
 // }
+
+// This function shall reproduce the behavior of '|' in bash.
 
 void	pipex(t_token *lst, t_cmd *cmd, char **env)
 {

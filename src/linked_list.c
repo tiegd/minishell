@@ -6,29 +6,11 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 10:57:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:05:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Free all of the list.
-
-void	ft_lstfree(t_token *lst)
-{
-	t_token	*buffer;
-
-	if (lst)
-	{
-		while (lst)
-		{
-			buffer = lst->next;
-			free(lst->content);
-			free(lst);
-			lst = buffer;
-		}
-	}
-}
 
 // Find the last node of the list.
 

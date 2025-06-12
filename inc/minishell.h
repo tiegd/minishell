@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 10:56:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:04:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,25 @@ char	*expend(char *arg, char **env, bool malloc_error);
 /*------------PIPEX------------*/
 
 void	pipex(t_token *lst, t_cmd *cmd, char **env);
+
+/*------------CLEAN------------*/
+
+void	free_token(t_token *lst);
+void	free_redir(t_redir *redir);
+void	free_double_tab(char **tab);
+void	free_cmd(t_cmd *cmd);
+void	free_struct(t_cmd *cmd, t_token *lst);
+
+/*------------FD------------*/
+
+void	ft_init_fd(t_token *lst);
+int 	ft_open_fd(t_cmd *cmd);
+int	ft_close_fd(t_cmd *cmd, int *pipefd);
+
+/*------------EXIT------------*/
+
+void	exit_pid_error(int *pipefd, t_cmd *cmd);
+void	exit_tab(t_cmd *cmd, t_token *lst, int code);
+void	exit_fd(int fd, t_cmd *cmd, t_token *lst);
 
 #endif
