@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 11:47:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:58:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ int	ft_count_pipe(t_token *lst)
 	return (count);
 }
 
-int	ft_exec_cmd(t_cmd *cmd, char *envp[])
-{
-	
-}
-
 // Run the first command and redirect the output to the following command.
 
 static void	first_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
@@ -55,12 +50,12 @@ static void	first_pipe(t_cmd *cmd, char *envp[], int i, t_token *lst)
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, cmd, lst);
 		ft_exec_cmd(cmd, envp);
-		// if (cmd->pathname != NULL)
-		// 	execve(cmd->pathname, cmd->args, envp);
-		exit_tab(cmd, lst, EXIT_FAILURE);
-		ft_exec_builtin(cmd);
+		if (!ft_exec_cmd(cmd, envp))
+		{
+			ft_close_fd(cmd, pipefd);
+			exit_tab(cmd, lst, 127);
+		}
 	}
-	ft_close_fd(cmd, pipefd);
 }
 
 // Run the the command and redirect the output to the terminal.
