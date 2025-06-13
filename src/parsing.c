@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 17:44:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/13 13:50:54 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,17 +255,26 @@ int	ft_parsing(char *input, char **env)
 	int		len_tab;
 	char	**prompt;
 	t_token	*token;
-	t_cmd	*cmd;
+	// t_cmd	*cmd;
 	(void)env;
 
 	i = 0;
-	syntaxe_error(input);
+	// syntaxe_error(input);
 	len_tab = ft_count_word(input);
 	prompt = ft_multi_split(input);
 	token = ft_tab_to_lst(prompt, len_tab);
+	printf("before handle quote\n\n");
+	ft_print_lst(token);
+	token = ft_handle_quote(token);
+	printf("after handle quote\n\n");
+	ft_print_lst(token);
+	// cmd = ft_init_cmd(token);
+	// ft_print_cmd(cmd);
+
+
+
+
 	
-	cmd = ft_init_cmd(token);
-	ft_print_cmd(cmd);
 	/*-------------------useless---------------------------*/
 	// ft_print_cmd(cmd);
 	// cmd = ft_init_cmd(token);

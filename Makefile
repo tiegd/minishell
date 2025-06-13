@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/11 14:32:59 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/06/13 13:45:44 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC = 	main.c				\
 		export.c			\
 		linked_list.c		\
 		init_cmd.c			\
+		handle_quote.c		\
 			
 LIBS = 	Libft/libft.a	\
 

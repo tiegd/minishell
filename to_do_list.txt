@@ -25,7 +25,7 @@ si il y a une erreur de syntaxe meme si il y a plusieur pipe on ne fait rien.
 
 
 
-LES QUOTE DE SES MORTS:
+LES QUOTES DE SES MORTS:
 
 Si  il y a une double/simple quote continuer jusqu'a la prochaine
 Si il y a autre chose qu'un whitespace ou un \0 continuer a avancer 
@@ -35,3 +35,12 @@ Tout rentrer dans un token et gerer les differente quote plus tard dans une fonc
 
 GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé.
 Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<').
+
+
+LES QUOTES :
+
+En gros les quote foncitonne de facon a ce que ce qui se trouve entre 2 quotes peut importe lesquelles, est considéré comme un mot,
+donc les cote "exterieur" sont supprimé et on garde ce qu'il y à l'interieur.
+
+Lorsqu'on va tomber sur une quote on va aller jusqu'à la prochaine du même type, 
+ne garder que ce qu'il y a l'interieur et les copiers dans une nouvelle string.
