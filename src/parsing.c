@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 09:11:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:05:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,17 @@ int	ft_count_path(char *paths)
 	return (nb_path);
 }
 
-char	*ft_add_suf(t_token *lst, int j, char *str)
+char	*ft_add_suf(int j, char *str, char *args)
 {
-	int	k;
+	int	i;
 
-	k = 0;
+	i = 0;
 	str[j] = '/';
 	j++;
-	while (lst->content[k])
+	while (args[i])
 	{
-		str[j] = lst->content[k];
-		k++;
+		str[j] = args[i];
+		i++;
 		j++;
 	}
 	str[j] = '\0';
@@ -101,7 +101,8 @@ char	*ft_add_suf(t_token *lst, int j, char *str)
 }
 
 // Add the cmd at the end of each path.
-char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
+
+char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 {
 	char	**new_tab;
 	int		size_cmd;
@@ -110,7 +111,7 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 	int		j;
 
 	i = 0;
-	size_cmd = (int)ft_strlen(lst->content) + 1;
+	size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 	new_tab = malloc((nb_path + 1) * sizeof(char *));
 	while (i < nb_path)
 	{
@@ -122,7 +123,7 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 			new_tab[i][j] = paths[i][j];
 			j++;
 		}
-		new_tab[i] = ft_add_suf(lst, j, new_tab[i]);
+		new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
 		i++;
 	}
 	free_double_tab(paths, nb_path);
@@ -169,6 +170,13 @@ bool	ft_first_word(t_token *lst)
 		return (false);
 }
 
+// // Run the cmd if it's a builtin.
+
+// int	ft_exec_builtin(char **args)
+// {
+	
+// }
+
 // Find $(PATH) with getenv(), check if the cmd exist with acces(),
 // run the cmd with execve(). 
 
@@ -184,14 +192,20 @@ bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
 	printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(lst, paths, nb_path);
 	ft_print_tab(paths, nb_path);
-	if (ft_first_word(lst))
-		return (true);
-	else if (ft_is_bin(paths, nb_path))
+	// if (ft_first_word(lst))
+	// 	return (true);
+	// else if (ft_is_bin(paths, nb_path))
+	if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
 		printf(RED"Right path = %s\n"RESET, cmd->pathname);
 		execve(cmd->pathname, cmd->args, env);
 		return (true);
+	}
+	else if (is_builtin(cmd->args[0]))
+	{
+		if (ft_exec_builtin(cmd->args))
+			return (true);
 	}
 	return (false);
 }

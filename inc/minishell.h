@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/13 09:11:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:31:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_close_fd(t_cmd *cmd, int *pipefd);
 
 /*------------EXIT------------*/
 
-void	exit_pid_error(int *pipefd, t_cmd *cmd);
+void	exit_pid_error(int *pipefd, t_cmd *cmd, t_token *lst);
 void	exit_tab(t_cmd *cmd, t_token *lst, int code);
 void	exit_fd(int fd, t_cmd *cmd, t_token *lst);
 
