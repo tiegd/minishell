@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/12 17:10:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 09:05:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cmd
 	t_redir			*outfile;
 	char			*pathname;
 	// char			*expend;
+	int				nb_agrs;
 	int				fd_infile; //initialiser a STDIN si pas de redirection
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/12 17:04:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 09:11:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ int		ft_count_word(const char *s, char c, char d);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
 int		ft_strcmp(char *s1, char *s2);
+bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env);
+bool	ft_first_word(t_token *lst);
+char	*ft_is_bin(char **paths, int nb_path);
+char	**ft_add_cmd(t_token *lst, char **paths, int nb_path);
+char	*ft_add_suf(t_token *lst, int j, char *str);
+int	    ft_count_path(char *paths);
+bool	ft_is_pipe(t_token *lst);
 
 /*--------UTILS----------*/
 
@@ -70,7 +77,7 @@ void	pipex(t_token *lst, t_cmd *cmd, char **env);
 
 void	free_token(t_token *lst);
 void	free_redir(t_redir *redir);
-void	free_double_tab(char **tab);
+char	**free_double_tab(char **tab, int nb_agrs);
 void	free_cmd(t_cmd *cmd);
 void	free_struct(t_cmd *cmd, t_token *lst);
 

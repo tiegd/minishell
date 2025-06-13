@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 14:36:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/13 09:11:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@
 // 	}
 // 	return (1);
 // }
-
-/* Convert char *input in char **prompt and
-// convert char **prompt in t_token *lst.*/
 
 bool	ft_is_pipe(t_token *lst)
 {
@@ -86,20 +83,6 @@ int	ft_count_path(char *paths)
 	return (nb_path);
 }
 
-char	**ft_clean_path(char **double_tab, int nb_path)
-{
-	int	i;
-
-	i = 0;
-	while (i < nb_path)
-	{
-		free(double_tab[i]);
-		i++;
-	}
-	free(double_tab);
-	return (NULL);
-}
-
 char	*ft_add_suf(t_token *lst, int j, char *str)
 {
 	int	k;
@@ -142,7 +125,7 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 		new_tab[i] = ft_add_suf(lst, j, new_tab[i]);
 		i++;
 	}
-	ft_clean_path(paths, nb_path);
+	free_double_tab(paths, nb_path);
 	return (new_tab);
 }
 
