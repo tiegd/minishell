@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 16:56:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:36:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_close_fd(t_cmd *cmd, int *pipefd)
 	}
 	if (pipefd[0] >= 0 )
 	{
-		if (close(pipefd) == -1)
+		if (close(pipefd[0]) == -1)
 			return (0);
 	}
 	if (pipefd[1] >= 0)

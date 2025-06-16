@@ -6,29 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 14:29:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:29:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 #include <stdlib.h>
-
-
-// // Check if the first word is a builtin commande.
-// int	ft_is_builtin(char *input, int end_word)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < end_word)
-// 	{
-// 		(void)input;
-// 		// checker si ca correspond à un nom de fonction
-// 		i++;
-// 	}
-// 	return (1);
-// }
+#include "minishell.h"
 
 bool	ft_is_pipe(t_token *lst)
 {
@@ -145,12 +129,6 @@ char	*ft_is_bin(char **paths, int nb_path)
 	}
 	return (NULL);
 }
-// Run the builtin after checking.
-
-// void	ft_exec_builtin()
-// {
-	
-// }
 
 // Check if the firt word is a cmd or anything right.
 
@@ -170,12 +148,13 @@ char	*ft_is_bin(char **paths, int nb_path)
 // 		return (false);
 // }
 
-// // Run the cmd if it's a builtin.
+// Run the cmd if it's a builtin.
 
-// int	ft_exec_builtin(char **args)
-// {
-	
-// }
+int	ft_exec_builtin(char **args)
+{
+	(void)args;
+	return (0);
+}
 
 // Find $(PATH) with getenv(), check if the cmd exist with acces(),
 // run the cmd with execve(). 
@@ -186,16 +165,16 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	int		nb_path;
 
 	nb_path = ft_count_path(getenv("PATH"));
-	printf(GREEN"nb_path = %d\n"RESET, nb_path);
+	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
 	paths = ft_split(getenv("PATH"), ':');
-	ft_print_tab(paths, nb_path);
-	printf(RED"-------------------------------------------------------\n"RESET);
+	// ft_print_tab(paths, nb_path);
+	// printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	ft_print_tab(paths, nb_path);
+	// ft_print_tab(paths, nb_path);
 	if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf(RED"Right path = %s\n"RESET, cmd->pathname);
+		// printf(RED"Right path = %s\n"RESET, cmd->pathname);
 		execve(cmd->pathname, cmd->args, env);
 	}
 	else if (is_builtin(cmd->args[0]))

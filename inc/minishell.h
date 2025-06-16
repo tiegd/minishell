@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/13 15:03:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:25:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
 bool	ft_exec_cmd(t_cmd *cmd, char **env);
+int	    is_builtin(char *content);
+void	define_type(t_token *lst);
+
+/*--------HANDLE-LIST----------*/
+
+t_token	*ft_lst_last(t_token *lst);
+t_token	*ft_lst_addback(t_token *lst, char *s, int len);
+t_token	*ft_tab_to_lst(char **prompt, int len_tab);
+void	ft_print_lst(t_token *lst);
 
 
 /*--------UTILS----------*/
@@ -72,7 +81,7 @@ char	*expend(char *arg, char **env, bool malloc_error);
 
 /*------------PIPEX------------*/
 
-void	pipex(t_token *lst, t_cmd *cmd, char **env);
+void	pipex(t_cmd *cmd, char *env[], int nb_pipe, t_token *lst);
 
 /*------------CLEAN------------*/
 
@@ -81,12 +90,13 @@ void	free_redir(t_redir *redir);
 char	**free_double_tab(char **tab, int nb_agrs);
 void	free_cmd(t_cmd *cmd);
 void	free_struct(t_cmd *cmd, t_token *lst);
+void	ft_lstfree(t_token *lst);
 
 /*------------FD------------*/
 
 void	ft_init_fd(t_token *lst);
 int 	ft_open_fd(t_cmd *cmd);
-int	ft_close_fd(t_cmd *cmd, int *pipefd);
+int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 
 /*------------EXIT------------*/
 

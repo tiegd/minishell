@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 09:05:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:41:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	free_cmd(t_cmd *cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
-		free_redir(tmp->fd_infile);
+		free_redir(tmp->infile);
 		free_redir(tmp->outfile);
 		free_double_tab(tmp->args, tmp->nb_agrs);
 		free(tmp->pathname);
@@ -82,9 +82,6 @@ void	free_cmd(t_cmd *cmd)
 
 void	free_struct(t_cmd *cmd, t_token *lst)
 {
-	t_token	*tmp_lst;
-	t_cmd	*tmp_cmd;
-
-	free_token(lst);
+	ft_lstfree(lst);
 	free_cmd(cmd);
 }

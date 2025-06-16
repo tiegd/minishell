@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/13 09:05:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:40:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ typedef struct s_token
 
 typedef struct s_redir
 {
-	char	*filename;
-	int		type;
-	t_redir	*next;
-}			t_redir;
+	char			*filename;
+	int				type;
+	struct s_redir	*next;
+}					t_redir;
 
 // typedef struct	s_fd
 // {
@@ -44,7 +44,7 @@ typedef struct s_cmd
 	t_redir			*infile;
 	t_redir			*outfile;
 	char			*pathname;
-	// char			*expend;
+	char			*expend;
 	int				nb_agrs;
 	int				fd_infile; //initialiser a STDIN si pas de redirection
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
