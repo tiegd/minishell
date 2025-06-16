@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 17:05:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:19:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,6 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 		last->next = new;
 	}
 	return (lst);
-}
-
-// Just for test the list. This function will be deleted.
-
-void	ft_print_lst(t_token *lst)
-{
-	while (lst)
-	{
-		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
-		// printf("type = %d\n")
-		lst = lst->next;
-	}
 }
 
 int	is_builtin(char *content)

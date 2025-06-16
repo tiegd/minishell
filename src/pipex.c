@@ -6,29 +6,29 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/16 14:23:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:28:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// // Count the number of '|' in the prompt.
+// Count the number of '|' in the prompt.
 
-// int	ft_count_pipe(t_token *lst)
-// {
-// 	t_token	*tmp;
-// 	int		count;
+int	ft_count_pipe(t_token *lst)
+{
+	t_token	*tmp;
+	int		count;
 
-// 	tmp = lst;
-// 	count = 0;
-// 	while (tmp->next)
-// 	{
-// 		if (tmp->type == PIPE)
-// 			count++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (count);
-// }
+	tmp = lst;
+	count = 0;
+	while (tmp->next)
+	{
+		if (tmp->type == PIPE)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
 
 // Run the first command and redirect the output to the following command.
 

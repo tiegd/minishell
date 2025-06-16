@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/16 14:40:21 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/16 15:38:26 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC =	main.c				\
 		handle_fd.c			\
 		clean.c				\
 		exit.c				\
-		echo.c			\
+		echo.c				\
+		test_functions.c	\
 		# env.c				\
 		# export.c			\
 		# expend.c			\

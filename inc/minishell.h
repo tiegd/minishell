@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/16 14:25:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:24:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,10 @@ int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 void	exit_pid_error(int *pipefd, t_cmd *cmd, t_token *lst);
 void	exit_tab(t_cmd *cmd, t_token *lst, int code);
 void	exit_fd(int fd, t_cmd *cmd, t_token *lst);
+
+/*------------TEST------------*/
+
+void	ft_print_tab(char **path, int nb_path);
+void	ft_print_lst(t_token *lst);
 
 #endif

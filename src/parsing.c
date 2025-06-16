@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/16 14:29:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:18:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ bool	ft_is_pipe(t_token *lst)
 		tmp = tmp->next;
 	}
 	return (false);
-}
-
-// Test function.
-
-void	ft_print_tab(char **path, int nb_path)
-{
-	int	i;
-	
-	i = 0;
-	while (i != nb_path)
-	{
-		printf(YELLOW"path = %s\n"RESET, path[i]);
-		i++;
-	}
 }
 
 int	ft_count_path(char *paths)
