@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 12:54:17 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:58:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,8 +260,8 @@ int	ft_parsing(char *input, char **env)
 	cmd = NULL;
 	// syntaxe_error(input);
 	len_tab = ft_count_word(input);
-	// if	(ft_strchr(input, '$'))
-	// 	prompt = handle_env_var(prompt);
+	if	(ft_strchr(input, '$'))
+		input = handle_env_var(input, env);
 	prompt = ft_multi_split(input);
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);

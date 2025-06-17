@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 11:54:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:59:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int 	ft_parsing(char *input, char **env);
 t_cmd	*ft_init_cmd(t_token *token);
 int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
-char	*handle_env_var(char *prompt);
+char	*handle_env_var(char *prompt, char **env);
 void	ft_lstfree(t_token *lst);
 
 /*--------UTILS----------*/
