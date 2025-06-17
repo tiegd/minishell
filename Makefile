@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/05 15:25:50 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/17 13:03:35 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SRC =	main.c				\
 		ft_multi_split.c	\
 		linked_list.c		\
 		pipex.c				\
+		init_cmd.c			\
+		handle_quote.c		\
 			
 LIBS = 	Libft/libft.a	\
 

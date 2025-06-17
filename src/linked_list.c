@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 10:57:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 13:00:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Free all of the list.
-
 void	ft_lstfree(t_token *lst)
 {
 	t_token	*buffer;
@@ -31,7 +30,6 @@ void	ft_lstfree(t_token *lst)
 }
 
 // Find the last node of the list.
-
 t_token	*ft_lst_last(t_token *lst)
 {
 	if (!lst || !lst->next)
@@ -126,10 +124,10 @@ void	define_type(t_token *lst)
 			lst->type = VAR;
 		else if (ft_strchr(lst->content, '/'))
 			lst->type = PATH;
-		else if (is_builtin(lst->content))
-			lst->type = BUILTIN;
 		else
+		{
 			lst->type = ARGS;
+		}
 		lst = lst->next;
 	}
 }
@@ -176,6 +174,7 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 		i++;
 	}
 	define_type(lst);
+	// printf("nb_args = %d\n", lst->nb_args);
 	ft_print_lst(lst);
 	return (lst);
 }

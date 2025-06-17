@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 10:56:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 12:59:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <fcntl.h>
 #include "../Libft/libft.h"
 #include "struct.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -31,28 +33,55 @@
 
 /*---------TOKEN---------*/
 
-#define	CMD 10			//	cat ls grep etc..
-#define	VAR 20			//	$SOMETHING
-#define	PIPE 30			//	|
-#define	INPUT 40		//	<
-#define	OUTPUT 50		//	>
-#define	APPEND 60		//	>>
-#define	HERE_DOC 70		//	<<
-#define PATH 80 		//	path/
-#define ARGS 90			//	something
-#define BUILTIN 100		//	cd pwd env etc..
-#define FD 110			//	file after <, >, >>.
+// #define	CMD 10			//	cat ls grep etc..
+// #define	VAR 20 			//	$SOMETHING
+// #define	PIPE 30 		//	|
+// #define	INPUT 40 		//	<
+// #define	OUTPUT 50 		//	>
+// #define	APPEND 60		//	>>
+// #define	HERE_DOC 70		//	<<
+// #define PATH 80 			//	path/
+// #define ARGS 90			//	something
+// #define BUILTIN 100		//	cd pwd env etc..
+
+#define SQ 39
+#define DQ 34
+
+enum e_types
+{
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HERE_DOC,
+	PIPE,
+	ARGS,
+	VAR,
+	PATH,
+};
+
+
 
 /*----------PARSING----------*/
 
-char	**ft_multi_split(char const *s, char c, char d);
-int		ft_check_prompt(char *input);
-int		ft_count_word(const char *s, char c, char d);
+char	**ft_multi_split(char const *s);
+// int		ft_check_prompt(char *input);
+int		ft_count_word(const char *s);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
+t_cmd	*ft_init_cmd(t_token *token);
 int		ft_strcmp(char *s1, char *s2);
+t_token *ft_handle_quote(t_token *token);
+char	*handle_env_var(char *prompt);
+void	ft_lstfree(t_token *lst);
 
 /*--------UTILS----------*/
+
+int		is_quote(char c);
+int		is_dq(char c);
+int		is_sq(char c);
+int		exp_isalnum(int c);
+
+/*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd);
