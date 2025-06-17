@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/16 15:24:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 10:44:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_multi_split(char const *s, char c, char d);
 int		ft_check_prompt(char *input);
 int		ft_count_word(const char *s, char c, char d);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
-int 	ft_parsing(char *input, char **env);
+int 	ft_parsing(char *input, char **env, t_token *token);
 int		ft_strcmp(char *s1, char *s2);
 bool	ft_first_word(t_token *lst);
 char	*ft_is_bin(char **paths, int nb_path);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 09:50:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 11:44:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	test_count_pipe(char *input)
 			nb_pipe++;
 		i++;
 	}
+	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
 	return (nb_pipe);
 }
 
@@ -46,17 +47,43 @@ static int	test_count_args(char *input)
 		}
 		i++;
 	}
-	printf("count = %d\n", count);
+	printf(YELLOW"nb_args = %d\n"RESET, count);
 	return (count + 1);
 }
 
-static void	test_fill_cmd(t_cmd *cmd, char *input)
+static void	test_fill_args(t_cmd *cmd, t_token *lst, int nb_pipe)
 {
-	int	nb_arg;
+	t_cmd	*tmp;
+	int		count;
+	int		i;
+	char	*new_tab;
+	
+	count = 0;
+	i = 0;
+	while (lst->next)
+	{
+		while (lst->content[i])
+		{
+			i++;
+			if (lst->content[i] == '|')
+				count++;
+		}
+	}
+	new_tab = malloc((count + 1) * sizeof(char**));
+}
 
-	nb_arg = test_count_args(input);
-	cmd->args = ft_multi_split(input, ' ', '|');
-	ft_print_tab(cmd->args, nb_arg);
+static void	test_fill_cmd(t_cmd *cmd, t_token *lst, int nb_pipe)
+{
+	// t_token	*lst;
+	// int		nb_arg;
+	// int		len;
+	char	**tab;
+
+	(void)cmd;
+	// nb_arg = test_count_args(input);
+	// tab = ft_multi_split(input, ' ', '\t');
+	test_fill_args(cmd, lst, nb_pipe);
+	// ft_print_tab(cmd->args, nb_arg);
 }
 
 int	main(int ac, char **av, char **env)
@@ -73,15 +100,15 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		input = readline("minizeub > ");
-		// if (!ft_parsing(input, env))
-		// {
-		// 	return (1);
-		// 	printf("Error input\n");
-		// }
+		if (!ft_parsing(input, env, lst))
+		{
+			return (1);
+			printf("Error input\n");
+		}
 		nb_pipe = test_count_pipe(input);
-		test_fill_cmd(cmd, input);
-		(void)env;
-		pipex(cmd, env, nb_pipe, lst);
+		test_fill_cmd(cmd, input, nb_pipe);
+		// (void)env;
+		// pipex(cmd, env, nb_pipe, lst); 
 	}
 	return (0);
 }

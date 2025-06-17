@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 09:51:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 10:01:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 	int	i;
 
 	i = 0;
-	while (cmd->next && i < nb_pipe)
+	printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
+	while (i < nb_pipe)
 	{
 		if (i == 0)
 			first_pipe(cmd, envp, lst);
@@ -108,6 +109,6 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 		else
 			middle_pipe(cmd, envp, lst);
 		i++;
-		cmd = cmd->next;
+		// cmd = cmd->next;
 	}
 }
