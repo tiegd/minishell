@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:00:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:16:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Free all of the list.
-void	ft_lstfree(t_token *lst)
-{
-	t_token	*buffer;
-
-	if (lst)
-	{
-		while (lst)
-		{
-			buffer = lst->next;
-			free(lst->content);
-			free(lst);
-			lst = buffer;
-		}
-	}
-}
 
 // Find the last node of the list.
 t_token	*ft_lst_last(t_token *lst)
@@ -72,18 +55,6 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 		last->next = new;
 	}
 	return (lst);
-}
-
-// Just for test the list. This function will be deleted.
-
-void	ft_print_lst(t_token *lst)
-{
-	while (lst)
-	{
-		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
-		// printf("type = %d\n")
-		lst = lst->next;
-	}
 }
 
 int	is_builtin(char *content)

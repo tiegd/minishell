@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
+#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/17 13:03:35 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/06/17 13:09:52 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,20 +33,24 @@ BIN = bin/
 DIR_SRC = src/
 
 SRC =	main.c				\
-		echo.c				\
-		env.c				\
-		export.c			\
-		expend.c			\
-		pwd.c				\
-		cd.c				\
-		unset.c 			\
-		env_dash_i.c		\
 		parsing.c			\
 		ft_multi_split.c	\
 		linked_list.c		\
 		pipex.c				\
 		init_cmd.c			\
 		handle_quote.c		\
+		handle_fd.c			\
+		clean.c				\
+		exit.c				\
+		echo.c				\
+		test_functions.c	\
+		# env.c				\
+		# export.c			\
+		# expend.c			\
+		# pwd.c				\
+		# cd.c				\
+		# unset.c 			\
+		# env_dash_i.c		\
 			
 LIBS = 	Libft/libft.a	\
 

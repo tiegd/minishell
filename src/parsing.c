@@ -3,35 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 12:56:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:18:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 #include <stdlib.h>
-
-
-// // Check if the first word is a builtin commande.
-// int	ft_is_builtin(char *input, int end_word)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < end_word)
-// 	{
-// 		(void)input;
-// 		// checker si ca correspond à un nom de fonction
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
-/* Convert char *input in char **prompt and
-// convert char **prompt in t_token *lst.*/
+#include "minishell.h"
 
 bool	ft_is_pipe(t_token *lst)
 {
@@ -53,20 +34,6 @@ bool	ft_is_pipe(t_token *lst)
 	return (false);
 }
 
-// Test function.
-
-void	ft_print_tab(char **path, int nb_path)
-{
-	int	i;
-	
-	i = 0;
-	while (i != nb_path)
-	{
-		printf(YELLOW"path = %s\n"RESET, path[i]);
-		i++;
-	}
-}
-
 int	ft_count_path(char *paths)
 {
 	int	nb_path;
@@ -86,31 +53,17 @@ int	ft_count_path(char *paths)
 	return (nb_path);
 }
 
-char	**ft_clean_path(char **double_tab, int nb_path)
+char	*ft_add_suf(int j, char *str, char *args)
 {
 	int	i;
 
 	i = 0;
-	while (i < nb_path)
-	{
-		free(double_tab[i]);
-		i++;
-	}
-	free(double_tab);
-	return (NULL);
-}
-
-char	*ft_add_suf(t_token *lst, int j, char *str)
-{
-	int	k;
-
-	k = 0;
 	str[j] = '/';
 	j++;
-	while (lst->content[k])
+	while (args[i])
 	{
-		str[j] = lst->content[k];
-		k++;
+		str[j] = args[i];
+		i++;
 		j++;
 	}
 	str[j] = '\0';
@@ -118,7 +71,8 @@ char	*ft_add_suf(t_token *lst, int j, char *str)
 }
 
 // Add the cmd at the end of each path.
-char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
+
+char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 {
 	char	**new_tab;
 	int		size_cmd;
@@ -127,7 +81,7 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 	int		j;
 
 	i = 0;
-	size_cmd = (int)ft_strlen(lst->content) + 1;
+	size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 	new_tab = malloc((nb_path + 1) * sizeof(char *));
 	while (i < nb_path)
 	{
@@ -139,10 +93,10 @@ char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
 			new_tab[i][j] = paths[i][j];
 			j++;
 		}
-		new_tab[i] = ft_add_suf(lst, j, new_tab[i]);
+		new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
 		i++;
 	}
-	ft_clean_path(paths, nb_path);
+	free_double_tab(paths, nb_path);
 	return (new_tab);
 }
 
@@ -160,62 +114,32 @@ char	*ft_is_bin(char **paths, int nb_path)
 	}
 	return (NULL);
 }
-// Run the builtin after checking.
-
-// void	ft_exec_builtin()
-// {
-	
-// }
 
 // Check if the firt word is a cmd or anything right.
 
-bool	ft_first_word(t_token *lst)
-{
-	if (ft_strlen(lst->content) == 1 && lst->content[0] == '<')
-		return (true);
-	else if (ft_strlen(lst->content) == 2 && lst->content[0] == '<' && lst->content[1] == '<')
-		return (true);
-	else if (ft_is_builtin(lst->content))
-	{
-		printf(CYAN"Builtin = %s\n"RESET, lst->content);
-		// ft_exec_builtin();
-		return (true);
-	}
-	else
-		return (false);
-}
-
-// Find $(PATH) with getenv(), check if the cmd exist with acces(),
-// run the cmd with execve(). 
-
-// bool	ft_one_cmd(t_token *lst, t_cmd *cmd, char **env)
+// bool	ft_first_word(t_token *lst)
 // {
-// 	t_token	*tmp;
-// 	char	**paths;
-// 	int		nb_path;
-
-// 	tmp = lst;
-// 	nb_path = ft_count_path(getenv("PATH"));
-// 	printf(GREEN"nb_path = %d\n"RESET, nb_path);
-// 	paths = ft_split(getenv("PATH"), ':');
-// 	ft_print_tab(paths, nb_path);
-// 	printf(RED"-------------------------------------------------------\n"RESET);
-// 	paths = ft_add_cmd(lst, paths, nb_path);
-// 	ft_print_tab(paths, nb_path);
-// 	if (ft_is_bin(paths, nb_path))
+// 	if (ft_strlen(lst->content) == 1 && lst->content[0] == '<')
+// 		return (true);
+// 	else if (ft_strlen(lst->content) == 2 && lst->content[0] == '<' && lst->content[1] == '<')
+// 		return (true);
+// 	else if (ft_is_builtin(lst->content))
 // 	{
-// 		cmd->pathname = ft_is_bin(paths, nb_path);
-// 		printf(RED"Right path = %s\n"RESET, cmd->pathname);
-// 		execve(cmd->pathname, cmd->args, env);
+// 		printf(CYAN"Builtin = %s\n"RESET, lst->content);
+// 		// ft_exec_builtin();
 // 		return (true);
 // 	}
-// 	// if (ft_first_word(tmp))
-// 	// 	return (true);
-// 	// else
-// 	// 	return (false);
-// 	tmp = tmp->next;
-// 	return (true);
+// 	else
+// 		return (false);
 // }
+
+// Run the cmd if it's a builtin.
+
+int	ft_exec_builtin(char **args)
+{
+	(void)args;
+	return (0);
+}
 
 // void	ft_multi_cmd(lst)
 // {
@@ -237,7 +161,32 @@ void	ft_print_cmd(t_cmd *lst)
 	}
 }
 
-int	ft_parsing(char *input, char **env)
+bool	ft_exec_cmd(t_cmd *cmd, char **env)
+{
+	char	**paths;
+	int		nb_path;
+
+	nb_path = ft_count_path(getenv("PATH"));
+	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
+	paths = ft_split(getenv("PATH"), ':');
+	// ft_print_tab(paths, nb_path);
+	// printf(RED"-------------------------------------------------------\n"RESET);
+	paths = ft_add_cmd(paths, nb_path, cmd);
+	// ft_print_tab(paths, nb_path);
+	if (ft_is_bin(paths, nb_path))
+	{
+		cmd->pathname = ft_is_bin(paths, nb_path);
+		// printf(RED"Right path = %s\n"RESET, cmd->pathname);
+		execve(cmd->pathname, cmd->args, env);
+	}
+	else if (is_builtin(cmd->args[0]))
+	{
+		if (ft_exec_builtin(cmd->args))
+			exit(0);
+	}
+}
+
+int	ft_parsing(char *input, char **env, t_token *token)
 {
 	int		i;
 	int		len_tab;
@@ -273,7 +222,7 @@ int	ft_parsing(char *input, char **env)
 	// 	i++;
 	// ft_check_lst(lst);
 	// if (ft_is_pipe(lst))
-	// 	ft_multi_cmd(lst);
+	// 	pipex(lst);
 	// else
 		// ft_one_cmd(lst, cmd, env);
 	return (0);

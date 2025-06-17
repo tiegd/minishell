@@ -6,11 +6,10 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 10:16:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 10:01:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
 #include "minishell.h"
 
 // Count the number of '|' in the prompt.
@@ -24,97 +23,92 @@ int	ft_count_pipe(t_token *lst)
 	count = 0;
 	while (tmp->next)
 	{
-		if (tmp->type == '|')
-				count++;
+		if (tmp->type == PIPE)
+			count++;
 		tmp = tmp->next;
 	}
 	return (count);
 }
 
-// Fill the index of each token in lst. Index is 1 afeter a pipe.
+// Run the first command and redirect the output to the following command.
 
-void	ft_fill_lst(t_token *lst)
+static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
-	t_token	*tmp;
-	int		index;
-	
-	tmp = lst;
-	index = 1;
-	while (tmp->next)
-	{
-		if (tmp->type == '|')
-				index = 0;
-		tmp->index = index;
-		index++;
-		tmp = tmp->next;
-	}
-}
+	int	pid;
+	int	pipefd[2];
 
-void	ft_init_fd(t_token *lst)
-{
-	t_token	*tmp;
-
-	tmp = lst;
-	while (tmp != NULL)
+	if(pipe(pipefd) == -1)
+		exit_tab(cmd, lst, EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		exit_pid_error(pipefd, cmd, lst);
+	if (pid == 0)
 	{
-		if (tmp->type == INPUT || tmp->type == OUTPUT || tmp->type == APPEND)
+		if (ft_open_fd(cmd))
 		{
-			tmp = tmp->next;
-			tmp->type = FD;
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
 		}
-		tmp = tmp->next;
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			exit_fd(cmd->fd_outfile, cmd, lst);
+		if (!ft_exec_cmd(cmd, envp))
+		{
+			ft_close_fd(cmd, pipefd);
+			exit_tab(cmd, lst, 127);
+		}
 	}
 }
 
-void	ft_open_fd(t_token *lst, t_fd *fd)
+// Run the a middle command and redirect the output to the following command.
+
+static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
-	t_token	*tmp;
-	int		infile;
-	int		outfile;
-	
-	tmp = lst;
-	while (tmp->type != '|')
+	int	pid;
+	int	pipefd[2];
+
+	(void)envp;
+	if (pipe(pipefd) == -1)
+		exit_tab(cmd, lst, EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		exit_pid_error(pipefd, cmd, lst);
+	if (pid == 0)
 	{
-		if (tmp->type == FD)
+		if (ft_open_fd(cmd))
+		{
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
+		}
 	}
 }
 
-static void	first_pipe(t_cmd *cmd, char *envp[], t_fd *fd, int i)
+// Run the the command and redirect the output to the terminal.
+
+static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
+	(void)cmd;
+	(void)envp;
+	(void)lst;
 	return ;
 }
 
-static void	last_pipe(t_cmd *cmd, char *envp[], t_fd *fd, int i)
-{
-	return ;
-}
+// This function shall reproduce the behavior of '|' in bash.
 
-void	exec_one_pipex(t_cmd *cmd, char *envp[], t_fd fd)
+void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 {
-	first_pipe(cmd, envp, &fd, 0);
-	last_pipe(cmd, envp, &fd, 1);
-}
+	int	i;
 
-void	exec_multi_pipex(t_cmd *cmd, char *envp[], t_fd fd)
-{
-	first_pipe(cmd, envp, &fd, 0);
-	last_pipe(cmd, envp, &fd, 1);
-}
-
-void	pipex(t_token *lst, t_cmd *cmd, char **env)
-{
-	int	nb_pipe;
-	t_fd	fd;
-
-	nb_pipe = ft_count_pipe(lst);
-	ft_fill_index(lst);
-	ft_open_fd(lst, &fd);
-	if (nb_pipe == 1)
+	i = 0;
+	printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
+	while (i < nb_pipe)
 	{
-		exec_one_pipex(cmd, env, fd);
-	}
-	if (nb_pipe > 1)
-	{
-		exec_multi_pipex(cmd, env, fd);
+		if (i == 0)
+			first_pipe(cmd, envp, lst);
+		else if (i == nb_pipe - 1)
+			last_pipe(cmd, envp, lst);
+		else
+			middle_pipe(cmd, envp, lst);
+		i++;
+		// cmd = cmd->next;
 	}
 }
