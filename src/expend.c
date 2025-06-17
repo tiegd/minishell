@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 13:02:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:46:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ int	exp_isalnum(int c)
 		return (0);
 }
 
-// /*compare les strings jusqu'au caractère passé en paramètre*/
-// int		strcmp_until_char(char *s1, char *s2, char c)
-// {
-// 	int	i;
+/*compare les strings jusqu'au caractère passé en paramètre*/
+int		strcmp_until_char(char *s1, char *s2, char c)
+{
+	int	i;
 	
-// 	i = 0;
-// 	if (!s1 || !s2)
-// 		return (0);
-// 	while (s1[i] && s2[i])
-// 	{
-// 		if (s1[i] != s2[i])
-// 			return (0);
-// 		i++;
-// 	}
-// 	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
-// 		return (1);
-// 	return (0);
-// }
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
+		return (1);
+	return (0);
+}
 
 // /*récupère le resultat d'une variable d'environnement*/
 // char	*env_result(char *env, bool malloc_error)
@@ -92,7 +92,7 @@ int	exp_isalnum(int c)
 
 /*fonction permettant de transforner un $SOMETHING en resultat de sa variable d'environnement, 
 renvoie un char* ou NULL si la variable n'est pas trouvé.*/
-char	*expend(char *arg, char **env) //bool malloc_error)
+char	*expend(char *arg, char **env, bool malloc_error)
 {
 	int	i;
 	int	start;
@@ -100,6 +100,7 @@ char	*expend(char *arg, char **env) //bool malloc_error)
 	char *temp;
 	char *expend;
 	(void)env;
+	(void)malloc_error;
 
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '$')

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 13:11:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 13:46:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
 char	**unset(char *var, char **old_env);
 char	*expend(char *arg, char **env, bool malloc_error);
+
+/*--------BUILT-IN_UTILS--------*/
+
+int	nb_var(char **env);
+int		strcmp_until_char(char *s1, char *s2, char c);
 
 /*------------PIPEX------------*/
 

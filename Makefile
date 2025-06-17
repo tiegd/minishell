@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/17 13:09:52 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/17 13:29:05 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,13 @@ SRC =	main.c				\
 		exit.c				\
 		echo.c				\
 		test_functions.c	\
-		# env.c				\
-		# export.c			\
-		# expend.c			\
-		# pwd.c				\
-		# cd.c				\
-		# unset.c 			\
-		# env_dash_i.c		\
+		env.c				\
+		export.c			\
+		expend.c			\
+		pwd.c				\
+		cd.c				\
+		unset.c 			\
+		env_dash_i.c		\
 			
 LIBS = 	Libft/libft.a	\
 
