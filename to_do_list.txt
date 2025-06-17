@@ -39,8 +39,22 @@ Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '
 
 LES QUOTES :
 
-En gros les quote foncitonne de facon a ce que ce qui se trouve entre 2 quotes peut importe lesquelles, est considéré comme un mot,
+Les quotes foncitonne de facon a ce que ce qui se trouve entre 2 quotes peut importe lesquelles, est considéré comme un mot,
 donc les cote "exterieur" sont supprimé et on garde ce qu'il y à l'interieur.
 
 Lorsqu'on va tomber sur une quote on va aller jusqu'à la prochaine du même type, 
 ne garder que ce qu'il y a l'interieur et les copiers dans une nouvelle string.
+
+
+LES EXPENDS :
+
+Le but est d'expend avant même de tokeniser.
+Faire une fonction qui va exepend en fonction des quote présentes dans ce qu'on a recupéré du prompt.
+
+Etape : 
+on regade si il y a des quotes dans le prompt, si il n'y en a pas on expend ce qu'il y a a expend 
+et on renvoie la chaine de caractère avec les expends.
+Si il y en à avance jusqu´a ce qu'on tombe sur une quote ou un dollars. Si on tombe sur un dollars on expend ce dollars et on continue
+
+
+Autre idée : avancer jusqu´a un dollars. Envoyer dans une fonction pour savoir entre quelles quotes il est.

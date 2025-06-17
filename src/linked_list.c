@@ -6,14 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/11 16:34:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/16 14:06:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Free all of the list.
-
 void	ft_lstfree(t_token *lst)
 {
 	t_token	*buffer;
@@ -31,7 +30,6 @@ void	ft_lstfree(t_token *lst)
 }
 
 // Find the last node of the list.
-
 t_token	*ft_lst_last(t_token *lst)
 {
 	if (!lst || !lst->next)
@@ -130,8 +128,6 @@ void	define_type(t_token *lst)
 		{
 			lst->type = ARGS;
 		}
-		// else if (is_builtin(lst->content))
-		// 	lst->type = BUILTIN;
 		lst = lst->next;
 	}
 }

@@ -6,12 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/13 14:19:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 09:45:42 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*enleve les quotes en trop dans un token et retourne la nouvelle chaine*/
 char	*delete_quote(char *str)
 {
 	int	start;
@@ -43,7 +44,7 @@ char	*delete_quote(char *str)
 				index++;
 			}
 		}
-		if (is_quote(str[index])) //&& str[index + 1])
+		if (is_quote(str[index]))
 			index++;
 		if (str[index] == '\0')
 			break;
@@ -55,6 +56,7 @@ char	*delete_quote(char *str)
 	return (str);
 }
 
+/*gère le cas des quotes dans un token et renvoie un pointeur sur le debut de la liste qui a été modifié*/
 t_token	*ft_handle_quote(t_token *token)
 {
 	t_token	*temp;
@@ -64,7 +66,6 @@ t_token	*ft_handle_quote(t_token *token)
 	{
 		if (ft_strchr(token->content, DQ) || ft_strchr(token->content, SQ))
 		{
-			printf("HELLO\n");
 			token->content = delete_quote(token->content);
 		}
 		token = token->next;

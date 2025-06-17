@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/13 13:49:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 11:54:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ enum e_types
 	PIPE,
 	ARGS,
 	VAR,
-	PATH
+	PATH,
 };
 
 
@@ -71,10 +71,17 @@ int 	ft_parsing(char *input, char **env);
 t_cmd	*ft_init_cmd(t_token *token);
 int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
+char	*handle_env_var(char *prompt);
+void	ft_lstfree(t_token *lst);
 
 /*--------UTILS----------*/
 
 int		is_quote(char c);
+int		is_dq(char c);
+int		is_sq(char c);
+int		exp_isalnum(int c);
+
+/*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd);

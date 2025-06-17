@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 13:50:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/17 12:54:17 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,20 +234,18 @@ char	*ft_is_bin(char **paths, int nb_path)
 
 void	ft_print_cmd(t_cmd *lst)
 {
-	int i = 0;
+	int i;
 	while (lst)
 	{
+		i = 0;
 		while (lst->args[i] != NULL)
 		{
 			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
-			// printf("type = %d\n")
 			i++;
 		}
 		lst = lst->next;
 	}
 }
-
-
 
 int	ft_parsing(char *input, char **env)
 {
@@ -255,20 +253,21 @@ int	ft_parsing(char *input, char **env)
 	int		len_tab;
 	char	**prompt;
 	t_token	*token;
-	// t_cmd	*cmd;
+	t_cmd	*cmd;
 	(void)env;
 
 	i = 0;
+	cmd = NULL;
 	// syntaxe_error(input);
 	len_tab = ft_count_word(input);
+	// if	(ft_strchr(input, '$'))
+	// 	prompt = handle_env_var(prompt);
 	prompt = ft_multi_split(input);
 	token = ft_tab_to_lst(prompt, len_tab);
-	printf("before handle quote\n\n");
-	ft_print_lst(token);
 	token = ft_handle_quote(token);
-	printf("after handle quote\n\n");
-	ft_print_lst(token);
-	// cmd = ft_init_cmd(token);
+	
+	// ft_print_lst(token);
+	cmd = ft_init_cmd(token);
 	// ft_print_cmd(cmd);
 
 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/12 16:54:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/13 16:12:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ static int	check_empty_s(const char *s, char c, char d)
 	return (0);
 }
 
-//Pareil que split mais split sur a partir de char set.
+/*divise la chaine de caractère selon les règles de bash, renvoie un tableau de string ou NULL si ca à échoué*/
 char	**ft_multi_split(char const *s)
 {
 	int		nb_word;
