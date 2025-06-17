@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:32:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:59:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,21 +146,6 @@ int	ft_exec_builtin(char **args)
 	
 // }
 
-void	ft_print_cmd(t_cmd *lst)
-{
-	int i;
-	while (lst)
-	{
-		i = 0;
-		while (lst->args[i] != NULL)
-		{
-			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
-			i++;
-		}
-		lst = lst->next;
-	}
-}
-
 bool	ft_exec_cmd(t_cmd *cmd, char **env)
 {
 	char	**paths;
@@ -208,7 +193,9 @@ int	ft_parsing(char *input, char **env, t_token *token)
 	
 	// ft_print_lst(token);
 	cmd = ft_init_cmd(token);
-	// ft_print_cmd(cmd);
+	printf("\n");
+	ft_print_cmd(cmd);
+	printf("\n");
 
 
 
@@ -226,5 +213,5 @@ int	ft_parsing(char *input, char **env, t_token *token)
 	// 	pipex(lst);
 	// else
 		// ft_one_cmd(lst, cmd, env);
-	return (0);
+	return (1);
 }
