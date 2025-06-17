@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/16 16:31:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 09:50:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		nb_pipe = test_count_pipe(input);
 		test_fill_cmd(cmd, input);
 		(void)env;
-		// pipex(cmd, env, nb_pipe, lst);
+		pipex(cmd, env, nb_pipe, lst);
 	}
 	return (0);
 }

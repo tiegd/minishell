@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/16 15:28:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/17 09:51:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 	int	i;
 
 	i = 0;
-	while (i < nb_pipe)
+	while (cmd->next && i < nb_pipe)
 	{
 		if (i == 0)
 			first_pipe(cmd, envp, lst);
