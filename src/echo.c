@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/28 10:26:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/18 13:26:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,3 +131,7 @@ void	ft_echo(t_cmd *cmd)
 		printf("\n");
 	}
 }
+
+
+
+// echo -n-nnnnnnnnn hello -n -n -nnnnnnn -nnn hello -n -p world -nworld
