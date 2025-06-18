@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 11:17:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:40:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if (ft_open_fd(cmd))
+		// printf("oui\n");
+		if (cmd->infiles != NULL)
 		{
+			ft_open_infile(cmd);
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(pipefd[1], cmd, lst);
 		}
+		if (cmd->outfiles != NULL)
+			ft_open_outfile(cmd);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, cmd, lst);
 		if (!ft_exec_cmd(cmd, envp))
@@ -71,10 +75,11 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
 		}
+		printf("oui\n");
 	}
 }
 
-// Run the a middle command and redirect the output to the following command.
+// Run a middle command and redirect the output to the following command.
 
 static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
@@ -89,11 +94,8 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if (ft_open_fd(cmd))
-		{
-			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-				exit_fd(pipefd[1], cmd, lst);
-		}
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(pipefd[1], cmd, lst);
 	}
 }
 
@@ -124,6 +126,6 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 		else
 			middle_pipe(cmd, envp, lst);
 		i++;
-		// cmd = cmd->next;
+		cmd = cmd->next;
 	}
 }

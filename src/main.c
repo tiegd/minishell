@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 11:16:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:17:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	lst = malloc(sizeof(t_token));
 	cmd = malloc(sizeof(t_cmd));
-	while ((input = readline("mishell > ")) != NULL)
+	while ((input = readline("minishell delpeche > ")) != NULL)
 	{
 		if (*input)
 			add_history(input);
@@ -104,8 +104,6 @@ int	main(int ac, char **av, char **env)
 			printf("Error input\n");
 			return (1);
 		}
-		// test_fill_cmd(cmd, input, nb_pipe);
-		// (void)env;
 	}
 	return (0);
 }

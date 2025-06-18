@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 11:16:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:49:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	char	**paths;
 	int		nb_path;
 
+	printf("exec_cmd\n");
 	nb_path = ft_count_path(getenv("PATH"));
 	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
 	paths = ft_split(getenv("PATH"), ':');
