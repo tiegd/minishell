@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:17:56 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 15:25:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 09:42:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 // Test function.
 
-void	ft_print_tab(char **path, int nb_path)
+void	ft_print_tab(char **tab)
 {
 	int	i;
 	
 	i = 0;
-	(void)nb_path;
-	// while (i != nb_path)
-	while (path[i][0] != '\0')
+	while (tab[i] != NULL)
 	{
-		printf(YELLOW"path = %s\n"RESET, path[i]);
+		printf(YELLOW"tab[%d] = %s\n"RESET, i, tab[i]);
 		i++;
 	}
 }
@@ -40,27 +38,11 @@ void	ft_print_lst(t_token *lst)
 	}
 }
 
-// int	test_count_tab(char **args)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (args[i][0] != NULL)
-	
-// }
-
-
 void	ft_print_cmd(t_cmd *lst)
 {
-	int i;
 	while (lst)
 	{
-		i = 0;
-		while (lst->args[i] != NULL)
-		{
-			printf(GREEN"cmd = %s type = %d\n"RESET, lst->args[i], lst->type);
-			i++;
-		}
+		ft_print_tab(lst->args);
 		lst = lst->next;
 	}
 }

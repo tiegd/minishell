@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/16 16:57:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/18 09:59:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ t_cmd	*ft_init_cmd(t_token *token)
 
 	head = NULL;
 	n_args = count_args(token);
-	while (token && token->next != NULL)
+	while (token)
 	{
 		cmd = new_cmd();
 		if (!cmd)

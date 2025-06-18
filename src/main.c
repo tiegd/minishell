@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 14:53:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 10:02:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	lst = malloc(sizeof(t_token));
 	cmd = malloc(sizeof(t_cmd));
-	while (1)
+	while ((input = readline("mishell > ")) != NULL)
 	{
-		input = readline("minizeub > ");
+		if (*input)
+			add_history(input);
 		if (!ft_parsing(input, env, lst))
 		{
-			// add_history(line);
 			printf("Error input\n");
 			return (1);
 		}
