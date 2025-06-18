@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:17:56 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 09:42:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:11:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_print_tab(char **tab)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf(YELLOW"tab[%d] = %s\n"RESET, i, tab[i]);
+		printf(GREEN"tab[%d] = %s\n"RESET, i, tab[i]);
 		i++;
 	}
 }
@@ -40,9 +40,12 @@ void	ft_print_lst(t_token *lst)
 
 void	ft_print_cmd(t_cmd *lst)
 {
-	while (lst)
+	t_cmd	*tmp;
+
+	tmp = lst;
+	while (tmp)
 	{
-		ft_print_tab(lst->args);
-		lst = lst->next;
+		ft_print_tab(tmp->args);
+		tmp = tmp->next;
 	}
 }

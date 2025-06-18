@@ -6,28 +6,28 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 10:02:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:16:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	test_count_pipe(char *input)
-{
-	int	i;
-	int	nb_pipe;
+// static int	test_count_pipe(char *input)
+// {
+// 	int	i;
+// 	int	nb_pipe;
 
-	i = 0;
-	nb_pipe = 0;
-	while (input[i])
-	{
-		if (input[i] == '|')
-			nb_pipe++;
-		i++;
-	}
-	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
-	return (nb_pipe);
-}
+// 	i = 0;
+// 	nb_pipe = 0;
+// 	while (input[i])
+// 	{
+// 		if (input[i] == '|')
+// 			nb_pipe++;
+// 		i++;
+// 	}
+// 	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
+// 	return (nb_pipe);
+// }
 
 // static int	test_count_args(char *input)
 // {
@@ -88,7 +88,6 @@ static int	test_count_pipe(char *input)
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
-	int		nb_pipe;
 	t_cmd	*cmd;
 	t_token	*lst;
 
@@ -105,11 +104,8 @@ int	main(int ac, char **av, char **env)
 			printf("Error input\n");
 			return (1);
 		}
-		nb_pipe = test_count_pipe(input);
 		// test_fill_cmd(cmd, input, nb_pipe);
 		// (void)env;
-		if (nb_pipe > 0)
-			pipex(cmd, env, nb_pipe, lst); 
 	}
 	return (0);
 }

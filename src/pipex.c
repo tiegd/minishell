@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 10:01:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:17:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,34 @@
 
 // Count the number of '|' in the prompt.
 
-int	ft_count_pipe(t_token *lst)
+// int	ft_count_pipe(t_token *lst)
+// {
+// 	t_token	*tmp;
+// 	int		count;
+
+// 	tmp = lst;
+// 	count = 0;
+// 	while (tmp->next)
+// 	{
+// 		if (tmp->type == PIPE)
+// 			count++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (count);
+// }
+int	ft_count_pipe(t_cmd *cmd)
 {
-	t_token	*tmp;
+	t_cmd	*tmp;
 	int		count;
 
-	tmp = lst;
+	tmp = cmd;
 	count = 0;
 	while (tmp->next)
 	{
-		if (tmp->type == PIPE)
-			count++;
+		count++;
 		tmp = tmp->next;
 	}
+	printf("count = %d\n", count);
 	return (count);
 }
 

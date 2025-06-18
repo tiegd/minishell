@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 15:59:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:16:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ int	ft_parsing(char *input, char **env, t_token *token)
 {
 	int		i;
 	int		len_tab;
+	int		nb_pipe;
 	char	**prompt;
 	// t_token	*token;
 	t_cmd	*cmd;
@@ -196,7 +197,10 @@ int	ft_parsing(char *input, char **env, t_token *token)
 	printf("\n");
 	ft_print_cmd(cmd);
 	printf("\n");
-
+	nb_pipe = ft_count_pipe(cmd);
+	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
+	if (nb_pipe > 0)
+		pipex(cmd, env, nb_pipe, token); 
 
 
 
