@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 09:23:54 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/06/18 09:18:34 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/06/18 09:20:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+void	exit_token(t_token *token, int exit_code, int exit_type)
 {
-	char	*line;
-
-	while ((line = readline("minizeub > ")) != NULL)
-	{
-		if(*line)
-		{
-			add_history(line);
-		}
-		if (!ft_parsing(line, env))
-			return (1);
-		free(line);
-	}
-	return (0);
+	
 }
