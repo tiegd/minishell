@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 11:49:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:12:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		// printf(RED"Right path = %s\n"RESET, cmd->pathname);
+		printf(RED"Right path = %s\n"RESET, cmd->pathname);
 		execve(cmd->pathname, cmd->args, env);
 	}
 	else if (is_builtin(cmd->args[0]))

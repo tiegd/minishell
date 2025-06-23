@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/18 09:59:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/23 11:03:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_cmd *new_cmd(void)
 	// new->args = NULL;
 	new->outfiles = NULL;
 	new->infiles = NULL;
+	new->next = NULL;
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 15:40:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:06:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	int	pid;
 	int	pipefd[2];
 
+	printf(YELLOW"in fisrt_pipe\n"RESET);
 	if(pipe(pipefd) == -1)
 		exit_tab(cmd, lst, EXIT_FAILURE);
 	pid = fork();
@@ -59,6 +60,7 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
+		printf(GREEN"pid = %d\n"RESET, pid);
 		// printf("oui\n");
 		if (cmd->infiles != NULL)
 		{
