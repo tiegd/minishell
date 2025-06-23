@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/23 10:06:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:51:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 // 	}
 // 	return (count);
 // }
+
 int	ft_count_pipe(t_cmd *cmd)
 {
 	t_cmd	*tmp;
@@ -58,26 +59,36 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, cmd, lst);
+	printf(GREEN"pid = %d\n"RESET, pid);
 	if (pid == 0)
 	{
-		printf(GREEN"pid = %d\n"RESET, pid);
-		// printf("oui\n");
+		printf("oui\n");
+		printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
+		printf(CYAN"STDIN_FILENO = %d ; STDOUT_FILENO = %d\n"RESET, STDIN_FILENO, STDOUT_FILENO);
 		if (cmd->infiles != NULL)
 		{
 			ft_open_infile(cmd);
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(pipefd[1], cmd, lst);
 		}
+		printf("coucou\n");
 		if (cmd->outfiles != NULL)
 			ft_open_outfile(cmd);
+		// printf(RED"dup2 = %d\n"RESET, dup2(pipefd[1], STDOUT_FILENO));
+		printf("yo\n");
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+		{
+			printf("ekip\n");
 			exit_fd(cmd->fd_outfile, cmd, lst);
+		}
+		printf("lundi\n");
 		if (!ft_exec_cmd(cmd, envp))
 		{
+			printf("mardi\n");
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
 		}
-		printf("oui\n");
+		printf("fin\n");
 	}
 }
 

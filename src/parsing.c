@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/23 10:12:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:06:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,19 +146,61 @@ int	ft_exec_builtin(char **args)
 	
 // }
 
+char	*ft_path_line(char **env)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*path;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (strncmp(env[i], "PATH=", 5) == 0)
+		{
+			j = 0;
+			len = ft_strlen(env[i]) - 5;
+			path = malloc((len + 1) * sizeof(char));
+			while (env[i][j + 5])
+			{
+				path[j] = env[i][j + 5];
+				j++;
+			}
+		}
+		i++;
+	}
+	printf("path = %s\n", path);
+	return (path);
+}
+
+int	ft_nb_path(char **path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i] != NULL)
+		i++;
+	return (i);
+}
+
 bool	ft_exec_cmd(t_cmd *cmd, char **env)
 {
 	char	**paths;
+	char	*line;
 	int		nb_path;
 
-	printf("exec_cmd\n");
-	nb_path = ft_count_path(getenv("PATH"));
+	printf(RED"exec_cmd\n"RESET);
+	line = ft_path_line(env);
+	printf("line = %s\n", line);
+	// nb_path = ft_count_path(getenv("PATH"));
 	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
-	paths = ft_split(getenv("PATH"), ':');
-	// ft_print_tab(paths, nb_path);
-	// printf(RED"-------------------------------------------------------\n"RESET);
+	// paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(line, ':');
+	ft_print_tab(paths);
+	nb_path = ft_nb_path(paths);
+	printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	// ft_print_tab(paths, nb_path);
+	ft_print_tab(paths);
 	if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
