@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/23 16:06:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/24 08:46:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ char	*ft_path_line(char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (strncmp(env[i], "PATH=", 5) == 0)
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
 			j = 0;
 			len = ft_strlen(env[i]) - 5;
@@ -166,11 +166,13 @@ char	*ft_path_line(char **env)
 				path[j] = env[i][j + 5];
 				j++;
 			}
+			path[j] = '\0';
+			// printf("path = %s\n", path);
+			return (path);
 		}
 		i++;
 	}
-	printf("path = %s\n", path);
-	return (path);
+	return (NULL);
 }
 
 int	ft_nb_path(char **path)
@@ -189,22 +191,22 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	char	*line;
 	int		nb_path;
 
-	printf(RED"exec_cmd\n"RESET);
+	// printf(RED"exec_cmd\n"RESET);
 	line = ft_path_line(env);
-	printf("line = %s\n", line);
+	// printf("line = %s\n", line);
 	// nb_path = ft_count_path(getenv("PATH"));
 	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
 	// paths = ft_split(getenv("PATH"), ':');
 	paths = ft_split(line, ':');
-	ft_print_tab(paths);
+	// ft_print_tab(paths);
 	nb_path = ft_nb_path(paths);
-	printf(RED"-------------------------------------------------------\n"RESET);
+	// printf(RED"-------------------------------------------------------\n"RESET);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	ft_print_tab(paths);
+	// ft_print_tab(paths);
 	if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf(RED"Right path = %s\n"RESET, cmd->pathname);
+		// printf(RED"Right path = %s\n"RESET, cmd->pathname);
 		execve(cmd->pathname, cmd->args, env);
 	}
 	else if (is_builtin(cmd->args[0]))
