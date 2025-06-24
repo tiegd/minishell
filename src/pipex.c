@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/24 08:59:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:48:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	int	pid;
 	int	pipefd[2];
 
-	printf(YELLOW"in fisrt_pipe\n"RESET);
+	// printf(YELLOW"in fisrt_pipe\n"RESET);
 	if(pipe(pipefd) == -1)
 		exit_tab(cmd, lst, EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, cmd, lst);
-	printf(GREEN"pid = %d\n"RESET, pid);
+	// printf(GREEN"pid = %d\n"RESET, pid);
 	if (pid == 0)
 	{
-		printf("LDO\n");
-		printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
-		printf(CYAN"STDIN_FILENO = %d ; STDOUT_FILENO = %d\n"RESET, STDIN_FILENO, STDOUT_FILENO);
+		// printf("LDO\n");
+		// printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
+		// printf(CYAN"STDIN_FILENO = %d ; STDOUT_FILENO = %d\n"RESET, STDIN_FILENO, STDOUT_FILENO);
 		close(pipefd[0]);
 		printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
 		if (cmd->infiles != NULL)
@@ -75,13 +75,21 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		}
 		printf("NRM\n");
 		if (cmd->outfiles != NULL)
-			ft_open_outfile(cmd);
-		printf("667\n");
-		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 		{
-			printf("ekip\n");
-			exit_fd(cmd->fd_outfile, cmd, lst);
+			ft_open_outfile(cmd);
+			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
+			printf(RED"coucou\n"RESET);
 		}
+		else 
+		{
+			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			{
+				printf("ekip\n");
+				exit_fd(cmd->fd_outfile, cmd, lst);
+			}
+		}
+		printf("667\n");
 		printf("pétasse\n");
 		if (!ft_exec_cmd(cmd, envp))
 		{
@@ -91,6 +99,8 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		}
 		printf("fin\n");
 	}
+	close(pipefd[1]);
+	cmd->fd_outpipe = pipefd[0];
 }
 
 // Run a middle command and redirect the output to the following command.
@@ -108,8 +118,10 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
+		if ()
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			exit_fd(pipefd[1], cmd, lst);
+		close(pipefd[0]);
 	}
 }
 
@@ -117,10 +129,32 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 
 static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
-	(void)cmd;
-	(void)envp;
-	(void)lst;
-	return ;
+	int	pid_last;
+	int	pipefd[2];
+
+	printf("in last_pipe\n");
+	if (pipe(pipefd) == -1)
+		exit_tab(cmd, lst, EXIT_FAILURE);
+	pid_last = fork();
+	if (pid_last == -1)
+		exit_pid_error(pipefd, cmd, lst);
+	if (pid_last == 0)
+	{
+		close(pipefd[1]);
+		close(pipefd[0]);
+		printf("ekipafond\n");
+		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(0, cmd, lst);
+		printf("92izi");
+		if (!ft_exec_cmd(cmd, envp))
+		{
+			printf("mardi\n");
+			ft_close_fd(cmd, pipefd);
+			exit_tab(cmd, lst, 127);
+		}
+		exit_tab(cmd, lst, 1);
+	}
+	ft_close_fd(cmd, pipefd);
 }
 
 // This function shall reproduce the behavior of '|' in bash.
