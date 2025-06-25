@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/25 11:20:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:59:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,31 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	// printf(GREEN"pid = %d\n"RESET, pid);
 	if (pid == 0)
 	{
-		// printf("LDO\n");
+		// close(pipefd[0]);
+		// ft_open_fd(cmd);
 		// printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
-		// printf(CYAN"STDIN_FILENO = %d ; STDOUT_FILENO = %d\n"RESET, STDIN_FILENO, STDOUT_FILENO);
-		close(pipefd[0]);
-		printf(YELLOW"pipefd[0] = %d ; pipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
-		if (cmd->infiles != NULL)
+		// printf("cmd->fd_infile = %d\n", cmd->fd_infile);
+		// if (cmd->infiles)
+		// {
+		// 	ft_open_infile(cmd);
+		// 	if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+		// 		exit_fd(pipefd[1], cmd, lst);
+		// }
+		// printf("NRM\n");
+		// if (cmd->outfiles)
+		// {
+		// 	ft_open_outfile(cmd);
+		// 	if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+		// 		exit_fd(pipefd[1], cmd, lst);
+		// }
+		// printf("pipi\n");
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 		{
-			ft_open_infile(cmd);
-			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-				exit_fd(pipefd[1], cmd, lst);
+			printf("ekip\n");
+			exit_fd(cmd->fd_outfile, cmd, lst);
 		}
-		printf("NRM\n");
-		if (cmd->outfiles != NULL)
-		{
-			ft_open_outfile(cmd);
-			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-				exit_fd(pipefd[1], cmd, lst);
-			printf(RED"coucou\n"RESET);
-		}
-		else 
-		{
-			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			{
-				printf("ekip\n");
-				exit_fd(cmd->fd_outfile, cmd, lst);
-			}
-		}
-		printf("667\n");
-		printf("pétasse\n");
+		
+		// printf("667\n");
 		if (!ft_exec_cmd(cmd, envp))
 		{
 			printf("mardi\n");
@@ -84,7 +80,6 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		printf("fin\n");
 	}
 	close(pipefd[1]);
-	cmd->fd_outpipe = pipefd[0];
 }
 
 // Run a middle command and redirect the output to the following command.
@@ -126,12 +121,18 @@ static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid_last == 0)
 	{
-		close(pipefd[1]);
-		close(pipefd[0]);
-		printf("ekipafond\n");
-		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(0, cmd, lst);
-		printf("92izi");
+		// close(pipefd[1]);
+		// printf("ekipafond\n");
+		// if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+		// 	exit_fd(cmd->fd_infile, cmd, lst);
+		if (dup2(pipefd[0], STDIN_FILENO) == -1)
+		{
+			printf("pdp\n");
+			exit_fd(pipefd[0], cmd, lst);
+		}
+		// if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+		// 	exit_fd(cmd->fd_outfile, cmd, lst);
+		// printf("92izi");
 		if (!ft_exec_cmd(cmd, envp))
 		{
 			printf("mardi\n");
@@ -140,8 +141,11 @@ static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		}
 		exit_tab(cmd, lst, 1);
 	}
+	printf("HALLO\n");
 	ft_close_fd(cmd, pipefd);
-	wait_children(pid_last, cmd);
+	// wait_children(pid_last, cmd);
+	wait(NULL);
+	printf("HALLO 2\n");
 }
 
 // This function shall reproduce the behavior of '|' in bash.
@@ -152,11 +156,11 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 
 	i = 0;
 	printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
-	while (i < nb_pipe)
+	while (i <= nb_pipe)
 	{
 		if (i == 0)
 			first_pipe(cmd, envp, lst);
-		else if (i == nb_pipe - 1)
+		else if (i == nb_pipe)
 			last_pipe(cmd, envp, lst);
 		else
 			middle_pipe(cmd, envp, lst);

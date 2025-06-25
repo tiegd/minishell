@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 15:39:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:18:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,44 @@
 // 	}
 // }
 
-int	ft_open_infile(t_cmd *cmd)
+void	ft_open_infile(t_cmd *cmd)
 {
 	while (cmd->infiles->next)
 	{
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
-			return (0);
+			return ;
 		if (cmd->infiles->next != NULL)
 		{
 			if (close(cmd->fd_infile) == -1)
-				return (0);
+				return ;
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
-	return (cmd->fd_infile);
 }
 
-int	ft_open_outfile(t_cmd *cmd)
+void	ft_open_outfile(t_cmd *cmd)
 {
 	while (cmd->outfiles->next)
 	{
 		cmd->fd_outfile = open(cmd->outfiles->filename, O_RDONLY | O_CREAT | O_TRUNC, 0666);
 		if (cmd->fd_outfile < 0)
-			return (0);
+			return ;
 		if (cmd->outfiles->next != NULL)
 		{
 			if (close(cmd->fd_outfile) == -1)
-				return (0);
+				return ;
 		}
 		cmd->outfiles = cmd->outfiles->next;
 	}
-	return (cmd->fd_outfile);
+}
+
+void	ft_open_fd(t_cmd *cmd)
+{
+	if (cmd->infiles)
+		ft_open_infile(cmd);
+	if (cmd->outfiles)
+		ft_open_outfile(cmd);
 }
 
 // int	ft_open_fd(t_cmd *cmd)

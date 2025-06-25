@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/25 10:35:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:16:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	ft_lstfree(t_token *lst);
 /*------------FD------------*/
 
 void	ft_init_fd(t_token *lst);
-// int 	ft_open_fd(t_cmd *cmd);
-int		ft_open_infile(t_cmd *cmd);
-int		ft_open_outfile(t_cmd *cmd);
+void	ft_open_fd(t_cmd *cmd);
+void	ft_open_infile(t_cmd *cmd);
+void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 
 /*------------EXIT------------*/

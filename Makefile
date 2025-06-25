@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/25 11:20:39 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/25 16:45:11 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
+CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
 
 INCLUDE = inc
 
