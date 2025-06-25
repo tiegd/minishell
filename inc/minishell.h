@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/18 15:40:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:35:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		strcmp_until_char(char *s1, char *s2, char c);
 void	pipex(t_cmd *cmd, char *env[], int nb_pipe, t_token *lst);
 // int		ft_count_pipe(t_token *lst);
 int		ft_count_pipe(t_cmd *cmd);
-
+void    wait_children(pid_t pid_last, t_cmd *cmd);
 
 /*------------CLEAN------------*/
 

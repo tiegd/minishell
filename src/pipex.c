@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/24 13:48:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/25 11:20:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,6 @@
 // 	}
 // 	return (count);
 // }
-
-int	ft_count_pipe(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		count;
-
-	tmp = cmd;
-	count = 0;
-	while (tmp->next)
-	{
-		count++;
-		tmp = tmp->next;
-	}
-	printf("count = %d\n", count);
-	return (count);
-}
 
 // Run the first command and redirect the output to the following command.
 
@@ -118,10 +102,12 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if ()
-		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(pipefd[1], cmd, lst);
-		close(pipefd[0]);
+		if (cmd->infiles != NULL)
+		{
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
+			close(pipefd[0]);
+		}
 	}
 }
 
@@ -155,6 +141,7 @@ static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_tab(cmd, lst, 1);
 	}
 	ft_close_fd(cmd, pipefd);
+	wait_children(pid_last, cmd);
 }
 
 // This function shall reproduce the behavior of '|' in bash.

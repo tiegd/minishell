@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/17 13:29:05 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/25 11:20:39 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =	main.c				\
 		ft_multi_split.c	\
 		linked_list.c		\
 		pipex.c				\
+		pipex_utils.c		\
 		init_cmd.c			\
 		handle_quote.c		\
 		handle_fd.c			\
