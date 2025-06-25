@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 09:23:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/25 13:37:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_print_tab(char **path, int nb_path)
 	i = 0;
 	while (i != nb_path)
 	{
-		printf(YELLOW"path = %s\n"RESET, path[i]);
+		printf(YELLOW"path[%d] = %s\n"RESET, i,path[i]);
 		i++;
 	}
 }
@@ -262,19 +262,18 @@ int	ft_parsing(char *input, char **env)
 	len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, env);
-	return 0;
+	// input = lexing_input(input);
+	// return 0;
 	prompt = ft_multi_split(input);
+	ft_print_tab(prompt, len_tab);
+	return 0;
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);
 	
 	// ft_print_lst(token);
 	cmd = ft_init_cmd(token);
-	// ft_print_cmd(cmd);
+	ft_print_cmd(cmd);
 
-
-
-
-	
 	/*-------------------useless---------------------------*/
 	// ft_print_cmd(cmd);
 	// cmd = ft_init_cmd(token);

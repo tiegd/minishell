@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/11 16:25:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:30:24 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,14 @@ typedef struct s_cmd
 	bool			malloc_error;
 	struct s_cmd	*next;
 }t_cmd;
+
+typedef struct s_input
+{
+	int		i;
+	int		index;
+	int		count;
+	int		sq;
+	int		dq;
+}t_input;
 
 #endif

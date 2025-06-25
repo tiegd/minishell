@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 13:59:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/25 08:50:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, char **env);
 void	ft_lstfree(t_token *lst);
+char	*lexing_input(char *input);
+int		is_ws(char c);
 
 /*--------UTILS----------*/
 

@@ -1,8 +1,8 @@
 1/ Stocker le prompt dans une liste chainé de token,
 2/ Attribuer à chaque token un type.
 3/ En fonction de si c'est une commande ou pas et si il y a un pipe dans le prompt entré en paramètre remplire la liste chainé de commande.
-
-Si il y a 0 pipe : 
+ 
+Si il y a 0 pipe : ✅
 
 checker le type de de chaque token, et remplir la struct cmd en consequence.
 
@@ -25,7 +25,7 @@ si il y a une erreur de syntaxe meme si il y a plusieur pipe on ne fait rien.
 
 
 
-LES QUOTES DE SES MORTS:
+LES QUOTES DE SES MORTS: ✅
 
 Si  il y a une double/simple quote continuer jusqu'a la prochaine
 Si il y a autre chose qu'un whitespace ou un \0 continuer a avancer 
@@ -33,28 +33,39 @@ car ce n'est toujours pas considéré comme un seul token.
 Si le nb de quote est impaire continuer jusqu'a ce que ca le deviennent
 Tout rentrer dans un token et gerer les differente quote plus tard dans une fonction qui les supprimera en fonction.
 
-GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé.
-Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<').
 
-
-LES QUOTES :
+LES QUOTES : ✅
 
 Les quotes foncitonne de facon a ce que ce qui se trouve entre 2 quotes peut importe lesquelles, est considéré comme un mot,
-donc les cote "exterieur" sont supprimé et on garde ce qu'il y à l'interieur.
+donc les cote "exterieur" sont supprimé et on garde ce qu'il y à l'interieur. ✅
 
 Lorsqu'on va tomber sur une quote on va aller jusqu'à la prochaine du même type, 
-ne garder que ce qu'il y a l'interieur et les copiers dans une nouvelle string.
+ne garder que ce qu'il y a l'interieur et les copiers dans une nouvelle string. ✅
 
 
-LES EXPENDS :
+LES EXPENDS : ✅
 
 Le but est d'expend avant même de tokeniser.
-Faire une fonction qui va exepend en fonction des quote présentes dans ce qu'on a recupéré du prompt.
+Faire une fonction qui va exepend en fonction des quote présentes dans ce qu'on a recupéré du prompt. ✅
 
 Etape : 
 on regade si il y a des quotes dans le prompt, si il n'y en a pas on expend ce qu'il y a a expend 
 et on renvoie la chaine de caractère avec les expends.
-Si il y en à avance jusqu´a ce qu'on tombe sur une quote ou un dollars. Si on tombe sur un dollars on expend ce dollars et on continue
+Si il y en à avance jusqu´a ce qu'on tombe sur une quote ou un dollars. Si on tombe sur un dollars on expend ce dollars et on continue ✅
 
 
-Autre idée : avancer jusqu´a un dollars. Envoyer dans une fonction pour savoir entre quelles quotes il est.
+Autre idée : avancer jusqu´a un dollars. Envoyer dans une fonction pour savoir entre quelles quotes il est. ✅
+
+refaire la tokenisation :
+
+Verifier qu'il peut ne pas y avoir d'espace quand on fait : >outfile 
+Mais que ca sépare quand meme le ">" et le "outfile" en 2 token.
+Pareil pour toute les redirections.
+GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé.
+Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<').
+
+Faire un check au debut pour toutes les erreurs de syntaxe possible.
+
+Bien protejer les forks !!
+
+lancer minishell avec cat urandom | ./minishell

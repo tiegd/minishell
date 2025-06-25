@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/18 09:24:27 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/06/25 11:16:31 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC = 	main.c				\
 		linked_list.c		\
 		init_cmd.c			\
 		handle_quote.c		\
-		handle_env_var.c		\
+		handle_env_var.c	\
+		# lexing_input.c	\
 			
 LIBS = 	Libft/libft.a	\
 

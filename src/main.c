@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 09:23:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:23:14 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	(void)ac;
+	(void)av;
 
 	while ((line = readline("minizeub > ")) != NULL)
 	{
@@ -22,7 +24,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(line);
 		}
-		if (!ft_parsing(line, env))
+		if (ft_parsing(line, env))
 			return (1);
 		free(line);
 	}

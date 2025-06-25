@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 11:53:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:06:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,13 @@ int	exp_isalnum(int c)
 
 /*fonction permettant de transforner un $SOMETHING en resultat de sa variable d'environnement, 
 renvoie un char* ou NULL si la variable n'est pas trouvé.*/
-char	*expend(char *arg, char **env) //bool malloc_error)
+char	*expend(char *arg, char **env)
 {
 	int	i;
 	int	start;
 	int len;
 	char *temp;
 	char *expend;
-	(void)env;
 
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '$')
@@ -108,16 +107,11 @@ char	*expend(char *arg, char **env) //bool malloc_error)
 	if (arg[i] == '$')
 		i++;
 	while (arg[i] && exp_isalnum(arg[i]))
-	{
 		i++;
-	}
 	len = i - start;
 	temp = ft_substr(arg, start, len);
 	if (!temp)
-	{
-		// malloc_error = true;
 		return (NULL);
-	}
 	expend = getenv(temp); //extract_env(temp, env, malloc_error);
 	free(temp);
 	free(arg);

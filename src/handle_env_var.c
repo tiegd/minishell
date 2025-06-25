@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/18 13:16:08 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/24 09:01:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,46 +98,6 @@ char	**split_parts(char *prompt)
 	return (parts);
 }
 
-// int	which_quote(char *prompt, char **env)
-// {
-// 	int		i;
-// 	int		index;
-// 	// int		type;
-// 	int 	start;
-// 	char	**temp;
-// 	(void)env;
-
-// 	i = 0;
-// 	start = 0;
-// 	index = 0;
-// 	temp = malloc(sizeof(char *) * (count_part_to_join(prompt) + 2));
-// 	if (!temp)
-// 		return (NULL);
-// 	while (prompt[i])
-// 	{
-// 		while (prompt[i] != '$')
-// 			i++;
-// 		temp[index] = ft_substr(prompt, start, i);
-// 		while(prompt[i])
-// 		{
-// 			while (prompt[i] != '$')
-// 				i++;
-// 			temp = ft_substr(prompt, start, i);
-// 			start = i;
-// 			i++;
-// 			while (prompt[i] && exp_isalnum(prompt[i]))
-// 				i++;
-// 			exp = ft_substr(prompt, start, i);
-// 			exp = expend(exp, env);
-// 			temp = ft_strjoin_custom(temp, exp);
-// 		}
-// 	}
-// 	return 0;
-	
-// }
-
-
-
 void	print_tab_char(char **tab)
 {
 	int	i;
@@ -150,10 +110,10 @@ void	print_tab_char(char **tab)
 	}
 }
 
-char	**expend_each_var(char **isolated, char **env, int *quote_dollars)
+void	*expend_each_var(char **isolated, char **env, int *quote_dollars)
 {
-	int	i;
-	int index;
+	int		i;
+	int 	index;
 
 	i = 0;
 	index = 0;
@@ -162,6 +122,11 @@ char	**expend_each_var(char **isolated, char **env, int *quote_dollars)
 		if (strchr(isolated[i], '$') && quote_dollars[index] == DQ)
 		{
 			isolated[i] = expend(isolated[i], env);
+			if (!isolated[i])
+			{
+				free_all(isolated);
+				return (NULL);
+			}
 			index++;
 		}
 		i++;
@@ -197,6 +162,8 @@ int	check_dollar_existence(char *prompt, int *i, char quote)
 			res = 1;
 		(*i)++;
 	}
+	if (prompt[*i] == quote)
+		(*i)++;
 	return (res);
 }
 
@@ -237,10 +204,30 @@ int	*fill_tab_quote(char *prompt)
 	return (tab);
 }
 
+char	*join_parts(char **str_tab)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = ft_calloc(1, sizeof(char));
+	while (str_tab[i])
+	{
+		res = ft_strjoin_custom(res, str_tab[i]);
+		if (!res)
+		{
+			free(res);
+			return (NULL);
+		}
+		i++;
+	}
+	return (res);
+}
+
 char	*handle_env_var(char *prompt, char **env)
 {
 	char 	**isolated;
-	char	**final;
+	char	*final;
 	int		*quote_dollars;
 
 	isolated = split_parts(prompt);
@@ -248,8 +235,15 @@ char	*handle_env_var(char *prompt, char **env)
 		return (NULL);
 	quote_dollars = fill_tab_quote(prompt);
 	free(prompt);
-	final = expend_each_var(isolated, env, quote_dollars);
-	print_tab_char(final);
+	isolated = expend_each_var(isolated, env, quote_dollars);
+	if (!isolated)
+		return (NULL);
+	free(quote_dollars);
+	final = join_parts(isolated);
+	// free_all(isolated);
+	printf("final str = %s\n", final);
+	free(final);
+	// print_tab_char(final);
 
 	return (NULL);
 }

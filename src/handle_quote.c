@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 09:45:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/24 09:04:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*delete_quote(char *str)
 {
 	int	start;
 	int index;
-	// int	dq;
-	// int	sq;
 
 	start = 0;
 	index = 0;
@@ -28,29 +26,19 @@ char	*delete_quote(char *str)
 		{
 			index++;
 			while(str[index] && str[index] != DQ)
-			{
-				str[start] = str[index];
-				start++;
-				index++;
-			}
+				str[start++] = str[index++];
 		}
 		if (str[index] == SQ)
 		{
 			index++;
 			while(str[index] && str[index] != SQ)
-			{
-				str[start] = str[index];
-				start++;
-				index++;
-			}
+				str[start++] = str[index++];
 		}
 		if (is_quote(str[index]))
 			index++;
 		if (str[index] == '\0')
 			break;
-		str[start] = str[index];
-		start++;
-		index++;
+		str[start++] = str[index++];
 	}
 	str[start] = '\0';
 	return (str);
