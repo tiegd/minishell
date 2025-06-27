@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/27 16:41:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:50:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,30 +93,15 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
 	int	pid_last;
-	// int	pipefd[2];
 
-	// printf("in last_pipe\n");
-	// printf(YELLOW"cmd->outpipe = %d\n"RESET, cmd->outpipe);
-	// printf(YELLOW"pipefd[0] = %d\n"RESET, pipefd[0]);
-	// if (pipe(pipefd) == -1)
-	// 	exit_tab(cmd, lst, EXIT_FAILURE);
 	pid_last = fork();
 	if (pid_last == -1)
-	{
 		exit_tab(cmd, lst, EXIT_FAILURE);
-		// exit_pid_error(pipefd, cmd, lst);
-	}
 	if (pid_last == 0)
 	{
-		// printf("outpipe = %d\n", cmd->outpipe);
-		// if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		// {
-		// 	printf("pdp\n");
-		// 	exit_fd(pipefd[0], cmd, lst);
-		// }
 		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 			exit_fd(cmd->outpipe, cmd, lst);
-		// close(cmd->outpipe);
+		close(cmd->outpipe);
 		if (!ft_exec_cmd(cmd, envp))
 		{
 			printf("mardi\n");
