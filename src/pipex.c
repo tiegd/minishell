@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/27 13:39:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:41:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	// printf(GREEN"pid = %d\n"RESET, pid);
 	if (pid == 0)
 	{
-		// if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-		// {
-		// 	printf("ekip\n");
-		// 	exit_fd(cmd->fd_outfile, cmd, lst);
-		// }
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			exit_fd(pipefd[1], cmd, lst);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		// printf("667\n");
@@ -60,8 +57,11 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
 		}
-		printf("fin\n");
 	}
+	// printf("ouioui\n");
+	close(pipefd[1]);
+	cmd->outpipe = pipefd[0];
+	// printf("outpipe = %d\n", cmd->outpipe);
 }
 
 // Run a middle command and redirect the output to the following command.
@@ -93,36 +93,43 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 {
 	int	pid_last;
-	int	pipefd[2];
+	// int	pipefd[2];
 
-	printf("in last_pipe\n");
-	printf(YELLOW"cmd->outpipe = %d\n"RESET, cmd->outpipe);
-	printf(YELLOW"pipefd[0] = %d\n"RESET, pipefd[0]);
-	if (pipe(pipefd) == -1)
-		exit_tab(cmd, lst, EXIT_FAILURE);
+	// printf("in last_pipe\n");
+	// printf(YELLOW"cmd->outpipe = %d\n"RESET, cmd->outpipe);
+	// printf(YELLOW"pipefd[0] = %d\n"RESET, pipefd[0]);
+	// if (pipe(pipefd) == -1)
+	// 	exit_tab(cmd, lst, EXIT_FAILURE);
 	pid_last = fork();
 	if (pid_last == -1)
-		exit_pid_error(pipefd, cmd, lst);
+	{
+		exit_tab(cmd, lst, EXIT_FAILURE);
+		// exit_pid_error(pipefd, cmd, lst);
+	}
 	if (pid_last == 0)
 	{
-		if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		{
-			printf("pdp\n");
-			exit_fd(pipefd[0], cmd, lst);
-		}
-
+		// printf("outpipe = %d\n", cmd->outpipe);
+		// if (dup2(pipefd[0], STDIN_FILENO) == -1)
+		// {
+		// 	printf("pdp\n");
+		// 	exit_fd(pipefd[0], cmd, lst);
+		// }
+		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
+			exit_fd(cmd->outpipe, cmd, lst);
+		// close(cmd->outpipe);
 		if (!ft_exec_cmd(cmd, envp))
 		{
 			printf("mardi\n");
-			ft_close_fd(cmd, pipefd);
+			// ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
 		}
 		exit_tab(cmd, lst, 1);
 	}
+	close(cmd->outpipe);
 	// printf("HALLO\n");
-	ft_close_fd(cmd, pipefd);
-	// wait_children(pid_last, cmd);
-	wait(NULL);
+	// ft_close_fd(cmd, pipefd);
+	wait_children(pid_last, cmd);
+	// wait(NULL);
 	// printf("HALLO 2\n");
 }
 
@@ -133,7 +140,7 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 	int	i;
 
 	i = 0;
-	printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
+	// printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
 	while (i <= nb_pipe)
 	{
 		if (i == 0)
@@ -142,7 +149,10 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 			last_pipe(cmd, envp, lst);
 		else
 			middle_pipe(cmd, envp, lst);
+		if (i < nb_pipe)
+			cmd->next->outpipe = cmd->outpipe;
 		i++;
 		cmd = cmd->next;
 	}
+	// while (wait(NULL) > 0);
 }
