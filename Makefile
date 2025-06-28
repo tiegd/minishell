@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/25 11:16:31 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/06/27 17:52:11 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,23 @@ BIN = bin/
 
 DIR_SRC = src/
 
-SRC = 	main.c				\
-		parsing.c			\
-		ft_multi_split.c	\
-		echo.c				\
-		env.c				\
-		expend.c			\
-		export.c			\
-		linked_list.c		\
-		init_cmd.c			\
-		handle_quote.c		\
-		handle_env_var.c	\
-		# lexing_input.c	\
-			
+SRC = 	main.c					\
+		parsing.c				\
+		ft_multi_split.c		\
+		echo.c					\
+		env.c					\
+		expend.c				\
+		export.c				\
+		linked_list.c			\
+		init_cmd.c				\
+		handle_quote.c			\
+		handle_env_var.c		\
+		identifier.c			\
+		identifier_2.c			\
+		multi_split_utils.c		\
+		multi_split_utils_2.c	\
+		free.c									
+
 LIBS = 	Libft/libft.a	\
 
 OBJ = $(addprefix $(BIN), $(SRC:.c=.o))

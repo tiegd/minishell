@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/24 09:01:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/27 15:50:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,10 +240,11 @@ char	*handle_env_var(char *prompt, char **env)
 		return (NULL);
 	free(quote_dollars);
 	final = join_parts(isolated);
-	// free_all(isolated);
-	printf("final str = %s\n", final);
-	free(final);
+	if (!final)
+	{
+		free_all(isolated);
+		return (NULL);
+	}
 	// print_tab_char(final);
-
-	return (NULL);
+	return (final);
 }

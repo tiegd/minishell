@@ -6,20 +6,11 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/18 15:06:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/27 16:18:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*isalnum où le '_' est autorisé*/
-int	exp_isalnum(int c) 
-{
-	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
-		return (1);
-	else
-		return (0);
-}
 
 // /*compare les strings jusqu'au caractère passé en paramètre*/
 // int		strcmp_until_char(char *s1, char *s2, char c)
@@ -99,6 +90,7 @@ char	*expend(char *arg, char **env)
 	int len;
 	char *temp;
 	char *expend;
+	(void)env;
 
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '$')
@@ -112,7 +104,7 @@ char	*expend(char *arg, char **env)
 	temp = ft_substr(arg, start, len);
 	if (!temp)
 		return (NULL);
-	expend = getenv(temp); //extract_env(temp, env, malloc_error);
+	expend = getenv(temp);
 	free(temp);
 	free(arg);
 	return (expend);

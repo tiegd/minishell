@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/25 13:37:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/27 18:37:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ int	ft_parsing(char *input, char **env)
 	i = 0;
 	cmd = NULL;
 	// syntaxe_error(input);
+	printf("error\n");
+
 	len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, env);

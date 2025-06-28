@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/25 08:50:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/28 14:18:05 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ enum e_types
 	PATH,
 };
 
-
-
 /*--------FUNCTION-------*/
 
-char	**ft_multi_split(char const *s);
 // int		ft_check_prompt(char *input);
-int		ft_count_word(const char *s);
+char	**ft_multi_split(char *s);
+int		ft_count_word(char *s);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 int 	ft_parsing(char *input, char **env);
 t_cmd	*ft_init_cmd(t_token *token);
@@ -78,9 +76,28 @@ int		is_ws(char c);
 
 /*--------UTILS----------*/
 
+/*-for multi_split-*/
+
+int		extract_token(char **double_tab, char *s, t_input *in);
+int		handle_special_char(char **double_tab, char *s, t_input *in);
+int		check_empty_s(const char *s, char c, char d);
+
+void	update_quotes(char c, int *sq, int *dq);
+void	init_index(t_input *in);
+void	skip_special_char(char *s, t_input *in);
+void	skip_white_space(char *s, t_input *in);
+void	skip_alpha(char *s, int *sq, int *dq, int *i);
+void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
+
+/*--------IDENTIFIERS------*/
+
 int		is_quote(char c);
 int		is_dq(char c);
 int		is_sq(char c);
+int		is_append(char c, char d);
+int		is_here_doc(char c, char d);
+int		is_special(char c);
+int		is_ws(char c);
 int		exp_isalnum(int c);
 
 /*--------BUILT-IN--------*/
@@ -89,6 +106,9 @@ void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd);
 char	*expend(char *arg, char **env);
 
+/*--------FREE(S)--------*/
+
+char	**free_split(char **double_tab, int nb_word);
 
 /*-----------HELP--------------------*/
 
