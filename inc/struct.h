@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/25 18:30:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/28 15:30:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_cmd
 	t_redir			*infiles;
 	t_redir			*outfiles;
 	int				type;
-	// int				*infile; //initialiser a STDIN si pas de redirection
-	// int				*outfile; //initialiser a STDOUT si pas de redirection
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.

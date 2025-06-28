@@ -6,11 +6,33 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/24 09:04:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/28 14:31:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	copy_dq(char *str, int *index, int *start)
+{
+	(*index)++;
+	while(str[*index] && str[*index] != DQ)
+	{
+		str[*start] = str[*index];
+		(*start)++;
+		(*index)++;
+	}
+}
+
+static void	copy_sq(char *str, int *index, int *start)
+{
+	(*index)++;
+	while(str[*index] && str[*index] != SQ)
+	{
+		str[*start] = str[*index];
+		(*start)++;
+		(*index)++;
+	}
+}
 
 /*enleve les quotes en trop dans un token et retourne la nouvelle chaine*/
 char	*delete_quote(char *str)
@@ -23,17 +45,9 @@ char	*delete_quote(char *str)
 	while (str[index])
 	{
 		if (str[index] == DQ)
-		{
-			index++;
-			while(str[index] && str[index] != DQ)
-				str[start++] = str[index++];
-		}
+			copy_dq(str, &index, &start);
 		if (str[index] == SQ)
-		{
-			index++;
-			while(str[index] && str[index] != SQ)
-				str[start++] = str[index++];
-		}
+			copy_sq(str, &index, &start);	
 		if (is_quote(str[index]))
 			index++;
 		if (str[index] == '\0')

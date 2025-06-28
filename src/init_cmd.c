@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/16 16:57:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/28 14:42:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*remplir les redirections*/
 t_redir		*add_redir(t_redir *list, t_token *token)
 {
-	t_redir		*new;
-	t_redir *temp;
+	t_redir	*new;
+	t_redir	*temp;
 
 	new = malloc(sizeof(t_redir));
 	if (!new)
@@ -30,7 +30,7 @@ t_redir		*add_redir(t_redir *list, t_token *token)
 	new->type = token->type;
 	new->next = NULL;
 	if (!list)
-		return	(new);
+		return (new);
 	temp = list;
 	while (temp->next != NULL)
 		temp = temp->next;
@@ -72,51 +72,6 @@ t_cmd *new_cmd(void)
 	return (new);
 }
 
-// int		count_args(char **args)
-// {
-// 	int count;
-
-// 	count = 0;
-// 	if (!args)
-// 		return (count);
-// 	while (args[count])
-// 	{
-// 		count++;
-// 	}
-// 	return (count);
-// }
-
-// char	**add_alloc(char **old)
-// {
-// 	char	**new;
-// 	int		len_tab;
-	
-// 	if(!old)
-// 	{
-// 		new = malloc(sizeof(char *));
-// 		if (!new)
-// 		{
-// 			// perror("malloc error");
-// 			return (NULL);
-// 		}
-// 		return (new);
-// 	}
-// 	len_tab = count_args(old);
-// 	new = malloc(sizeof(char *) * len_tab);
-// 	if ()
-	
-	
-	
-// }
-
-// 	if(!old)
-// 	{
-// 		new = malloc(sizeof(char *));
-// 		if (!new)
-// 			return (malloc(sizeof))
-// 	}
-// }
-
 /*compte le nombre d'args qu'il y a dans le prompte rentré*/
 int		count_args(t_token	*token)
 {
@@ -142,7 +97,6 @@ int		count_args(t_token	*token)
 }
 
 /*initialiser chaque commande en les séparants par pipe*/
-
 static void	*handle_cmd_args(t_cmd *cmd, t_token **token)
 {
 	int	i;
@@ -195,7 +149,7 @@ t_cmd	*ft_init_cmd(t_token *token)
 			return (perror("malloc"), NULL);
 		cmd->args = ft_calloc(n_args + 1, sizeof(char *));
 		if (!cmd->args)
-			return (perror("malloc"), NULL);
+			return (perror("calloc"), NULL);
 		handle_cmd_args(cmd, &token);
 		cmd_add_back(&head, cmd);
 		if (token)
@@ -203,13 +157,6 @@ t_cmd	*ft_init_cmd(t_token *token)
 	}
 	return (head);
 }
-
-
-
-
-
-
-
 
 // /*initialiser chaque commande en les séparants par pipe*/
 // t_cmd	*ft_init_cmd(t_token *token)
