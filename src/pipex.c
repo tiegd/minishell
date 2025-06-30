@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 08:48:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 08:56:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,20 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if (cmd->infiles != NULL)
+		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
+			exit_fd(cmd->outpipe, cmd, lst);
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			exit_fd(pipefd[1], cmd, lst);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		if (!ft_exec_cmd(cmd, envp))
 		{
-			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-				exit_fd(pipefd[1], cmd, lst);
-			close(pipefd[0]);
+			ft_close_fd(cmd, pipefd);
+			exit_tab(cmd, lst, 127);
 		}
 	}
+	close(pipefd[1]);
+	cmd->outpipe = pipefd[0];
 }
 
 // Run the the command and redirect the output to the terminal.
