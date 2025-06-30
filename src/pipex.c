@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 08:56:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 10:33:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			exit_fd(pipefd[1], cmd, lst);
+		if (cmd->infiles != NULL || cmd->outfiles != NULL)
+			ft_fd_to_pipe(cmd, lst);
+		if (cmd->outfiles == NULL)
+			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		if (!ft_exec_cmd(cmd, envp))
@@ -73,10 +76,14 @@ static void	middle_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_pid_error(pipefd, cmd, lst);
 	if (pid == 0)
 	{
-		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
-			exit_fd(cmd->outpipe, cmd, lst);
-		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			exit_fd(pipefd[1], cmd, lst);
+		if (cmd->infiles != NULL || cmd->outfiles != NULL)
+			ft_fd_to_pipe(cmd, lst);
+		if (cmd->infiles == NULL)
+			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
+				exit_fd(cmd->outpipe, cmd, lst);
+		if (cmd->outfiles == NULL)
+			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+				exit_fd(pipefd[1], cmd, lst);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		if (!ft_exec_cmd(cmd, envp))
@@ -100,8 +107,11 @@ static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 		exit_tab(cmd, lst, EXIT_FAILURE);
 	if (pid_last == 0)
 	{
-		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
-			exit_fd(cmd->outpipe, cmd, lst);
+		if (cmd->infiles != NULL || cmd->outfiles != NULL)
+			ft_fd_to_pipe(cmd, lst);
+		if (cmd->infiles == NULL)
+			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
+				exit_fd(cmd->outpipe, cmd, lst);
 		close(cmd->outpipe);
 		if (!ft_exec_cmd(cmd, envp))
 			exit_tab(cmd, lst, 127);

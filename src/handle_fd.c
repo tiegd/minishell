@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/25 14:18:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 09:30:36 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,21 @@ void	ft_open_fd(t_cmd *cmd)
 		ft_open_infile(cmd);
 	if (cmd->outfiles)
 		ft_open_outfile(cmd);
+}
+
+void	ft_fd_to_pipe(t_cmd *cmd, t_token *lst)
+{
+	ft_open_fd(cmd);
+	if (cmd->fd_infile != -1)
+	{
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(cmd->fd_infile, cmd, lst);
+	}
+	if (cmd->fd_outfile != -1)
+	{
+		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(cmd->fd_outfile, cmd, lst);
+	}
 }
 
 // int	ft_open_fd(t_cmd *cmd)
