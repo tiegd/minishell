@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/27 16:50:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 08:46:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,25 @@ static void	first_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 	int	pid;
 	int	pipefd[2];
 
-	// printf(YELLOW"in fisrt_pipe\n"RESET);
 	if(pipe(pipefd) == -1)
 		exit_tab(cmd, lst, EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, cmd, lst);
-	// printf(GREEN"pid = %d\n"RESET, pid);
 	if (pid == 0)
 	{
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			exit_fd(pipefd[1], cmd, lst);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		// printf("667\n");
 		if (!ft_exec_cmd(cmd, envp))
 		{
-			printf("mardi\n");
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
 		}
 	}
-	// printf("ouioui\n");
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
-	// printf("outpipe = %d\n", cmd->outpipe);
 }
 
 // Run a middle command and redirect the output to the following command.
@@ -103,19 +97,11 @@ static void	last_pipe(t_cmd *cmd, char *envp[], t_token *lst)
 			exit_fd(cmd->outpipe, cmd, lst);
 		close(cmd->outpipe);
 		if (!ft_exec_cmd(cmd, envp))
-		{
-			printf("mardi\n");
-			// ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, lst, 127);
-		}
 		exit_tab(cmd, lst, 1);
 	}
 	close(cmd->outpipe);
-	// printf("HALLO\n");
-	// ft_close_fd(cmd, pipefd);
 	wait_children(pid_last, cmd);
-	// wait(NULL);
-	// printf("HALLO 2\n");
 }
 
 // This function shall reproduce the behavior of '|' in bash.
