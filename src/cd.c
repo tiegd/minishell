@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/04 12:53:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/30 11:47:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	cd(char	**args, char **env, bool malloc_error)
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(": OLDPWD not set\n", 2);
 		}
-		if (chdir(path) == - 1)
+		if (chdir(path) == -1)
 		{
 			perror("error with chdir");
 			free(path);

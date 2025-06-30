@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/04 15:46:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:31:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,3 +249,16 @@ char	**ft_export(char **old_env, char *str)
 }
 
 /*d'abord expend si il y a des $ dan la variable d'environnement et ensuite checker si elle existe deja ou si on doit juste l'ajouter a l'environnement*/
+
+char	**loop_export(char **env, char **args)
+{
+	int	i;
+
+	i = 1;
+	while (args[i] != NULL)
+	{
+		env = ft_export(env, args[i]);
+		i++;
+	}
+	return (env);
+}

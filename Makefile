@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/25 16:45:11 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/06/30 11:07:46 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC =	main.c				\
 		handle_quote.c		\
 		handle_fd.c			\
 		clean.c				\
-		exit.c				\
+		clean_exit.c		\
 		echo.c				\
 		test_functions.c	\
 		env.c				\
@@ -52,6 +52,7 @@ SRC =	main.c				\
 		cd.c				\
 		unset.c 			\
 		env_dash_i.c		\
+		exec.c				\
 			
 LIBS = 	Libft/libft.a	\
 

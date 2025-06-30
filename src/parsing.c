@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 08:49:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 10:52:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,52 +100,6 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 	return (new_tab);
 }
 
-// Check if the cmd exist with access().
-char	*ft_is_bin(char **paths, int nb_path)
-{
-	int		i;
-
-	i = 0;
-	while (i <= nb_path)
-	{
-		if (access(paths[i], F_OK) == 0)
-			return (paths[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-// Check if the firt word is a cmd or anything right.
-
-// bool	ft_first_word(t_token *lst)
-// {
-// 	if (ft_strlen(lst->content) == 1 && lst->content[0] == '<')
-// 		return (true);
-// 	else if (ft_strlen(lst->content) == 2 && lst->content[0] == '<' && lst->content[1] == '<')
-// 		return (true);
-// 	else if (ft_is_builtin(lst->content))
-// 	{
-// 		printf(CYAN"Builtin = %s\n"RESET, lst->content);
-// 		// ft_exec_builtin();
-// 		return (true);
-// 	}
-// 	else
-// 		return (false);
-// }
-
-// Run the cmd if it's a builtin.
-
-int	ft_exec_builtin(char **args)
-{
-	(void)args;
-	return (0);
-}
-
-// void	ft_multi_cmd(lst)
-// {
-	
-// }
-
 char	*ft_path_line(char **env)
 {
 	int		i;
@@ -167,7 +121,6 @@ char	*ft_path_line(char **env)
 				j++;
 			}
 			path[j] = '\0';
-			// printf("path = %s\n", path);
 			return (path);
 		}
 		i++;
@@ -185,90 +138,25 @@ int	ft_nb_path(char **path)
 	return (i);
 }
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env)
-{
-	char	**paths;
-	char	*line;
-	int		nb_path;
-
-	line = ft_path_line(env);
-	paths = ft_split(line, ':');
-	nb_path = ft_nb_path(paths);
-	paths = ft_add_cmd(paths, nb_path, cmd);
-	if (is_builtin(cmd->args[0]))
-	{
-		if (ft_exec_builtin(cmd->args))
-			exit(0);
-	}
-	else if (ft_is_bin(paths, nb_path))
-	{
-		cmd->pathname = ft_is_bin(paths, nb_path);
-		execve(cmd->pathname, cmd->args, env);
-	}
-	return (false);
-}
-
-void	ft_one_cmd(t_cmd *cmd, char *envp[], t_token *lst)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		exit_tab(cmd, lst, 127);
-	if (pid == 0)
-	{
-		if (!ft_exec_cmd(cmd, envp))
-			exit_tab(cmd, lst, 127);
-		exit_tab(cmd, lst, 1);
-	}
-	wait_children(pid, cmd);
-}
-
 int	ft_parsing(char *input, char **env, t_token *token)
 {
 	int		i;
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
-	// t_token	*token;
 	t_cmd	*cmd;
-	(void)env;
 
 	i = 0;
 	cmd = NULL;
-	// syntaxe_error(input);
 	len_tab = ft_count_word(input);
-	// if	(ft_strchr(input, '$'))
-	// 	prompt = handle_env_var(prompt);
 	prompt = ft_multi_split(input);
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);
-	
-	// ft_print_lst(token);
 	cmd = ft_init_cmd(token);
-	// printf("\n");
-	// ft_print_cmd(cmd);
-	// printf("\n");
 	nb_pipe = ft_count_pipe(cmd);
-	// printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
 	if (nb_pipe > 0)
 		pipex(cmd, env, nb_pipe, token); 
 	else
 		ft_one_cmd(cmd, env, token);
-
-
-	
-	/*-------------------useless---------------------------*/
-	// ft_print_cmd(cmd);
-	// cmd = ft_init_cmd(token);
-	// cmd = malloc(sizeof(t_cmd));
-	// cmd->args = prompt;
-	// while (i < len_tab)
-	// 	i++;
-	// ft_check_lst(lst);
-	// if (ft_is_pipe(lst))
-	// 	pipex(lst);
-	// else
-		// ft_one_cmd(lst, cmd, env);
 	return (1);
 }

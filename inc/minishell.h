@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/30 09:30:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:04:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
-bool	ft_exec_cmd(t_cmd *cmd, char **env);
-int	    is_builtin(char *content);
 void	define_type(t_token *lst);
+char	*ft_path_line(char **env);
+int	ft_nb_path(char **path);
 
 /*--------HANDLE-LIST----------*/
 
@@ -106,17 +106,25 @@ char	**ft_export(char **old_env, char *str);
 void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
 char	**unset(char *var, char **old_env);
+char	**loop_unset(char **env, char **args);
 char	*expend(char *arg, char **env, bool malloc_error);
+char	**loop_export(char **env, char **args);
 
 /*--------BUILT-IN_UTILS--------*/
 
 int	nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
 
+/*--------EXEC--------*/
+
+int	    is_builtin(char *content);
+int		ft_exec_builtin(t_cmd *cmd, char **env);
+bool	ft_exec_cmd(t_cmd *cmd, char **env);
+void	ft_one_cmd(t_cmd *cmd, char *envp[], t_token *lst);
+
 /*------------PIPEX------------*/
 
 void	pipex(t_cmd *cmd, char *env[], int nb_pipe, t_token *lst);
-// int		ft_count_pipe(t_token *lst);
 int		ft_count_pipe(t_cmd *cmd);
 void    wait_children(pid_t pid_last, t_cmd *cmd);
 

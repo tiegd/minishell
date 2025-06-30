@@ -6,29 +6,11 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 10:33:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 10:42:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Count the number of '|' in the prompt.
-
-// int	ft_count_pipe(t_token *lst)
-// {
-// 	t_token	*tmp;
-// 	int		count;
-
-// 	tmp = lst;
-// 	count = 0;
-// 	while (tmp->next)
-// 	{
-// 		if (tmp->type == PIPE)
-// 			count++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (count);
-// }
 
 // Run the first command and redirect the output to the following command.
 
@@ -142,5 +124,4 @@ void	pipex(t_cmd *cmd, char *envp[], int nb_pipe, t_token *lst)
 		i++;
 		cmd = cmd->next;
 	}
-	// while (wait(NULL) > 0);
 }
