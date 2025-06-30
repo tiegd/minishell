@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/24 08:46:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 08:26:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,22 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	return (false);
 }
 
+void	ft_one_cmd(t_cmd *cmd, char *envp[], t_token *lst)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit_tab(cmd, lst, 127);
+	if (pid == 0)
+	{
+		if (!ft_exec_cmd(cmd, envp))
+			exit_tab(cmd, lst, 127);
+		exit_tab(cmd, lst, 1);
+	}
+	wait_children(pid, cmd);
+}
+
 int	ft_parsing(char *input, char **env, t_token *token)
 {
 	int		i;
@@ -239,14 +255,15 @@ int	ft_parsing(char *input, char **env, t_token *token)
 	
 	// ft_print_lst(token);
 	cmd = ft_init_cmd(token);
-	printf("\n");
-	ft_print_cmd(cmd);
-	printf("\n");
+	// printf("\n");
+	// ft_print_cmd(cmd);
+	// printf("\n");
 	nb_pipe = ft_count_pipe(cmd);
-	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
+	// printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
 	if (nb_pipe > 0)
 		pipex(cmd, env, nb_pipe, token); 
-
+	else
+		ft_one_cmd(cmd, env, token);
 
 
 	

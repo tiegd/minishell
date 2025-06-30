@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/25 11:21:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 08:18:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_count_pipe(t_cmd *cmd)
 		count++;
 		tmp = tmp->next;
 	}
-	printf("count = %d\n", count);
 	return (count);
 }
 
