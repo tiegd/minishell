@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/30 14:04:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:13:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**loop_unset(char **env, char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		env = unset(env, args[i]);
+		env = unset(args[i], env);
 		i++;
 	}
 	return (env);

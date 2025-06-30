@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/18 13:17:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:16:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,21 @@
 
 int	main(int ac, char **av, char **env)
 {
+	char	**new_env;
 	char	*input;
 	t_cmd	*cmd;
 	t_token	*lst;
 
 	(void)ac;
 	(void)av;
+	new_env = env;
 	lst = malloc(sizeof(t_token));
 	cmd = malloc(sizeof(t_cmd));
 	while ((input = readline("minishell delpeche > ")) != NULL)
 	{
 		if (*input)
 			add_history(input);
-		if (!ft_parsing(input, env, lst))
+		if (!ft_parsing(input, new_env, lst))
 		{
 			printf("Error input\n");
 			return (1);

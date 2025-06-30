@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 14:05:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:46:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 	if (ft_strcmp(cmd->args[0], "export"))
 		env = loop_export(env, cmd->args);
 	if (ft_strcmp(cmd->args[0], "unset"))
-		// env = unset(cmd->args[1], env);
 		env = loop_unset(env, cmd->args);
 	if (ft_strcmp(cmd->args[0], "env"))
 		ft_env(env, STDOUT_FILENO);
@@ -52,25 +51,30 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 
 // Run only one command with ft_exec_cmd.
 
-void	ft_one_cmd(t_cmd *cmd, char *envp[], t_token *lst)
+void	ft_one_cmd(t_cmd *cmd, char **env, t_token *lst)
 {
 	int	pid;
 
-	pid = fork();
-	if (pid == -1)
-		exit_tab(cmd, lst, 127);
-	if (pid == 0)
+	if (!is_builtin(cmd->args[0]))
 	{
-		if (!ft_exec_cmd(cmd, envp))
+		pid = fork();
+		if (pid == -1)
 			exit_tab(cmd, lst, 127);
-		exit_tab(cmd, lst, 1);
+		if (pid == 0)
+		{
+			if (!ft_exec_cmd(cmd, env, lst))
+				exit_tab(cmd, lst, 127);
+			exit_tab(cmd, lst, 1);
+		}
+		wait_children(pid, cmd);
 	}
-	wait_children(pid, cmd);
+	else
+		ft_exec_cmd(cmd, env, lst);
 }
 
 // Called by Pipex or ft_one_cmd.
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env)
+bool	ft_exec_cmd(t_cmd *cmd, char **env, t_token *lst)
 {
 	char	**paths;
 	char	*line;
@@ -82,8 +86,8 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	paths = ft_add_cmd(paths, nb_path, cmd);
 	if (is_builtin(cmd->args[0]))
 	{
-		if (ft_exec_builtin(cmd, env))
-			exit(0);
+		if (!ft_exec_builtin(cmd, env))
+			exit_tab(cmd, lst, 127);
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{
