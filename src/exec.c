@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 16:46:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/01 09:00:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 	if (ft_strcmp(cmd->args[0], "env"))
 		ft_env(env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 // Run only one command with ft_exec_cmd.
