@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/01 09:00:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/01 11:02:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
 		ft_echo(cmd);
-	// if (ft_strcmp(cmd->args[0], "cd"))
-	// 	cd(cmd->args, env, malloc_error);
+	if (ft_strcmp(cmd->args[0], "cd"))
+		cd(cmd->args, env, false);//malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "export"))
