@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 12:05:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:42:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,8 @@ int	ft_parsing(char *input, char **env)
 	len_tab = count_tab(prompt);
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);
+	nb_pipe = ft_count_pipe(&token);
 	cmd = ft_init_cmd(token);
-	nb_pipe = ft_count_pipe(cmd);
 	if (nb_pipe > 0)
 		pipex(cmd, env, nb_pipe); 
 	else

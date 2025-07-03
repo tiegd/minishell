@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/30 10:42:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:42:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/wait.h>
 
 // Count the number of '|' in the prompt.
 
-int	ft_count_pipe(t_cmd *cmd)
+int	ft_count_pipe(t_token **token)
 {
-	t_cmd	*tmp;
+	t_token	*tmp;
 	int		count;
 
-	tmp = cmd;
+	tmp = *token;
 	count = 0;
 	while (tmp->next)
 	{
-		count++;
+		if (tmp->type == PIPE)
+			count++;
 		tmp = tmp->next;
 	}
 	return (count);

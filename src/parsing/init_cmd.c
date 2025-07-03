@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 10:54:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:41:05 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_cmd *new_cmd(void)
 	return (new);
 }
 
-/*compte le nombre d'args qu'il y a dans le prompte rentré*/
+/*compte le nombre d'args qu'il y a dans le prompt rentré*/
 int		count_args(t_token	*token)
 {
 	int count;

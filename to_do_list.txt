@@ -80,5 +80,12 @@ mais sinon :
 lorsqu'on va rentrer $A dans le terminal ca va effectuer la commande.
 Sauf lorsqu'on va faire echo $A dans ce cas la on va afficher "ls -l".)
 
+Creer un systeme de garbage collector.
+
+Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait.
+
+
+
+
 
 

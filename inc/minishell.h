@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 11:30:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:52:17 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "struct.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -49,6 +50,8 @@
 
 enum e_types
 {
+	TRUE,
+	FALSE,
 	INPUT,
 	OUTPUT,
 	APPEND,
@@ -126,7 +129,7 @@ int		exp_isalnum(int c);
 /*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
-void	ft_env(char **env, int fd);
+void	ft_env(char **env, int fd);\
 char	**ft_export(char **old_env, char *str);
 void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
@@ -154,8 +157,16 @@ void	ft_one_cmd(t_cmd *cmd, char **env);
 /*------------PIPEX------------*/
 
 void	pipex(t_cmd *cmd, char **env, int nb_pipe);
-int		ft_count_pipe(t_cmd *cmd);
+int		ft_count_pipe(t_token **token);
 void    wait_children(pid_t pid_last, t_cmd *cmd);
+
+/*--------GARBAGE_COLLECTOR----*/
+
+void	*gb_malloc(size_t size, t_gmalloc *lst);
+void	gmalloc_add_back(t_list **lst, t_list *new);
+void	gfree(t_gmalloc **head, void *ptr);
+void	gb_free_all(t_gmalloc **head);
+t_gmalloc	*gmalloc_last(t_gmalloc *lst);
 
 /*------------CLEAN------------*/
 
