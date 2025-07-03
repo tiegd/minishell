@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:29:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:55:00 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,17 @@ static int	test_count_pipe(char *input)
 
 int	main(int ac, char **av, char **env)
 {
-	char	*input;
-	int		nb_pipe;
-	t_cmd	*cmd;
-	t_token	*lst;
-
+	char	*line;
 	(void)ac;
 	(void)av;
-	lst = malloc(sizeof(t_token));
-	cmd = malloc(sizeof(t_cmd));
-	while (1)
+
+	while ((line = readline("minizeub > ")) != NULL)
 	{
-		input = readline("minizeub > ");
-		if (!ft_parsing(input, env, lst))
+		if (!ft_parsing(line, env))
 		{
-			// add_history(line);
-			printf("Error input\n");
+			add_history(line);
+		}
+		if (ft_parsing(line, env))
 			return (1);
 		}
 		nb_pipe = test_count_pipe(input);

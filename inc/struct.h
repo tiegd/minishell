@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/17 13:18:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:52:33 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,21 @@ typedef struct s_cmd
 	bool			malloc_error;
 	struct s_cmd	*next;
 }					t_cmd;
+
+typedef struct s_input
+{
+	int		i;
+	int		index;
+	int		count;
+	int		sq;
+	int		dq;
+}t_input;
+
+typedef struct s_data
+{
+	char			**env;
+	bool 			malloc_error;
+	unsigned int	exit_status;
+}t_data;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:16:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:54:05 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-	{
-		ft_lstfree(lst);
-		return NULL;
-	}
+		return (ft_lstfree(lst), NULL);
 	new->content = malloc((len + 1) * sizeof(char));
 	if (!new->content)
-	{
-		free(new);
-		ft_lstfree(lst);
-		return NULL;
-	}
+		return (free(new), NULL);
 	i = -1;
 	while (++i < len)
 		new->content[i] = s[i];
@@ -57,6 +50,8 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len)
 	return (lst);
 }
 
+ /* Verifie la commande entré en argument,
+ renvoi 1 si c'est un builtin ou 0 si ca ne l'est pas*/
 int	is_builtin(char *content)
 {
 	if (ft_strcmp(content, "echo"))
@@ -77,6 +72,8 @@ int	is_builtin(char *content)
 		return (0);
 }
 
+/*Defini le type de chaques tokens de la liste passé en argument
+et rempli la variable "type" de chaque noeud de la liste*/
 void	define_type(t_token *lst)
 {
 	while (lst != NULL)
@@ -103,32 +100,6 @@ void	define_type(t_token *lst)
 	}
 }
 
-// int	define_type(t_token *lst)
-// {
-// 	while (lst != NULL)
-// 	{
-// 		if (ft_strcmp(lst->content, "|"))
-// 			return (PIPE);
-// 		else if (ft_strcmp(lst->content, "<"))
-// 			return (INPUT);
-// 		else if (ft_strcmp(lst->content, ">"))
-// 			return (OUTPUT);
-// 		else if (ft_strcmp(lst->content, ">>"))
-// 			return (APPEND);
-// 		else if (ft_strcmp(lst->content, "<<"))
-// 			return (HERE_DOC);
-// 		else if (ft_strchr(lst->content, '$'))
-// 			return (VAR);
-// 		else if (ft_strchr(lst->content, '/'))
-// 			return (PATH);
-// 		// else if (is_builtin(content))
-// 		// 	return (BUILTIN);
-// 		else
-// 			 (ARGS);
-// 		lst = lst->next;
-// 	}
-// }
-
 // Move each element of the prompt in a linked list.
 t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 {
@@ -138,14 +109,17 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 	
 	i = 0;
 	lst = NULL;
+	// printf("len_tab = %d\n", len_tab);
 	while (i < len_tab)
 	{
+		// printf("prompt [%d] : %s\n", i, prompt[i]);
 		len = ft_strlen(prompt[i]);
 		lst = ft_lst_addback(lst, prompt[i], len);
+		if (!lst)
+			return (ft_lstfree(lst), NULL);
 		i++;
 	}
 	define_type(lst);
-	// printf("nb_args = %d\n", lst->nb_args);
 	ft_print_lst(lst);
 	return (lst);
 }

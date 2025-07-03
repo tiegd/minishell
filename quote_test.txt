@@ -2,5 +2,10 @@ e"ch"o "bon'jo'ur"ca'v'ala"'tea'm"
 
 e"ch"o "bonjour'$PATH'"oui'$USER'
 
-temp = e"ch"o "bonjour'
-exp = $PATH
+tab[0] = e"ch"o "bonjour'
+tab[1] = $PATH
+tab[2] = '"oui'
+tab[3] = $USER
+tab[4] = '
+
+<infile ls|cat>outfile

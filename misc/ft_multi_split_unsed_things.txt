@@ -1,0 +1,163 @@
+// static char	**ft_new_str(char **double_tab, char *s, int nb_word)
+// {
+// 	int		i;
+// 	int		index;
+// 	int		count;
+// 	int		sq;
+// 	int		dq;
+
+// 	count = 0;
+// 	i = 0;
+// 	sq = 0;
+// 	dq = 0;
+// 	index = 0;
+// 	while (s[i] && count < nb_word)
+// 	{
+// 		skip_white_space(s, sq, dq, &index, &i);
+// 		if (!handle_special_char(double_tab, s, &i, &index, &count))
+// 			return (free_all(double_tab), NULL);
+// 		skip_alpha(s, &sq, &dq, &i);
+// 		if (sq % 2 == 0 && dq % 2 == 0)
+// 		{
+// 			if (!extract_token(double_tab, s, &i, &index, &count))
+// 				return (free_split(double_tab, count), NULL);
+// 		}
+// 		else
+// 		{
+// 			skip_beetwen_quotes(s, &i, &sq, &dq);
+// 			if (is_ws(s[i]) && sq % 2 == 0 && dq % 2 == 0)
+// 			{
+// 				if (!extract_token(double_tab, s, &i, &index, &count))
+// 					return (free_split(double_tab, count), NULL);
+// 			}
+// 		}
+// 	}
+// 	return (double_tab);
+// }
+
+/*--------BON MAIS PAS NORMÉ--------*/
+// static char	**ft_new_str(char **double_tab, const char *s, int nb_word)
+// {
+// 	int		i;
+// 	int		index;
+// 	int		count;
+// 	int		sq_quote;
+// 	int		dq_quote;
+
+// 	count = 0;
+// 	i = 0;
+// 	sq_quote = 0;
+// 	dq_quote = 0;
+// 	index = 0;
+// 	while (s[i] && count < nb_word)
+// 	{
+// 		if (is_ws(s[i]) && sq_quote % 2 == 0 && dq_quote % 2 == 0)
+// 		{
+// 			while (s[i] && is_ws(s[i]) && sq_quote % 2 == 0 && dq_quote % 2 == 0)
+// 				i++;
+// 			index = i;
+// 		}
+// 		if (s[i] && is_special(s[i]) && !is_append(s[i], s[i + 1]) && !is_here_doc(s[i], s[i + 1]))
+// 		{
+// 			i++;
+// 			double_tab[count] = ft_substr(s, index, i - index);
+// 			if (!double_tab[count])
+// 				return (free_split(double_tab, count));
+// 			index = i;
+// 			count++;
+// 		}
+// 		else if (s[i] && is_append(s[i], s[i + 1]) && is_here_doc(s[i], s[i + 1]))
+// 		{
+// 			i += 2;
+// 			double_tab[count] = ft_substr(s, index, i - index);
+// 			if (!double_tab[count])
+// 				return (free_split(double_tab, count));
+// 			index = i;
+// 			count++;
+// 		}
+// 		while (s[i] && !is_ws(s[i]) && !is_special(s[i]))
+// 		{
+// 			if (is_sq(s[i]))
+// 				sq_quote++;
+// 			if (is_dq(s[i]))
+// 				dq_quote++;
+// 			i++;
+// 		}
+// 		if (sq_quote % 2 == 0 && dq_quote % 2 == 0)
+// 		{
+// 			double_tab[count] = ft_substr(s, index, i - index);
+// 			if (!double_tab[count])
+// 				return (free_split(double_tab, count));
+// 			index = i;
+// 			count++;
+// 		}
+// 		else
+// 		{
+// 			while (s[i] && (sq_quote % 2 == 1 || dq_quote % 2 == 1))
+// 			{
+// 				if (is_sq(s[i]))
+// 					sq_quote++;
+// 				if (is_dq(s[i]))
+// 					dq_quote++;
+// 				i++;
+// 			}
+// 			if (is_ws(s[i]) && sq_quote % 2 == 0 && dq_quote % 2 == 0)
+// 			{
+// 				double_tab[count] = ft_substr(s, index, i - index);
+// 					if (!double_tab[count])
+// 						return (free_split(double_tab, count));
+// 				index = i;
+// 				count++;
+// 			}
+// 		}
+// 	}
+// 	return (double_tab);
+// }
+
+
+/*-------MAUVAIS---------*/
+// static char	**ft_new_str(char **double_tab, const char *s, int nb_word)
+// {
+// 	int		i;
+// 	int		index;
+// 	int		count;
+// 	int		j;
+// 	int		quote;
+
+// 	count = 0;
+// 	i = 0;
+// 	quote = 0;
+// 	while (s[i] && count < nb_word)
+// 	{
+// 		j = 0;
+// 		while (s[i] && is_ws(s[i]) && quote % 2 == 0)
+// 			i++;
+// 		index = i;
+// 		while (s[i] && !is_ws(s[i]))
+// 		{
+// 			if (is_quote(s[i]))
+// 				quote++;
+// 			i++;
+// 		}
+// 		if (quote % 2 == 0)
+// 		{
+// 			double_tab[count] = malloc((i - index + 1) * sizeof(char));
+// 			if (double_tab[count] == NULL)
+// 				return (free_split(double_tab, count));
+// 			while (index < i)
+// 				double_tab[count][j++] = s[index++];
+// 			double_tab[count][j] = '\0';
+// 			count++;
+// 		}
+// 		else
+// 		{
+// 			while (s[i] && quote % 2 == 1)
+// 			{
+// 				if (s[i] && is_quote(s[i]))
+// 					quote++;
+// 				i++;
+// 			}
+// 		}	
+// 	}
+// 	return (double_tab);
+// }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/06/17 13:29:05 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/07/03 09:51:25 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
+CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
 
 INCLUDE = inc
 
@@ -53,6 +53,24 @@ SRC =	main.c				\
 		env_dash_i.c		\
 			
 LIBS = 	Libft/libft.a	\
+SRC = 	main.c \
+		echo.c \
+		env.c \
+		parsing.c \
+		expend.c \
+		ft_multi_split.c \
+		linked_list.c \
+		init_cmd.c \
+		handle_quote.c \
+		handle_env_var.c \
+		multi_split_utils.c \
+		multi_split_utils_2.c \
+		identifier.c \
+		identifier_2.c \
+		free.c \
+		print_for_help.c \
+
+LIBS = 	Libft/libft.a \
 
 OBJ = $(addprefix $(BIN), $(SRC:.c=.o))
 DEPS =   $(OBJ:.o=.d)

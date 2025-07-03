@@ -1,0 +1,86 @@
+##############################
+##  CHECKLIST MINISHELL 42  ##
+##############################
+
+fait : ✅
+à faire : ❌
+
+===== 1. PARSING & LEXING =====
+[ ] Espaces / tabulations / \n multiples
+[ ] Quotes simples '...' : rien n'est interprété
+[ ] Quotes doubles "..." : expansion de variables autorisée
+[ ] Quotes non fermées → erreur
+[ ] Antislash \ échappe bien le caractère suivant
+[ ] Antislash en fin de ligne → continuation OK
+[ ] Expansion des variables : $VAR, $?, $0, $1...
+[ ] Variables inexistantes → chaîne vide
+[ ] Expansion dans les quotes : pas dans '...', oui dans "..."
+[ ] Mélange de texte et variables collées : "$USER42abc"
+[ ] Opérateurs : |, >, >>, <, <<, &&, || traités
+[ ] Gestion d'opérateurs mal placés (début/fin de ligne)
+[ ] Heredoc (<<) fonctionne : quotes, CTRL-C, EOF, expansions
+[ ] Parenthèses (si gérées) appariées correctement, support du nesting
+
+===== 2. AST & EXÉCUTION =====
+[ ] Arbre syntaxique bien construit (priorités respectées)
+[ ] Bon nombre de pipes créés (n-1 pour n commandes)
+[ ] Redirections bien gérées : >, >>, <, erreurs, permissions
+[ ] Mélange pipes + redirs fonctionne
+[ ] Fichiers ouverts/fermés proprement (pas de leaks FD)
+[ ] Code de retour $? mis à jour correctement
+
+===== 3. BUILT-INS =====
+[ ] echo (option -n gérée)
+[ ] cd (chemins relatifs/absolus, ~, -, erreurs)
+[ ] pwd (chemin actuel correct)
+[ ] export (affichage, update, tri, erreurs de syntaxe)
+[ ] unset (supprime variable proprement)
+[ ] env (affiche env courant sans variables vides)
+[ ] exit (code correct, trop d'args, non-numérique, free de tout)
+
+===== 4. GESTION DES SIGNAUX =====
+[ ] CTRL-C sur prompt → nouvelle ligne, retour à 130
+[ ] CTRL-\ (SIGQUIT) ignoré dans le shell
+[ ] CTRL-C transmis à un enfant (mais pas au shell)
+[ ] Heredoc interrompu proprement par CTRL-C (130)
+
+===== 5. MÉMOIRE & FICHIERS =====
+[ ] Valgrind : 0 leaks dans tous les cas
+[ ] Aucun file descriptor laissé ouvert
+[ ] Pas de double free, ni use-after-free (check ASan aussi)
+
+===== 6. EXÉCUTABLES & ENV =====
+[ ] execve utilise bien PATH
+[ ] ./ ou / absolu fonctionne
+[ ] Retour code 127 si not found, 126 si pas exécutable
+[ ] SHLVL incrémenté
+[ ] Pas de fork bomb possible (limite raisonnable de profondeur)
+
+===== 7. EDGE CASES / "H CASES" BONUS =====
+[ ] Espaces extrêmes :        ls        -l    |      wc
+[ ] Quotes imbriquées : "abc'def" et 'ghi"jkl'
+[ ] Heredoc dans pipeline : cat <<EOF | grep x
+[ ] Double redir : echo ok > a > b (seule la dernière compte)
+[ ] Paramètre vide : echo "$EMPTY"
+[ ] Fichier avec nom étrange : "a > b"
+[ ] Variables très longues (> 4096)
+[ ] Pipeline de 100 commandes
+[ ] kill -11 $$ dans minishell (le shell ne plante pas)
+[ ] Subshell avec builtin : (cd .. && pwd) → cwd inchangé
+
+===== 8. UX / BONUS =====
+[ ] Historique navigable (flèches ↑↓)
+[ ] Edition de ligne (Ctrl-A, Ctrl-E…) si readline
+[ ] Prompt lisible et personnalisable
+[ ] Commande help ou --version (bonus)
+
+===== 9. MODE NON-INTERACTIF =====
+[ ] ./minishell fonctionne avec : echo "ls" | ./minishell
+[ ] ./minishell < script.txt exécute le contenu puis s’arrête
+[ ] Pas de prompt, pas de boucle, pas d’attente utilisateur
+
+===== TIPS FINAUX =====
+[ ] Script de test automatique pour tous les cas ci-dessus
+[ ] Comparaison du comportement avec bash
+[ ] Documentation claire du design et des choix techniques
+[ ] Builtins dans le parent ou l’enfant selon le contexte

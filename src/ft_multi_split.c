@@ -6,159 +6,66 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/13 16:12:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:50:27 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
-#include <stdio.h>
 
-
-/*retourne 1 si c'est une double quote sinon 0*/
-int	is_dq(char c)
+int	ft_count_word(char *s)
 {
-	if (c == 34)
-		return (1);
-	return (0);
-}
+	t_input in;
 
-/*retourne 1 si c'est une single quote sinon 0*/
-int	is_sq(char c)
-{
-	if (c == 39)
-		return (1);
-	return (0);
-}
-
-int	is_quote(char c)
-{
-	if (is_dq(c) || is_sq(c))
-		return (1);
-	return (0);
-}
-
-int	is_ws(char c)
-{
-	if (c == 32 || c == 9) /*32 = space | 9 = /t*/
-		return (1);
-	return (0);
-}
-
-int	ft_count_word(const char *s)
-{
-	int	nb_word;
-	int	quote;
-	int	i;
-
-	nb_word = 0;
-	i = 0;
-	quote = 0;
-	while (s[i])
+	init_index(&in);
+	while (s[in.i])
 	{
-		while (s[i] && is_ws(s[i]) && quote % 2 == 0)
+		skip_white_space(s, &in);
+		if (s[in.i] && !is_ws(s[in.i]) && in.sq % 2 == 0 && in.dq % 2 == 0)
+			in.count++;
+		skip_special_char(s, &in);
+		skip_white_space(s, &in);
+		while (s[in.i] && !is_ws(s[in.i]) && !is_special(s[in.i]))
 		{
-			i++;
+			update_quotes(s[in.i], &in.sq, &in.dq);
+			in.i++;
 		}
-		if (s[i] && !is_ws(s[i]) && quote % 2 == 0)
-		{
-			nb_word++;
-		}
-		while (s[i] && !is_ws(s[i]))
-		{
-			if (is_quote(s[i]))
-			{
-				quote++;
-			}
-			i++;
-		}
-		while (s[i] && quote % 2 == 1)
-		{
-			if (s[i] && is_quote(s[i]))
-				quote++;
-			i++;
-		}
+		skip_beetwen_quotes(s, &in.i, &in.sq, &in.dq);
 	}
-	return (nb_word);
+	return (in.count);
 }
 
-static char	**free_split(char **double_tab, int nb_word)
+static char	**ft_new_str(char **double_tab, char *s, int nb_word)
 {
-	int	i;
+	t_input in;
 
-	i = 0;
-	while (i < nb_word)
+	init_index(&in);
+	while (s[in.i] && in.count < nb_word)
 	{
-		free(double_tab[i]);
-		i++;
-	}
-	free(double_tab);
-	return (NULL);
-}
-
-static char	**ft_new_str(char **double_tab, const char *s, int nb_word)
-{
-	int		i;
-	int		index;
-	int		count;
-	int		j;
-	int		quote;
-
-	count = 0;
-	i = 0;
-	quote = 0;
-	while (s[i] && count < nb_word)
-	{
-		j = 0;
-		while (s[i] && is_ws(s[i]) && quote % 2 == 0)
-			i++;
-		index = i;
-		while (s[i] && !is_ws(s[i]))
+		skip_white_space(s, &in);
+		if (!handle_special_char(double_tab, s, &in))
+			return (free_split(double_tab, in.count), NULL);
+		skip_alpha(s, &in.sq, &in.dq, &in.i);
+		if (in.sq % 2 == 0 && in.dq % 2 == 0)
 		{
-			if (is_quote(s[i]))
-				quote++;
-			i++;
-		}
-		if (quote % 2 == 0)
-		{
-			double_tab[count] = malloc((i - index + 1) * sizeof(char));
-			if (double_tab[count] == NULL)
-				return (free_split(double_tab, count));
-			while (index < i)
-				double_tab[count][j++] = s[index++];
-			double_tab[count][j] = '\0';
-			count++;
+			if (!extract_token(double_tab, s, &in))
+				return (free_split(double_tab, in.count), NULL);
 		}
 		else
 		{
-			while (s[i] && quote % 2 == 1)
+			skip_beetwen_quotes(s, &in.i, &in.sq, &in.dq);
+			if (is_ws(s[in.i]) && in.sq % 2 == 0 && in.dq % 2 == 0)
 			{
-				if (s[i] && is_quote(s[i]))
-					quote++;
-				i++;
+				if (!extract_token(double_tab, s, &in))
+					return (free_split(double_tab, in.count), NULL);
 			}
-		}	
+		}
 	}
 	return (double_tab);
 }
 
-static int	check_empty_s(const char *s, char c, char d)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c || s[i] == d)
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
-
-/*divise la chaine de caractère selon les règles de bash, renvoie un tableau de string ou NULL si ca à échoué*/
-char	**ft_multi_split(char const *s)
+/*divise la chaine de caractère selon les règles de bash, 
+renvoie un tableau de string ou NULL si ca à échoué*/
+char	**ft_multi_split(char *s)
 {
 	int		nb_word;
 	char	**double_tab;
@@ -173,5 +80,6 @@ char	**ft_multi_split(char const *s)
 		return (NULL);
 	double_tab[nb_word] = NULL;
 	double_tab = ft_new_str(double_tab, s, nb_word);
+	free(s);
 	return (double_tab);
 }
