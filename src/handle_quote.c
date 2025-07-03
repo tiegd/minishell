@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 14:31:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 17:14:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char	*delete_quote(char *str)
 			index++;
 		if (str[index] == '\0')
 			break;
-		str[start++] = str[index++];
+		while (str[index] && !is_quote(str[index]))
+			str[start++] = str[index++];
 	}
 	str[start] = '\0';
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 16:20:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 17:56:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void	skip_white_space(char *s, t_input *in);
 void	skip_alpha(char *s, int *sq, int *dq, int *i);
 void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
 
+/*---random--------*/
+
+int	count_tab(char **tab);
+
 /*--------IDENTIFIERS------*/
 
 int		is_quote(char c);
@@ -116,5 +120,7 @@ void	ft_print_lst(t_token *lst);
 void	ft_print_cmd(t_cmd *lst);
 void	print_tab_char(char **tab);
 void	ft_print_tab(char **path, int nb_path);
+void	print_tab_int(int *tab);
+void	ft_print_redir(t_redir *lst);
 
 #endif

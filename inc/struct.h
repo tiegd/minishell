@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 15:30:28 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 18:37:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_redir
 	struct	s_redir	*next;
 }t_redir;
 
-
 typedef struct s_cmd
 {
 	char			**args;
@@ -51,5 +50,12 @@ typedef struct s_input
 	int		sq;
 	int		dq;
 }t_input;
+
+typedef struct s_data
+{
+	char			**env;
+	bool 			malloc_error;
+	unsigned int	exit_status;
+}t_data;
 
 #endif

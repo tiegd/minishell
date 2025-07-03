@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/27 16:18:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:41:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,29 +83,56 @@
 
 /*fonction permettant de transforner un $SOMETHING en resultat de sa variable d'environnement, 
 renvoie un char* ou NULL si la variable n'est pas trouvé.*/
+// char	*expend(char *arg, char **env)
+// {
+// 	int	i;
+// 	int	start;
+// 	int len;
+// 	char *temp;
+// 	char *expend;
+// 	(void)env;
+
+// 	i = 0;
+// 	while (arg[i] != '\0' && arg[i] != '$')
+// 		i++;
+// 	start = i + 1;
+// 	if (arg[i] == '$')
+// 		i++;
+// 	while (arg[i] && exp_isalnum(arg[i]))
+// 		i++;
+// 	len = i - start;
+// 	temp = ft_substr(arg, start, len);
+// 	if (!temp)
+// 		return (NULL);
+// 	expend = getenv(temp);
+// 	free(temp);
+// 	free(arg);
+// 	return (expend);
+// }
+
 char	*expend(char *arg, char **env)
 {
 	int	i;
-	int	start;
-	int len;
-	char *temp;
+	// int	start;
+	// int len;
+	// char *temp;
 	char *expend;
 	(void)env;
 
 	i = 0;
-	while (arg[i] != '\0' && arg[i] != '$')
-		i++;
-	start = i + 1;
-	if (arg[i] == '$')
-		i++;
-	while (arg[i] && exp_isalnum(arg[i]))
-		i++;
-	len = i - start;
-	temp = ft_substr(arg, start, len);
-	if (!temp)
-		return (NULL);
-	expend = getenv(temp);
-	free(temp);
-	free(arg);
+	while (*arg != '\0' && *arg != '$')
+		arg++;
+	if (*arg == '$')
+		arg++;
+	// if (!temp)
+	// 	return (NULL);
+	expend = getenv(arg);
+	if (!expend)
+	{
+		expend = malloc(sizeof(char) + 1);
+		expend[0] = '\0';
+	}
+	// free(temp);
+	// free(arg);
 	return (expend);
 }

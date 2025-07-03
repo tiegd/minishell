@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/28 14:57:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:05:55 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,10 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 	
 	i = 0;
 	lst = NULL;
+	// printf("len_tab = %d\n", len_tab);
 	while (i < len_tab)
 	{
+		// printf("prompt [%d] : %s\n", i, prompt[i]);
 		len = ft_strlen(prompt[i]);
 		lst = ft_lst_addback(lst, prompt[i], len);
 		if (!lst)

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/28 16:58:09 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 18:54:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,39 +146,27 @@
 
 int	ft_parsing(char *input, char **env)
 {
-	int		i;
 	int		len_tab;
 	char	**prompt;
 	t_token	*token;
 	t_cmd	*cmd;
-	(void)env;
+	t_data	data;
 
-	i = 0;
 	cmd = NULL;
-	// syntaxe_error(input);
-	len_tab = ft_count_word(input);
+	syntaxe_error(input);
+	// len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, env);
+	// printf("apres handle var = %s\n", input);
 	prompt = ft_multi_split(input);
-	// ft_print_tab(prompt, len_tab);
+	len_tab = count_tab(prompt);
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);
-	
 	// ft_print_lst(token);
 	cmd = ft_init_cmd(token);
-	ft_print_cmd(cmd);
-
-	/*-------------------useless---------------------------*/
+	// ft_print_redir(cmd->infiles);
+	// ft_print_redir(cmd->outfiles);
 	// ft_print_cmd(cmd);
-	// cmd = ft_init_cmd(token);
-	// cmd = malloc(sizeof(t_cmd));
-	// cmd->args = prompt;
-	// while (i < len_tab)
-	// 	i++;
-	// ft_check_lst(lst);
-	// if (ft_is_pipe(lst))
-	// 	ft_multi_cmd(lst);
-	// else
-		// ft_one_cmd(lst, cmd, env);
+
 	return (0);
 }

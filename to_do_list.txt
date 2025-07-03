@@ -58,14 +58,27 @@ Autre idée : avancer jusqu´a un dollars. Envoyer dans une fonction pour savoir
 
 refaire la tokenisation :
 
-Verifier qu'il peut ne pas y avoir d'espace quand on fait : >outfile 
-Mais que ca sépare quand meme le ">" et le "outfile" en 2 token.
-Pareil pour toute les redirections.
-GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé.
-Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<').
+Verifier qu'il peut ne pas y avoir d'espace quand on fait : >outfile ✅
+Mais que ca sépare quand meme le ">" et le "outfile" en 2 token. ✅
+Pareil pour toute les redirections. ✅
+GERER LES redirection (<, >, <<, >>), ca fonctionne meme lorsque le mot est collé. ✅
+Par exemple : ls -l >outfile fonctionne et crée le fichier outfile.(idem pour '<'). ✅
 
 Faire un check au debut pour toutes les erreurs de syntaxe possible.
 
 Bien protejer les forks !!
 
 lancer minishell avec cat urandom | ./minishell
+
+Gerer les singles quote avec les variables d'environnement. ✅
+Gerer le fait que si la variables d'environnement n'existe pas renvoyer une chaine vide pas nul donc pas de segfault. ✅
+
+
+IL SUFFIT DE BIEN GERER LE EXPORT ET NORMALEMENT CA DEVRAIT PAS POSER DE PROBLEME !!
+mais sinon :
+(Checker le cas de si $SOMETHING est export est que ca vaut une commande par exemple "ls -l", 
+lorsqu'on va rentrer $A dans le terminal ca va effectuer la commande.
+Sauf lorsqu'on va faire echo $A dans ce cas la on va afficher "ls -l".)
+
+
+

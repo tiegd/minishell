@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 16:20:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 17:58:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,29 @@ void	ft_print_tab(char **path, int nb_path)
 	{
 		printf(YELLOW"path[%d] = %s\n"RESET, i,path[i]);
 		i++;
+	}
+}
+
+void	print_tab_int(int *tab)
+{
+	int i = 0;
+
+	while (tab[i])
+	{
+		printf("%d\n", tab[i]);
+		i++;
+	}
+}
+
+void	ft_print_redir(t_redir *lst)
+{
+	int i;
+
+	while (lst)
+	{
+		i = 0;
+		printf(RED"redir = %s | type = %d\n"RESET, lst->filename, lst->type);
+		i++;
+		lst = lst->next;
 	}
 }

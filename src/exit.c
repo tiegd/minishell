@@ -1,32 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/02 18:02:22 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/07/02 17:38:43 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/07/02 17:38:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	main(int ac, char **av, char **env)
-{
-	char	*line;
-	(void)ac;
-	(void)av;
-
-	while ((line = readline("minizeub > ")) != NULL)
-	{
-		if(*line)
-		{
-			add_history(line);
-		}
-		if (ft_parsing(line, env))
-			return (1);
-		free(line);
-	}
-	return (0);
-}

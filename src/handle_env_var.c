@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 14:38:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:29:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**split_parts(char *prompt)
 	return (parts);
 }
 
-void	*expend_each_var(char **isolated, char **env, int *quote_dollars)
+void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *malloc_error)
 {
 	int		i;
 	int 	index;
@@ -107,13 +107,16 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars)
 	index = 0;
 	while(isolated[i])
 	{
-		if (strchr(isolated[i], '$') && quote_dollars[index] == DQ)
+		if (strchr(isolated[i], '$'))
 		{
-			isolated[i] = expend(isolated[i], env);
-			if (!isolated[i])
+			if (quote_dollars[index] == DQ)
 			{
-				free_all(isolated);
-				return (NULL);
+				isolated[i] = expend(isolated[i], env);
+				if (!isolated[i] && (*malloc_error) == true)
+				{
+					free_all(isolated);
+					return (NULL);
+				}
 			}
 			index++;
 		}
@@ -121,6 +124,30 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars)
 	}
 	return (isolated);
 }
+
+// void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *malloc_error)
+// {
+// 	int		i;
+// 	int 	index;
+
+// 	i = 0;
+// 	index = 0;
+// 	while(isolated[i])
+// 	{
+// 		if (strchr(isolated[i], '$') && quote_dollars[index] == DQ)
+// 		{
+// 			isolated[i] = expend(isolated[i], env);
+// 			if (!isolated[i] && (*malloc_error) == true)
+// 			{
+// 				free_all(isolated);
+// 				return (NULL);
+// 			}
+// 			index++;
+// 		}
+// 		i++;
+// 	}
+// 	return (isolated);
+// }
 
 int	count_dollars(char *prompt)
 {
@@ -155,22 +182,20 @@ int	check_dollar_existence(char *prompt, int *i, char quote)
 	return (res);
 }
 
-int	which_quote(char *prompt)
+int	which_quote(char *prompt, int *index)
 {
-	static int	i;
-
-	while (prompt[i])
+	while (prompt[*index])
 	{
-		if (prompt[i] == '$')
+		if (prompt[*index] == '$')
 		{
-			i++;
+			(*index)++;
 			return (DQ);
 		}
-		if (prompt[i] == DQ && check_dollar_existence(prompt, &i, DQ))
+		if (prompt[*index] == DQ && check_dollar_existence(prompt, index, DQ))
 			return (DQ);
-		if (prompt[i] == SQ && check_dollar_existence(prompt, &i, SQ))
+		if (prompt[*index] == SQ && check_dollar_existence(prompt, index, SQ))
 			return (SQ);
-		i++;
+		(*index)++;
 	}
 	return (DQ);
 }
@@ -178,15 +203,17 @@ int	which_quote(char *prompt)
 int	*fill_tab_quote(char *prompt)
 {
 	int	i;
+	int index;
 	int dollars;
 	int	*tab;
 
 	i = 0;
+	index = 0;
 	dollars = count_dollars(prompt);
 	tab = malloc(sizeof(int) * dollars);
 	while (i < dollars)
 	{
-		tab[i] = which_quote(prompt);
+		tab[i] = which_quote(prompt, &index);
 		i++;	
 	}
 	return (tab);
@@ -217,13 +244,16 @@ char	*handle_env_var(char *prompt, char **env)
 	char 	**isolated;
 	char	*final;
 	int		*quote_dollars;
+	bool	malloc_error;
 
+	malloc_error = false;
 	isolated = split_parts(prompt);
+	print_tab_char(isolated);
 	if (!isolated)
 		return (NULL);
 	quote_dollars = fill_tab_quote(prompt);
-	free(prompt);
-	isolated = expend_each_var(isolated, env, quote_dollars);
+	print_tab_int(quote_dollars);
+	isolated = expend_each_var(isolated, env, quote_dollars, &malloc_error);
 	if (!isolated)
 		return (NULL);
 	free(quote_dollars);
