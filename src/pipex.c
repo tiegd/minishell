@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/01 15:07:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 08:39:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	middle_pipe(t_cmd *cmd, char **env, t_token *lst)
 	int	pid;
 	int	pipefd[2];
 
-	(void)env;
 	if (pipe(pipefd) == -1)
 		exit_tab(cmd, lst, EXIT_FAILURE);
 	pid = fork();
