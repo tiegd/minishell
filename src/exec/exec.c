@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/01 13:19:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 11:29:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 
 // Run only one command with ft_exec_cmd.
 
-void	ft_one_cmd(t_cmd *cmd, char **env, t_token *lst)
+void	ft_one_cmd(t_cmd *cmd, char **env)
 {
 	int	pid;
 
@@ -59,22 +59,22 @@ void	ft_one_cmd(t_cmd *cmd, char **env, t_token *lst)
 	{
 		pid = fork();
 		if (pid == -1)
-			exit_tab(cmd, lst, 127);
+			exit_tab(cmd, 127);
 		if (pid == 0)
 		{
-			if (!ft_exec_cmd(cmd, env, lst))
-				exit_tab(cmd, lst, 127);
-			exit_tab(cmd, lst, 1);
+			if (!ft_exec_cmd(cmd, env))
+				exit_tab(cmd, 127);
+			exit_tab(cmd, 1);
 		}
 		wait_children(pid, cmd);
 	}
 	else
-		ft_exec_cmd(cmd, env, lst);
+		ft_exec_cmd(cmd, env);
 }
 
 // Called by Pipex or ft_one_cmd.
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env, t_token *lst)
+bool	ft_exec_cmd(t_cmd *cmd, char **env)
 {
 	char	**paths;
 	char	*line;
@@ -87,7 +87,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env, t_token *lst)
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, env))
-			exit_tab(cmd, lst, 127);
+			exit_tab(cmd, 127);
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{

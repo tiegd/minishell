@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:18:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 11:10:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,4 @@ void	free_cmd(t_cmd *cmd)
 		free(tmp->pathname);
 		free(tmp);
 	}
-}
-
-// Free all of structs.
-
-void	free_struct(t_cmd *cmd, t_token *lst)
-{
-	ft_lstfree(lst);
-	free_cmd(cmd);
 }

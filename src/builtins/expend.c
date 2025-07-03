@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 09:53:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 11:41:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // /*compare les strings jusqu'au caractère passé en paramètre*/
-// int		strcmp_until_char(char *s1, char *s2, char c)
-// {
-// 	int	i;
+int		strcmp_until_char(char *s1, char *s2, char c)
+{
+	int	i;
 	
-// 	i = 0;
-// 	if (!s1 || !s2)
-// 		return (0);
-// 	while (s1[i] && s2[i])
-// 	{
-// 		if (s1[i] != s2[i])
-// 			return (0);
-// 		i++;
-// 	}
-// 	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
-// 		return (1);
-// 	return (0);
-// }
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
+		return (1);
+	return (0);
+}
 
 // /*récupère le resultat d'une variable d'environnement*/
 // char	*env_result(char *env, bool malloc_error)
@@ -110,7 +110,7 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 // 	return (expend);
 // }
 
-char	*expend(char *arg, char **env)
+char	*expend(char *arg, char **env, bool malloc_error)
 {
 	int	i;
 	// int	start;

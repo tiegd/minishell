@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/07/03 10:50:39 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/07/03 12:04:33 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,49 +32,39 @@ BIN = bin/
 			
 DIR_SRC = src/
 
-SRC =	main.c				\
-		parsing.c			\
-		ft_multi_split.c	\
-		linked_list.c		\
-		pipex.c				\
-		pipex_utils.c		\
-		init_cmd.c			\
-		handle_quote.c		\
-		handle_fd.c			\
-		clean.c				\
-		clean_exit.c		\
-		echo.c				\
-		test_functions.c	\
-		env.c				\
-		export.c			\
-		expend.c			\
-		pwd.c				\
-		cd.c				\
-		unset.c 			\
-		env_dash_i.c		\
-		exec.c				\
-			
-LIBS = 	Libft/libft.a	\
-SRC = 	main.c \
-		echo.c \
-		env.c \
-		parsing.c \
-		expend.c \
-		ft_multi_split.c \
-		linked_list.c \
-		init_cmd.c \
-		handle_quote.c \
-		handle_env_var.c \
-		multi_split_utils.c \
-		multi_split_utils_2.c \
-		identifier.c \
-		identifier_2.c \
-		free.c \
-		print_for_help.c \
+SRC =	main.c \
+		builtins/echo.c \
+		builtins/env.c \
+		builtins/export.c \
+		builtins/expend.c \
+		builtins/pwd.c \
+		builtins/cd.c \
+		builtins/unset.c \
+		clean/clean.c \
+		clean/clean_exit.c \
+		clean/free.c \
+		exec/exec.c \
+		exec/handle_fd.c \
+		exec/pipex.c \
+		exec/pipex_utils.c \
+		parsing/print_for_help.c \
+		parsing/env_dash_i.c \
+		parsing/handle_env_var.c \
+		parsing/init_cmd.c \
+		parsing/parsing.c \
+		parsing/ft_multi_split.c \
+		parsing/multi_split_utils.c \
+		parsing/multi_split_utils_2.c \
+		parsing/linked_list.c \
+		parsing/handle_quote.c \
+		parsing/identifier.c \
+		parsing/identifier_2.c \
+		parsing/syntaxe_error.c
 
 LIBS = 	Libft/libft.a \
 
-OBJ = $(addprefix $(BIN), $(SRC:.c=.o))
+OBJ = $(SRC: .c=.o)
+OBJ := $(addprefix $(BIN), $(SRC:.c=.o))
 DEPS =   $(OBJ:.o=.d)
 
 all: .print_header $(BIN) libs $(NAME)
@@ -85,14 +75,18 @@ libs:
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline
 
-$(BIN)%.o: $(DIR_SRC)%.c | $(BIN)
+# $(BIN)%.o: $(DIR_SRC)%.c | $(BIN)
+# 	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BIN)%.o: $(DIR_SRC)%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BIN):
 	mkdir -p $(BIN)
 
-%.o : %.c Makefile $(LIBS)
-	$(CC) $(CFLAGS) -o $@ -c $<
+# %.o : %.c Makefile $(LIBS)
+# 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(MAKE) -s clean -C Libft

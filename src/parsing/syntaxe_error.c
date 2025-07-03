@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:54:33 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 09:48:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 11:37:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	check_input(char *input, t_data data)
 {
 	int	i;
 
+	(void)data;
 	i = 0;
 	while (input[i])
 	{
-		
+		return ;
 	}
 }

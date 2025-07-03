@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 10:58:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 12:05:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,32 +231,6 @@ int	ft_nb_path(char **path)
 // 	return (NULL);
 // }
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env)
-{
-	char	**paths;
-	int		nb_path;
-
-	nb_path = ft_count_path(getenv("PATH"));
-	// printf(GREEN"nb_path = %d\n"RESET, nb_path);
-	paths = ft_split(getenv("PATH"), ':');
-	// ft_print_tab(paths, nb_path);
-	// printf(RED"-------------------------------------------------------\n"RESET);
-	paths = ft_add_cmd(paths, nb_path, cmd);
-	// ft_print_tab(paths, nb_path);
-	if (ft_is_bin(paths, nb_path))
-	{
-		cmd->pathname = ft_is_bin(paths, nb_path);
-		// printf(RED"Right path = %s\n"RESET, cmd->pathname);
-		execve(cmd->pathname, cmd->args, env);
-	}
-	else if (is_builtin(cmd->args[0]))
-	{
-		if (ft_exec_builtin(cmd->args))
-			exit(0);
-	}
-	return (false);
-}
-
 int	ft_parsing(char *input, char **env)
 {
 	int		len_tab;
@@ -264,10 +238,10 @@ int	ft_parsing(char *input, char **env)
 	char	**prompt;
 	t_token	*token;
 	t_cmd	*cmd;
-	t_data	data;
+	// t_data	data;
 
 	cmd = NULL;
-	syntaxe_error(input);
+	// syntaxe_error(input);
 	// len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, env);
@@ -279,8 +253,8 @@ int	ft_parsing(char *input, char **env)
 	cmd = ft_init_cmd(token);
 	nb_pipe = ft_count_pipe(cmd);
 	if (nb_pipe > 0)
-		pipex(cmd, env, nb_pipe, token); 
+		pipex(cmd, env, nb_pipe); 
 	else
-		ft_one_cmd(cmd, env, token);
-	return (1);
+		ft_one_cmd(cmd, env);
+	return (0);
 }

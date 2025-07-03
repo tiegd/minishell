@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/02 15:29:40 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 11:31:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *mal
 		{
 			if (quote_dollars[index] == DQ)
 			{
-				isolated[i] = expend(isolated[i], env);
+				isolated[i] = expend(isolated[i], env, malloc_error);
 				if (!isolated[i] && (*malloc_error) == true)
 				{
 					free_all(isolated);
