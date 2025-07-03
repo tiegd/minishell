@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/03 16:38:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:13:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,17 @@ char	**unset(char *var, char **old_env)
 	}
 	new_env[j] = NULL;
 	return (new_env);
+}
+
+char	**loop_unset(char **env, char **args)
+{
+	int	i;
+
+	i = 1;
+	while (args[i] != NULL)
+	{
+		env = unset(args[i], env);
+		i++;
+	}
+	return (env);
 }

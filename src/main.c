@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 09:55:00 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 10:56:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	test_count_pipe(char *input)
-{
-	int	i;
-	int	nb_pipe;
+// static int	test_count_pipe(char *input)
+// {
+// 	int	i;
+// 	int	nb_pipe;
 
-	i = 0;
-	nb_pipe = 0;
-	while (input[i])
-	{
-		if (input[i] == '|')
-			nb_pipe++;
-		i++;
-	}
-	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
-	return (nb_pipe);
-}
+// 	i = 0;
+// 	nb_pipe = 0;
+// 	while (input[i])
+// 	{
+// 		if (input[i] == '|')
+// 			nb_pipe++;
+// 		i++;
+// 	}
+// 	printf(CYAN"nb_pipe = %d\n"RESET, nb_pipe);
+// 	return (nb_pipe);
+// }
 
 // static int	test_count_args(char *input)
 // {
@@ -99,11 +99,6 @@ int	main(int ac, char **av, char **env)
 		}
 		if (ft_parsing(line, env))
 			return (1);
-		}
-		nb_pipe = test_count_pipe(input);
-		// test_fill_cmd(cmd, input, nb_pipe);
-		// (void)env;
-		pipex(cmd, env, nb_pipe, lst); 
 	}
 	return (0);
 }

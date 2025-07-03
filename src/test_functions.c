@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:17:56 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/16 15:19:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:11:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 // Test function.
 
-void	ft_print_tab(char **path, int nb_path)
+void	ft_print_tab(char **tab)
 {
 	int	i;
 	
 	i = 0;
-	while (i != nb_path)
+	while (tab[i] != NULL)
 	{
-		printf(YELLOW"path = %s\n"RESET, path[i]);
+		printf(GREEN"tab[%d] = %s\n"RESET, i, tab[i]);
 		i++;
 	}
 }
@@ -35,5 +35,17 @@ void	ft_print_lst(t_token *lst)
 		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
 		// printf("type = %d\n")
 		lst = lst->next;
+	}
+}
+
+void	ft_print_cmd(t_cmd *lst)
+{
+	t_cmd	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		ft_print_tab(tmp->args);
+		tmp = tmp->next;
 	}
 }

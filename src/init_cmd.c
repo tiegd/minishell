@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 14:42:36 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 10:54:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_cmd *new_cmd(void)
 	// new->args = NULL;
 	new->outfiles = NULL;
 	new->infiles = NULL;
+	new->next = NULL;
 	return (new);
 }
 
@@ -142,7 +143,7 @@ t_cmd	*ft_init_cmd(t_token *token)
 
 	head = NULL;
 	n_args = count_args(token);
-	while (token && token->next != NULL)
+	while (token)
 	{
 		cmd = new_cmd();
 		if (!cmd)

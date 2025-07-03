@@ -6,55 +6,65 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/06/17 13:39:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/06/30 10:41:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	ft_init_fd(t_token *lst)
-// {
-// 	t_token	*tmp;
-
-// 	tmp = lst;
-// 	while (tmp != NULL)
-// 	{
-// 		if (tmp->type == INPUT || tmp->type == OUTPUT || tmp->type == APPEND)
-// 		{
-// 			tmp = tmp->next;
-// 			tmp->type = FD;
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// }
-
-int	ft_open_fd(t_cmd *cmd)
+void	ft_open_infile(t_cmd *cmd)
 {
 	while (cmd->infiles->next)
 	{
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
-			return (0);
+			return ;
 		if (cmd->infiles->next != NULL)
 		{
 			if (close(cmd->fd_infile) == -1)
-				return (0);
+				return ;
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
+}
+
+void	ft_open_outfile(t_cmd *cmd)
+{
 	while (cmd->outfiles->next)
 	{
 		cmd->fd_outfile = open(cmd->outfiles->filename, O_RDONLY | O_CREAT | O_TRUNC, 0666);
 		if (cmd->fd_outfile < 0)
-			return (0);
+			return ;
 		if (cmd->outfiles->next != NULL)
 		{
 			if (close(cmd->fd_outfile) == -1)
-				return (0);
+				return ;
 		}
 		cmd->outfiles = cmd->outfiles->next;
 	}
-	return (1);
+}
+
+void	ft_open_fd(t_cmd *cmd)
+{
+	if (cmd->infiles)
+		ft_open_infile(cmd);
+	if (cmd->outfiles)
+		ft_open_outfile(cmd);
+}
+
+void	ft_fd_to_pipe(t_cmd *cmd, t_token *lst)
+{
+	ft_open_fd(cmd);
+	if (cmd->fd_infile != -1)
+	{
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(cmd->fd_infile, cmd, lst);
+	}
+	if (cmd->fd_outfile != -1)
+	{
+		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(cmd->fd_outfile, cmd, lst);
+	}
 }
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)

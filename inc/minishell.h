@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 09:51:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 10:51:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
-bool	ft_exec_cmd(t_cmd *cmd, char **env);
-int	    is_builtin(char *content);
 void	define_type(t_token *lst);
+char	*ft_path_line(char **env);
+int	ft_nb_path(char **path);
 
 /*--------HANDLE-LIST----------*/
 
@@ -132,7 +132,9 @@ char	**ft_export(char **old_env, char *str);
 void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
 char	**unset(char *var, char **old_env);
+char	**loop_unset(char **env, char **args);
 char	*expend(char *arg, char **env, bool malloc_error);
+char	**loop_export(char **env, char **args);
 
 /*--------BUILT-IN_UTILS--------*/
 /*--------FREE(S)--------*/
@@ -142,9 +144,18 @@ char	**free_split(char **double_tab, int nb_word);
 int	nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
 
+/*--------EXEC--------*/
+
+int	    is_builtin(char *content);
+int		ft_exec_builtin(t_cmd *cmd, char **env);
+bool	ft_exec_cmd(t_cmd *cmd, char **env, t_token *lst);
+void	ft_one_cmd(t_cmd *cmd, char **env, t_token *lst);
+
 /*------------PIPEX------------*/
 
-void	pipex(t_cmd *cmd, char *env[], int nb_pipe, t_token *lst);
+void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_token *lst);
+int		ft_count_pipe(t_cmd *cmd);
+void    wait_children(pid_t pid_last, t_cmd *cmd);
 
 /*------------CLEAN------------*/
 
@@ -158,8 +169,11 @@ void	ft_lstfree(t_token *lst);
 /*------------FD------------*/
 
 void	ft_init_fd(t_token *lst);
-int 	ft_open_fd(t_cmd *cmd);
+void	ft_open_fd(t_cmd *cmd);
+void	ft_open_infile(t_cmd *cmd);
+void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
+void	ft_fd_to_pipe(t_cmd *cmd, t_token *lst);
 
 /*------------EXIT------------*/
 
@@ -169,7 +183,7 @@ void	exit_fd(int fd, t_cmd *cmd, t_token *lst);
 
 /*------------TEST------------*/
 
-void	ft_print_tab(char **path, int nb_path);
+void	ft_print_tab(char **tab);
 void	ft_print_lst(t_token *lst);
 void	ft_print_cmd(t_cmd *lst);
 void	print_tab_char(char **tab);
