@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 10:56:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 14:39:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	main(int ac, char **av, char **env)
 
 	while ((line = readline("minizeub > ")) != NULL)
 	{
-		if (!ft_parsing(line, env))
+		if (*line)
 		{
 			add_history(line);
 		}

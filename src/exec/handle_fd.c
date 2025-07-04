@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:25:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 09:29:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	ft_open_infile(t_cmd *cmd)
 {
-	while (cmd->infiles->next)
+	printf("cmd->fd_infile avant = %d\n", cmd->fd_infile);
+	while (cmd->infiles != NULL)
 	{
+		printf("cmd->infiles->filename = %s\n", cmd->infiles->filename);
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
 			return ;
@@ -26,6 +28,7 @@ void	ft_open_infile(t_cmd *cmd)
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
+	printf("cmd->fd_infile après = %d\n", cmd->fd_infile);
 }
 
 void	ft_open_outfile(t_cmd *cmd)
@@ -42,6 +45,7 @@ void	ft_open_outfile(t_cmd *cmd)
 		}
 		cmd->outfiles = cmd->outfiles->next;
 	}
+	printf("cmd->fd_outfile = %d\n", cmd->fd_outfile);
 }
 
 void	ft_open_fd(t_cmd *cmd)
@@ -50,6 +54,7 @@ void	ft_open_fd(t_cmd *cmd)
 		ft_open_infile(cmd);
 	if (cmd->outfiles)
 		ft_open_outfile(cmd);
+	printf("Etienne la poule\n");
 }
 
 void	ft_fd_to_pipe(t_cmd *cmd)

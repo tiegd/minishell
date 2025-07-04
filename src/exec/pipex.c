@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:26:51 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 08:38:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,31 @@ static void	first_pipe(t_cmd *cmd, char **env)
 		exit_pid_error(pipefd, cmd);
 	if (pid == 0)
 	{
-		if (cmd->infiles != NULL || cmd->outfiles != NULL)
-			ft_fd_to_pipe(cmd);
-		if (cmd->outfiles == NULL)
+		ft_open_fd(cmd);
+		printf("Robin la fièvre\n");
+		if (cmd->fd_infile)
+		{
+			printf("pdp la quiche\n");
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(cmd->fd_infile, cmd);
+		}
+		if (cmd->fd_outfile)
+		{
+			printf("Jules le bbq\n");
+			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+				exit_fd(cmd->fd_outfile, cmd);
+		}
+		else
+		{
 			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+			{
+				printf("le blé ou le mouton ?\n");
 				exit_fd(pipefd[1], cmd);
+			}
+		}
 		close(pipefd[0]);
 		close(pipefd[1]);
+		printf("Jocelyn la piche\n");
 		if (!ft_exec_cmd(cmd, env))
 		{
 			ft_close_fd(cmd, pipefd);
@@ -57,8 +75,21 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 		exit_pid_error(pipefd, cmd);
 	if (pid == 0)
 	{
-		if (cmd->infiles != NULL || cmd->outfiles != NULL)
-			ft_fd_to_pipe(cmd);
+		// if (cmd->infiles != NULL || cmd->outfiles != NULL)
+		// 	ft_fd_to_pipe(cmd);
+		ft_open_fd(cmd);
+		if (cmd->fd_infile)
+		{
+			printf("simon la mouche\n");
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(cmd->fd_infile, cmd);
+		}
+		if (cmd->fd_outfile)
+		{
+			printf("Yazid le niglo\n");
+			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+				exit_fd(cmd->fd_outfile, cmd);
+		}
 		if (cmd->infiles == NULL)
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, cmd);

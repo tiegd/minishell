@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 10:55:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:48:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 		i++;
 	}
 	define_type(lst);
-	ft_print_lst(lst);
+	// ft_print_lst(lst);
 	return (lst);
 }

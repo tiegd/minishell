@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_for_help.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/02 17:58:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:35:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	ft_print_cmd(t_cmd *lst)
 			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
 			i++;
 		}
+		if (lst->infiles != NULL)
+			printf(GREEN"infile = %s ; type = %d\n"RESET, lst->infiles->filename, lst->infiles->type);
+		if (lst->outfiles != NULL)
+			printf(YELLOW"outfiles = %s ; type = %d\n"RESET, lst->outfiles->filename, lst->outfiles->type);
 		lst = lst->next;
 	}
 }
