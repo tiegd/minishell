@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 09:29:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 09:47:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_open_infile(t_cmd *cmd)
 
 void	ft_open_outfile(t_cmd *cmd)
 {
-	while (cmd->outfiles->next)
+	while (cmd->outfiles != NULL)
 	{
 		cmd->fd_outfile = open(cmd->outfiles->filename, O_RDONLY | O_CREAT | O_TRUNC, 0666);
 		if (cmd->fd_outfile < 0)

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:29:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:05:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,22 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
+	ft_open_fd(cmd);
+	if (cmd->fd_infile)
+	{
+		printf("Marylène la truelle\n");
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(cmd->fd_infile, cmd);
+	}
+	if (cmd->fd_outfile)
+	{
+		printf("Coco le gigo\n");
+		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+		{
+			printf("Achille le robinet\n");
+			exit_fd(cmd->fd_outfile, cmd);
+		}
+	}
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, env))

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 08:38:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 09:47:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	first_pipe(t_cmd *cmd, char **env)
 		}
 		close(pipefd[0]);
 		close(pipefd[1]);
-		printf("Jocelyn la piche\n");
+		// printf("Jocelyn la piche\n");
 		if (!ft_exec_cmd(cmd, env))
 		{
 			ft_close_fd(cmd, pipefd);
