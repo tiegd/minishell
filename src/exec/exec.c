@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 10:05:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:56:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	}
 	if (cmd->fd_outfile)
 	{
+		printf("fd_outfile = %d\n", cmd->fd_outfile);
 		printf("Coco le gigo\n");
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 		{

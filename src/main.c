@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 14:39:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:33:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	while ((line = readline("minizeub > ")) != NULL)
+	while ((line = readline(GREEN"minishell Polnareff > "RESET)) != NULL)
 	{
 		if (*line)
 		{
