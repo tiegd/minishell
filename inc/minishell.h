@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 16:07:15 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:31:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ enum e_types
 
 /*----------PARSING----------*/
 
+int 	ft_parsing(char *input, t_mini *mini);
 // int		ft_check_prompt(char *input);
-char	**ft_multi_split(char *s);
+char	**ft_multi_split(char *s, t_gmalloc **head);
 int		ft_count_word(char *s);
-t_token	*ft_tab_to_lst(char **prompt, int len_tab);
-t_cmd	*ft_init_cmd(t_token *token);
+// t_token	*ft_tab_to_lst(char **prompt, int len_tab);
+t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **head);
 int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
-char	*handle_env_var(char *prompt, char **env);
+char	*handle_env_var(char *prompt, t_mini *mini);
 void	ft_lstfree(t_token *lst);
-int 	ft_parsing(char *input, char **env);
 // bool	ft_first_word(t_token *lst);
 char	*ft_is_bin(char **paths, int nb_path);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
@@ -87,8 +87,8 @@ int		ft_nb_path(char **path);
 /*--------HANDLE-LIST----------*/
 
 t_token	*ft_lst_last(t_token *lst);
-t_token	*ft_lst_addback(t_token *lst, char *s, int len);
-t_token	*ft_tab_to_lst(char **prompt, int len_tab);
+t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head);
+t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head);
 void	ft_print_lst(t_token *lst);
 
 char	*lexing_input(char *input);
@@ -98,8 +98,8 @@ int		is_ws(char c);
 
 /*-for multi_split-*/
 
-int		extract_token(char **double_tab, char *s, t_input *in);
-int		handle_special_char(char **double_tab, char *s, t_input *in);
+int		extract_token(char **double_tab, char *s, t_input *in, t_gmalloc **head);
+int		handle_special_char(char **double_tab, char *s, t_input *in, t_gmalloc **head);
 int		check_empty_s(const char *s, char c, char d);
 void	update_quotes(char c, int *sq, int *dq);
 void	init_index(t_input *in);
@@ -107,6 +107,12 @@ void	skip_special_char(char *s, t_input *in);
 void	skip_white_space(char *s, t_input *in);
 void	skip_alpha(char *s, int *sq, int *dq, int *i);
 void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
+
+/*--garbage_collector_lib--*/
+
+char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head);
+char	*gb_strdup(const char *s, t_gmalloc **gmalloc);
+char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head);
 
 /*---random--------*/
 
@@ -132,7 +138,7 @@ void	pwd(int fd);
 void	cd(char	**args, char **env, bool malloc_error);
 char	**unset(char *var, char **old_env);
 char	**loop_unset(char **env, char **args);
-char	*expend(char *arg, char **env, bool malloc_error);
+char	*expend(char *arg, char **env, t_gmalloc **head);
 char	**loop_export(char **env, char **args);
 
 /*--------BUILT-IN_UTILS--------*/
@@ -161,7 +167,7 @@ void    wait_children(pid_t pid_last, t_cmd *cmd);
 
 void		*gb_malloc(size_t size, t_gmalloc **lst);
 void		gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
-void		gfree(t_gmalloc **head, void *ptr);
+void		gfree(void *ptr, t_gmalloc **head);
 void		gb_free_all(t_gmalloc **head);
 // t_gmalloc	*gmalloc_last(t_gmalloc *lst);
 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 13:41:05 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:33:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 }
 
 /*creer une nouveau noeud commande pour la list chainé*/
-t_cmd *new_cmd(void)
+t_cmd *new_cmd(t_gmalloc **gmalloc)
 {
 	int		i;
 	t_cmd	*new;
 
 	i = 0;
-	new = malloc(sizeof(t_cmd));
+	new = gb_malloc(sizeof(t_cmd), gmalloc);
 	if (!new)
 		return (NULL);
 	// new->args = NULL;
@@ -135,7 +135,7 @@ static void	*handle_cmd_args(t_cmd *cmd, t_token **token)
 	return (NULL);
 }
 
-t_cmd	*ft_init_cmd(t_token *token)
+t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
 {
 	t_cmd	*head;
 	t_cmd	*cmd;
@@ -145,12 +145,12 @@ t_cmd	*ft_init_cmd(t_token *token)
 	n_args = count_args(token);
 	while (token)
 	{
-		cmd = new_cmd();
-		if (!cmd)
-			return (perror("malloc"), NULL);
-		cmd->args = ft_calloc(n_args + 1, sizeof(char *));
-		if (!cmd->args)
-			return (perror("calloc"), NULL);
+		cmd = new_cmd(gmalloc);
+		// if (!cmd)
+		// 	return (perror("malloc"), NULL);
+		cmd->args = gb_malloc((n_args + 1) * sizeof(char *), gmalloc);
+		// if (!cmd->args)
+		// 	return (perror("calloc"), NULL);
 		handle_cmd_args(cmd, &token);
 		cmd_add_back(&head, cmd);
 		if (token)

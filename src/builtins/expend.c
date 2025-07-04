@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 11:41:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:06:42 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,13 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 // 	return (expend);
 // }
 
-char	*expend(char *arg, char **env, bool malloc_error)
+char	*expend(char *arg, char **env, t_gmalloc **head)
 {
 	int	i;
 	// int	start;
 	// int len;
 	// char *temp;
 	char *expend;
-	(void)env;
-	(void)malloc_error;
 
 	i = 0;
 	while (*arg != '\0' && *arg != '$')
@@ -130,7 +128,7 @@ char	*expend(char *arg, char **env, bool malloc_error)
 	expend = getenv(arg);
 	if (!expend)
 	{
-		expend = malloc(sizeof(char) + 1);
+		expend = gb_malloc(sizeof(char) + 1, head);
 		expend[0] = '\0';
 	}
 	// free(temp);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 16:18:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:27:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,21 +240,21 @@ int	ft_parsing(char *input, t_mini *mini)
 	t_cmd	*cmd;
 	// t_data	data;
 
-	cmd = NULL;
+	mini->cmd = NULL;
 	// syntaxe_error(input);
 	// len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
-		input = handle_env_var(input, env);
+		input = handle_env_var(input, mini);
 	// printf("apres handle var = %s\n", input);
-	prompt = ft_multi_split(input);
+	prompt = ft_multi_split(input, &mini->gmalloc);
 	len_tab = count_tab(prompt);
-	token = ft_tab_to_lst(prompt, len_tab);
-	token = ft_handle_quote(token);
+	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
+	mini->token = ft_handle_quote(token);
+	mini->cmd = ft_init_cmd(token, &mini->gmalloc);
 	nb_pipe = ft_count_pipe(&token);
-	cmd = ft_init_cmd(token);
 	if (nb_pipe > 0)
-		pipex(cmd, env, nb_pipe); 
+		pipex(cmd, mini->env, nb_pipe);
 	else
-		ft_one_cmd(cmd, env);
+		ft_one_cmd(cmd, mini->env);
 	return (0);
 }

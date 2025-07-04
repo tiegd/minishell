@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 10:55:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:26:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ t_token	*ft_lst_last(t_token *lst)
 }
 
 // Add the new node at the end of the list.
-t_token	*ft_lst_addback(t_token *lst, char *s, int len)
+t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 {
 	t_token	*new;
 	t_token	*last;
 	int		i;
 
-	new = malloc(sizeof(t_token));
+	new = gb_malloc(sizeof(t_token), head);
 	if (!new)
 		return (ft_lstfree(lst), NULL);
-	new->content = malloc((len + 1) * sizeof(char));
+	new->content = gb_malloc((len + 1) * sizeof(char), head);
 	if (!new->content)
 		return (free(new), NULL);
 	i = -1;
@@ -101,7 +101,7 @@ void	define_type(t_token *lst)
 }
 
 // Move each element of the prompt in a linked list.
-t_token	*ft_tab_to_lst(char **prompt, int len_tab)
+t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
 {
 	t_token	*lst;
 	int		i;
@@ -114,9 +114,9 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab)
 	{
 		// printf("prompt [%d] : %s\n", i, prompt[i]);
 		len = ft_strlen(prompt[i]);
-		lst = ft_lst_addback(lst, prompt[i], len);
-		if (!lst)
-			return (ft_lstfree(lst), NULL);
+		lst = ft_lst_addback(lst, prompt[i], len, head);
+		// if (!lst)
+		// 	return (ft_lstfree(lst), NULL);
 		i++;
 	}
 	define_type(lst);

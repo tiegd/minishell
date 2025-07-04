@@ -6,18 +6,18 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/02 14:51:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:17:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_special_char(char **double_tab, char *s, t_input *in)
+int	handle_special_char(char **double_tab, char *s, t_input *in, t_gmalloc **head)
 {
 	if (s[in->i] && is_special(s[in->i]) && !is_append(s[in->i], s[(in->i) + 1]) && !is_here_doc(s[in->i], s[(in->i) + 1]))
 	{
 		(in->i)++;
-		double_tab[in->count] = ft_substr(s, in->index, in->i - in->index);
+		double_tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
 		if (!double_tab[in->count])
 			return (0);
 		in->index = in->i;
@@ -28,7 +28,7 @@ int	handle_special_char(char **double_tab, char *s, t_input *in)
 	else if (s[in->i] && (is_append(s[in->i], s[(in->i) + 1]) || is_here_doc(s[in->i], s[(in->i) + 1])))
 	{
 		(in->i) += 2;
-		double_tab[in->count] = ft_substr(s, in->index, in->i - in->index);
+		double_tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
 		if (!double_tab[in->count])
 			return (0);
 		in->index = in->i;
@@ -57,9 +57,9 @@ void	skip_special_char(char *s, t_input *in)
 		return ;
 }
 
-int	extract_token(char **double_tab, char *s, t_input *in)
+int	extract_token(char **double_tab, char *s, t_input *in, t_gmalloc **head)
 {
-	double_tab[in->count] = ft_substr(s, in->index, in->i - in->index);
+	double_tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
 	if (!double_tab[in->count])
 		return (0);
 	in->index = in->i;

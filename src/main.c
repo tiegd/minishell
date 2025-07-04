@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 16:16:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:52:09 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,25 +85,7 @@
 // 	// ft_print_tab(cmd->args, nb_arg);
 // }
 
-char	*gb_strdup(const char *s, t_gmalloc **gmalloc)
-{
-	int		i;
-	int		len;
-	char	*dest;
 
-	i = 0;
-	len = ft_strlen(s);
-	dest = gb_malloc(sizeof(char) * len + 1, gmalloc);
-	if (dest == 0)
-		return (0);
-	while (s[i] != '\0')
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
 
 char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {

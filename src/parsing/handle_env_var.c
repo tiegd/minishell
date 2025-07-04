@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 11:31:05 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:10:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		count_part_to_join(char	*prompt)
 	return (count);
 }
 
-char	*extract_text(char *str, int *i)
+char	*extract_text(char *str, int *i, t_gmalloc **head)
 {
 	int		start;
 	char	*text;
@@ -45,15 +45,13 @@ char	*extract_text(char *str, int *i)
 		(*i)++;
 	if (*i > start)
 	{
-		text = ft_substr(str, start, *i - start);
-		if (!text)
-			return (NULL);
+		text = gb_substr(str, start, *i - start, head);
 		return (text);
 	}
 	return (NULL);
 }
 
-char	*extract_variable(char *str, int *i)
+char	*extract_variable(char *str, int *i, t_gmalloc **head)
 {
 	int		start;
 	char	*variable;
@@ -65,15 +63,13 @@ char	*extract_variable(char *str, int *i)
 		(*i)++;
 	if (*i > start)
 	{
-		variable = ft_substr(str, start, *i - start);
-		if (!variable)
-			return (NULL);
+		variable = gb_substr(str, start, *i - start, head);
 		return (variable);
 	}
 	return (NULL);
 }
 
-char	**split_parts(char *prompt)
+char	**split_parts(char *prompt, t_gmalloc **head)
 {
 	int		i;
 	int		index;
@@ -82,15 +78,13 @@ char	**split_parts(char *prompt)
 
 	i = 0;
 	index = 0;
-	parts = malloc(sizeof(char *) * (count_part_to_join(prompt) + 2));
-	if (!parts)
-		return (NULL);
+	parts = gb_malloc(sizeof(char *) * (count_part_to_join(prompt) + 2), head);
 	while (prompt[i])
 	{
-		extract = extract_text(prompt, &i);
+		extract = extract_text(prompt, &i, head);
 		if (extract)
 			parts[index++] = extract;
-		extract = extract_variable(prompt, &i);
+		extract = extract_variable(prompt, &i, head);
 		if (extract)
 			parts[index++] = extract;
 	}
@@ -98,7 +92,7 @@ char	**split_parts(char *prompt)
 	return (parts);
 }
 
-void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *malloc_error)
+void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
 {
 	int		i;
 	int 	index;
@@ -111,12 +105,12 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *mal
 		{
 			if (quote_dollars[index] == DQ)
 			{
-				isolated[i] = expend(isolated[i], env, malloc_error);
-				if (!isolated[i] && (*malloc_error) == true)
-				{
-					free_all(isolated);
-					return (NULL);
-				}
+				isolated[i] = expend(isolated[i], env, head);
+				// if (!isolated[i] && (*malloc_error) == true)
+				// {
+				// 	free_all(isolated);
+				// 	return (NULL);
+				// }
 			}
 			index++;
 		}
@@ -200,7 +194,7 @@ int	which_quote(char *prompt, int *index)
 	return (DQ);
 }
 
-int	*fill_tab_quote(char *prompt)
+int	*fill_tab_quote(char *prompt, t_gmalloc **head)
 {
 	int	i;
 	int index;
@@ -210,7 +204,7 @@ int	*fill_tab_quote(char *prompt)
 	i = 0;
 	index = 0;
 	dollars = count_dollars(prompt);
-	tab = malloc(sizeof(int) * dollars);
+	tab = gb_malloc(sizeof(int) * dollars, head);
 	while (i < dollars)
 	{
 		tab[i] = which_quote(prompt, &index);
@@ -219,49 +213,49 @@ int	*fill_tab_quote(char *prompt)
 	return (tab);
 }
 
-char	*join_parts(char **str_tab)
+char	*join_parts(char **str_tab, t_gmalloc **head)
 {
 	int		i;
 	char	*res;
 
 	i = 0;
-	res = ft_calloc(1, sizeof(char));
+	res = gb_malloc(sizeof(char), head);
+	res[0] = '\0';
 	while (str_tab[i])
 	{
-		res = ft_strjoin_custom(res, str_tab[i]);
-		if (!res)
-		{
-			free(res);
-			return (NULL);
-		}
+		res = gb_strjoin_custom(res, str_tab[i], head);
+		// if (!res)
+		// {
+		// 	free(res);
+		// 	return (NULL);
+		// }
 		i++;
 	}
 	return (res);
 }
 
-char	*handle_env_var(char *prompt, char **env)
+char	*handle_env_var(char *prompt, t_mini *mini)
 {
 	char 	**isolated;
 	char	*final;
 	int		*quote_dollars;
-	bool	malloc_error;
 
-	malloc_error = false;
-	isolated = split_parts(prompt);
-	print_tab_char(isolated);
+	isolated = split_parts(prompt, &mini->gmalloc);
+	// print_tab_char(isolated);
+	// if (!isolated)
+	// 	return (NULL);
+	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
+	// print_tab_int(quote_dollars);
+	isolated = expend_each_var(isolated, mini->env, quote_dollars, &mini->gmalloc);
 	if (!isolated)
 		return (NULL);
-	quote_dollars = fill_tab_quote(prompt);
-	print_tab_int(quote_dollars);
-	isolated = expend_each_var(isolated, env, quote_dollars, &malloc_error);
-	if (!isolated)
-		return (NULL);
-	free(quote_dollars);
-	final = join_parts(isolated);
-	if (!final)
-	{
-		free_all(isolated);
-		return (NULL);
-	}
+	gfree(quote_dollars, &mini->gmalloc);
+	final = join_parts(isolated, &mini->gmalloc);
+	gfree(isolated, &mini->gmalloc);
+	// if (!final)
+	// {
+	// 	free_all(isolated);
+	// 	return (NULL);
+	// }
 	return (final);
 }

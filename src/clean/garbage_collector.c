@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 16:13:57 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:22:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	gb_free_all(t_gmalloc **head)
 	}
 }
 
-void	gfree(t_gmalloc **head, void *ptr)
+void	gfree(void *ptr, t_gmalloc **head)
 {
 	t_gmalloc	*temp;
 	t_gmalloc	*prev;

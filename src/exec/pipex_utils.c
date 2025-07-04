@@ -6,14 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 13:42:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:21:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Count the number of '|' in the prompt.
-
 int	ft_count_pipe(t_token **token)
 {
 	t_token	*tmp;
