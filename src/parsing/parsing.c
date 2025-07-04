@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 13:42:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:18:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ int	ft_nb_path(char **path)
 // 	return (NULL);
 // }
 
-int	ft_parsing(char *input, char **env)
+int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
 	int		nb_pipe;

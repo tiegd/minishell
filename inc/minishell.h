@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 10:22:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:07:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ enum e_types
 	PATH,
 };
 
-
-
 /*----------PARSING----------*/
 
 // int		ft_check_prompt(char *input);
@@ -103,7 +101,6 @@ int		is_ws(char c);
 int		extract_token(char **double_tab, char *s, t_input *in);
 int		handle_special_char(char **double_tab, char *s, t_input *in);
 int		check_empty_s(const char *s, char c, char d);
-
 void	update_quotes(char c, int *sq, int *dq);
 void	init_index(t_input *in);
 void	skip_special_char(char *s, t_input *in);
@@ -144,7 +141,7 @@ char	**loop_export(char **env, char **args);
 
 char	**free_split(char **double_tab, int nb_word);
 
-int	nb_var(char **env);
+int		nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
 
 /*--------EXEC--------*/
@@ -162,11 +159,11 @@ void    wait_children(pid_t pid_last, t_cmd *cmd);
 
 /*--------GARBAGE_COLLECTOR----*/
 
-void	*gb_malloc(size_t size, t_gmalloc **lst);
-void	gmalloc_add_back(t_gmalloc **lst, t_gmalloc *new);
-void	gfree(t_gmalloc **head, void *ptr);
-void	gb_free_all(t_gmalloc **head);
-t_gmalloc	*gmalloc_last(t_gmalloc *lst);
+void		*gb_malloc(size_t size, t_gmalloc **lst);
+void		gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
+void		gfree(t_gmalloc **head, void *ptr);
+void		gb_free_all(t_gmalloc **head);
+// t_gmalloc	*gmalloc_last(t_gmalloc *lst);
 
 /*------------CLEAN------------*/
 
@@ -199,5 +196,6 @@ void	print_tab_char(char **tab);
 void	ft_print_tab(char **path, int nb_path);
 void	print_tab_int(int *tab);
 void	ft_print_redir(t_redir *lst);
+void	ft_print_memory(t_gmalloc *lst);
 
 #endif

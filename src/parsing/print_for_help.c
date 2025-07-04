@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/02 17:58:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:01:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_tab_char(char **tab)
 	int	i;
 	
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		printf("tab[%d] = %s\n", i, tab[i]);
 		i++;
@@ -32,6 +32,22 @@ void	ft_print_lst(t_token *lst)
 	{
 		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
 		lst = lst->next;
+	}
+}
+
+/*permet de print une liste chainé de type t_gmalloc*/
+void	ft_print_memory(t_gmalloc *lst)
+{
+	int i;
+
+	i = 0;
+	while (lst)
+	{
+		printf(RED"memory address[%d] = %p\n", i, lst->memory);
+		if (lst->next == NULL)
+			return ;
+		lst = lst->next;
+		i++;
 	}
 }
 

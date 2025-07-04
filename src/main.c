@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 10:10:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:16:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,45 @@
 // 	// ft_print_tab(cmd->args, nb_arg);
 // }
 
+char	*gb_strdup(const char *s, t_gmalloc **gmalloc)
+{
+	int		i;
+	int		len;
+	char	*dest;
+
+	i = 0;
+	len = ft_strlen(s);
+	dest = gb_malloc(sizeof(char) * len + 1, gmalloc);
+	if (dest == 0)
+		return (0);
+	while (s[i] != '\0')
+	{
+		dest[i] = s[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	**dup_env(char **old_env, t_gmalloc **gmalloc)
+{
+	int		i;
+	char	**new_env;
+	int		len_tab;
+
+	i = 0;
+	len_tab = ft_nb_path(old_env);
+	printf("%d\n", len_tab);
+	new_env = gb_malloc(sizeof(char *) * (len_tab + 1), gmalloc);
+	while (old_env[i])
+	{
+		new_env[i] = gb_strdup(old_env[i], gmalloc);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -92,13 +131,20 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
+	mini.gmalloc = NULL;
+	mini.env = dup_env(env, &mini.gmalloc);
+	// print_tab_char(env);
+	// printf("\n*------------------------------------------------*\n");
+	// print_tab_char(mini.env);
+	// printf("\n*------------------------------------------------*\n");
+	// ft_print_memory(mini.gmalloc);
 	while ((line = readline("minizeub > ")) != NULL)
 	{
 		if (*line)
 		{
 			add_history(line);
 		}
-		if (ft_parsing(line, env))
+		if (ft_parsing(line, &mini))
 			return (1);
 	}
 	return (0);

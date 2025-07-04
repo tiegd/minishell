@@ -6,20 +6,20 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 10:03:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:13:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_gmalloc	*gmalloc_last(t_gmalloc *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
+// t_gmalloc	*gmalloc_last(t_gmalloc *lst)
+// {
+// 	if (lst == NULL)
+// 		return (NULL);
+// 	while (lst->next != NULL)
+// 		lst = lst->next;
+// 	return (lst);
+// }
 
 void	gb_free_all(t_gmalloc **head)
 {
@@ -61,18 +61,20 @@ void	gfree(t_gmalloc **head, void *ptr)
 	}
 }
 
-void	gmalloc_add_back(t_gmalloc **lst, t_gmalloc *new)
+void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new)
 {
 	t_gmalloc	*temp;
 
-	if (new == NULL || lst == NULL)
+	if (!new)
 		return ;
-	if (*lst == NULL)
+	temp = *head;
+	if (!*head)
 	{
-		*lst = new;
+		*head = new;
 		return ;
 	}
-	temp = gmalloc_last(*lst);
+	while (temp->next)
+		temp = temp->next;
 	temp->next = new;
 }
 
@@ -95,6 +97,7 @@ void	*gb_malloc(size_t size, t_gmalloc **lst)
 		exit(1);
 	}
 	new->memory = memory;
+	new->next = NULL;
 	gmalloc_add_back(lst, new);
 	return (memory);
 }
