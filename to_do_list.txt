@@ -68,7 +68,7 @@ Faire un check au debut pour toutes les erreurs de syntaxe possible.
 
 Bien protejer les forks !!
 
-lancer minishell avec cat urandom | ./minishell
+lancer minishell avec cat /dev/urandom | ./minishell
 
 Gerer les singles quote avec les variables d'environnement. ✅
 Gerer le fait que si la variables d'environnement n'existe pas renvoyer une chaine vide pas nul donc pas de segfault. ✅

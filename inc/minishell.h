@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 16:52:17 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 10:22:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ void    wait_children(pid_t pid_last, t_cmd *cmd);
 
 /*--------GARBAGE_COLLECTOR----*/
 
-void	*gb_malloc(size_t size, t_gmalloc *lst);
-void	gmalloc_add_back(t_list **lst, t_list *new);
+void	*gb_malloc(size_t size, t_gmalloc **lst);
+void	gmalloc_add_back(t_gmalloc **lst, t_gmalloc *new);
 void	gfree(t_gmalloc **head, void *ptr);
 void	gb_free_all(t_gmalloc **head);
 t_gmalloc	*gmalloc_last(t_gmalloc *lst);

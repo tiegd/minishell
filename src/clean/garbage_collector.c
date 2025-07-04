@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 09:41:46 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 10:03:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	gb_free_all(t_gmalloc **head)
 {
 	t_gmalloc	*temp;
 
-	if (*head == NULL)
+	if (!head || !*head)
 		return ;
 	while (*head != NULL)
 	{
@@ -44,8 +44,6 @@ void	gfree(t_gmalloc **head, void *ptr)
 
 	temp = *head;
 	prev = NULL;
-	if (*head == NULL)
-		return ;
 	while (temp)
 	{
 		if (temp->memory == ptr)
@@ -56,15 +54,16 @@ void	gfree(t_gmalloc **head, void *ptr)
 				prev->next = temp->next;
 			free(temp->memory);
 			free(temp);
+			return ;
 		}
 		prev = temp;
 		temp = temp->next;
 	}
 }
 
-void	gmalloc_add_back(t_list **lst, t_list *new)
+void	gmalloc_add_back(t_gmalloc **lst, t_gmalloc *new)
 {
-	t_list	*temp;
+	t_gmalloc	*temp;
 
 	if (new == NULL || lst == NULL)
 		return ;
@@ -77,7 +76,7 @@ void	gmalloc_add_back(t_list **lst, t_list *new)
 	temp->next = new;
 }
 
-void	*gb_malloc(size_t size, t_gmalloc *lst)
+void	*gb_malloc(size_t size, t_gmalloc **lst)
 {
 	void		*memory;
 	t_gmalloc	*new;
@@ -85,17 +84,17 @@ void	*gb_malloc(size_t size, t_gmalloc *lst)
 	memory = malloc(size);
 	if (!memory)
 	{
-		gb_free_all(&lst);
+		gb_free_all(lst);
 		exit(1);
 	}
 	new = malloc(sizeof(t_gmalloc));
 	if (!new)
 	{
 		free(memory);
-		gb_free_all(&lst);
+		gb_free_all(lst);
 		exit(1);
 	}
 	new->memory = memory;
-	gmalloc_add_back(&lst, new);
+	gmalloc_add_back(lst, new);
 	return (memory);
 }

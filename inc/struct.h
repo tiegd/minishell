@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 15:48:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/04 10:15:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,12 @@
 
 #include <stdbool.h>
 
-typedef struct s_env
-{
-	char			*env;
-	struct s_env	*next;
-}t_env;
+// typedef struct s_env
+// {
+// 	char			*var;
+// 	struct s_env	*next;
+// }t_env;
 
-
-typedef struct s_mini
-{
-	t_cmd		*cmd;
-	t_token		*token;
-	int			exit_status;
-	t_gmalloc	*gmalloc;
-}t_mini;
 
 typedef struct s_token
 {
@@ -78,5 +70,14 @@ typedef struct s_input
 	int		sq;
 	int		dq;
 }t_input;
+
+typedef struct s_mini
+{
+	t_cmd		*cmd;
+	t_token		*token;
+	int			exit_status;
+	t_gmalloc	*gmalloc;
+	char		**env;
+}t_mini;
 
 #endif
