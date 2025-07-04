@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 09:47:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:26:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,23 @@ static void	first_pipe(t_cmd *cmd, char **env)
 	if (pid == 0)
 	{
 		ft_open_fd(cmd);
-		printf("Robin la fièvre\n");
 		if (cmd->fd_infile)
 		{
-			printf("pdp la quiche\n");
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
 		}
 		if (cmd->fd_outfile)
 		{
-			printf("Jules le bbq\n");
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, cmd);
 		}
 		else
 		{
 			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			{
-				printf("le blé ou le mouton ?\n");
 				exit_fd(pipefd[1], cmd);
-			}
 		}
 		close(pipefd[0]);
 		close(pipefd[1]);
-		// printf("Jocelyn la piche\n");
 		if (!ft_exec_cmd(cmd, env))
 		{
 			ft_close_fd(cmd, pipefd);
@@ -75,18 +68,14 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 		exit_pid_error(pipefd, cmd);
 	if (pid == 0)
 	{
-		// if (cmd->infiles != NULL || cmd->outfiles != NULL)
-		// 	ft_fd_to_pipe(cmd);
 		ft_open_fd(cmd);
 		if (cmd->fd_infile)
 		{
-			printf("simon la mouche\n");
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
 		}
 		if (cmd->fd_outfile)
 		{
-			printf("Yazid le niglo\n");
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, cmd);
 		}
@@ -124,6 +113,22 @@ static void	last_pipe(t_cmd *cmd, char **env)
 		if (cmd->infiles == NULL)
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, cmd);
+		// ft_open_fd(cmd);
+		// if (cmd->fd_infile)
+		// {
+		// 	if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+		// 		exit_fd(cmd->fd_infile, cmd);
+		// }
+		// if (cmd->fd_outfile)
+		// {
+		// 	if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+		// 		exit_fd(cmd->fd_outfile, cmd);
+		// }
+		// else
+		// {
+		// 	if (dup2(cmd->outpipe, STDOUT_FILENO) == -1)
+		// 		exit_fd(cmd->outpipe, cmd);
+		// }
 		close(cmd->outpipe);
 		if (!ft_exec_cmd(cmd, env))
 			exit_tab(cmd, 127);
@@ -140,7 +145,6 @@ void	pipex(t_cmd *cmd, char **env, int nb_pipe)
 	int	i;
 
 	i = 0;
-	// printf(RED"nb_pipe = %d\n"RESET, nb_pipe);
 	while (i <= nb_pipe)
 	{
 		if (i == 0)

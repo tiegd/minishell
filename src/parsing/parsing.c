@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 14:42:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:03:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,6 @@ int	ft_parsing(char *input, char **env)
 	token = ft_tab_to_lst(prompt, len_tab);
 	token = ft_handle_quote(token);
 	cmd = ft_init_cmd(token);
-	ft_print_cmd(cmd);
 	nb_pipe = ft_count_pipe(cmd);
 	if (nb_pipe > 0)
 		pipex(cmd, env, nb_pipe); 
