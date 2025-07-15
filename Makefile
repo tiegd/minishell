@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/07/04 10:19:34 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/07/15 12:37:57 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC =	main.c \
 		builtins/pwd.c \
 		builtins/cd.c \
 		builtins/unset.c \
+		builtins/exit.c \
 		clean/clean.c \
 		clean/clean_exit.c \
 		clean/free.c \
@@ -61,6 +62,7 @@ SRC =	main.c \
 		parsing/identifier.c \
 		parsing/identifier_2.c \
 		parsing/syntaxe_error.c \
+		parsing/gb_lib.c \
 
 LIBS = 	Libft/libft.a \
 

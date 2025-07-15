@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/30 14:26:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:23:52 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	nb_var(char **env)
 	i = 0;
 	while(env[i] != NULL)
 	{
-		// printf("%s\n", env[i]);
 		i++;
 	}
 	return (i);
@@ -140,7 +139,7 @@ char	**split_keep(char *str, char c)
 }
 
 /*duplique la variable d'environnement passé en paramètre et renvoie un char** ou NULL si il y a une erreur */
-char	**envdup(char **old_env)
+char	**envdup(char **old_env, t_gmalloc **head)
 {
 	int		i;
 	int		env_len;
@@ -148,16 +147,10 @@ char	**envdup(char **old_env)
 
 	i = 0;
 	env_len = nb_var(old_env);
-	new_env = malloc(sizeof(char *) * (env_len + 2));
+	new_env = gb_malloc(sizeof(char *) * (env_len + 2), head);
 	while (old_env[i] != NULL) //copier l'environnement dans new env et retourner le tableau de string
 	{
-		new_env[i] = ft_strdup(old_env[i]);
-		if (!new_env)
-		{
-			free_all(old_env);
-			free_all(new_env);
-			return (NULL);
-		}
+		new_env[i] = gb_strdup(old_env[i], head);
 		i++;
 	}
 	new_env[i] = NULL;
@@ -181,83 +174,46 @@ int		env_var_cmp(char *s1, char *s2)
 }
 
 //on recupère la variable d'environnement et on y ajoute une nouvelle passé en argument
-char	**ft_export(char **old_env, char *str)
+char	**ft_export(char **old_env, char *new_variable, t_gmalloc **head)
 {
 	int		i;
-	int		j;
-	int		k;
 	char	**new_env;
-	char	*exp;
-	char	**var_env_tab;
-	char	*new_variable;
+	// char	*exp;
+	// char	**var_env_tab;
 
-	j = 0;
-	k = 0;
-	new_env = envdup(old_env); //duplique lénvironnement dans un nouveau tableau de string
-	if (!new_env)
-		return (NULL);
-	new_variable = ft_strdup(str); //duplique la variable d'environnement qu'on va rajouter à l'environnement
-	if (!new_variable)
-		return (NULL);
-	//regarde si il y a un '$' dans la string
-	if (ft_strchr(str, '$'))//checker aussi si c'est entre simple quote ou pas
-	{
-		free(new_variable);
-		while (str[j] != '$')
-			j++;
-		new_variable = ft_strndup(str, j); //dup le debut de la string jusqu'au $
-		// printf("new_variable = %s\n", new_variable);
-		var_env_tab = split_keep(str, '$'); //separé chaque $SOMETHING et les mettres dans un char**
-		while (var_env_tab[k] != NULL)
-		{
-			// printf("%s\n", var_env_tab[k]);
-			exp = expend(var_env_tab[k], old_env, false); //expend chaque variable d'environnement recupéré.
-			if (exp) //si exp n'est pas null
-			{
-				new_variable = ft_strjoin_custom(new_variable, exp); //les joindrent a la suite de la nouvelle variable.
-				// free(exp);
-			}
-			k++;
-		}
-		free_all(var_env_tab);
-	}
-	//on regarde si la variable existe déjà et si oui on la remplace par la nouvelle
+	new_env = envdup(old_env, head); //duplique l'environnement dans un nouveau tableau de string
 	i = 0;
+	//on regarde si la variable existe déjà et si oui on la remplace par la nouvelle
 	while (new_env[i])
 	{
 		//si elle existe on renvoit le nouvelle environnement avec la variable remplacé
 		if (env_var_cmp(new_env[i], new_variable))
 		{
-			new_env[i] = ft_strdup(new_variable);
-			free(new_variable);
+			gfree(new_env[i], head);
+			new_env[i] = gb_strdup(new_variable, head);
+			gfree(new_variable, head);
 			return (new_env);
 		}
 		i++;
 	}
 	//sinon juste ajouter la string au nouvel environnement
-	// printf("ERROR\n");
 	i = nb_var(old_env);
-	new_env[i] = ft_strdup(new_variable);
-	if (!new_env)
-	{
-		free_all(new_env);
-		return (NULL);
-	}
+	new_env[i] = gb_strdup(new_variable, head);
 	new_env[i + 1] = NULL;
-	free(new_variable);
+	gfree(new_variable, head);
 	return (new_env);
 }
 
 /*d'abord expend si il y a des $ dan la variable d'environnement et ensuite checker si elle existe deja ou si on doit juste l'ajouter a l'environnement*/
 
-char	**loop_export(char **env, char **args)
+char	**loop_export(char **env, char **args, t_gmalloc **head)
 {
 	int	i;
 
 	i = 1;
 	while (args[i] != NULL)
 	{
-		env = ft_export(env, args[i]);
+		env = ft_export(env, args[i], head);
 		i++;
 	}
 	return (env);

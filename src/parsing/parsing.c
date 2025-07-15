@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 18:27:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 13:00:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 		new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
 		i++;
 	}
-	free_double_tab(paths, nb_path);
+	// free_double_tab(paths, nb_path,);
 	return (new_tab);
 }
 
@@ -236,25 +236,20 @@ int	ft_parsing(char *input, t_mini *mini)
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
-	t_token	*token;
-	t_cmd	*cmd;
-	// t_data	data;
 
 	mini->cmd = NULL;
-	// syntaxe_error(input);
-	// len_tab = ft_count_word(input);
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
-	// printf("apres handle var = %s\n", input);
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
-	mini->token = ft_handle_quote(token);
-	mini->cmd = ft_init_cmd(token, &mini->gmalloc);
-	nb_pipe = ft_count_pipe(&token);
+	mini->token = ft_handle_quote(mini->token);
+	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
+	nb_pipe = ft_count_pipe(mini->token);
+	printf("ERROR\n");
 	if (nb_pipe > 0)
-		pipex(cmd, mini->env, nb_pipe);
+		pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);
 	else
-		ft_one_cmd(cmd, mini->env);
+		ft_one_cmd(mini->cmd, mini->env, &mini->gmalloc);
 	return (0);
 }

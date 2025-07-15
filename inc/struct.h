@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 10:15:28 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 08:46:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ typedef struct s_mini
 {
 	t_cmd		*cmd;
 	t_token		*token;
-	int			exit_status;
 	t_gmalloc	*gmalloc;
+	int			exit_status;
 	char		**env;
 }t_mini;
 

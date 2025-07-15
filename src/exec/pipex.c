@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:26:51 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:00:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Run the first command and redirect the output to the following command.
 
-static void	first_pipe(t_cmd *cmd, char **env)
+static void	first_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
@@ -33,7 +33,7 @@ static void	first_pipe(t_cmd *cmd, char **env)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		if (!ft_exec_cmd(cmd, env))
+		if (!ft_exec_cmd(cmd, env, head))
 		{
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, 127);
@@ -45,7 +45,7 @@ static void	first_pipe(t_cmd *cmd, char **env)
 
 // Run a middle command and redirect the output to the following command.
 
-static void	middle_pipe(t_cmd *cmd, char **env)
+static void	middle_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
@@ -67,7 +67,7 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		if (!ft_exec_cmd(cmd, env))
+		if (!ft_exec_cmd(cmd, env, head))
 		{
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, 127);
@@ -79,7 +79,7 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 
 // Run the the command and redirect the output to the terminal.
 
-static void	last_pipe(t_cmd *cmd, char **env)
+static void	last_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	int	pid_last;
 
@@ -94,7 +94,7 @@ static void	last_pipe(t_cmd *cmd, char **env)
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, cmd);
 		close(cmd->outpipe);
-		if (!ft_exec_cmd(cmd, env))
+		if (!ft_exec_cmd(cmd, env, head))
 			exit_tab(cmd, 127);
 		exit_tab(cmd, 1);
 	}
@@ -104,7 +104,7 @@ static void	last_pipe(t_cmd *cmd, char **env)
 
 // This function shall reproduce the behavior of '|' in bash.
 
-void	pipex(t_cmd *cmd, char **env, int nb_pipe)
+void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_gmalloc **head)
 {
 	int	i;
 
@@ -113,11 +113,11 @@ void	pipex(t_cmd *cmd, char **env, int nb_pipe)
 	while (i <= nb_pipe)
 	{
 		if (i == 0)
-			first_pipe(cmd, env);
+			first_pipe(cmd, env, head);
 		else if (i == nb_pipe)
-			last_pipe(cmd, env);
+			last_pipe(cmd, env, head);
 		else
-			middle_pipe(cmd, env);
+			middle_pipe(cmd, env, head);
 		if (i < nb_pipe)
 			cmd->next->outpipe = cmd->outpipe;
 		i++;

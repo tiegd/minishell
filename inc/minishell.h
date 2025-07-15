@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 18:31:08 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:46:32 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **head);
 int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
-void	ft_lstfree(t_token *lst);
+// void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
 char	*ft_is_bin(char **paths, int nb_path);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
-void	define_type(t_token *lst);
+// void	define_type(t_token *lst);
 char	*ft_path_line(char **env);
 int		ft_nb_path(char **path);
 
@@ -132,20 +132,21 @@ int		exp_isalnum(int c);
 /*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
-void	ft_env(char **env, int fd);\
-char	**ft_export(char **old_env, char *str);
+void	ft_env(char **env, int fd);
+char	**ft_export(char **old_env, char *str, t_gmalloc **head);
 void	pwd(int fd);
-void	cd(char	**args, char **env, bool malloc_error);
-char	**unset(char *var, char **old_env);
-char	**loop_unset(char **env, char **args);
+void	cd(char	**args, char **env, t_gmalloc **head);
+char	**unset(char *var, char **old_env, t_gmalloc **head);
+char	**loop_unset(char **env, char **args, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head);
-char	**loop_export(char **env, char **args);
+char	**loop_export(char **env, char **args, t_gmalloc **head);
+void	ft_exit(char **args, int exit_status, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
 
 /*--------FREE(S)--------*/
 
-char	**free_split(char **double_tab, int nb_word);
+char	**free_split(char **double_tab, int nb_word, t_gmalloc **head);
 
 int		nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
@@ -153,13 +154,13 @@ int		strcmp_until_char(char *s1, char *s2, char c);
 /*--------EXEC--------*/
 
 int	    is_builtin(char *content);
-int		ft_exec_builtin(t_cmd *cmd, char **env);
-bool	ft_exec_cmd(t_cmd *cmd, char **env);
-void	ft_one_cmd(t_cmd *cmd, char **env);
+int		ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head);
+bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head);
+void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
-void	pipex(t_cmd *cmd, char **env, int nb_pipe);
+void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_gmalloc **head);
 int		ft_count_pipe(t_token **token);
 void    wait_children(pid_t pid_last, t_cmd *cmd);
 
@@ -173,11 +174,11 @@ void		gb_free_all(t_gmalloc **head);
 
 /*------------CLEAN------------*/
 
-void	free_token(t_token *lst);
-void	free_redir(t_redir *redir);
-char	**free_double_tab(char **tab, int nb_agrs);
-void	free_cmd(t_cmd *cmd);
-void	ft_lstfree(t_token *lst);
+void	free_token(t_token *lst, t_gmalloc **head);
+void	free_redir(t_redir *redir, t_gmalloc **head);
+char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head);
+void	free_cmd(t_cmd *cmd, t_gmalloc **head);
+void	ft_lstfree(t_token *lst, t_gmalloc **head);
 
 /*------------FD------------*/
 

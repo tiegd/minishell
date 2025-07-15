@@ -6,27 +6,20 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 18:33:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:48:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*remplir les redirections*/
-t_redir		*add_redir(t_redir *list, t_token *token)
+t_redir		*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 {
 	t_redir	*new;
 	t_redir	*temp;
 
-	new = malloc(sizeof(t_redir));
-	if (!new)
-	{
-		perror("Malloc error");
-		return (NULL);
-	}
-	new->filename = ft_strdup(token->next->content);
-	if (!new->filename)
-		return (NULL);
+	new = gb_malloc(sizeof(t_redir), head);
+	new->filename = gb_strdup(token->next->content, head);
 	new->type = token->type;
 	new->next = NULL;
 	if (!list)
@@ -98,7 +91,7 @@ int		count_args(t_token	*token)
 }
 
 /*initialiser chaque commande en les séparants par pipe*/
-static void	*handle_cmd_args(t_cmd *cmd, t_token **token)
+static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 {
 	int	i;
 
@@ -107,32 +100,22 @@ static void	*handle_cmd_args(t_cmd *cmd, t_token **token)
 	{
 		if ((*token)->type == OUTPUT || (*token)->type == APPEND)
 		{
-			cmd->outfiles = add_redir(cmd->outfiles, *token);
-			if (!cmd->outfiles)
-				return (NULL);
+			cmd->outfiles = add_redir(cmd->outfiles, *token, head);
 			*token = (*token)->next->next;
 		}
 		else if ((*token)->type == HERE_DOC || (*token)->type == INPUT)
 		{
-			cmd->infiles = add_redir(cmd->infiles, *token);
-			if (!cmd->infiles)
-				return (NULL);
+			cmd->infiles = add_redir(cmd->infiles, *token, head);
 			*token = (*token)->next->next;
 		}
 		else
 		{
-			cmd->args[i] = ft_strdup((*token)->content);
-			if (!cmd->args[i])
-			{
-				perror("Malloc error");
-				return (NULL);
-			}
+			cmd->args[i] = gb_strdup((*token)->content, head);
 			i++;
 			*token = (*token)->next;
 		}
 	}
 	cmd->args[i] = NULL;
-	return (NULL);
 }
 
 t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
@@ -146,12 +129,8 @@ t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
 	while (token)
 	{
 		cmd = new_cmd(gmalloc);
-		// if (!cmd)
-		// 	return (perror("malloc"), NULL);
 		cmd->args = gb_malloc((n_args + 1) * sizeof(char *), gmalloc);
-		// if (!cmd->args)
-		// 	return (perror("calloc"), NULL);
-		handle_cmd_args(cmd, &token);
+		handle_cmd_args(cmd, &token, gmalloc);
 		cmd_add_back(&head, cmd);
 		if (token)
 			token = token->next;

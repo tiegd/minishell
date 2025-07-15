@@ -6,13 +6,23 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 16:48:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 09:02:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit(t_mini *minishell)
+void	ft_exit(char **args, int exit_status, t_gmalloc **head)
 {
-	
+	int arg_count;
+
+	arg_count = ft_nb_path(args);
+	if (args > 1)
+	{
+		ft_putstr_fd("exit : too much arguments", 2);
+		return ;
+	}
+	printf("exit\n");
+	gb_free_all(head);
+	exit(exit_status);
 }

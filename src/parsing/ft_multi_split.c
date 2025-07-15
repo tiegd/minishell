@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 18:29:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:02:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static char	**ft_new_str(char **double_tab, char *s, int nb_word, t_gmalloc **he
 	{
 		skip_white_space(s, &in);
 		if (!handle_special_char(double_tab, s, &in, head))
-			return (free_split(double_tab, in.count), NULL);
+			return (free_split(double_tab, in.count, head), NULL);
 		skip_alpha(s, &in.sq, &in.dq, &in.i);
 		if (in.sq % 2 == 0 && in.dq % 2 == 0)
 		{
 			if (!extract_token(double_tab, s, &in, head))
-				return (free_split(double_tab, in.count), NULL);
+				return (free_split(double_tab, in.count, head), NULL);
 		}
 		else
 		{
@@ -56,7 +56,7 @@ static char	**ft_new_str(char **double_tab, char *s, int nb_word, t_gmalloc **he
 			if (is_ws(s[in.i]) && in.sq % 2 == 0 && in.dq % 2 == 0)
 			{
 				if (!extract_token(double_tab, s, &in, head))
-					return (free_split(double_tab, in.count), NULL);
+					return (free_split(double_tab, in.count, head), NULL);
 			}
 		}
 	}

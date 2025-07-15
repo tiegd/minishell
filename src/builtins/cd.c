@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/01 11:01:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:27:13 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_opt_cd(char	*option)
 		return (0);
 }
 
-void	cd(char	**args, char **env, bool malloc_error)
+void	cd(char	**args, char **env, t_gmalloc **head)
 {
 	int		i;
 	char	*path;
@@ -36,14 +36,12 @@ void	cd(char	**args, char **env, bool malloc_error)
 		return ;
 	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
 	{
-		path = expend("$HOME", env, malloc_error);
-		if (!path && malloc_error == false)
+		path = expend("$HOME", env, head);
+		if (!path)
 		{
-			free(path);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(": HOME not set", 2);
 		}
-		// printf("path $HOME = %s\n", path);
 		if (chdir(path) == -1)
 		{
 			free(path);
@@ -58,11 +56,10 @@ void	cd(char	**args, char **env, bool malloc_error)
 	}
 	else if (args[i] && args[i + 1][0] == '-' && args[i + 1][1] == '\0') //regarder si l'option est - 
 	{
-		path = expend("$OLDPWD", env, malloc_error);
+		path = expend("$OLDPWD", env, head);
 		// printf("path $OLDPWD = %s\n", path);
-		if (!path && malloc_error == false)
+		if (!path)
 		{
-			free(path);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(": OLDPWD not set\n", 2);
 		}
@@ -85,7 +82,7 @@ void	cd(char	**args, char **env, bool malloc_error)
 		}
 	}
 	old_path = ft_strjoin("OLDPWD=", old_path);
-	env = ft_export(env, old_path);
+	env = ft_export(env, old_path, head);
 	// if (!path)
 	// 	free(path);
 }

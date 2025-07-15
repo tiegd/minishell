@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:10:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:29:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Free all of the list (token).
 
-void	ft_lstfree(t_token *lst)
+void	ft_lstfree(t_token *lst, t_gmalloc **head)
 {
 	t_token	*tmp;
 
@@ -24,15 +24,15 @@ void	ft_lstfree(t_token *lst)
 		{
 			tmp = lst;
     		lst = lst->next;
-	    	free(tmp->content);
-		    free(tmp);
+	    	gfree(tmp->content, head);
+		    gfree(tmp, head);
 		}
 	}
 }
 
 // Free the redir list in cmd list (*infile and *outfile).
 
-void	free_redir(t_redir *redir)
+void	free_redir(t_redir *redir, t_gmalloc **head)
 {
 	t_redir	*tmp;
 
@@ -40,29 +40,29 @@ void	free_redir(t_redir *redir)
 	{
 		tmp = redir;
 		redir = redir->next;
-		free(tmp);
+		gfree(tmp, head);
 	}
 }
 
 // Free double tab (**args)
 
-char	**free_double_tab(char **tab, int nb_agrs)
+char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb_agrs)
 	{
-		free(tab[i]);
+		gfree(tab[i], head);
 		i++;
 	}
-	free(tab);
+	gfree(tab, head);
 	return (NULL);
 }
 
 // Free cmd list.
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 {
 	t_cmd	*tmp;
 
@@ -70,10 +70,10 @@ void	free_cmd(t_cmd *cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
-		free_redir(tmp->infiles);
-		free_redir(tmp->outfiles);
-		free_double_tab(tmp->args, tmp->nb_agrs);
-		free(tmp->pathname);
-		free(tmp);
+		free_redir(tmp->infiles, head);
+		free_redir(tmp->outfiles, head);
+		free_double_tab(tmp->args, tmp->nb_agrs, head);
+		gfree(tmp->pathname, head);
+		gfree(tmp, head);
 	}
 }

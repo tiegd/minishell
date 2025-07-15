@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 10:17:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:47:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	exit_pid_error(int *pipefd, t_cmd *cmd)
 
 void	exit_tab(t_cmd *cmd, int code)
 {
-	free_cmd(cmd);
+	(void)cmd;
+	// free_cmd(cmd, head);
 	exit(code);
 }
 

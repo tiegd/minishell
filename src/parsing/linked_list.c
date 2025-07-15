@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 18:26:02 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:50:13 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 
 	new = gb_malloc(sizeof(t_token), head);
 	if (!new)
-		return (ft_lstfree(lst), NULL);
+		return (ft_lstfree(lst, head), NULL);
 	new->content = gb_malloc((len + 1) * sizeof(char), head);
 	if (!new->content)
 		return (free(new), NULL);
