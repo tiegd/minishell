@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 08:46:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:37:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_one_cmd(t_cmd *cmd, char **env)
 {
 	int	pid;
 
-	ft_open_fd(cmd);
 	if (!is_builtin(cmd->args[0]))
 	{
 		pid = fork();
@@ -63,14 +62,29 @@ void	ft_one_cmd(t_cmd *cmd, char **env)
 			exit_tab(cmd, 127);
 		if (pid == 0)
 		{
+			ft_open_fd(cmd);
+			if (cmd->fd_infile != -1)
+			{
+				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+					exit_fd(cmd->fd_infile, cmd);
+			}
+			if (cmd->fd_outfile != -1)
+			{
+				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+					exit_fd(cmd->fd_outfile, cmd);
+			}
 			if (!ft_exec_cmd(cmd, env))
 				exit_tab(cmd, 127);
 			exit_tab(cmd, 1);
+			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, cmd);
+		printf("sithomas la combucha\n");
+		printf("jocelyn le boudin de porte\n");
 	}
 	else
 		ft_exec_cmd(cmd, env);
+	printf("Achille la truite\n");
 }
 
 // Called by Pipex or ft_one_cmd.
@@ -85,23 +99,25 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	if (cmd->fd_infile)
-	{
-		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, cmd);
-	}
-	if (cmd->fd_outfile)
-	{
-		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, cmd);
-	}
+	// if (cmd->fd_infile)
+	// {
+	// 	if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+	// 		exit_fd(cmd->fd_infile, cmd);
+	// }
+	// if (cmd->fd_outfile)
+	// {
+	// 	if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+	// 		exit_fd(cmd->fd_outfile, cmd);
+	// }
 	if (is_builtin(cmd->args[0]))
 	{
+		printf("secros la brosse à dents\n");
 		if (!ft_exec_builtin(cmd, env))
 			exit_tab(cmd, 127);
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{
+		printf("enchevri l'épluche légumes");
 		cmd->pathname = ft_is_bin(paths, nb_path);
 		execve(cmd->pathname, cmd->args, env);
 	}

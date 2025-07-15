@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 07:17:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:25:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	first_pipe(t_cmd *cmd, char **env)
 	if (pid == 0)
 	{
 		ft_open_fd(cmd);
-		if (cmd->fd_infile)
+		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
 		}
-		if (cmd->fd_outfile)
+		if (cmd->fd_outfile != -1)
 		{
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, cmd);
@@ -69,12 +69,12 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 	if (pid == 0)
 	{
 		ft_open_fd(cmd);
-		if (cmd->fd_infile)
+		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
 		}
-		if (cmd->fd_outfile)
+		if (cmd->fd_outfile != -1)
 		{
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, cmd);
