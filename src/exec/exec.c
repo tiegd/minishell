@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 16:02:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 08:46:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_one_cmd(t_cmd *cmd, char **env)
 {
 	int	pid;
 
+	ft_open_fd(cmd);
 	if (!is_builtin(cmd->args[0]))
 	{
 		pid = fork();
@@ -84,7 +85,6 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	ft_open_fd(cmd);
 	if (cmd->fd_infile)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
