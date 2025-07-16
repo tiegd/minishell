@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 14:21:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 07:47:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static void	first_pipe(t_cmd *cmd, char **env)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
 		close(pipefd[1]);
+		print_tab_char(cmd->args);
 		if (!ft_exec_cmd(cmd, env))
 		{
+			printf("100 - 8 zoo\n");
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, 127);
 		}
@@ -66,15 +68,19 @@ static void	middle_pipe(t_cmd *cmd, char **env)
 	{
 		ft_open_fd(cmd);
 		if (cmd->fd_infile != -1)
+		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
-		if (cmd->fd_outfile != -1)
-			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-				exit_fd(cmd->fd_outfile, cmd);
-		if (cmd->fd_infile == -1)
+		}
+		else
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, cmd);
-		if (cmd->fd_outfile == -1)
+		if (cmd->fd_outfile != -1)
+		{
+			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+				exit_fd(cmd->fd_outfile, cmd);
+		}
+		else
 			if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
@@ -100,30 +106,33 @@ static void	last_pipe(t_cmd *cmd, char **env)
 		exit_tab(cmd, EXIT_FAILURE);
 	if (pid_last == 0)
 	{
-		// if (cmd->infiles != NULL || cmd->outfiles != NULL)
-		// 	ft_fd_to_pipe(cmd);
-		// if (cmd->infiles == NULL)
-		// 	if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
-		// 		exit_fd(cmd->outpipe, cmd);
 		ft_open_fd(cmd);
 		if (cmd->fd_infile != -1)
 		{
+			printf("gontran pichard\n");
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, cmd);
 		}
 		else
 		{
+			printf("gaetan le singe, artiste 2 rue\n");
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, cmd);
 		}
 		if (cmd->fd_outfile != -1)
 		{
+			printf("thierry pelouse\n");
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, cmd);
 		}
+		print_tab_char(cmd->args);
 		if (!ft_exec_cmd(cmd, env))
+		{
+			printf("theo porose, con\n");
+			ft_close_fd(cmd, 0);
 			exit_tab(cmd, 127);
-		exit_tab(cmd, 1);
+		}
+		// exit_tab(cmd, 1);
 		close(cmd->outpipe);
 	}
 	close(cmd->outpipe);
