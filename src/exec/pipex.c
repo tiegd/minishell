@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:48:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 11:32:02 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Run the first command and redirect the output to the following command.
 
-static void	first_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
+static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
@@ -41,7 +41,7 @@ static void	first_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 		close(pipefd[0]);
 		close(pipefd[1]);
 		print_tab_char(cmd->args);
-		if (!ft_exec_cmd(cmd, env))
+		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			printf("100 - 8 zoo\n");
 			ft_close_fd(cmd, pipefd);
@@ -54,7 +54,7 @@ static void	first_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 
 // Run a middle command and redirect the output to the following command.
 
-static void	middle_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
+static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
@@ -85,7 +85,7 @@ static void	middle_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		if (!ft_exec_cmd(cmd, env, head))
+		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			ft_close_fd(cmd, pipefd);
 			exit_tab(cmd, 127);
@@ -97,7 +97,7 @@ static void	middle_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 
 // Run the the command and redirect the output to the terminal.
 
-static void	last_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
+static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid_last;
 
@@ -126,7 +126,7 @@ static void	last_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 				exit_fd(cmd->fd_outfile, cmd);
 		}
 		print_tab_char(cmd->args);
-		if (!ft_exec_cmd(cmd, env))
+		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			printf("theo porose, con\n");
 			ft_close_fd(cmd, 0);
@@ -141,7 +141,7 @@ static void	last_pipe(t_cmd *cmd, char **env, t_gmalloc **head)
 
 // This function shall reproduce the behavior of '|' in bash.
 
-void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_gmalloc **head)
+void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 {
 	int	i;
 
@@ -149,11 +149,11 @@ void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_gmalloc **head)
 	while (i <= nb_pipe)
 	{
 		if (i == 0)
-			first_pipe(cmd, env, head);
+			first_pipe(cmd, mini, head);
 		else if (i == nb_pipe)
-			last_pipe(cmd, env, head);
+			last_pipe(cmd, mini, head);
 		else
-			middle_pipe(cmd, env, head);
+			middle_pipe(cmd, mini, head);
 		if (i < nb_pipe)
 			cmd->next->outpipe = cmd->outpipe;
 		i++;

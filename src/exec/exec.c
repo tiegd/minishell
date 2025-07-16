@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:47:26 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 11:38:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ char	*ft_is_bin(char **paths, int nb_path)
 
 // Run the cmd if it's a builtin.
 
-int	ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head)
+int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
 		ft_echo(cmd);
 	if (ft_strcmp(cmd->args[0], "cd"))
-		cd(cmd->args, env, false); //malloc_error);
+		cd(cmd->args, mini->env, false); //malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "export"))
-		env = loop_export(env, cmd->args, head);
+		mini->env = loop_export(mini->env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "unset"))
-		env = loop_unset(env, cmd->args, head);
+		mini->env = loop_unset(mini->env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "env"))
-		ft_env(env, STDOUT_FILENO);
+		ft_env(mini->env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
 		return (0);
 	return (1);
@@ -51,7 +51,7 @@ int	ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head)
 
 // Run only one command with ft_exec_cmd.
 
-void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
+void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
@@ -69,7 +69,7 @@ void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 			if (cmd->fd_outfile != -1)
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 					exit_fd(cmd->fd_outfile, cmd);
-			if (!ft_exec_cmd(cmd, env))
+			if (!ft_exec_cmd(cmd, mini, head))
 				exit_tab(cmd, 127);
 			exit_tab(cmd, 1);
 			ft_close_fd(cmd, 0);
@@ -77,24 +77,24 @@ void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 		wait_children(pid, cmd);
 	}
 	else
-		ft_exec_cmd(cmd, env, head);
+		ft_exec_cmd(cmd, mini, head);
 }
 
 // Called by Pipex or ft_one_cmd.
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
+bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	char	**paths;
 	char	*line;
 	int		nb_path;
 
-	line = ft_path_line(env);
+	line = ft_path_line(mini->env);
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
 	if (is_builtin(cmd->args[0]))
 	{
-		if (!ft_exec_builtin(cmd, env, head))
+		if (!ft_exec_builtin(cmd, mini, head))
 			exit_tab(cmd, 127);
 	}
 	else if (ft_is_bin(paths, nb_path))
@@ -102,7 +102,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 		printf("c'est pas un boa ca, si ?\n");
 		cmd->pathname = ft_is_bin(paths, nb_path);
 		printf("cmd->pathname = %s\n", cmd->pathname);
-		execve(cmd->pathname, cmd->args, env);
+		execve(cmd->pathname, cmd->args, mini->env);
 		printf("arhg\n");
 	}
 	return (false);
