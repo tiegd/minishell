@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 13:02:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 13:15:36 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{
-		printf("c'est pas un boa ca, si ?\n");
+		// printf("c'est pas un boa ca, si ?\n");
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf("cmd->pathname = %s\n", cmd->pathname);
+		// printf("cmd->pathname = %s\n", cmd->pathname);
 		execve(cmd->pathname, cmd->args, mini->env);
-		printf("arhg\n");
+		// printf("arhg\n");
 	}
 	return (false);
 }
