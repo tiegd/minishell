@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:41:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:45:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,3 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 	}
 	return (false);
 }
-//caca prout

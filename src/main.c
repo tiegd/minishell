@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 16:52:09 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:39:27 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 
 	mini.gmalloc = NULL;
-	mini.env = dup_env(env, &mini.gmalloc);
+	if (!env)
+		mini.env = env_dash_i();
+	else
+		mini.env = dup_env(env, &mini.gmalloc);
 	// print_tab_char(env);
 	// printf("\n*------------------------------------------------*\n");
 	// print_tab_char(mini.env);

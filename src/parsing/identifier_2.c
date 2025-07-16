@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/28 14:24:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:54:52 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int	is_special(char c)
 	return (0);
 }
 
+int	is_redir(char c)
+{
+	if (c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
 /*isalnum où le '_' est autorisé*/
 int	exp_isalnum(int c) 
 {
@@ -41,3 +48,4 @@ int	exp_isalnum(int c)
 	else
 		return (0);
 }
+

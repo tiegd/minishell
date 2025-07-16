@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 12:46:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:39:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ enum e_types
 /*----------PARSING----------*/
 
 int 	ft_parsing(char *input, t_mini *mini);
+int		syntax_error(char *prompt);
 // int		ft_check_prompt(char *input);
 char	**ft_multi_split(char *s, t_gmalloc **head);
 int		ft_count_word(char *s);
@@ -83,6 +84,7 @@ bool	ft_is_pipe(t_token *lst);
 // void	define_type(t_token *lst);
 char	*ft_path_line(char **env);
 int		ft_nb_path(char **path);
+char	**env_dash_i(void);
 
 /*--------HANDLE-LIST----------*/
 
@@ -194,6 +196,7 @@ void	ft_fd_to_pipe(t_cmd *cmd);
 void	exit_pid_error(int *pipefd, t_cmd *cmd);
 void	exit_tab(t_cmd *cmd, int code);
 void	exit_fd(int fd, t_cmd *cmd);
+int		str_return(const char *str, int exit_status, t_mini *mini);
 
 /*------------TEST------------*/
 
