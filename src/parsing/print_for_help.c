@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 12:46:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 07:54:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,19 @@ void	ft_print_memory(t_gmalloc *lst)
 void	ft_print_cmd(t_cmd *lst)
 {
 	int i;
+	int j = 0;
 	while (lst)
 	{
 		i = 0;
 		while (lst->args[i] != NULL)
 		{
-			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
+			printf(RED"cmd[%d] = %s | type = %d\n"RESET, j, lst->args[i], lst->type);
+			printf("infiles redir = %s\n", lst->infiles->filename);
+			printf("outfiles redir = %s\n", lst->outfiles->filename);
 			i++;
 		}
 		lst = lst->next;
+		j++;
 	}
 }
 

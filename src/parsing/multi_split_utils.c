@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 18:17:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:37:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ void	skip_special_char(char *s, t_input *in)
 	{
 		(in->count)++;
 		(in->i)++;
+		if (s[in->i] && !is_special(s[in->i]) && !is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
+			in->count++;
 	}
 	else if (s[in->i] && (is_append(s[in->i], s[in->i + 1]) 
 			|| is_here_doc(s[in->i], s[in->i + 1])))
 	{
 		(in->count)++;
 		(in->i) += 2;
+		if (s[in->i] && !is_special(s[in->i]) && !is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
+			in->count++;
 	}
 	else
 		return ;

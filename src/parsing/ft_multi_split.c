@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 12:02:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:36:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_count_word(char *s)
 	while (s[in.i])
 	{
 		skip_white_space(s, &in);
-		if (s[in.i] && !is_ws(s[in.i]) && in.sq % 2 == 0 && in.dq % 2 == 0)
+		if (s[in.i] && !is_special(s[in.i]) && !is_ws(s[in.i]) && in.sq % 2 == 0 && in.dq % 2 == 0)
 			in.count++;
 		skip_special_char(s, &in);
-		skip_white_space(s, &in);
+		// skip_white_space(s, &in);
 		while (s[in.i] && !is_ws(s[in.i]) && !is_special(s[in.i]))
 		{
 			update_quotes(s[in.i], &in.sq, &in.dq);
@@ -42,8 +42,8 @@ static char	**ft_new_str(char **double_tab, char *s, int nb_word, t_gmalloc **he
 	while (s[in.i] && in.count < nb_word)
 	{
 		skip_white_space(s, &in);
-		if (!handle_special_char(double_tab, s, &in, head))
-			return (free_split(double_tab, in.count, head), NULL);
+		while (s[in.i] && is_special(s[in.i]))
+			handle_special_char(double_tab, s, &in, head);
 		skip_alpha(s, &in.sq, &in.dq, &in.i);
 		if (in.sq % 2 == 0 && in.dq % 2 == 0)
 		{
@@ -75,6 +75,7 @@ char	**ft_multi_split(char *s, t_gmalloc **head)
 	if (!check_empty_s(s, ' ', '\t'))
 		return (NULL);
 	nb_word = ft_count_word(s);
+	printf("nb_word = %d\n", nb_word);
 	double_tab = gb_malloc((nb_word + 1) * sizeof(char *), head);
 	// if (!(double_tab))
 	// 	return (NULL);

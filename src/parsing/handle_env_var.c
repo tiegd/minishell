@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 18:10:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:18:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,6 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc
 			if (quote_dollars[index] == DQ)
 			{
 				isolated[i] = expend(isolated[i], env, head);
-				// if (!isolated[i] && (*malloc_error) == true)
-				// {
-				// 	free_all(isolated);
-				// 	return (NULL);
-				// }
 			}
 			index++;
 		}
@@ -224,11 +219,6 @@ char	*join_parts(char **str_tab, t_gmalloc **head)
 	while (str_tab[i])
 	{
 		res = gb_strjoin_custom(res, str_tab[i], head);
-		// if (!res)
-		// {
-		// 	free(res);
-		// 	return (NULL);
-		// }
 		i++;
 	}
 	return (res);
