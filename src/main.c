@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 13:33:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 10:47:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,48 @@
 // 	// ft_print_tab(cmd->args, nb_arg);
 // }
 
+
+
+char	**dup_env(char **old_env, t_gmalloc **gmalloc)
+{
+	int		i;
+	char	**new_env;
+	int		len_tab;
+
+	i = 0;
+	len_tab = ft_nb_path(old_env);
+	printf("%d\n", len_tab);
+	new_env = gb_malloc(sizeof(char *) * (len_tab + 1), gmalloc);
+	while (old_env[i])
+	{
+		new_env[i] = gb_strdup(old_env[i], gmalloc);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	t_mini	mini;
 	(void)ac;
 	(void)av;
 
-	while ((line = readline(GREEN"minishell Polnareff > "RESET)) != NULL)
+	mini.gmalloc = NULL;
+	mini.env = dup_env(env, &mini.gmalloc);
+	// print_tab_char(env);
+	// printf("\n*------------------------------------------------*\n");
+	// print_tab_char(mini.env);
+	// printf("\n*------------------------------------------------*\n");
+	// ft_print_memory(mini.gmalloc);
+	while ((line = readline(GREEN"minishell Jonas > "RESET)) != NULL)
 	{
 		if (*line)
 		{
 			add_history(line);
 		}
-		if (ft_parsing(line, env))
+		if (ft_parsing(line, &mini))
 			return (1);
 	}
 	return (0);

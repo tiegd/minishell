@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 16:20:54 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 10:21:16 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/07/15 09:02:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**free_split(char **double_tab, int nb_word, t_gmalloc **head)
+void	ft_exit(char **args, int exit_status, t_gmalloc **head)
 {
-	int	i;
+	int arg_count;
 
-	i = 0;
-	while (i < nb_word)
+	arg_count = ft_nb_path(args);
+	if (args > 1)
 	{
-		gfree(double_tab[i], head);
-		i++;
+		ft_putstr_fd("exit : too much arguments", 2);
+		return ;
 	}
-	gfree(double_tab, head);
-	return (NULL);
+	printf("exit\n");
+	gb_free_all(head);
+	exit(exit_status);
 }

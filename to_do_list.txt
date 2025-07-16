@@ -68,7 +68,7 @@ Faire un check au debut pour toutes les erreurs de syntaxe possible.
 
 Bien protejer les forks !!
 
-lancer minishell avec cat urandom | ./minishell
+lancer minishell avec cat /dev/urandom | ./minishell
 
 Gerer les singles quote avec les variables d'environnement. ✅
 Gerer le fait que si la variables d'environnement n'existe pas renvoyer une chaine vide pas nul donc pas de segfault. ✅
@@ -80,5 +80,11 @@ mais sinon :
 lorsqu'on va rentrer $A dans le terminal ca va effectuer la commande.
 Sauf lorsqu'on va faire echo $A dans ce cas la on va afficher "ls -l".)
 
+Creer un systeme de garbage collector.
+
+Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait.
 
 
+
+
+OU J'EN SUIS POUR LA REECRITURE DU PARSING : ft_init_cmd

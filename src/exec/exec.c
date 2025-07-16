@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 07:41:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 10:47:26 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_is_bin(char **paths, int nb_path)
 
 // Run the cmd if it's a builtin.
 
-int	ft_exec_builtin(t_cmd *cmd, char **env)
+int	ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
 		ft_echo(cmd);
@@ -39,9 +39,9 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "export"))
-		env = loop_export(env, cmd->args);
+		env = loop_export(env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "unset"))
-		env = loop_unset(env, cmd->args);
+		env = loop_unset(env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "env"))
 		ft_env(env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
@@ -51,7 +51,7 @@ int	ft_exec_builtin(t_cmd *cmd, char **env)
 
 // Run only one command with ft_exec_cmd.
 
-void	ft_one_cmd(t_cmd *cmd, char **env)
+void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	int	pid;
 
@@ -77,12 +77,12 @@ void	ft_one_cmd(t_cmd *cmd, char **env)
 		wait_children(pid, cmd);
 	}
 	else
-		ft_exec_cmd(cmd, env);
+		ft_exec_cmd(cmd, env, head);
 }
 
 // Called by Pipex or ft_one_cmd.
 
-bool	ft_exec_cmd(t_cmd *cmd, char **env)
+bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head)
 {
 	char	**paths;
 	char	*line;
@@ -94,7 +94,7 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	paths = ft_add_cmd(paths, nb_path, cmd);
 	if (is_builtin(cmd->args[0]))
 	{
-		if (!ft_exec_builtin(cmd, env))
+		if (!ft_exec_builtin(cmd, env, head))
 			exit_tab(cmd, 127);
 	}
 	else if (ft_is_bin(paths, nb_path))
@@ -107,3 +107,4 @@ bool	ft_exec_cmd(t_cmd *cmd, char **env)
 	}
 	return (false);
 }
+//caca prout

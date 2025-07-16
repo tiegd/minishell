@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/04 16:03:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 10:51:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 		new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
 		i++;
 	}
-	free_double_tab(paths, nb_path);
+	// free_double_tab(paths, nb_path,);
 	return (new_tab);
 }
 
@@ -231,30 +231,30 @@ int	ft_nb_path(char **path)
 // 	return (NULL);
 // }
 
-int	ft_parsing(char *input, char **env)
+int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
-	t_token	*token;
-	t_cmd	*cmd;
-	// t_data	data;
 
-	cmd = NULL;
-	// syntaxe_error(input);
-	// len_tab = ft_count_word(input);
+	mini->cmd = NULL;
+	// nb_pipe = 0;
 	if	(ft_strchr(input, '$'))
-		input = handle_env_var(input, env);
-	// printf("apres handle var = %s\n", input);
-	prompt = ft_multi_split(input);
+		input = handle_env_var(input, mini);
+	prompt = ft_multi_split(input, &mini->gmalloc);
+	print_tab_char(prompt);
+	printf("ERROR\n");
 	len_tab = count_tab(prompt);
-	token = ft_tab_to_lst(prompt, len_tab);
-	token = ft_handle_quote(token);
-	cmd = ft_init_cmd(token);
-	nb_pipe = ft_count_pipe(cmd);
+	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
+	mini->token = ft_handle_quote(mini->token);
+	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
+	// ft_print_redir(mini->cmd->infiles);
+	// ft_print_redir(mini->cmd->outfiles);
+	// ft_print_cmd(mini->cmd);
+	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
-		pipex(cmd, env, nb_pipe); 
+		pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);
 	else
-		ft_one_cmd(cmd, env);
+		ft_one_cmd(mini->cmd, mini->env, &mini->gmalloc);
 	return (0);
 }

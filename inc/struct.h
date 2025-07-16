@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 10:52:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 08:46:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #define STRUCT_H
 
 #include <stdbool.h>
+
+// typedef struct s_env
+// {
+// 	char			*var;
+// 	struct s_env	*next;
+// }t_env;
+
 
 typedef struct s_token
 {
@@ -49,6 +56,12 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct s_gmalloc
+{
+	void				*memory;
+	struct s_gmalloc	*next;
+}t_gmalloc;
+
 typedef struct s_input
 {
 	int		i;
@@ -58,11 +71,13 @@ typedef struct s_input
 	int		dq;
 }t_input;
 
-typedef struct s_data
+typedef struct s_mini
 {
-	char			**env;
-	bool 			malloc_error;
-	unsigned int	exit_status;
-}t_data;
+	t_cmd		*cmd;
+	t_token		*token;
+	t_gmalloc	*gmalloc;
+	int			exit_status;
+	char		**env;
+}t_mini;
 
 #endif

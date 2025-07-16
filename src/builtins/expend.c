@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 11:41:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:16:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,55 +31,41 @@ int		strcmp_until_char(char *s1, char *s2, char c)
 	return (0);
 }
 
-// /*récupère le resultat d'une variable d'environnement*/
-// char	*env_result(char *env, bool malloc_error)
-// {
-// 	int	i;
-// 	char *res;
+/*récupère le resultat d'une variable d'environnement*/
+char	*env_result(char *env, t_gmalloc **head)
+{
+	int	i;
+	char *res;
 
-// 	i = 0;
-// 	// res = NULL;
-// 	while (env[i] && env[i] != '=')
-// 	{
-// 		i++;
-// 	}
-// 	if (env[i] && env[i] == '=')
-// 		i++;
-// 	env += i;
-// 	res = ft_strdup(env);
-// 	if (!res)
-// 	{
-// 		malloc_error = true;
-// 		return (NULL);
-// 	}
-// 	return (res);
-// }
+	i = 0;
+	// res = NULL;
+	while (env[i] && env[i] != '=')
+		i++;
+	if (env[i] && env[i] == '=')
+		i++;
+	env += i;
+	res = gb_strdup(env, head);
+	return (res);
+}
 
-// //extrait la variable d'environnement si elle existe, sinon renvoie NULL.
-// char	*extract_env(char *temp, char **env, bool malloc_error)
-// {
-// 	int	i;
-// 	int	temp_len;
-// 	char *extract;
+//extrait la variable d'environnement si elle existe, sinon renvoie NULL.
+char	*extract_env(char *temp, char **env, t_gmalloc **head)
+{
+	int	i;
+	char *extract;
 
-// 	i = 0;
-// 	temp_len = ft_strlen(temp);
-// 	while (env[i] != NULL)
-// 	{
-// 		if (strcmp_until_char(temp, env[i], '='))
-// 		{
-// 			extract = env_result(env[i], malloc_error);
-// 			if (!extract)
-// 			{
-// 				malloc_error = true;
-// 				return (NULL);
-// 			}
-// 			return (extract);
-// 		}
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (strcmp_until_char(temp, env[i], '='))
+		{
+			extract = env_result(env[i], head);
+			return (extract);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 /*fonction permettant de transforner un $SOMETHING en resultat de sa variable d'environnement, 
 renvoie un char* ou NULL si la variable n'est pas trouvé.*/
@@ -110,27 +96,49 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 // 	return (expend);
 // }
 
-char	*expend(char *arg, char **env, bool malloc_error)
+// char	*expend(char *arg, char **env, t_gmalloc **head)
+// {
+// 	int	i;
+// 	char *expend;
+// 	// int	start;
+// 	// int len;
+// 	// char *temp;
+
+// 	i = 0;
+// 	while (*arg != '\0' && *arg != '$')
+// 		arg++;
+// 	if (*arg == '$')
+// 		arg++;
+// 	// if (!temp)
+// 	// 	return (NULL);
+// 	expend = getenv(arg);
+// 	if (!expend)
+// 	{
+// 		expend = gb_malloc(sizeof(char) + 1, head);
+// 		expend[0] = '\0';
+// 	}
+// 	// free(temp);
+// 	// free(arg);
+// 	return (expend);
+// }
+
+char	*expend(char *arg, char **env, t_gmalloc **head)
 {
 	int	i;
+	char *expend;
 	// int	start;
 	// int len;
 	// char *temp;
-	char *expend;
-	(void)env;
-	(void)malloc_error;
 
 	i = 0;
 	while (*arg != '\0' && *arg != '$')
 		arg++;
 	if (*arg == '$')
 		arg++;
-	// if (!temp)
-	// 	return (NULL);
-	expend = getenv(arg);
+	expend = extract_env(arg, env, head);
 	if (!expend)
 	{
-		expend = malloc(sizeof(char) + 1);
+		expend = gb_malloc(sizeof(char) + 1, head);
 		expend[0] = '\0';
 	}
 	// free(temp);

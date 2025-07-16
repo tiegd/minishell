@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/06/30 14:13:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:54:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**unset(char *var, char **old_env)
+char	**unset(char *var, char **old_env, t_gmalloc **head)
 {
 	int		i;
 	int		j;
@@ -20,8 +20,7 @@ char	**unset(char *var, char **old_env)
 
 	i = 0;
 	j = 0;
-	new_env = malloc(sizeof(char *) * nb_var(old_env) + 1);
-	printf("env size =%d\n", nb_var(old_env));
+	new_env = gb_malloc(sizeof(char *) * nb_var(old_env) + 1, head);
 	while(old_env[i] != NULL)
 	{
 		if (strcmp_until_char(var, old_env[i], '='))
@@ -31,23 +30,38 @@ char	**unset(char *var, char **old_env)
 			else
 				break ;
 		}
-		new_env[j] = ft_strdup(old_env[i]);
+		new_env[j] = gb_strdup(old_env[i], head);
 		i++;
 		j++;
 	}
 	new_env[j] = NULL;
+	free_double_tab(old_env, nb_var(old_env), head);
 	return (new_env);
 }
 
-char	**loop_unset(char **env, char **args)
+char	**loop_unset(char **env, char **args, t_gmalloc **head)
 {
 	int	i;
 
 	i = 1;
 	while (args[i] != NULL)
 	{
-		env = unset(args[i], env);
+		env = unset(args[i], env, head);
 		i++;
 	}
 	return (env);
 }
+
+// int main(int ac, char **av, char **env)
+// {
+// 	t_gmalloc *gmalloc;
+// 	(void)ac;
+
+// 	gmalloc = NULL;
+// 	av += 1;
+// 	printf("before\n\n");
+// 	loop_unset(env, av, gmalloc);
+// 	printf("\nafter\n\n");
+// 	print_tab_char(env);
+// 	return (0)
+// }

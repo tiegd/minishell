@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 15:35:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/16 10:51:24 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_tab_char(char **tab)
 	int	i;
 	
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		printf("tab[%d] = %s\n", i, tab[i]);
 		i++;
@@ -35,16 +35,35 @@ void	ft_print_lst(t_token *lst)
 	}
 }
 
+/*permet de print une liste chainé de type t_gmalloc*/
+void	ft_print_memory(t_gmalloc *lst)
+{
+	int i;
+
+	i = 0;
+	while (lst)
+	{
+		printf(RED"memory address[%d] = %p\n", i, lst->memory);
+		if (lst->next == NULL)
+			return ;
+		lst = lst->next;
+		i++;
+	}
+}
+
 /*Print une liste chainé de type t_cmd*/
 void	ft_print_cmd(t_cmd *lst)
 {
 	int i;
+	int j = 0;
 	while (lst)
 	{
 		i = 0;
 		while (lst->args[i] != NULL)
 		{
-			printf(RED"cmd = %s | type = %d\n"RESET, lst->args[i], lst->type);
+			printf(RED"cmd[%d] = %s | type = %d\n"RESET, j, lst->args[i], lst->type);
+			printf("infiles redir = %s\n", lst->infiles->filename);
+			printf("outfiles redir = %s\n", lst->outfiles->filename);
 			i++;
 		}
 		if (lst->infiles != NULL)
@@ -52,6 +71,7 @@ void	ft_print_cmd(t_cmd *lst)
 		if (lst->outfiles != NULL)
 			printf(YELLOW"outfiles = %s ; type = %d\n"RESET, lst->outfiles->filename, lst->outfiles->type);
 		lst = lst->next;
+		j++;
 	}
 }
 

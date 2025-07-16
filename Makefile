@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/07/03 12:04:33 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/07/15 12:37:57 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,11 @@ SRC =	main.c \
 		builtins/pwd.c \
 		builtins/cd.c \
 		builtins/unset.c \
+		builtins/exit.c \
 		clean/clean.c \
 		clean/clean_exit.c \
 		clean/free.c \
+		clean/garbage_collector.c \
 		exec/exec.c \
 		exec/handle_fd.c \
 		exec/pipex.c \
@@ -59,7 +61,8 @@ SRC =	main.c \
 		parsing/handle_quote.c \
 		parsing/identifier.c \
 		parsing/identifier_2.c \
-		parsing/syntaxe_error.c
+		parsing/syntaxe_error.c \
+		parsing/gb_lib.c \
 
 LIBS = 	Libft/libft.a \
 

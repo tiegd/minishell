@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/28 10:26:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/15 11:58:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,6 @@ int	is_option(char	*str)
 	return (0);
 }
 
-void	echo_dollar(char *args, char *expend)
-{
-	int	i;
-
-	i = 0;
-	// printf("EROOR\n");
-	while (args[i] && args[i] != '$')
-	{
-		write(1, &args[i], 1);
-	}
-	printf("%s", expend);
-}
-
 void	ft_echo(t_cmd *cmd)
 {
 	int		i;
@@ -74,18 +61,13 @@ void	ft_echo(t_cmd *cmd)
 	with_option = false;
 	//verifier qu'il y a une option dans la commande.
 	if (cmd->args[i] && is_option(cmd->args[i]))
-	{
 		with_option = true;
-	}
 	//tant que les options sont -n ou -nnnnnnn continuer jusqu'à l'argument suivant.
 	while (cmd->args[i] && is_option(cmd->args[i]))
-	{
 		i++;
-	}
 	//checker si il y a un autre argument, si il n'y en a pas dire que la commande est valide mais renvoyer NULL.
 	if (cmd->args[i] == NULL)
 	{
-		cmd->valid = true;
 		if (with_option == true)
 			printf("");
 		else
@@ -97,18 +79,6 @@ void	ft_echo(t_cmd *cmd)
 	{
 		while (cmd->args[i] != NULL)
 		{
-			//regarder si il y a une variable d'environnement et qu'elle n'est pas entre single quote.
-			if (cmd->is_env_var == true && cmd->quote == 1)
-			{
-				echo_dollar(cmd->args[i], cmd->expend); //print la variable d'environnement
-				if (cmd->args[i + 1] == NULL)
-				{
-					printf("\n"); //mettre un \n si c'est le dernier arguement
-					return ;
-				}
-				// write(1, "HHHHHH", 7);//sinon print un espace pour le prochain arguments
-				i++;
-			}
 			//regarder si c'est le dernier argument ou pas
 			if (cmd->args[i + 1] == NULL)
 			{

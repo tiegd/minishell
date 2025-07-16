@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/03 11:17:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:47:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	exit_pid_error(int *pipefd, t_cmd *cmd)
 
 void	exit_tab(t_cmd *cmd, int code)
 {
-	free_cmd(cmd);
+	(void)cmd;
+	// free_cmd(cmd, head);
 	exit(code);
 }
 
@@ -38,4 +39,11 @@ void	exit_fd(int fd, t_cmd *cmd)
 		close(fd);
 	perror(cmd->args[0]);
 	exit(EXIT_FAILURE);
+}
+
+void	exit_malloc_error(t_gmalloc *head, int exit_status)
+{
+	perror("malloc error\n");
+	gb_free_all(&head);
+	exit(exit_status);
 }
