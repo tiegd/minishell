@@ -80,19 +80,19 @@ mais sinon :
 lorsqu'on va rentrer $A dans le terminal ca va effectuer la commande.
 Sauf lorsqu'on va faire echo $A dans ce cas la on va afficher "ls -l".)
 
-Creer un systeme de garbage collector.
+Creer un systeme de garbage collector. ✅
 
-Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait.
+Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait. ✅
 
+Caractère special valable uniquement entre quote : ( ) \ & * ✅
 
-OU J'EN SUIS POUR LA REECRITURE DU PARSING : ft_init_cmd
+gerer le cas de $U"SER" qui doit seulement afficher SER.✅
 
-Bien checker toutes les erreurs de syntaxe possible.
+gerer le fait que lors de export ou unset on ne peut pas mettre comme premier caractère un chiffre pour le nom de la variable.
+
+Bien checker toutes les erreurs de syntaxe possible. 
 
 Faire les signaux.
 
-Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer a en mettre un en place.
+Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer à en mettre un en place.
 
-gerer le cas de $U"SER" qui doit seulement afficher SER.
-
-Cractère special valable uniquement entre quote : ( ) \ & 

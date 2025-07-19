@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 13:39:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/19 14:51:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,20 @@ int	ft_nb_path(char **path)
 // 	return (NULL);
 // }
 
+int	prompt_is_empty(char *input)
+{
+	int	i;
+	
+	i = 0;
+	while (input[i])
+	{
+		if (!is_ws(input[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
@@ -238,14 +252,14 @@ int	ft_parsing(char *input, t_mini *mini)
 	char	**prompt;
 
 	mini->cmd = NULL;
-	// nb_pipe = 0;
+	if (prompt_is_empty(input))
+		return (0);
 	if (syntax_error(input))
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	print_tab_char(prompt);
-	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
