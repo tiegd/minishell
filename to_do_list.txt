@@ -85,6 +85,14 @@ Creer un systeme de garbage collector.
 Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait.
 
 
-
-
 OU J'EN SUIS POUR LA REECRITURE DU PARSING : ft_init_cmd
+
+Bien checker toutes les erreurs de syntaxe possible.
+
+Faire les signaux.
+
+Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer a en mettre un en place.
+
+gerer le cas de $U"SER" qui doit seulement afficher SER.
+
+Cractère special valable uniquement entre quote : ( ) \ & 
