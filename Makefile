@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/07/15 12:37:57 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/07/16 13:12:53 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,8 @@ SRC =	main.c \
 		parsing/handle_quote.c \
 		parsing/identifier.c \
 		parsing/identifier_2.c \
-		parsing/syntaxe_error.c \
 		parsing/gb_lib.c \
+		parsing/syntax_error.c \
 
 LIBS = 	Libft/libft.a \
 

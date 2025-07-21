@@ -80,11 +80,22 @@ mais sinon :
 lorsqu'on va rentrer $A dans le terminal ca va effectuer la commande.
 Sauf lorsqu'on va faire echo $A dans ce cas la on va afficher "ls -l".)
 
-Creer un systeme de garbage collector.
+Creer un systeme de garbage collector. ✅
 
-Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait.
+Proteger tous les mallocs qui peuvent peter et mettre a jours tous les mallocs deja fait. ✅
 
+Caractère special valable uniquement entre quote : ( ) \ & * ✅
 
+gerer le cas de $U"SER" qui doit seulement afficher SER.✅
 
+gerer le fait que lors de export ou unset on ne peut pas mettre comme premier caractère un chiffre pour le nom de la variable.
 
-OU J'EN SUIS POUR LA REECRITURE DU PARSING : ft_init_cmd
+Bien checker toutes les erreurs de syntaxe possible. 
+
+Faire les signaux.
+
+Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer à en mettre un en place.
+
+Pour le HERE DOC : ne pas expend lorsque le EOF possède des quotes.
+Ne pas expend le EOF si c'est une variable d'environnement.
+Ne pas traiter les quote ni pour le EOF ni pour ce que recois le prompt a chaque ligne.

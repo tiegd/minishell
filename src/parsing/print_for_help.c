@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_for_help.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/16 10:51:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/21 16:43:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	print_tab_char(char **tab)
 	int	i;
 	
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i] != NULL)
 	{
 		printf("tab[%d] = %s\n", i, tab[i]);
@@ -28,6 +30,8 @@ void	print_tab_char(char **tab)
 /*permet de print une liste chainé de type t_token*/
 void	ft_print_lst(t_token *lst)
 {
+	if (!lst)
+		return ;
 	while (lst)
 	{
 		printf(RED"content = %s | type = %d\n"RESET, lst->content, lst->type);
@@ -62,8 +66,8 @@ void	ft_print_cmd(t_cmd *lst)
 		while (lst->args[i] != NULL)
 		{
 			printf(RED"cmd[%d] = %s | type = %d\n"RESET, j, lst->args[i], lst->type);
-			printf("infiles redir = %s\n", lst->infiles->filename);
-			printf("outfiles redir = %s\n", lst->outfiles->filename);
+			// printf("infiles redir = %s\n", lst->infiles->filename);
+			// printf("outfiles redir = %s\n", lst->outfiles->filename);
 			i++;
 		}
 		if (lst->infiles != NULL)
@@ -80,6 +84,8 @@ void	ft_print_tab(char **path, int nb_path)
 	int	i;
 	
 	i = 0;
+	if (!path && !(*path))
+		return ;
 	while (i != nb_path)
 	{
 		printf(YELLOW"path[%d] = %s\n"RESET, i,path[i]);
