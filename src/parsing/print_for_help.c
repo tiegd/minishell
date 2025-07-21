@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/19 11:50:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:28:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	ft_print_cmd(t_cmd *lst)
 		while (lst->args[i] != NULL)
 		{
 			printf(RED"cmd[%d] = %s | type = %d\n"RESET, j, lst->args[i], lst->type);
-			printf("infiles redir = %s\n", lst->infiles->filename);
-			printf("outfiles redir = %s\n", lst->outfiles->filename);
+			// printf("infiles redir = %s\n", lst->infiles->filename);
+			// printf("outfiles redir = %s\n", lst->outfiles->filename);
 			i++;
 		}
 		lst = lst->next;

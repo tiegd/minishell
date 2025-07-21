@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/19 14:51:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:39:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int	ft_nb_path(char **path)
 {
 	int	i;
 	i = 0;
+	if (!path)
+		return (i);
 	while (path[i] != NULL)
 		i++;
 	return (i);
@@ -250,6 +252,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
+	int 	fd_here_doc;
 
 	mini->cmd = NULL;
 	if (prompt_is_empty(input))
@@ -259,14 +262,15 @@ int	ft_parsing(char *input, t_mini *mini)
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
 	prompt = ft_multi_split(input, &mini->gmalloc);
-	print_tab_char(prompt);
+	// print_tab_char(prompt);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
+	// fd_here_doc = here_doc("HELLO", &mini->gmalloc);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	// ft_print_redir(mini->cmd->infiles);
 	// ft_print_redir(mini->cmd->outfiles);
-	// ft_print_cmd(mini->cmd);
+	ft_print_cmd(mini->cmd);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
 		pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);

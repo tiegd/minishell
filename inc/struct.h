@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 08:46:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 12:08:13 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // 	char			*var;
 // 	struct s_env	*next;
 // }t_env;
+
 
 
 typedef struct s_token

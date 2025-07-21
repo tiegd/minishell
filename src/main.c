@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 13:39:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:25:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,16 @@
 // 	// ft_print_tab(cmd->args, nb_arg);
 // }
 
-
+void	handle_ctrl_c(int sig)
+{
+	(void)sig;
+	printf("");
+	// rl_replace_line("\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
+	// rl_redisplay();
+	// printf("");
+}
 
 char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {
@@ -108,11 +117,14 @@ char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 
 int	main(int ac, char **av, char **env)
 {
+	struct sigaction sa_ctrl_c;
 	char	*line;
 	t_mini	mini;
 	(void)ac;
 	(void)av;
 
+	sa_ctrl_c.sa_handler = &handle_ctrl_c;
+	sa_ctrl_c.sa_flags = SA_RESTART;
 	mini.gmalloc = NULL;
 	if (!env)
 		mini.env = env_dash_i();
@@ -123,8 +135,11 @@ int	main(int ac, char **av, char **env)
 	// print_tab_char(mini.env);
 	// printf("\n*------------------------------------------------*\n");
 	// ft_print_memory(mini.gmalloc);
+	sigaction(SIGINT, &sa_ctrl_c, NULL);
+	
 	while ((line = readline("minizeub > ")) != NULL)
 	{
+		// sigaction(SIGINT, &sa_ctrl_c, NULL);
 		if (*line)
 		{
 			add_history(line);
@@ -132,5 +147,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_parsing(line, &mini))
 			return (1);
 	}
+	if (!line)
+			ft_exit(NULL, 0, &mini.gmalloc);
 	return (0);
 }

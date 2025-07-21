@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:45:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:22:17 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "env"))
 		ft_env(env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
-		return (0);
+		ft_exit(cmd->args, 0, head);
 	return (1);
 }
 
