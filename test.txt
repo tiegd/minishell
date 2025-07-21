@@ -1,0 +1,19 @@
+[0mc'est pas un boa ca, si ?
+cmd->pathname = /usr/bin/ls
+bin
+checklist_minishell.txt
+inc
+Libft
+Makefile
+mini_launch
+minishell
+misc
+quote_test.txt
+README.md
+sortie_erreur.txt
+src
+syntax_error.txt
+testgit.txt
+test.txt
+to_do_list
+to_do_list.txt
