@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/21 16:42:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:06:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_path_line(char **env);
 int		ft_nb_path(char **path);
 char	**env_dash_i(void);
 
-int		here_doc(int eof, t_gmalloc **head);
+int		here_doc(char *eof, t_gmalloc **head);
 
 /*--------HANDLE-LIST----------*/
 
