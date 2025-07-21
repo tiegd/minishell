@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/21 14:28:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:43:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	ft_print_cmd(t_cmd *lst)
 			// printf("outfiles redir = %s\n", lst->outfiles->filename);
 			i++;
 		}
+		if (lst->infiles != NULL)
+			printf(GREEN"infile = %s ; type = %d\n"RESET, lst->infiles->filename, lst->infiles->type);
+		if (lst->outfiles != NULL)
+			printf(YELLOW"outfiles = %s ; type = %d\n"RESET, lst->outfiles->filename, lst->outfiles->type);
 		lst = lst->next;
 		j++;
 	}

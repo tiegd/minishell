@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 16:39:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:43:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,8 +273,11 @@ int	ft_parsing(char *input, t_mini *mini)
 	ft_print_cmd(mini->cmd);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
-		pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);
+	{
+		// pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);
+		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);
+	}
 	else
-		ft_one_cmd(mini->cmd, mini->env, &mini->gmalloc);
+		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/21 16:27:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:42:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,13 @@ int		strcmp_until_char(char *s1, char *s2, char c);
 /*--------EXEC--------*/
 
 int	    is_builtin(char *content);
-int		ft_exec_builtin(t_cmd *cmd, char **env, t_gmalloc **head);
-bool	ft_exec_cmd(t_cmd *cmd, char **env, t_gmalloc **head);
-void	ft_one_cmd(t_cmd *cmd, char **env, t_gmalloc **head);
+int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
-void	pipex(t_cmd *cmd, char **env, int nb_pipe, t_gmalloc **head);
+void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head);
 int		ft_count_pipe(t_token **token);
 void    wait_children(pid_t pid_last, t_cmd *cmd);
 

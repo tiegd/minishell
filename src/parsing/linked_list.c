@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 12:50:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:49:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
 		i++;
 	}
 	define_type(lst);
-	ft_print_lst(lst);
+	// ft_print_lst(lst);
 	return (lst);
 }
