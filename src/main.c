@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:47:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 08:04:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 
 	i = 0;
 	len_tab = ft_nb_path(old_env);
-	printf("%d\n", len_tab);
+	// printf("%d\n", len_tab);
 	new_env = gb_malloc(sizeof(char *) * (len_tab + 1), gmalloc);
 	while (old_env[i])
 	{
