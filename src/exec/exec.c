@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 16:43:12 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 09:18:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{
-		printf("c'est pas un boa ca, si ?\n");
+		// printf("c'est pas un boa ca, si ?\n");
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf("cmd->pathname = %s\n", cmd->pathname);
+		// printf("cmd->pathname = %s\n", cmd->pathname);
 		execve(cmd->pathname, cmd->args, mini->env);
 		printf("arhg\n");
 	}
