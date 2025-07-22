@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 06:07:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:40:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	ft_open_outfile(t_cmd *cmd)
 		cmd->fd_outfile = -1;
 	while (cmd->outfiles != NULL)
 	{
-		cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		printf("cmd->type = %d\n", cmd->type);
+		if (cmd->outfiles->type == OUTPUT)
+			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (cmd->outfiles->type == APPEND)
+			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (cmd->fd_outfile < 0)
 			return ;
 		if (cmd->outfiles->next != NULL)
