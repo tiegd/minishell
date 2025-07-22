@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 11:58:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:30:05 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	is_option(char	*str)
 void	ft_echo(t_cmd *cmd)
 {
 	int		i;
-	int		j;
+	// int		j;
 	bool	with_option;
 
 	i = 1;
-	j = 0;
+	// j = 0;
 
 	with_option = false;
 	//verifier qu'il y a une option dans la commande.

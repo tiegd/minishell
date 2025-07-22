@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 13:38:44 by jpiquet           #+#    #+#             */
-/*   Updated: 2024/11/19 17:55:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:28:26 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int				i;
+	// int				i;
 	size_t			s_len;
 	unsigned char	char1;
 
-	i = 0;
+	// i = 0;
 	char1 = (unsigned char)c;
 	s_len = ft_strlen(s);
 	if (char1 == '\0')

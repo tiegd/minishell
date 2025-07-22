@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 17:08:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:58:17 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,9 +267,9 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	if (mini->cmd->infiles->type == HERE_DOC)
+	if (mini->cmd->infiles && mini->cmd->infiles->type == HERE_DOC)
 	{
-		printf("ENTRER\n");
+		// printf("ENTRER\n");
 		mini->cmd->fd_infile = here_doc(mini->cmd->infiles->filename, &mini->gmalloc);
 	}
 	// ft_print_redir(mini->cmd->infiles);

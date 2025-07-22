@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 16:42:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:30:14 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;
-	printf("");
+	// printf("");
 	// rl_replace_line("\n", 1);
 	rl_on_new_line();
 	rl_redisplay();

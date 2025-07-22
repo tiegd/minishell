@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 06:07:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:05:10 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_open_infile(t_cmd *cmd)
 		cmd->fd_infile = -1;
 	while (cmd->infiles != NULL)
 	{
-		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
+		if (cmd->infiles->type != HERE_DOC)
+			cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
 			return ;
 		if (cmd->infiles->next != NULL)

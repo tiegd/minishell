@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:55:11 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/02/20 18:41:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:28:37 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ static char	**my_strdup(char **tabf, char const *s, int word, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
+	// int		i;
 	char	**tabf;
 	int		word;
 
-	i = 0;
+	// i = 0;
 	word = count_word(s, c);
 	tabf = malloc(sizeof(char *) * (word + 1));
 	if (!tabf)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 11:23:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:29:54 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ char	*ft_strjoin_custom(char *s1, char *s2)
 char	*ft_strndup(const char *s, int n)
 {
 	int		i;
-	int		len;
+	// int		len;
 	char	*dest;
 
 	i = 0;
-	len = ft_strlen(s);
+	// len = ft_strlen(s);
 	if (n <= 0)
 		return (NULL);
 	dest = malloc(sizeof(char) * (n + 1));

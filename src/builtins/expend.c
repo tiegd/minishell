@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 11:16:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:29:06 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,13 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 
 char	*expend(char *arg, char **env, t_gmalloc **head)
 {
-	int	i;
+	// int	i;
 	char *expend;
 	// int	start;
 	// int len;
 	// char *temp;
 
-	i = 0;
+	// i = 0;
 	while (*arg != '\0' && *arg != '$')
 		arg++;
 	if (*arg == '$')

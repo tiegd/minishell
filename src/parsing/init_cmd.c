@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 12:48:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 14:28:54 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 /*creer une nouveau noeud commande pour la list chainé*/
 t_cmd *new_cmd(t_gmalloc **gmalloc)
 {
-	int		i;
+	// int		i;
 	t_cmd	*new;
 
-	i = 0;
+	// i = 0;
 	new = gb_malloc(sizeof(t_cmd), gmalloc);
 	if (!new)
 		return (NULL);
