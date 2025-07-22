@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/22 13:07:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 13:22:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,20 @@ int	empty_redir(char *prompt)
 	{
 		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
 		{
+			printf("Coco l'astico\n");
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+			// if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]))
+			{
+				printf(GREEN"prompt[%d] = %c\n"RESET, i, prompt[i]);
 				return (1);
+			}
 		}
 		else if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
 		{
+			printf("Simon la chaussure\n");
 			i += 2;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
@@ -129,6 +135,7 @@ int	empty_redir(char *prompt)
 		}
 		i++;
 	}
+	printf("Jules le porte serviette\n");
 	return (0);
 }
 
