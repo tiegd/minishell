@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/19 10:51:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 13:07:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,26 @@ int	empty_redir(char *prompt)
 int	syntax_error(char *prompt)
 {
 	if (char_not_required(prompt))
+	{
+		printf("char_not_required\n");
 		return (1);
+	}
 	if (before_operator(prompt))
+	{
+		printf("before_operator\n");
 		return (1);
+	}
 	// if (after_operator(prompt))
 	// 	return (1);
 	if (empty_redir(prompt))
+	{
+		printf("empty_redir\n");
 		return (1);
+	}
 	if (unclosed_quote(prompt))
+	{
+		printf("unclosed_quote\n");
 		return (1);
+	}
 	return (0);
 }
