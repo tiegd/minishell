@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 09:17:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 10:33:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ int	ft_parsing(char *input, t_mini *mini)
 		input = handle_env_var(input, mini);
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	// print_tab_char(prompt);
+	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);

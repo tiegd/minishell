@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 09:19:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/22 10:32:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				exit_fd(pipefd[1], cmd);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		print_tab_char(cmd->args);
+		// print_tab_char(cmd->args);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			// printf("100 - 8 zoo\n");
