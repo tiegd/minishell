@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 15:45:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/23 08:32:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ int	main(int ac, char **av, char **env)
 		}
 		if (ft_parsing(line, &mini))
 		{
-			printf("valentin la charentaise\n");
+			// printf("valentin la charentaise\n");
 			return (1);
 		}
-		printf("alpayet la semoule\n");
+		// printf("alpayet la semoule\n");
 	}
 	if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);
