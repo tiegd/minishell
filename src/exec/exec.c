@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 10:50:33 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:44:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,35 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
+	gfree(mini->token, &mini->gmalloc);
 	if (!is_builtin(cmd->args[0]))
 	{
 		pid = fork();
 		if (pid == -1)
-			exit_tab(cmd, 127);
+		{
+			exit_tab(mini, 127);
+			// exit_tab(cmd, 127);
+		}
 		if (pid == 0)
 		{
 			ft_open_fd(cmd);
 			if (cmd->fd_infile != -1)
 				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-					exit_fd(cmd->fd_infile, cmd);
+					exit_fd(cmd->fd_infile, mini);
+					// exit_fd(cmd->fd_infile, cmd);
 			if (cmd->fd_outfile != -1)
+			{
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-					exit_fd(cmd->fd_outfile, cmd);
+					exit_fd(cmd->fd_outfile, mini);
+					// exit_fd(cmd->fd_outfile, cmd);
+			}
 			if (!ft_exec_cmd(cmd, mini, head))
-				exit_tab(cmd, 127);
-			exit_tab(cmd, 1);
+			{
+				exit_tab(mini, 127);
+				// exit_tab(cmd, 127);
+			}
+			exit_tab(mini, 1);
+			// exit_tab(cmd, 1);
 			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, cmd);
@@ -95,7 +107,10 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
-			exit_tab(cmd, 127);
+		{
+			// exit_tab(cmd, 127);
+			exit_tab(mini, 127);
+		}
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{

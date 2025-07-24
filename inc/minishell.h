@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/21 16:42:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:55:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,12 @@ void	ft_fd_to_pipe(t_cmd *cmd);
 
 /*------------EXIT------------*/
 
-void	exit_pid_error(int *pipefd, t_cmd *cmd);
-void	exit_tab(t_cmd *cmd, int code);
-void	exit_fd(int fd, t_cmd *cmd);
+// void	exit_pid_error(int *pipefd, t_cmd *cmd);
+void	exit_pid_error(int *pipefd, t_mini *mini);
+// void	exit_tab(t_cmd *cmd, int code);
+void	exit_tab(t_mini *mini, int code);
+// void	exit_fd(int fd, t_cmd *cmd);
+void	exit_fd(int fd, t_mini *mini);
 int		str_return(const char *str, int exit_status, t_mini *mini);
 
 /*------------TEST------------*/

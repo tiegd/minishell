@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/23 08:32:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:34:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	main(int ac, char **av, char **env)
 	// ft_print_memory(mini.gmalloc);
 	sigaction(SIGINT, &sa_ctrl_c, NULL);
 	
-	while ((line = readline("minizeub > ")) != NULL)
+	while ((line = readline(GREEN"minizeub > "RESET)) != NULL)
 	{
 		// sigaction(SIGINT, &sa_ctrl_c, NULL);
 		if (*line)
