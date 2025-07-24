@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/24 14:44:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:37:24 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		ft_env(mini->env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(cmd->args, 0, head);
+	gfree(cmd, head);
 	return (1);
 }
 

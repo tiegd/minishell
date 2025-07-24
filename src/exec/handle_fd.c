@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 12:54:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:36:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,33 @@ void	ft_open_fd(t_cmd *cmd)
 	// printf("Etienne la poule\n");
 }
 
-void	ft_fd_to_pipe(t_cmd *cmd)
+// void	ft_fd_to_pipe(t_cmd *cmd)
+// {
+// 	ft_open_fd(cmd);
+// 	if (cmd->fd_infile != -1)
+// 	{
+// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+// 			exit_fd(cmd->fd_infile, cmd);
+// 	}
+// 	if (cmd->fd_outfile != -1)
+// 	{
+// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+// 			exit_fd(cmd->fd_outfile, cmd);
+// 	}
+// }
+
+void	ft_fd_to_pipe(t_mini *mini)
 {
-	ft_open_fd(cmd);
-	if (cmd->fd_infile != -1)
+	ft_open_fd(mini->cmd);
+	if (mini->cmd->fd_infile != -1)
 	{
-		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, cmd);
+		if (dup2(mini->cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(mini->cmd->fd_infile, mini->cmd);
 	}
-	if (cmd->fd_outfile != -1)
+	if (mini->cmd->fd_outfile != -1)
 	{
-		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, cmd);
+		if (dup2(mini->cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(mini->cmd->fd_outfile, mini->cmd);
 	}
 }
 
