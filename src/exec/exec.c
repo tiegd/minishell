@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 10:12:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:41:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
 
 // Check if the cmd exist with access().
 
@@ -23,8 +24,12 @@ char	*ft_is_bin(char **paths, int nb_path)
 	{
 		if (access(paths[i], F_OK) == 0)
 			return (paths[i]);
+		// else if (access(paths[i], F_OK) == -1)
+		// 	printf("Error : %s\n", strerror(errno));
 		i++;
 	}
+	if (access(paths[i], F_OK) == -1)
+		printf("Error : %s\n", strerror(errno));
 	return (NULL);
 }
 
