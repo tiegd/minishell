@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/07/21 17:00:56 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/07/28 14:51:01 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRC =	main.c \
 		parsing/identifier_2.c \
 		parsing/gb_lib.c \
 		parsing/syntax_error.c \
-		parsing/here_doc.c
+		parsing/here_doc.c \
+		parsing/handle_env_var_for_here_doc.c \
 
 LIBS = 	Libft/libft.a \
 

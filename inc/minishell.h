@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/28 14:24:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 16:34:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,12 @@ char	*ft_path_line(char **env);
 int		ft_nb_path(char **path);
 char	**env_dash_i(void);
 
-int		here_doc(t_mini *mini, char *eof, t_gmalloc **head);
+/*--------HERE_DOC----------*/
+
+char	*here_doc(t_mini *mini, char *eof, t_gmalloc **head);
+char	*handle_env_var_for_here_doc(char *prompt, t_mini *mini);
+
+
 
 /*--------HANDLE-LIST----------*/
 
