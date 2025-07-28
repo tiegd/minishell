@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 14:19:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:24:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ char	*ft_is_bin(char **paths, int nb_path)
 	{
 		if (access(paths[i], F_OK) == 0)
 			return (paths[i]);
-		// else if (access(paths[i], F_OK) == -1)
-		// 	printf("Error : %s\n", strerror(errno));
 		i++;
 	}
 	if (access(paths[i], F_OK) == -1)
@@ -110,16 +108,13 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	if (cmd->args[0][0] == '/')
-		execve(cmd->args[0], cmd->args, mini->env);
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
-		{
-			// exit_tab(cmd, 127);
-			exit_tab(mini, 127);
-		}
+		exit_tab(mini, 127);
 	}
+	else if (cmd->args[0][0] == '/')
+		execve(cmd->args[0], cmd->args, mini->env);
 	else if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
