@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/24 10:34:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:12:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;
-	printf("");
+	// printf("");
 	// rl_replace_line("\n", 1);
 	rl_on_new_line();
 	rl_redisplay();

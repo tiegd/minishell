@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 14:29:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:13:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
-	int 	fd_here_doc;
+	// int 	fd_here_doc;
 
 	mini->cmd = NULL;
 	if (prompt_is_empty(input))
@@ -267,8 +267,12 @@ int	ft_parsing(char *input, t_mini *mini)
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
-	// fd_here_doc = here_doc("HELLO", &mini->gmalloc);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
+	if (mini->cmd->infiles && mini->cmd->infiles->type == HERE_DOC)
+	{
+		// printf("ENTRER\n");
+		mini->cmd->fd_infile = here_doc(mini->cmd->infiles->filename, &mini->gmalloc);
+	}
 	// ft_print_redir(mini->cmd->infiles);
 	// ft_print_redir(mini->cmd->outfiles);
 	// ft_print_cmd(mini->cmd);
