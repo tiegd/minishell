@@ -101,3 +101,5 @@ Ne pas expend le EOF si c'est une variable d'environnement.
 Ne pas traiter les quote ni pour le EOF ni pour ce que recois le prompt a chaque ligne.
 
 Trouver un moyen de recuperer le nom du ficher temporaire pour l'ouvrir et le supprimer apres l'execution de la commande.
+
+Pour $ lorsqu'il est tout seul sans variable dénvironnement le traiter comme une commande ou un argument.

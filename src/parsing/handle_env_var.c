@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 14:18:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 13:42:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,37 @@ char	**split_parts(char *prompt, t_gmalloc **head)
 	return (parts);
 }
 
+/*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
+int	is_eof(char	*prev)
+{
+	int	i;
+	bool here_doc;
+
+	i = 0;
+	here_doc = false;
+	while (prev[i])
+	{
+		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i])))
+			i++;
+		if (is_here_doc(prev[i], prev[i + 1]))
+		{
+			here_doc = true;
+			i += 2;
+		}
+		else
+			i++;
+		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
+		{
+			if (!is_quote(prev[i]) && !is_ws(prev[i]))
+				return(0);
+			i++;
+		}
+	}
+	if (here_doc == true)
+		return (1);
+	return (0);
+}
+
 void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
 {
 	int		i;
@@ -103,7 +134,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc
 	{
 		if (strchr(isolated[i], '$'))
 		{
-			if (quote_dollars[index] == DQ)
+			if (quote_dollars[index] == DQ && !is_eof(isolated[i - 1]))
 			{
 				isolated[i] = expend(isolated[i], env, head);
 			}
@@ -231,7 +262,7 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	int		*quote_dollars;
 
 	isolated = split_parts(prompt, &mini->gmalloc);
-	// print_tab_char(isolated);
+	print_tab_char(isolated);
 	// if (!isolated)
 	// 	return (NULL);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);

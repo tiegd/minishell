@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 11:27:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 09:46:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	is_opt_cd(char	*option)
 	else
 		return (0);
 }
+
+
 
 void	cd(char	**args, char **env, t_gmalloc **head)
 {
@@ -37,7 +39,7 @@ void	cd(char	**args, char **env, t_gmalloc **head)
 	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
 	{
 		path = expend("$HOME", env, head);
-		if (!path)
+		if (path[0] == '\0')
 		{
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(": HOME not set", 2);
@@ -58,7 +60,7 @@ void	cd(char	**args, char **env, t_gmalloc **head)
 	{
 		path = expend("$OLDPWD", env, head);
 		// printf("path $OLDPWD = %s\n", path);
-		if (!path)
+		if (path[0] == '\0')
 		{
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(": OLDPWD not set\n", 2);
@@ -66,10 +68,10 @@ void	cd(char	**args, char **env, t_gmalloc **head)
 		if (chdir(path) == -1)
 		{
 			perror("error with chdir");
-			free(path);
+			gfree(path, head);
 		}
 		pwd(1);
-		free(path);
+		gfree(path, head);
 	}
 	else
 	{

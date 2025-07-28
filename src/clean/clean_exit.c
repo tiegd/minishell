@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 13:42:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 10:27:54 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exit_malloc_error(t_gmalloc *head, int exit_status)
 int	str_return(const char *str, int exit_status, t_mini *mini)
 {
 	printf("%s", str);
-	gb_free_all(&mini->gmalloc);
+	// gb_free_all(&mini->gmalloc);
 	mini->exit_status = exit_status;
 	return(0);
 }
