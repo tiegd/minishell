@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_multi_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 16:43:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/22 10:32:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**ft_multi_split(char *s, t_gmalloc **head)
 	if (!check_empty_s(s, ' ', '\t'))
 		return (NULL);
 	nb_word = ft_count_word(s);
-	printf("nb_word = %d\n", nb_word);
+	// printf("nb_word = %d\n", nb_word);
 	double_tab = gb_malloc((nb_word + 1) * sizeof(char *), head);
 	// if (!(double_tab))
 	// 	return (NULL);

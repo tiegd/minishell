@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/19 10:51:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/23 10:09:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int	empty_redir(char *prompt)
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+			// if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]))
 				return (1);
 		}
 		else if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))

@@ -6,38 +6,68 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 10:27:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 14:25:14 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_pid_error(int *pipefd, t_cmd *cmd)
+// void	exit_pid_error(int *pipefd, t_cmd *cmd)
+// {
+// 	if (pipefd[0] > 0)
+// 		close(pipefd[0]);
+// 	if (pipefd[1] > 0)
+// 		close(pipefd[1]);
+// 	if (cmd->fd_infile > 0)
+// 		close(cmd->fd_outfile);
+// 	if (cmd->fd_outfile > 0)
+// 		close(cmd->fd_outfile);
+// 	perror("Error");
+// 	exit(EXIT_FAILURE);
+// }
+
+void	exit_pid_error(int *pipefd, t_mini *mini)
 {
 	if (pipefd[0] > 0)
 		close(pipefd[0]);
 	if (pipefd[1] > 0)
 		close(pipefd[1]);
-	if (cmd->fd_infile > 0)
-		close(cmd->fd_outfile);
-	if (cmd->fd_outfile > 0)
-		close(cmd->fd_outfile);
+	if (mini->cmd->fd_infile > 0)
+		close(mini->cmd->fd_outfile);
+	if (mini->cmd->fd_outfile > 0)
+		close(mini->cmd->fd_outfile);
+	gb_free_all(&mini->gmalloc);
 	perror("Error");
 	exit(EXIT_FAILURE);
 }
 
-void	exit_tab(t_cmd *cmd, int code)
+// void	exit_tab(t_cmd *cmd, int code)
+// {
+// 	(void)cmd;
+// 	// free_cmd(cmd, head);
+// 	exit(code);
+// }
+
+void	exit_tab(t_mini *mini, int code)
 {
-	(void)cmd;
-	// free_cmd(cmd, head);
+	gb_free_all(&mini->gmalloc);
 	exit(code);
 }
 
-void	exit_fd(int fd, t_cmd *cmd)
+// void	exit_fd(int fd, t_cmd *cmd)
+// {
+// 	if (fd > 0)
+// 		close(fd);
+// 	perror(cmd->args[0]);
+// 	exit(EXIT_FAILURE);
+// }
+
+void	exit_fd(int fd, t_mini *mini)
 {
 	if (fd > 0)
 		close(fd);
-	perror(cmd->args[0]);
+	perror(mini->cmd->args[0]);
+	gb_free_all(&mini->gmalloc);
 	exit(EXIT_FAILURE);
 }
 

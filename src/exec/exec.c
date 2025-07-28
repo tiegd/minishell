@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/21 17:33:40 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 13:41:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
 
 // Check if the cmd exist with access().
 
@@ -23,8 +24,12 @@ char	*ft_is_bin(char **paths, int nb_path)
 	{
 		if (access(paths[i], F_OK) == 0)
 			return (paths[i]);
+		// else if (access(paths[i], F_OK) == -1)
+		// 	printf("Error : %s\n", strerror(errno));
 		i++;
 	}
+	if (access(paths[i], F_OK) == -1)
+		printf("Error : %s\n", strerror(errno));
 	return (NULL);
 }
 
@@ -46,6 +51,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		ft_env(mini->env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(cmd->args, 0, head);
+	gfree(cmd, head);
 	return (1);
 }
 
@@ -55,23 +61,35 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
+	gfree(mini->token, &mini->gmalloc);
 	if (!is_builtin(cmd->args[0]))
 	{
 		pid = fork();
 		if (pid == -1)
-			exit_tab(cmd, 127);
+		{
+			exit_tab(mini, 127);
+			// exit_tab(cmd, 127);
+		}
 		if (pid == 0)
 		{
 			ft_open_fd(cmd);
 			if (cmd->fd_infile != -1)
 				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-					exit_fd(cmd->fd_infile, cmd);
+					exit_fd(cmd->fd_infile, mini);
+					// exit_fd(cmd->fd_infile, cmd);
 			if (cmd->fd_outfile != -1)
+			{
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-					exit_fd(cmd->fd_outfile, cmd);
+					exit_fd(cmd->fd_outfile, mini);
+					// exit_fd(cmd->fd_outfile, cmd);
+			}
 			if (!ft_exec_cmd(cmd, mini, head))
-				exit_tab(cmd, 127);
-			exit_tab(cmd, 1);
+			{
+				exit_tab(mini, 127);
+				// exit_tab(cmd, 127);
+			}
+			exit_tab(mini, 1);
+			// exit_tab(cmd, 1);
 			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, cmd);
@@ -95,15 +113,18 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
-			exit_tab(cmd, 127);
+		{
+			// exit_tab(cmd, 127);
+			exit_tab(mini, 127);
+		}
 	}
 	else if (ft_is_bin(paths, nb_path))
 	{
-		printf("c'est pas un boa ca, si ?\n");
+		// printf("c'est pas un boa ca, si ?\n");
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		printf("cmd->pathname = %s\n", cmd->pathname);
+		// printf("cmd->pathname = %s\n", cmd->pathname);
 		execve(cmd->pathname, cmd->args, mini->env);
-		printf("arhg\n");
+		// printf("arhg\n");
 	}
 	return (false);
 }

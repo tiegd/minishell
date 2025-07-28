@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 15:05:10 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:13:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	ft_open_outfile(t_cmd *cmd)
 		cmd->fd_outfile = -1;
 	while (cmd->outfiles != NULL)
 	{
-		cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (cmd->outfiles->type == OUTPUT)
+			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (cmd->outfiles->type == APPEND)
+			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (cmd->fd_outfile < 0)
 			return ;
 		if (cmd->outfiles->next != NULL)
@@ -58,18 +61,33 @@ void	ft_open_fd(t_cmd *cmd)
 	// printf("Etienne la poule\n");
 }
 
-void	ft_fd_to_pipe(t_cmd *cmd)
+// void	ft_fd_to_pipe(t_cmd *cmd)
+// {
+// 	ft_open_fd(cmd);
+// 	if (cmd->fd_infile != -1)
+// 	{
+// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+// 			exit_fd(cmd->fd_infile, cmd);
+// 	}
+// 	if (cmd->fd_outfile != -1)
+// 	{
+// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+// 			exit_fd(cmd->fd_outfile, cmd);
+// 	}
+// }
+
+void	ft_fd_to_pipe(t_mini *mini)
 {
-	ft_open_fd(cmd);
-	if (cmd->fd_infile != -1)
+	ft_open_fd(mini->cmd);
+	if (mini->cmd->fd_infile != -1)
 	{
-		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, cmd);
+		if (dup2(mini->cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(mini->cmd->fd_infile, mini);
 	}
-	if (cmd->fd_outfile != -1)
+	if (mini->cmd->fd_outfile != -1)
 	{
-		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, cmd);
+		if (dup2(mini->cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(mini->cmd->fd_outfile, mini);
 	}
 }
 

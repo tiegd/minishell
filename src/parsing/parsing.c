@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 10:08:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/07/28 14:25:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*ft_add_suf(int j, char *str, char *args)
 	i = 0;
 	str[j] = '/';
 	j++;
+	if (args[0] == '/' && args[1] == 'b' && args[2] == 'i' && args[3] == 'n' && args[4] == '/')
+		i = 5;
 	while (args[i])
 	{
 		str[j] = args[i];
@@ -263,6 +265,8 @@ int	ft_parsing(char *input, t_mini *mini)
 		input = handle_env_var(input, mini);
 		// print_tab_char(prompt);
 	prompt = ft_multi_split(input, &mini->gmalloc);
+	// print_tab_char(prompt);
+	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
@@ -274,7 +278,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	// }
 	// ft_print_redir(mini->cmd->infiles);
 	// ft_print_redir(mini->cmd->outfiles);
-	ft_print_cmd(mini->cmd);
+	// ft_print_cmd(mini->cmd);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
 	{
