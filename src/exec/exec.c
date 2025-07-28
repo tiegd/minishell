@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 14:24:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:34:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*ft_is_bin(char **paths, int nb_path)
 			return (paths[i]);
 		i++;
 	}
+	printf(CYAN"Code errno : %d\n"RESET, errno);
 	if (access(paths[i], F_OK) == -1)
 		printf("Error : %s\n", strerror(errno));
 	return (NULL);
@@ -111,14 +112,17 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
-		exit_tab(mini, 127);
+			exit_tab(mini, 127);
 	}
-	else if (cmd->args[0][0] == '/')
+	if (cmd->args[0][0] == '/')
+	{
 		execve(cmd->args[0], cmd->args, mini->env);
+		printf("minishell : %s : %s\n", cmd->args[0], strerror(errno));
+	}
 	else if (ft_is_bin(paths, nb_path))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path);
-		// printf("cmd->pathname = %s\n", cmd->pathname);
+		printf("cmd->pathname = %s\n", cmd->pathname);
 		execve(cmd->pathname, cmd->args, mini->env);
 	}
 	return (false);
