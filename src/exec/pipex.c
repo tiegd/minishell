@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/24 14:59:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:58:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,16 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		ft_open_fd(cmd);
 		if (cmd->fd_infile != -1)
+		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, mini);
 				// exit_fd(cmd->fd_infile, cmd);
+		}
+		else
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+				exit_tab(mini, 127);
+		}
 		if (cmd->fd_outfile != -1)
 		{
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
@@ -81,6 +88,11 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				exit_fd(cmd->fd_infile, mini);
 				// exit_fd(cmd->fd_infile, cmd);
 		}
+		else if (cmd->fd_infile == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+			exit_tab(mini, 127);
+		}
 		else
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, mini);
@@ -127,6 +139,11 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, mini);
 				// exit_fd(cmd->fd_infile, cmd);
+		}
+		else if (cmd->fd_infile == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+			exit_tab(mini, 127);
 		}
 		else
 		{
