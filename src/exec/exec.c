@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/04 17:04:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:24:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,20 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			if (cmd->fd_infile != -1)
 			{
 				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-					exit_fd(cmd->fd_infile, mini);
-					// exit_fd(cmd->fd_infile, cmd);
+				exit_fd(cmd->fd_infile, mini);
+				// exit_fd(cmd->fd_infile, cmd);
 			}
-			if (cmd->fd_infile == -1)
+			else if (cmd->fd_infile == -1)
 			{
 				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
 				exit_tab(mini, 127);
 			}
-			printf("alpayet l'éponge\n");
 			if (cmd->fd_outfile != -1)
 			{
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 					exit_fd(cmd->fd_outfile, mini);
 					// exit_fd(cmd->fd_outfile, cmd);
 			}
-			printf("achille le porte cintre\n");
 			if (!ft_exec_cmd(cmd, mini, head))
 			{
 				exit_tab(mini, 127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 17:23:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:23:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_open_infile(t_cmd *cmd)
 {
 	if (cmd->infiles == NULL)
-		cmd->fd_infile = -1;
+		cmd->fd_infile = 0;
 	while (cmd->infiles != NULL)
 	{
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
@@ -53,11 +53,10 @@ void	ft_open_outfile(t_cmd *cmd)
 
 void	ft_open_fd(t_cmd *cmd)
 {
-	// if (cmd->infiles)
+	cmd->fd_infile = 0;
+	cmd->fd_outfile = 0;
 	ft_open_infile(cmd);
-	// if (cmd->outfiles)
 	ft_open_outfile(cmd);
-	// printf("Etienne la poule\n");
 }
 
 // void	ft_fd_to_pipe(t_cmd *cmd)
