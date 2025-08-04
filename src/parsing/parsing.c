@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 14:17:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/04 10:39:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,36 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
+void	open_for_each_redir(t_redir **head, t_mini *mini)
+{
+	t_redir	*temp;
+
+	temp = *head;
+	while (temp != NULL)
+	{
+		if (temp->type == HERE_DOC)
+			{
+				temp->filename = here_doc(mini, temp->filename, &mini->gmalloc);
+				// printf("filename = %s\n", temp->filename);
+			}	
+			temp = temp->next;
+	}
+}
+
+void	open_for_each_cmd(t_cmd **head, t_mini *mini)
+{
+	t_cmd *temp;
+	
+	// if (!head || !*head)
+	// 	return ;
+	temp = *head;
+	while (temp != NULL)
+	{
+		open_for_each_redir(&temp->infiles, mini);
+		temp = temp->next;
+	}
+}
+
 int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
@@ -263,6 +293,7 @@ int	ft_parsing(char *input, t_mini *mini)
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
+		// print_tab_char(prompt);
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	// print_tab_char(prompt);
 	// printf("ERROR\n");
@@ -270,14 +301,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	if (mini->cmd->infiles && mini->cmd->infiles->type == HERE_DOC)
-	{
-		// printf("ENTRER\n");
-		mini->cmd->fd_infile = here_doc(mini->cmd->infiles->filename, &mini->gmalloc);
-	}
-	// ft_print_redir(mini->cmd->infiles);
-	// ft_print_redir(mini->cmd->outfiles);
-	// ft_print_cmd(mini->cmd);
+	open_for_each_cmd(&mini->cmd, mini);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
 	{
