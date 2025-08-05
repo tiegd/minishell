@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 16:34:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:55:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 
 int	main(int ac, char **av, char **env)
 {
-	struct sigaction sa_ctrl_c;
-	char	*line;
-	t_mini	mini;
+	struct sigaction	sa_ctrl_c;
+	char				*line;
+	t_mini				mini;
 	(void)ac;
 	(void)av;
 
@@ -150,6 +150,7 @@ int	main(int ac, char **av, char **env)
 			return (1);
 		}
 		// printf("alpayet la semoule\n");
+		mini.exit_status = 0;
 	}
 	if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);
