@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/28 14:25:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:00:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 void	exit_tab(t_mini *mini, int code)
 {
 	gb_free_all(&mini->gmalloc);
+	mini->exit_status = code;
 	exit(code);
 }
 
@@ -68,6 +69,7 @@ void	exit_fd(int fd, t_mini *mini)
 		close(fd);
 	perror(mini->cmd->args[0]);
 	gb_free_all(&mini->gmalloc);
+	mini->exit_status = 1;
 	exit(EXIT_FAILURE);
 }
 

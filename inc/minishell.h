@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/04 13:41:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/05 15:23:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 // void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
-char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd);
+char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);

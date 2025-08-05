@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 11:58:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/05 16:36:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,21 @@ char	*one_line_path(char **paths)
 	j = 0;
 	count = 0;
 	
-	while (paths[i])
+	while (paths[0][i] && count <= 2)
 	{
-		if (count < 2)
+		if (paths[0][i] == '/')
+			count++;
+		if (count <= 2)
 			i++;
 	}
+	// printf("count = %d, i = %d\n", count, i);
 	new_tab = malloc((i + 1) * sizeof (char));
-	while (j != i)
+	while (j < i)
 	{
 		new_tab[j] = paths[0][j];
 		j++;
 	}
+	new_tab[j] = '\0';
 	return (new_tab);
 }
 
@@ -108,7 +112,14 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 	int		j;
 
 	i = 0;
-	if (cmd->args[0][0] != '~' && cmd->args[0][1] != '\0')
+	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
+	{
+		new_tab = malloc(2 * sizeof(char *));
+		new_tab[0] = one_line_path(paths);
+		// printf(RED"path = %s\n"RESET, new_tab[0]);
+		// return (NULL);
+	}
+	else
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 		new_tab = malloc((nb_path + 1) * sizeof(char *));
@@ -125,13 +136,6 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 			new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
 			i++;
 		}
-	}
-	else
-	{
-		new_tab = malloc(2 * sizeof(char *));
-		new_tab[0] = one_line_path(paths);
-		printf(RED"path = %s\n"RESET, new_tab[0]);
-		// return (NULL);
 	}
 	// free_double_tab(paths, nb_path,);
 	return (new_tab);
@@ -339,10 +343,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	open_for_each_cmd(&mini->cmd, mini);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
-	{
-		// pipex(mini->cmd, mini->env, nb_pipe, &mini->gmalloc);
 		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);
-	}
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	return (0);
