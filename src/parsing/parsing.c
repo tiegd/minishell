@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/04 10:39:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:58:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,31 @@ char	*ft_add_suf(int j, char *str, char *args)
 	return (str);
 }
 
+char	*one_line_path(char **paths)
+{
+	char	*new_tab;
+	int		i;
+	int		j;
+	int		count;
+
+	i = 0;
+	j = 0;
+	count = 0;
+	
+	while (paths[i])
+	{
+		if (count < 2)
+			i++;
+	}
+	new_tab = malloc((i + 1) * sizeof (char));
+	while (j != i)
+	{
+		new_tab[j] = paths[0][j];
+		j++;
+	}
+	return (new_tab);
+}
+
 // Add the cmd at the end of each path.
 
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
@@ -83,20 +108,30 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 	int		j;
 
 	i = 0;
-	size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
-	new_tab = malloc((nb_path + 1) * sizeof(char *));
-	while (i < nb_path)
+	if (cmd->args[0][0] != '~' && cmd->args[0][1] != '\0')
 	{
-		j = 0;
-		size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
-		new_tab[i] = malloc(size_line * sizeof(char));
-		while (paths[i][j])
+		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
+		new_tab = malloc((nb_path + 1) * sizeof(char *));
+		while (i < nb_path)
 		{
-			new_tab[i][j] = paths[i][j];
-			j++;
+			j = 0;
+			size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
+			new_tab[i] = malloc(size_line * sizeof(char));
+			while (paths[i][j])
+			{
+				new_tab[i][j] = paths[i][j];
+				j++;
+			}
+			new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
+			i++;
 		}
-		new_tab[i] = ft_add_suf(j, new_tab[i], cmd->args[0]);
-		i++;
+	}
+	else
+	{
+		new_tab = malloc(2 * sizeof(char *));
+		new_tab[0] = one_line_path(paths);
+		printf(RED"path = %s\n"RESET, new_tab[0]);
+		// return (NULL);
 	}
 	// free_double_tab(paths, nb_path,);
 	return (new_tab);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/04 17:24:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:56:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@ char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd)
 	if (access(paths[i], F_OK) == -1)
 	{
 		if (errno == 14)
-		{
-			if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
-				printf("minishell: %s: Is a directory\n", paths[0]);
-			else
 				printf("minishell: %s: command not found\n", cmd->args[0]);
-		}
 		if (errno == 2)
 			printf("minishell: %s: No such file or directory\n", paths[0]);
 			
@@ -126,8 +121,12 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	line = ft_path_line(mini->env);
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
+	print_tab_char(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
 	// printf("cmd->args[0][0] = %c\n", cmd->args[0][0]);
+	print_tab_char(paths);
+	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
+		printf("minishell: %s: Is a directory\n", paths[0]);
 	if (cmd->args[0][0] == '/')
 	{
 		execve(cmd->args[0], cmd->args, mini->env);
