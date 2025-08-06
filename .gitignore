@@ -1,4 +1,3 @@
-exec/
 src/main.c
 misc/
 Makefile

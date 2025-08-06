@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/05 15:23:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/06 09:59:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ int	    is_builtin(char *content);
 int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
 
 /*------------PIPEX------------*/
 

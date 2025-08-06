@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 16:44:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/06 10:01:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini)
 			return (paths[i]);
 		i++;
 	}
-	// printf(CYAN"Code errno : %d\n"RESET, errno);
 	if (errno == 14)
 	{
 		printf("minishell: %s: command not found\n", cmd->args[0]);
@@ -37,15 +36,6 @@ char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini)
 		printf("minishell: %s: No such file or directory\n", paths[0]);
 		exit_tab(mini, 127);
 	}
-	// if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
-	// 		printf("minishell: %s: command not found\n", cmd->args[0]);
-	// if (access(paths[i], F_OK) == -1)
-	// {
-		// if (errno == 14)
-		// 	printf("minishell: %s: command not found\n", cmd->args[0]);
-		// if (errno == 2)
-		// 	printf("minishell: %s: No such file or directory\n", paths[0]);
-	// }
 	return (NULL);
 }
 
@@ -122,30 +112,8 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	line = ft_path_line(mini->env);
 	paths = ft_split(line, ':');
 	nb_path = ft_nb_path(paths);
-	// print_tab_char(paths);
 	paths = ft_add_cmd(paths, nb_path, cmd);
-	// printf("cmd->args[0][0] = %c\n", cmd->args[0][0]);
-	// print_tab_char(paths);
-	if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
-	{
-		printf("minishell: %s: Is a directory\n", paths[0]);
-		exit_tab(mini, 126);
-	}
-	if (cmd->args[0][0] == '/')
-	{
-		execve(cmd->args[0], cmd->args, mini->env);
-		printf(YELLOW"Code errno : %d\n"RESET, errno);
-		if (errno == 13)
-		{
-			printf("minishell: %s: Is a directory\n", cmd->args[0]);
-			exit_tab(mini, 126);
-		}
-		if (errno == 2)
-		{
-			printf("minishell: %s: No such file or directory\n", cmd->args[0]);
-			exit_tab(mini, 127);
-		}
-	}
+	manage_error_exec(cmd, mini, paths);
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
@@ -154,7 +122,6 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	else if (ft_is_bin(paths, nb_path, cmd, mini))
 	{
 		cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
-		// printf("cmd->pathname = %s\n", cmd->pathname);
 		if (!execve(cmd->pathname, cmd->args, mini->env))
 			exit_tab(mini, 127);
 	}
