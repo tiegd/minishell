@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/06 09:59:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:12:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		exp_isalnum(int c);
 
 /*--------BUILT-IN--------*/
 
-void	ft_echo(t_cmd *cmd);
+void	ft_echo(t_cmd *cmd, t_mini *mini);
 void	ft_env(char **env, int fd);
 char	**ft_export(char **old_env, char *str, t_gmalloc **head);
 void	pwd(int fd);

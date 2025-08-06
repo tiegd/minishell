@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/22 14:30:05 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:37:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_option(char	*str)
 	return (0);
 }
 
-void	ft_echo(t_cmd *cmd)
+void	ft_echo(t_cmd *cmd, t_mini *mini)
 {
 	int		i;
 	// int		j;
@@ -57,6 +57,7 @@ void	ft_echo(t_cmd *cmd)
 
 	i = 1;
 	// j = 0;
+	// (void)mini;
 
 	with_option = false;
 	//verifier qu'il y a une option dans la commande.
@@ -75,6 +76,11 @@ void	ft_echo(t_cmd *cmd)
 		return ;
 	}
 	//si il y a encore des arguments les prints les un a la suite des autres avec 1 espace entre chaque
+	if (ft_strcmp(cmd->args[i], "$") && ft_strcmp(cmd->args[i + 1], "?"))
+	{
+		printf("%d", mini->exit_status);
+		i++;
+	}
 	if (cmd->args[i] != NULL)
 	{
 		while (cmd->args[i] != NULL)
@@ -96,6 +102,8 @@ void	ft_echo(t_cmd *cmd)
 			i++;
 		}
 	}
+	// if (cmd->args[1][0] == '$' && cmd->args[1][1] == '?' && cmd->args[1][2] == '\0')
+	// 	printf("%d", mini->exit_status);
 	else
 	{
 		printf("\n");

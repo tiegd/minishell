@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/06 11:48:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:09:55 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini)
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
-		ft_echo(cmd);
+		ft_echo(cmd, mini);
 	if (ft_strcmp(cmd->args[0], "cd"))
 		cd(cmd->args, mini->env, false); //malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
