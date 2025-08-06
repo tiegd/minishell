@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/08/06 09:52:48 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/08/06 10:14:22 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC =	main.c \
 		clean/clean_exit.c \
 		clean/free.c \
 		clean/garbage_collector.c \
-		exec/error.c	\
+		exec/manage_error.c	\
 		exec/exec.c	\
 		exec/handle_fd.c \
 		exec/pipex.c \
