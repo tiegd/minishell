@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_for_here_doc.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/28 14:57:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/07 14:28:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static char	**split_parts(char *prompt, t_gmalloc **head)
 // 	return (0);
 // }
 
-static void	*expend_each_var(char **isolated, char **env, t_gmalloc **head)
+static void	*expend_each_var(char **isolated, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int		i;
 	int 	index;
@@ -134,7 +134,7 @@ static void	*expend_each_var(char **isolated, char **env, t_gmalloc **head)
 	{
 		if (strchr(isolated[i], '$'))
 		{
-			isolated[i] = expend(isolated[i], env, head);
+			isolated[i] = expend(isolated[i], env, head, mini);
 			index++;
 		}
 		i++;
@@ -264,7 +264,7 @@ char	*handle_env_var_for_here_doc(char *prompt, t_mini *mini)
 	// 	return (NULL);
 	// quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	// print_tab_int(quote_dollars);
-	isolated = expend_each_var(isolated, mini->env, &mini->gmalloc);
+	isolated = expend_each_var(isolated, mini->env, &mini->gmalloc, mini);
 	if (!isolated)
 		return (NULL);
 	// gfree(quote_dollars, &mini->gmalloc);

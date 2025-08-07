@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/06 15:37:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:19:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_option(char	*str)
 	return (0);
 }
 
-void	ft_echo(t_cmd *cmd, t_mini *mini)
+void	ft_echo(t_cmd *cmd)
 {
 	int		i;
 	// int		j;
@@ -57,7 +57,6 @@ void	ft_echo(t_cmd *cmd, t_mini *mini)
 
 	i = 1;
 	// j = 0;
-	// (void)mini;
 
 	with_option = false;
 	//verifier qu'il y a une option dans la commande.
@@ -76,11 +75,6 @@ void	ft_echo(t_cmd *cmd, t_mini *mini)
 		return ;
 	}
 	//si il y a encore des arguments les prints les un a la suite des autres avec 1 espace entre chaque
-	if (ft_strcmp(cmd->args[i], "$") && ft_strcmp(cmd->args[i + 1], "?"))
-	{
-		printf("%d", mini->exit_status);
-		i++;
-	}
 	if (cmd->args[i] != NULL)
 	{
 		while (cmd->args[i] != NULL)

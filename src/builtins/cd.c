@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/28 09:46:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/07 14:19:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_opt_cd(char	*option)
 
 
 
-void	cd(char	**args, char **env, t_gmalloc **head)
+void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int		i;
 	char	*path;
@@ -38,7 +38,7 @@ void	cd(char	**args, char **env, t_gmalloc **head)
 		return ;
 	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
 	{
-		path = expend("$HOME", env, head);
+		path = expend("$HOME", env, head, mini);
 		if (path[0] == '\0')
 		{
 			ft_putstr_fd(args[i], 2);
@@ -58,7 +58,7 @@ void	cd(char	**args, char **env, t_gmalloc **head)
 	}
 	else if (args[i] && args[i + 1][0] == '-' && args[i + 1][1] == '\0') //regarder si l'option est - 
 	{
-		path = expend("$OLDPWD", env, head);
+		path = expend("$OLDPWD", env, head, mini);
 		// printf("path $OLDPWD = %s\n", path);
 		if (path[0] == '\0')
 		{

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/06 15:34:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/07 14:25:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ int	is_eof(char	*prev)
 	return (0);
 }
 
-void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
+// void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
+void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *mini)
 {
 	int		i;
 	int 	index;
@@ -136,7 +137,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc
 		{
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - 1]))
 			{
-				isolated[i] = expend(isolated[i], env, head);
+				isolated[i] = expend(isolated[i], env, mini->gmalloc->memory, mini);
 			}
 			index++;
 		}
@@ -267,7 +268,7 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	// 	return (NULL);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	// print_tab_int(quote_dollars);
-	isolated = expend_each_var(isolated, mini->env, quote_dollars, &mini->gmalloc);
+	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
 	if (!isolated)
 		return (NULL);
 	gfree(quote_dollars, &mini->gmalloc);

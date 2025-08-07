@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/22 14:29:06 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/07 14:17:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,53 @@ char	*env_result(char *env, t_gmalloc **head)
 	return (res);
 }
 
+// For count the number of char for ft_itoa().
+static int	count_size(int n)
+{
+	int i;
+
+	i = 0;
+	if (n < 0)
+		n *= -1;
+	while (n != 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char		*ft_itoa(int nb)
+{
+	char	*dest;
+	int		count;
+	int		n;
+	int		i;
+
+	n = nb;
+	count = count_size(n);
+	i = 0;
+	if (n < 0 || count == 0)
+		count++;
+	if (!(dest = malloc((count + 1) * sizeof(char))))
+		return (NULL);
+	if (n < 0)
+	{
+		n *= -1;
+		dest[0] = '-';
+		i++;
+	}
+	while (count > i)
+	{
+		count--;
+		dest[count] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (dest);
+}
+
 //extrait la variable d'environnement si elle existe, sinon renvoie NULL.
-char	*extract_env(char *temp, char **env, t_gmalloc **head)
+char	*extract_env(char *temp, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int	i;
 	char *extract;
@@ -62,6 +107,8 @@ char	*extract_env(char *temp, char **env, t_gmalloc **head)
 			extract = env_result(env[i], head);
 			return (extract);
 		}
+		if (temp[i] == '?')
+			return (ft_itoa(mini->exit_status));
 		i++;
 	}
 	return (NULL);
@@ -122,7 +169,7 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 // 	return (expend);
 // }
 
-char	*expend(char *arg, char **env, t_gmalloc **head)
+char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 {
 	// int	i;
 	char *expend;
@@ -135,7 +182,7 @@ char	*expend(char *arg, char **env, t_gmalloc **head)
 		arg++;
 	if (*arg == '$')
 		arg++;
-	expend = extract_env(arg, env, head);
+	expend = extract_env(arg, env, head, mini);
 	if (!expend)
 	{
 		expend = gb_malloc(sizeof(char) + 1, head);
