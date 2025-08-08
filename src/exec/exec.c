@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/07 15:50:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:37:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
-	printf(RED"%d\n"RESET, mini->exit_status);
 	gfree(mini->token, &mini->gmalloc);
 	if (!is_builtin(cmd->args[0]))
 	{
@@ -77,10 +76,8 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (pid == 0)
 		{
 			ft_open_fd(cmd);
-			// printf("cmd->fd_infile = %d\n", cmd->fd_infile);
 			if (cmd->fd_infile != -1)
 			{
-				// printf("zizi\n");
 				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 					exit_fd(cmd->fd_infile, mini);
 			}
@@ -89,25 +86,17 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
 					exit_tab(mini, 127);
 			}
-			// printf("oui oui\n");
 			if (cmd->fd_outfile != -1)
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 					exit_fd(cmd->fd_outfile, mini);
 			if (!ft_exec_cmd(cmd, mini, head))
-			{
-				printf(RED"Error du cul\n"RESET);
 				exit_tab(mini, 127);
-			}
 			ft_close_fd(cmd, 0);
 		}
-		wait_children(pid, cmd);
-		// wait(&mini->exit_status);
+		wait_children(pid, mini);
 	}
 	else
 		ft_exec_cmd(cmd, mini, head);
-	// mini->exit_status = 
-	// exit_tab(mini, 0);
-	// printf("exit status = %d\n", mini->exit_status);
 }
 
 // Called by Pipex or ft_one_cmd.
@@ -133,7 +122,6 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
 		if (!execve(cmd->pathname, cmd->args, mini->env))
 			exit_tab(mini, 127);
-		printf("errno = %d\n", errno);
 	}
 	return (false);
 }

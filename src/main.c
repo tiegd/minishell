@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 16:55:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:32:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ int	main(int ac, char **av, char **env)
 			return (1);
 		}
 		// printf("alpayet la semoule\n");
-		mini.exit_status = 0;
+		if (!mini.exit_status)
+			mini.exit_status = 0;
 	}
 	if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);
