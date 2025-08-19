@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:14:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else
 		{
 			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-				exit_tab(mini, 127);
+			exit_tab(mini, 127);
 		}
 		if (cmd->fd_outfile != -1)
 		{
@@ -116,6 +116,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		exit_tab(mini, EXIT_FAILURE);
 	if (pid_last == 0)
 	{
+		printf("jweber la nouille\n");
 		ft_open_fd(cmd);
 		if (cmd->fd_infile != -1)
 		{
@@ -137,7 +138,8 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, mini);
 		}
-		if (!ft_exec_cmd(cmd, mini, head))
+		if (!ft_exec_cmd(cmd, mini, head))	wait_children(pid, mini);
+
 		{
 			ft_close_fd(cmd, 0);
 			exit_tab(mini, 127);

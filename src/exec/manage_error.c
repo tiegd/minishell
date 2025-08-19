@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:05 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 11:54:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+#include <sys/stat.h>
 #include <errno.h>
 
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths)
