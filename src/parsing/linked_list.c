@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/16 10:49:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 10:25:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,24 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
  renvoi 1 si c'est un builtin ou 0 si ca ne l'est pas*/
 int	is_builtin(char *content)
 {
-	if (ft_strcmp(content, "echo"))
-		return (1);
-	if (ft_strcmp(content, "cd"))
-		return (1);
-	if (ft_strcmp(content, "pwd"))
-		return (1);
-	if (ft_strcmp(content, "export"))
-		return (1);
-	if (ft_strcmp(content, "unset"))
-		return (1);
-	if (ft_strcmp(content, "env"))
-		return (1);
-	if (ft_strcmp(content, "exit"))
-		return (1);
-	else
-		return (0);
+	if (content)
+	{
+		if (ft_strcmp(content, "echo"))
+			return (1);
+		if (ft_strcmp(content, "cd"))
+			return (1);
+		if (ft_strcmp(content, "pwd"))
+			return (1);
+		if (ft_strcmp(content, "export"))
+			return (1);
+		if (ft_strcmp(content, "unset"))
+			return (1);
+		if (ft_strcmp(content, "env"))
+			return (1);
+		if (ft_strcmp(content, "exit"))
+			return (1);
+	}
+	return (0);
 }
 
 /*Defini le type de chaques tokens de la liste passé en argument

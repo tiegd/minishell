@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:37:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 10:23:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,21 +107,24 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	char	*line;
 	int		nb_path;
 
-	line = ft_path_line(mini->env);
-	paths = ft_split(line, ':');
-	nb_path = ft_nb_path(paths);
-	paths = ft_add_cmd(paths, nb_path, cmd);
-	manage_error_exec(cmd, mini, paths);
-	if (is_builtin(cmd->args[0]))
+	if (cmd->args[0])
 	{
-		if (!ft_exec_builtin(cmd, mini, head))
-			exit_tab(mini, 127);
-	}
-	else if (ft_is_bin(paths, nb_path, cmd, mini))
-	{
-		cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
-		if (!execve(cmd->pathname, cmd->args, mini->env))
-			exit_tab(mini, 127);
+		line = ft_path_line(mini->env);
+		paths = ft_split(line, ':');
+		nb_path = ft_nb_path(paths);
+		paths = ft_add_cmd(paths, nb_path, cmd);
+		manage_error_exec(cmd, mini, paths);
+		if (is_builtin(cmd->args[0]))
+		{
+			if (!ft_exec_builtin(cmd, mini, head))
+				exit_tab(mini, 127);
+		}
+		else if (ft_is_bin(paths, nb_path, cmd, mini))
+		{
+			cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
+			if (!execve(cmd->pathname, cmd->args, mini->env))
+				exit_tab(mini, 127);
+		}
 	}
 	return (false);
 }
