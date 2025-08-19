@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/07 14:17:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 09:47:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		strcmp_until_char(char *s1, char *s2, char c)
 			return (0);
 		i++;
 	}
-	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c)
+	if (s1[i - 1] - s2[i - 1] == 0 && s2[i] == c) 
 		return (1);
 	return (0);
 }

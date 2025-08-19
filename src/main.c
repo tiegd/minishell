@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:32:20 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:22:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,22 +136,17 @@ int	main(int ac, char **av, char **env)
 	// printf("\n*------------------------------------------------*\n");
 	// ft_print_memory(mini.gmalloc);
 	sigaction(SIGINT, &sa_ctrl_c, NULL);
-	
+	// if (!mini.exit_status)
+	mini.exit_status = 0;
 	while ((line = readline(GREEN"minizeub > "RESET)) != NULL)
 	{
 		// sigaction(SIGINT, &sa_ctrl_c, NULL);
 		if (*line)
-		{
 			add_history(line);
-		}
 		if (ft_parsing(line, &mini))
-		{
-			// printf("valentin la charentaise\n");
 			return (1);
-		}
 		// printf("alpayet la semoule\n");
-		if (!mini.exit_status)
-			mini.exit_status = 0;
+		// printf("mini.exit_status = %d\n", mini.exit_status);
 	}
 	if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);
