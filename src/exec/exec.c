@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/19 12:02:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:16:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
 			if (!execve(cmd->pathname, cmd->args, mini->env))
 				exit_tab(mini, 127);
+			return (true);
 		}
 	}
 	return (false);

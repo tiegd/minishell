@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/19 11:54:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:21:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths)
 {
+	struct stat	buf;
+	
     if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
 	{
 		printf("minishell: %s: Is a directory\n", paths[0]);
@@ -30,6 +32,8 @@ void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths)
 			exit_tab(mini, 2);
 		}
 		execve(cmd->args[0], cmd->args, mini->env);
+		// if (stat(paths[0], &buf) == 0)
+		// 	printf("minishell: %s: Is a directory\n", cmd->args[0]);
 		if (errno == 13)
 		{
 			printf("minishell: %s: Is a directory\n", cmd->args[0]);
