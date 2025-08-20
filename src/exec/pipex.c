@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:34:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	pid_last = fork();
 	if (pid_last == -1)
 		exit_tab(mini, EXIT_FAILURE);
+	printf("Simon la comoucha\n");
+	printf("pid_last = %d\n", pid_last);
 	if (pid_last == 0)
 	{
 		ft_open_fd(cmd);
