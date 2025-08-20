@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/18 13:22:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:26:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	main(int ac, char **av, char **env)
 
 	sa_ctrl_c.sa_handler = &handle_ctrl_c;
 	sa_ctrl_c.sa_flags = SA_RESTART;
+	// sa_ctrl_c.sa_mask = ;
 	mini.gmalloc = NULL;
 	if (!env)
 		mini.env = env_dash_i();

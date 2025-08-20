@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_multi_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/22 10:32:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:00:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ char	**ft_multi_split(char *s, t_gmalloc **head)
 	// 	return (NULL);
 	double_tab[nb_word] = NULL;
 	double_tab = ft_new_str(double_tab, s, nb_word, head);
-	free(s);
+	gfree(s, head);
 	return (double_tab);
 }

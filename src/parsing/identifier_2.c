@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/16 13:54:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 15:38:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int	is_redir(char c)
 int	exp_isalnum(int c) 
 {
 	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
+		return (1);
+	else
+		return (0);
+}
+
+int	exp_isalnum_question_mark(int c)
+{
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_' || c == '?')
 		return (1);
 	else
 		return (0);

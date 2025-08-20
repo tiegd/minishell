@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/24 14:34:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:22:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,16 @@ void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new)
 
 	if (!new)
 		return ;
-	temp = *head;
 	if (!*head)
 	{
 		*head = new;
 		return ;
 	}
+	temp = *head;
 	while (temp->next)
+	{
 		temp = temp->next;
+	}
 	temp->next = new;
 }
 
