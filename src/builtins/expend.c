@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/19 09:47:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:09:02 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*env_result(char *env, t_gmalloc **head)
 		i++;
 	env += i;
 	res = gb_strdup(env, head);
+	
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 16:36:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:14:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ int	ft_parsing(char *input, t_mini *mini)
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
-		// print_tab_char(prompt);
+	// print_tab_char(prompt);
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	// print_tab_char(prompt);
 	// printf("ERROR\n");
