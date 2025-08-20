@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/19 09:44:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:45:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*extract_variable(char *str, int *i, t_gmalloc **head)
 	start = *i;
 	if (str[*i] == '$')
 		(*i)++;
-	while (str[*i] && exp_isalnum(str[*i]))
+	while (str[*i] && exp_isalnum_question_mark(str[*i]))
 		(*i)++;
 	if (*i > start)
 	{
@@ -133,12 +133,12 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *m
 	index = 0;
 	while(isolated[i])
 	{
-		printf("isolated = %s\n", isolated[i]);
+		// printf("isolated = %s\n", isolated[i]);
 		if (strchr(isolated[i], '$'))
 		{
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - 1]))
 			{
-				isolated[i] = expend(isolated[i], env, mini->gmalloc->memory, mini);
+				isolated[i] = expend(isolated[i], env, &mini->gmalloc, mini);
 			}
 			index++;
 		}
@@ -264,7 +264,7 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	int		*quote_dollars;
 
 	isolated = split_parts(prompt, &mini->gmalloc);
-	// print_tab_char(isolated);
+	print_tab_char(isolated);
 	// if (!isolated)
 	// 	return (NULL);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/08 16:33:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:38:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
 char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head);
 char	*gb_strdup(const char *s, t_gmalloc **gmalloc);
 char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head);
+char	*gb_itoa(int nb, t_gmalloc **head);
 
 /*---random--------*/
 
@@ -138,6 +139,7 @@ int		is_here_doc(char c, char d);
 int		is_special(char c);
 int		is_ws(char c);
 int		exp_isalnum(int c);
+int		exp_isalnum_question_mark(int c);
 
 /*--------BUILT-IN--------*/
 
