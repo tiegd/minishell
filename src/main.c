@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 13:26:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 16:55:32 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,12 @@ int	main(int ac, char **av, char **env)
 
 	sa_ctrl_c.sa_handler = &handle_ctrl_c;
 	sa_ctrl_c.sa_flags = SA_RESTART;
-	// sa_ctrl_c.sa_mask = ;
 	mini.gmalloc = NULL;
 	if (!env)
 		mini.env = env_dash_i();
 	else
 		mini.env = dup_env(env, &mini.gmalloc);
-	// print_tab_char(env);
-	// printf("\n*------------------------------------------------*\n");
-	// print_tab_char(mini.env);
-	// printf("\n*------------------------------------------------*\n");
-	// ft_print_memory(mini.gmalloc);
 	sigaction(SIGINT, &sa_ctrl_c, NULL);
-	// if (!mini.exit_status)
 	mini.exit_status = 0;
 	while ((line = readline(GREEN"minizeub > "RESET)) != NULL)
 	{
@@ -146,8 +139,7 @@ int	main(int ac, char **av, char **env)
 			add_history(line);
 		if (ft_parsing(line, &mini))
 			return (1);
-		// printf("alpayet la semoule\n");
-		// printf("mini.exit_status = %d\n", mini.exit_status);
+		free(line);
 	}
 	if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);

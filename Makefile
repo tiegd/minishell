@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/08/06 10:14:22 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/08/20 17:27:36 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC =	main.c \
 		parsing/syntax_error.c \
 		parsing/here_doc.c \
 		parsing/handle_env_var_for_here_doc.c \
+		parsing/gb_split.c
 
 LIBS = 	Libft/libft.a \
 

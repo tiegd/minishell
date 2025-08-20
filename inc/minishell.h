@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 15:38:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:33:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ char	*handle_env_var(char *prompt, t_mini *mini);
 // void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
 char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini);
-char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd);
+char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
 // void	define_type(t_token *lst);
-char	*ft_path_line(char **env);
+char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(void);
 
@@ -124,6 +124,7 @@ char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head)
 char	*gb_strdup(const char *s, t_gmalloc **gmalloc);
 char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head);
 char	*gb_itoa(int nb, t_gmalloc **head);
+char	**gb_split(char const *s, char c, t_gmalloc **head);
 
 /*---random--------*/
 
