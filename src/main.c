@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 13:26:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:28:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,6 @@ int	main(int ac, char **av, char **env)
 		// printf("mini.exit_status = %d\n", mini.exit_status);
 	}
 	if (!line)
-			ft_exit(NULL, 0, &mini.gmalloc);
+		ft_exit(NULL, 0, &mini.gmalloc);
 	return (0);
 }
