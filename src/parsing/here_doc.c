@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 17:16:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 22:31:19 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 	int		here_doc;
 
 	file_name = generate_rand_name_file(head);
-	printf("filename = %s\n", file_name);
 	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
 	{
 		perror("error with open occured\n");
@@ -99,6 +98,9 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 		ft_putstr_fd(line, here_doc);
 		ft_putchar_fd('\n', here_doc);
 	}
-	printf("fd here_doc before = %d\n", here_doc);
+	close(here_doc);
+	if ((here_doc = open(file_name, O_RDONLY)) == -1)
+		return (-1);
+	unlink(file_name);
 	return (here_doc);
 }
