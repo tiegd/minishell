@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/19 14:08:33 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 12:42:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else
 		{
 			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-			exit_tab(mini, 127);
+			exit_tab(mini, 1);
 		}
 		if (cmd->fd_outfile != -1)
 		{
@@ -80,7 +80,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else if (cmd->fd_infile == -1)
 		{
 			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-			exit_tab(mini, 127);
+			exit_tab(mini, 1);
 		}
 		else
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
@@ -125,7 +125,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else if (cmd->fd_infile == -1)
 		{
 			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-			exit_tab(mini, 127);
+			exit_tab(mini, 1);
 		}
 		else
 		{
