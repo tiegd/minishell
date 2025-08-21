@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 12:49:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:10:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			else if (cmd->fd_infile == -1)
 			{
 				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-				exit_tab(mini, 1);
+					exit_tab(mini, 1);
 			}
 			if (cmd->fd_outfile != -1)
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)

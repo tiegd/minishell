@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/07 11:36:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:22:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_open_outfile(t_cmd *cmd)
 		}
 		cmd->outfiles = cmd->outfiles->next;
 	}
+	printf("cmd->outfiles->filename = %s\n", cmd->outfiles->filename);
 }
 
 void	ft_open_fd(t_cmd *cmd)
