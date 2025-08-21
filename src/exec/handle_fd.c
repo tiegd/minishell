@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 14:22:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:48:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_open_infile(t_cmd *cmd)
 void	ft_open_outfile(t_cmd *cmd)
 {
 	if (cmd->outfiles == NULL)
-		cmd->fd_outfile = -1;
+		cmd->fd_outfile = 0;
 	while (cmd->outfiles != NULL)
 	{
 		if (cmd->outfiles->type == OUTPUT)
@@ -49,7 +49,6 @@ void	ft_open_outfile(t_cmd *cmd)
 		}
 		cmd->outfiles = cmd->outfiles->next;
 	}
-	printf("cmd->outfiles->filename = %s\n", cmd->outfiles->filename);
 }
 
 void	ft_open_fd(t_cmd *cmd)
