@@ -105,3 +105,5 @@ Il faut ouvrir et creer tous les here doc avant de faire quoi que ca soit.
 Trouver un moyen de recuperer le nom du ficher temporaire pour l'ouvrir et le supprimer apres l'execution de la commande.
 
 Pour $ lorsqu'il est tout seul sans variable dénvironnement le traiter comme une commande ou un argument.
+
+Checker lorsque minishell est en mode interactif à ce que des qu'il y a une erreur de syntaxe quitter le programme.

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 13:15:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:38:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ char	**env_dash_i(t_gmalloc **head);
 
 /*--------HERE_DOC----------*/
 
-char	*here_doc(t_mini *mini, char *eof, t_gmalloc **head);
+int		here_doc(t_mini *mini, char *eof, t_gmalloc **head);
 char	*handle_env_var_for_here_doc(char *prompt, t_mini *mini);
-
-
 
 /*--------HANDLE-LIST----------*/
 
@@ -180,10 +178,10 @@ void    wait_children(pid_t pid_last, t_mini *mini);
 
 /*--------GARBAGE_COLLECTOR----*/
 
-void		*gb_malloc(size_t size, t_gmalloc **lst);
-void		gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
-void		gfree(void *ptr, t_gmalloc **head);
-void		gb_free_all(t_gmalloc **head);
+void	*gb_malloc(size_t size, t_gmalloc **lst);
+void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
+void	gfree(void *ptr, t_gmalloc **head);
+void	gb_free_all(t_gmalloc **head);
 // t_gmalloc	*gmalloc_last(t_gmalloc *lst);
 
 /*------------CLEAN------------*/
@@ -197,8 +195,8 @@ void	ft_lstfree(t_token *lst, t_gmalloc **head);
 /*------------FD------------*/
 
 void	ft_init_fd(t_token *lst);
-void	ft_open_fd(t_cmd *cmd);
-void	ft_open_infile(t_cmd *cmd);
+void	ft_open_fd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 // void	ft_fd_to_pipe(t_cmd *cmd);

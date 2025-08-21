@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 17:33:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:53:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	open_for_each_cmd(&mini->cmd, mini);
+	// open_for_each_cmd(&mini->cmd, mini);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)
 		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);

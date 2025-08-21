@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:39:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
-		ft_open_fd(cmd);
+		ft_open_fd(cmd, mini, head);
 		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
@@ -71,7 +71,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
-		ft_open_fd(cmd);
+		ft_open_fd(cmd, mini, head);
 		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
@@ -116,7 +116,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		exit_tab(mini, EXIT_FAILURE);
 	if (pid_last == 0)
 	{
-		ft_open_fd(cmd);
+		ft_open_fd(cmd, mini, head);
 		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)

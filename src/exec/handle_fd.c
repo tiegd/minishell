@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/07 11:36:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:27:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_open_infile(t_cmd *cmd)
+void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (cmd->infiles == NULL)
 		cmd->fd_infile = 0;
 	while (cmd->infiles != NULL)
 	{
-		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
+		if (cmd->infiles->type == HERE_DOC)
+			cmd->fd_infile = here_doc(mini, cmd->infiles->filename, head);
+		else
+			cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
 			return ;
 		if (cmd->infiles->next != NULL)
@@ -51,11 +54,11 @@ void	ft_open_outfile(t_cmd *cmd)
 	}
 }
 
-void	ft_open_fd(t_cmd *cmd)
+void	ft_open_fd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	cmd->fd_infile = 0;
 	cmd->fd_outfile = 0;
-	ft_open_infile(cmd);
+	ft_open_infile(cmd, mini, head);
 	ft_open_outfile(cmd);
 }
 
@@ -76,7 +79,7 @@ void	ft_open_fd(t_cmd *cmd)
 
 void	ft_fd_to_pipe(t_mini *mini)
 {
-	ft_open_fd(mini->cmd);
+	ft_open_fd(mini->cmd, mini, &mini->gmalloc);
 	if (mini->cmd->fd_infile != -1)
 	{
 		if (dup2(mini->cmd->fd_infile, STDIN_FILENO) == -1)

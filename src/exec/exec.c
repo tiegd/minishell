@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 14:21:05 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 17:30:43 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,13 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127);
 		if (pid == 0)
 		{
-			ft_open_fd(cmd);
+			ft_open_fd(cmd, mini, head);
+			// printf("fd here_doc after = %d\n", cmd->fd_infile);
+			// printf("fd outfile = %d\n", cmd->fd_outfile);
+			// printf("arg = %s\n", cmd->args[0]);
 			if (cmd->fd_infile != -1)
 			{
+				// printf("proutf\n");
 				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 					exit_fd(cmd->fd_infile, mini);
 			}
@@ -88,6 +92,8 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
 					exit_tab(mini, 127);
 			}
+			printf("fd outfile = %d\n", cmd->fd_outfile);
+
 			if (cmd->fd_outfile != -1)
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 					exit_fd(cmd->fd_outfile, mini);
