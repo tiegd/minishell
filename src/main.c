@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 16:55:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 11:14:24 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	main(int ac, char **av, char **env)
 	sa_ctrl_c.sa_flags = SA_RESTART;
 	mini.gmalloc = NULL;
 	if (!env)
-		mini.env = env_dash_i();
+		mini.env = env_dash_i(&mini.gmalloc);
 	else
 		mini.env = dup_env(env, &mini.gmalloc);
 	sigaction(SIGINT, &sa_ctrl_c, NULL);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:59:16 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/03 13:31:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:20:42 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "minishell.h"
 
-char	**env_dash_i(void)
+char	**env_dash_i(t_gmalloc **head)
 {
 	int		i;
 	char	**new_env;
@@ -29,12 +29,7 @@ char	**env_dash_i(void)
 	if (!new_env)
 		return (NULL);
 	pwd = getcwd(NULL, 0);
-	new_env[i] = ft_strdup(pwd);
-	free(pwd);
-	i++;
-	new_env[i] = ft_strdup("SHLVL=1");
-	i++;
-	new_env[i] = ft_strdup("_=/usr/bin/env");
+	new_env[i] = gb_strdup(pwd, head);
 	i++;
 	new_env[i] = NULL;
 	return (new_env);

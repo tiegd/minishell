@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/08 15:16:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 13:31:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,13 @@ typedef struct s_mini
 	int			exit_status;
 	char		**env;
 }t_mini;
+
+typedef struct s_sort
+{
+	int	i;
+	int	j;
+	int	j_min;
+	int	len;
+}t_sort;
 
 #endif

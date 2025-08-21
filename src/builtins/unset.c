@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 11:54:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:05:54 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**unset(char *var, char **old_env, t_gmalloc **head)
 
 	i = 0;
 	j = 0;
-	new_env = gb_malloc(sizeof(char *) * nb_var(old_env) + 1, head);
+	new_env = gb_malloc(sizeof(char *) * (nb_var(old_env) + 1), head);
 	while(old_env[i] != NULL)
 	{
 		if (strcmp_until_char(var, old_env[i], '='))
@@ -30,6 +30,8 @@ char	**unset(char *var, char **old_env, t_gmalloc **head)
 			else
 				break ;
 		}
+		if (old_env[i] == NULL)
+			break ;
 		new_env[j] = gb_strdup(old_env[i], head);
 		i++;
 		j++;
