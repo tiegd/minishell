@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 11:41:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 12:49:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	if (cmd->args[0])
 	{
-		line = ft_path_line(mini->env);
-		paths = ft_split(line, ':');
+		line = ft_path_line(mini->env, head);
+		paths = gb_split(line, ':', head);
 		nb_path = ft_nb_path(paths);
-		paths = ft_add_cmd(paths, nb_path, cmd);
+		paths = ft_add_cmd(paths, nb_path, cmd, head);
 		manage_error_exec(cmd, mini, paths);
 		if (is_builtin(cmd->args[0]))
 		{

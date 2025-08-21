@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/05 16:36:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:33:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*one_line_path(char **paths)
 
 // Add the cmd at the end of each path.
 
-char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
+char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 {
 	char	**new_tab;
 	int		size_cmd;
@@ -122,12 +122,12 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 	else
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
-		new_tab = malloc((nb_path + 1) * sizeof(char *));
+		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
 		while (i < nb_path)
 		{
 			j = 0;
 			size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
-			new_tab[i] = malloc(size_line * sizeof(char));
+			new_tab[i] = gb_malloc((size_line * sizeof(char)), head);
 			while (paths[i][j])
 			{
 				new_tab[i][j] = paths[i][j];
@@ -137,11 +137,12 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 			i++;
 		}
 	}
+	free_split(paths, nb_path, head);
 	// free_double_tab(paths, nb_path,);
 	return (new_tab);
 }
 
-char	*ft_path_line(char **env)
+char	*ft_path_line(char **env, t_gmalloc **head)
 {
 	int		i;
 	int		j;
@@ -155,7 +156,7 @@ char	*ft_path_line(char **env)
 		{
 			j = 0;
 			len = ft_strlen(env[i]) - 5;
-			path = malloc((len + 1) * sizeof(char));
+			path = gb_malloc(((len + 1) * sizeof(char)), head);
 			while (env[i][j + 5])
 			{
 				path[j] = env[i][j + 5];
