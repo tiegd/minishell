@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 17:33:40 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 13:15:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	ft_is_pipe(t_token *lst);
 // void	define_type(t_token *lst);
 char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
-char	**env_dash_i(void);
+char	**env_dash_i(t_gmalloc **head);
 
 /*--------HERE_DOC----------*/
 
@@ -154,13 +154,13 @@ char	**loop_unset(char **env, char **args, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
 char	**loop_export(char **env, char **args, t_gmalloc **head);
 void	ft_exit(char **args, int exit_status, t_gmalloc **head);
+void	print_export(char **env, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
 
 /*--------FREE(S)--------*/
 
 char	**free_split(char **double_tab, int nb_word, t_gmalloc **head);
-
 int		nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
 

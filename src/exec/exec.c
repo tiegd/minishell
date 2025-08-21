@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 15:10:23 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:17:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "echo"))
 		ft_echo(cmd);
 	if (ft_strcmp(cmd->args[0], "cd"))
-		cd(cmd->args, mini->env, false, mini); //malloc_error);
+		cd(cmd->args, mini->env, head, mini); //malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO);
+	if (ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
+		print_export(mini->env, head);
 	if (ft_strcmp(cmd->args[0], "export"))
 		mini->env = loop_export(mini->env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "unset"))

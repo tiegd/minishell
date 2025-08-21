@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/07 14:19:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:02:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,21 @@ int	is_opt_cd(char	*option)
 		return (0);
 }
 
-
-
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int		i;
 	char	*path;
 	char	*old_path;
+	(void)mini;
+	(void)env;
 
 	i = 0;
-
-	path = NULL;
 	old_path = getcwd(NULL, 0);
-	if (!args || !ft_strcmp(args[i], "cd")) //regarder si args existe et si le 1er argument est bien cd 
+	if (!args[i + 1]) //regarder si args existe et si le 1er argument est bien cd 
+	{
+		ft_putstr_fd("cd : need a relative or absolute path\n", 2);
 		return ;
+	}
 	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
 	{
 		path = expend("$HOME", env, head, mini);
@@ -53,38 +54,26 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 	}
 	else if (!is_opt_cd(args[i + 1]) && nb_var(args) > 3) //regarder si il y a trop d'argument
 	{
-		ft_putstr_fd("cd : too many arguments", 2);
+		ft_putstr_fd("cd : too many arguments\n", 2);
 		return ;
-	}
-	else if (args[i] && args[i + 1][0] == '-' && args[i + 1][1] == '\0') //regarder si l'option est - 
-	{
-		path = expend("$OLDPWD", env, head, mini);
-		// printf("path $OLDPWD = %s\n", path);
-		if (path[0] == '\0')
-		{
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd(": OLDPWD not set\n", 2);
-		}
-		if (chdir(path) == -1)
-		{
-			perror("error with chdir");
-			gfree(path, head);
-		}
-		pwd(1);
-		gfree(path, head);
 	}
 	else
 	{
-		// printf("args[i + 1] = %s\n", args[i + 1]);
-		if (chdir(args[i + 1]) == -1)
+		if (args[i + 1][0] != '/')
+		{
+			path = gb_strjoin_custom(old_path, "/", head);
+			path = gb_strjoin_custom(path, args[i + 1], head);
+		}
+		else
+			path = gb_strdup(args[i + 1], head);
+		if (chdir(path) == -1)
 		{
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd(" : No such file or directory\n", 2);
-			// ft_putstr_fd(args[i + 1], 2);
 		}
 	}
-	old_path = ft_strjoin("OLDPWD=", old_path);
-	env = ft_export(env, old_path, head);
+	// old_path = ft_strjoin("OLDPWD=", old_path);
+	// env = ft_export(env, old_path, head);
 	// if (!path)
 	// 	free(path);
 }
