@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 21:56:51 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:02:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
+	// ft_print_lst(mini->token);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	// open_for_each_cmd(&mini->cmd, mini);

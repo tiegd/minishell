@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 16:38:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 09:51:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		extract_token(char **double_tab, char *s, t_input *in, t_gmalloc **head);
 int		handle_special_char(char **double_tab, char *s, t_input *in, t_gmalloc **head);
 int		check_empty_s(const char *s, char c, char d);
 void	update_quotes(char c, int *sq, int *dq);
+char	*delete_quote(char *str);
 void	init_index(t_input *in);
 void	skip_special_char(char *s, t_input *in);
 void	skip_white_space(char *s, t_input *in);

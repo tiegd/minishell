@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/19 10:25:14 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:30:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,52 @@ void	define_type(t_token *lst)
 	{
 		if (ft_strcmp(lst->content, "|"))
 			lst->type = PIPE;
-		else if (ft_strcmp(lst->content, "<"))
+		if (ft_strcmp(lst->content, "<"))
 			lst->type = INPUT;
-		else if (ft_strcmp(lst->content, ">"))
+		if (ft_strcmp(lst->content, ">"))
 			lst->type = OUTPUT;
-		else if (ft_strcmp(lst->content, ">>"))
+		if (ft_strcmp(lst->content, ">>"))
 			lst->type = APPEND;
-		else if (ft_strcmp(lst->content, "<<"))
+		if (ft_strcmp(lst->content, "<<"))
 			lst->type = HERE_DOC;
-		else if (ft_strchr(lst->content, '$'))
-			lst->type = VAR;
-		else if (ft_strchr(lst->content, '/'))
-			lst->type = PATH;
 		else
-		{
 			lst->type = ARGS;
+		if (lst->type == HERE_DOC && lst->next != NULL)
+		{
+			lst->next->type = HERE_DOC;
+			lst = lst->next;
 		}
 		lst = lst->next;
 	}
 }
+
+// /*Defini le type de chaques tokens de la liste passé en argument
+// et rempli la variable "type" de chaque noeud de la liste*/
+// void	define_type(t_token *lst)
+// {
+// 	while (lst != NULL)
+// 	{
+// 		if (ft_strcmp(lst->content, "|"))
+// 			lst->type = PIPE;
+// 		else if (ft_strcmp(lst->content, "<"))
+// 			lst->type = INPUT;
+// 		else if (ft_strcmp(lst->content, ">"))
+// 			lst->type = OUTPUT;
+// 		else if (ft_strcmp(lst->content, ">>"))
+// 			lst->type = APPEND;
+// 		else if (ft_strcmp(lst->content, "<<"))
+// 			lst->type = HERE_DOC;
+// 		else if (ft_strchr(lst->content, '$'))
+// 			lst->type = VAR;
+// 		else if (ft_strchr(lst->content, '/'))
+// 			lst->type = PATH;
+// 		else
+// 			lst->type = ARGS;
+// 		if (lst->type == HERE_DOC)
+// 			lst->next->type = HERE_DOC;
+// 		lst = lst->next;
+// 	}
+// }
 
 // Move each element of the prompt in a linked list.
 t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)

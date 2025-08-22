@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 22:31:19 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:00:05 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,35 @@ char	*generate_rand_name_file(t_gmalloc **head)
 // 	close(here_doc);
 // 	return (file_name);
 // }
+
 int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 {
 	char	*line;
 	char	*file_name;
 	int		here_doc;
+	bool	had_quote;
 
+	had_quote = false;
 	file_name = generate_rand_name_file(head);
-	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
+	printf("eof = %s\n", eof);
+	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
-		perror("error with open occured\n");
-		return (-1);
+		had_quote = true;
+		eof = delete_quote(eof);
 	}
+	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
+		return (-1);
 	while ((line = readline(">")) != NULL)
 	{
 		if (ft_strcmp(line, eof))
 			break ;
-		if (ft_strchr(line, '$') && (ft_strchr(eof, DQ) || ft_strchr (eof, SQ)))
+		if (ft_strchr(line, '$') && had_quote == false)
 			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, here_doc);
 		ft_putchar_fd('\n', here_doc);
 	}
-	close(here_doc);
+	if (close(here_doc) == -1)
+		return (-1);
 	if ((here_doc = open(file_name, O_RDONLY)) == -1)
 		return (-1);
 	unlink(file_name);
