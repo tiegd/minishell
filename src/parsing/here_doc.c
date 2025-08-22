@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/22 10:00:05 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:05:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 
 	had_quote = false;
 	file_name = generate_rand_name_file(head);
-	printf("eof = %s\n", eof);
+	// printf("eof = %s\n", eof);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
 		had_quote = true;

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/22 10:30:48 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:16:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ void	define_type(t_token *lst)
 	{
 		if (ft_strcmp(lst->content, "|"))
 			lst->type = PIPE;
-		if (ft_strcmp(lst->content, "<"))
+		else if (ft_strcmp(lst->content, "<"))
 			lst->type = INPUT;
-		if (ft_strcmp(lst->content, ">"))
+		else if (ft_strcmp(lst->content, ">"))
 			lst->type = OUTPUT;
-		if (ft_strcmp(lst->content, ">>"))
+		else if (ft_strcmp(lst->content, ">>"))
 			lst->type = APPEND;
-		if (ft_strcmp(lst->content, "<<"))
+		else if (ft_strcmp(lst->content, "<<"))
 			lst->type = HERE_DOC;
 		else
 			lst->type = ARGS;

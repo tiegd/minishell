@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 22:19:52 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/22 12:51:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,29 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		wait_children(pid, mini);
 	}
 	else
-		ft_exec_cmd(cmd, mini, head);
+	{
+		// ft_exec_cmd(cmd, mini, head);
+		ft_open_fd(cmd, mini, head);
+		if (cmd->fd_infile > 0)
+		{
+			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+				exit_fd(cmd->fd_infile, mini);
+		}
+		else if (cmd->fd_infile == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+				exit_tab(mini, 127);
+		}
+		if (cmd->fd_outfile != -1)
+			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+				exit_fd(cmd->fd_outfile, mini);
+		if (!ft_exec_cmd(cmd, mini, head))
+		{
+			printf("PROUT\n");
+			exit_tab(mini, 127);
+		}
+		ft_close_fd(cmd, 0);
+	}
 }
 
 // Called by Pipex or ft_one_cmd.
@@ -120,6 +142,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		{
 			if (!ft_exec_builtin(cmd, mini, head))
 				exit_tab(mini, 127);
+			return (true);
 		}
 		else if (ft_is_bin(paths, nb_path, cmd, mini))
 		{

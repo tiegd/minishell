@@ -90,20 +90,20 @@ gerer le cas de $U"SER" qui doit seulement afficher SER.✅
 
 gerer le fait que lors de export ou unset on ne peut pas mettre comme premier caractère un chiffre pour le nom de la variable.
 
-Bien checker toutes les erreurs de syntaxe possible. 
+Bien checker toutes les erreurs de syntaxe possible. ✅
 
 Faire les signaux.
 
-Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer à en mettre un en place.
+Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer à en mettre un en place. ✅
 
-Pour le HERE DOC : ne pas expend lorsque le EOF possède des quotes.
-Ne pas expend le EOF si c'est une variable d'environnement.
-Ne pas traiter les quote ni pour le EOF ni pour ce que recois le prompt a chaque ligne.
+Pour le HERE DOC : ne pas expend lorsque le EOF possède des quotes. ✅
+Ne pas expend le EOF si c'est une variable d'environnement. ✅
+Ne pas traiter les quote ni pour le EOF ni pour ce que recois le prompt a chaque ligne. ✅
 
-Il faut ouvrir et creer tous les here doc avant de faire quoi que ca soit.
+Il faut ouvrir et creer tous les here doc avant de faire quoi que ca soit. ✅
 
-Trouver un moyen de recuperer le nom du ficher temporaire pour l'ouvrir et le supprimer apres l'execution de la commande.
+Pour $ lorsqu'il est tout seul sans variable dénvironnement le traiter comme une commande ou un argument. 
 
-Pour $ lorsqu'il est tout seul sans variable dénvironnement le traiter comme une commande ou un argument.
+Checker lorsque minishell est en mode interactif à ce que des qu'il y a une erreur de syntaxe quitter le programme. ✅
 
-Checker lorsque minishell est en mode interactif à ce que des qu'il y a une erreur de syntaxe quitter le programme.
+Ouvrir les fd même si c'est un built-in.

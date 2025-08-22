@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/22 10:02:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:15:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,35 +289,35 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
-void	open_for_each_redir(t_redir **head, t_mini *mini)
-{
-	t_redir	*temp;
+// void	open_for_each_redir(t_redir **head, t_mini *mini)
+// {
+// 	t_redir	*temp;
 
-	temp = *head;
-	while (temp != NULL)
-	{
-		if (temp->type == HERE_DOC)
-			{
-				temp->filename = here_doc(mini, temp->filename, &mini->gmalloc);
-				// printf("filename = %s\n", temp->filename);
-			}	
-			temp = temp->next;
-	}
-}
+// 	temp = *head;
+// 	while (temp != NULL)
+// 	{
+// 		if (temp->type == HERE_DOC)
+// 			{
+// 				temp->filename = here_doc(mini, temp->filename, &mini->gmalloc);
+// 				// printf("filename = %s\n", temp->filename);
+// 			}	
+// 			temp = temp->next;
+// 	}
+// }
 
-void	open_for_each_cmd(t_cmd **head, t_mini *mini)
-{
-	t_cmd *temp;
+// void	open_for_each_cmd(t_cmd **head, t_mini *mini)
+// {
+// 	t_cmd *temp;
 	
-	// if (!head || !*head)
-	// 	return ;
-	temp = *head;
-	while (temp != NULL)
-	{
-		open_for_each_redir(&temp->infiles, mini);
-		temp = temp->next;
-	}
-}
+// 	// if (!head || !*head)
+// 	// 	return ;
+// 	temp = *head;
+// 	while (temp != NULL)
+// 	{
+// 		open_for_each_redir(&temp->infiles, mini);
+// 		temp = temp->next;
+// 	}
+// }
 
 int	ft_parsing(char *input, t_mini *mini)
 {
@@ -339,9 +339,10 @@ int	ft_parsing(char *input, t_mini *mini)
 	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
-	// ft_print_lst(mini->token);
+	ft_print_lst(mini->token);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
+	// ft_print_cmd(mini->cmd);
 	// open_for_each_cmd(&mini->cmd, mini);
 	nb_pipe = ft_count_pipe(&mini->token);
 	if (nb_pipe > 0)

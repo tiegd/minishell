@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/08/21 11:17:54 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/08/22 11:50:54 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC =	main.c \
 		clean/clean_exit.c \
 		clean/free.c \
 		clean/garbage_collector.c \
+		clean/print_error.c \
 		exec/manage_error.c	\
 		exec/exec.c	\
 		exec/handle_fd.c \

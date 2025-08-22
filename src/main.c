@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 11:14:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 11:59:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
+	if (isatty(STDIN_FILENO) == 0)
+	{
+		ft_putstr_fd("Please launch minishell in interactive mode.\n", 2);
+		exit(1);
+	}
 	sa_ctrl_c.sa_handler = &handle_ctrl_c;
 	sa_ctrl_c.sa_flags = SA_RESTART;
 	mini.gmalloc = NULL;

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 15:02:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:02:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 
 	i = 0;
 	old_path = getcwd(NULL, 0);
-	if (!args[i + 1]) //regarder si args existe et si le 1er argument est bien cd 
+	if (!args[i + 1]) //regarder si cd possede bien un argument
 	{
 		ft_putstr_fd("cd : need a relative or absolute path\n", 2);
+		mini->exit_status = 1;
 		return ;
 	}
 	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
