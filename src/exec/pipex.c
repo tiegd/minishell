@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 17:24:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:46:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
+	int	dup_std[2];
 
+	dup_std[0] = dup(STDIN_FILENO);
+	dup_std[1] = dup(STDOUT_FILENO);
 	if(pipe(pipefd) == -1)
 		exit_tab(mini, EXIT_FAILURE);
 	pid = fork();
@@ -52,6 +55,8 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			ft_close_fd(cmd, pipefd);
 			exit_tab(mini, 127);
 		}
+		if (is_builtin(cmd->args[0]))
+			ft_dup_out(cmd, dup_std);
 	}
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
@@ -63,7 +68,10 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 	int	pipefd[2];
+	int	dup_std[2];
 
+	dup_std[0] = dup(STDIN_FILENO);
+	dup_std[1] = dup(STDOUT_FILENO);
 	if (pipe(pipefd) == -1)
 		exit_tab(mini, EXIT_FAILURE);
 	pid = fork();
@@ -100,6 +108,8 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			ft_close_fd(cmd, pipefd);
 			exit_tab(mini, 127);
 		}
+		if (is_builtin(cmd->args[0]))
+			ft_dup_out(cmd, dup_std);
 	}
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
@@ -110,7 +120,10 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid_last;
+	int	dup_std[2];
 
+	dup_std[0] = dup(STDIN_FILENO);
+	dup_std[1] = dup(STDOUT_FILENO);
 	pid_last = fork();
 	if (pid_last == -1)
 		exit_tab(mini, EXIT_FAILURE);
@@ -143,6 +156,8 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127);
 		}
 		close(cmd->outpipe);
+		if (is_builtin(cmd->args[0]))
+			ft_dup_out(cmd, dup_std);
 	}
 	close(cmd->outpipe);
 	wait_children(pid_last, mini);
