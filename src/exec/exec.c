@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 11:13:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:14:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,43 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		ft_env(mini->env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(cmd->args, 0, head);
+	dup2(STDIN_FILENO, 0);
+	dup2(STDOUT_FILENO, 1);
 	gfree(cmd, head);
 	return (1);
+}
+
+void	ft_redir(t_cmd *cmd, t_mini *mini)
+{
+	ft_open_fd(cmd);
+	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
+	{
+		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+			exit_fd(cmd->fd_infile, mini);
+	}
+	else if (cmd->fd_infile == -1)
+	{
+		printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+		exit_tab(mini, 1);
+	}
+	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
+	{
+		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+			exit_fd(cmd->fd_outfile, mini);
+	}
+	else if (cmd->fd_outfile == -1)
+	{
+		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
+		exit_tab(mini, 1);
+	}
+}
+
+void	ft_dup_out(t_cmd *cmd, int *dup_std)
+{
+	if (cmd->fd_infile != 0)
+		dup2(dup_std[0], STDIN_FILENO);
+	if (cmd->fd_outfile != 1)
+		dup2(dup_std[1], STDOUT_FILENO);
 }
 
 // Run only one command with ft_exec_cmd.
@@ -68,6 +103,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
+	int	dup_std[2];
 
 	if (!is_builtin(cmd->args[0]))
 	{
@@ -76,27 +112,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127);
 		if (pid == 0)
 		{
-			ft_open_fd(cmd);
-			if (cmd->fd_infile != -1)
-			{
-				if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-					exit_fd(cmd->fd_infile, mini);
-			}
-			else if (cmd->fd_infile == -1)
-			{
-				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-				exit_tab(mini, 1);
-			}
-			if (cmd->fd_outfile != -1)
-			{
-				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-					exit_fd(cmd->fd_outfile, mini);
-			}
-			else if (cmd->fd_outfile == -1)
-			{
-				printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
-				exit_tab(mini, 1);
-			}
+			ft_redir(cmd, mini);
 			if (!ft_exec_cmd(cmd, mini, head))
 				exit_tab(mini, 127);
 			ft_close_fd(cmd, 0);
@@ -104,7 +120,13 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		wait_children(pid, mini);
 	}
 	else
+	{
+		dup_std[0] = dup(STDIN_FILENO);
+		dup_std[1] = dup(STDOUT_FILENO);
+		ft_redir(cmd, mini);
 		ft_exec_cmd(cmd, mini, head);
+		ft_dup_out(cmd, dup_std);
+	}
 }
 
 // Called by Pipex or ft_one_cmd.

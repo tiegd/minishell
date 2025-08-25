@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 14:23:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:24:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (pid == 0)
 	{
 		ft_open_fd(cmd);
-		// printf(RED"cmd->fd_infile = %d\ncmd->fd_outfile = %d\n"RESET, cmd->fd_infile, cmd->fd_outfile);
 		if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
@@ -118,7 +117,6 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (pid_last == 0)
 	{
 		ft_open_fd(cmd);
-		// printf(CYAN"cmd->fd_infile = %d\ncmd->fd_outfile = %d\n"RESET, cmd->fd_infile, cmd->fd_outfile);
 		if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
