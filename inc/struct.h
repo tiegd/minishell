@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 13:31:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:31:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
 	int				error;
+	// int				pid;
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;

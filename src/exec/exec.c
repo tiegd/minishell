@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 10:06:00 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:13:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
-	// if (!is_builtin(cmd->args[0]))
-	// {
+	if (!is_builtin(cmd->args[0]))
+	{
 		pid = fork();
 		if (pid == -1)
 			exit_tab(mini, 127);
@@ -87,8 +87,6 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
 				exit_tab(mini, 1);
 			}
-			// printf("cmd->fd_outfile = %d\n", cmd->fd_outfile);
-			// printf("cmd->infiles->filename = %s\n", cmd->infiles->filename);
 			if (cmd->fd_outfile != -1)
 			{
 				if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
@@ -104,9 +102,9 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, mini);
-	// }
-	// else
-	// 	ft_exec_cmd(cmd, mini, head);
+	}
+	else
+		ft_exec_cmd(cmd, mini, head);
 }
 
 // Called by Pipex or ft_one_cmd.
@@ -127,14 +125,14 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (is_builtin(cmd->args[0]))
 		{
 			if (!ft_exec_builtin(cmd, mini, head))
-				exit_tab(mini, 127);
+				return (false);
 		}
 		else if (ft_is_bin(paths, nb_path, cmd, mini))
 		{
 			cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
 			if (!execve(cmd->pathname, cmd->args, mini->env))
-				exit_tab(mini, 127);
+				return (false);
 		}
 	}
-	return (false);
+	return (true);
 }
