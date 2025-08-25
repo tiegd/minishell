@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/22 12:51:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:14:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		// ft_exec_cmd(cmd, mini, head);
 		ft_open_fd(cmd, mini, head);
-		if (cmd->fd_infile > 0)
+		if (cmd->fd_infile != -1)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, mini);
@@ -142,7 +142,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		{
 			if (!ft_exec_builtin(cmd, mini, head))
 				exit_tab(mini, 127);
-			return (true);
+			// return (true);
 		}
 		else if (ft_is_bin(paths, nb_path, cmd, mini))
 		{
