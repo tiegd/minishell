@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/22 12:52:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 10:21:29 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 void	ft_open_outfile(t_cmd *cmd)
 {
 	if (cmd->outfiles == NULL)
-		cmd->fd_outfile = -1;
+		cmd->fd_outfile = 0;
 	while (cmd->outfiles != NULL)
 	{
 		if (cmd->outfiles->type == OUTPUT)

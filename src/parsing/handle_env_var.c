@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 17:04:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/21 12:49:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	int		*quote_dollars;
 
 	isolated = split_parts(prompt, &mini->gmalloc);
-	print_tab_char(isolated);
 	// if (!isolated)
 	// 	return (NULL);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);

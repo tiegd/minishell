@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 10:09:38 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:03:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,6 @@ int	main(int ac, char **av, char **env)
 		free(line);
 	}
 	if (!line)
-			ft_exit(NULL, 0, &mini.gmalloc);
+		ft_exit(NULL, 0, &mini.gmalloc);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 15:54:48 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 16:46:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*env_result(char *env, t_gmalloc **head)
 	if (env[i] && env[i] == '=')
 		i++;
 	env += i;
-	// printf("env = %s\n", env);
 	res = gb_strdup(env, head);
 	return (res);
 }
@@ -109,7 +108,6 @@ char	*extract_env(char *temp, char **env, t_gmalloc **head, t_mini *mini)
 			extract = env_result(env[i], head);
 			return (extract);
 		}
-		// printf("exit status = %d\n", mini->exit_status);
 		i++;
 	}
 	return (NULL);
