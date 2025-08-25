@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 16:04:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 10:06:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid;
 
-	if (!is_builtin(cmd->args[0]))
-	{
+	// if (!is_builtin(cmd->args[0]))
+	// {
 		pid = fork();
 		if (pid == -1)
 			exit_tab(mini, 127);
@@ -99,15 +99,14 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
 				exit_tab(mini, 1);
 			}
-			printf("Etienne la chaussure\n");
 			if (!ft_exec_cmd(cmd, mini, head))
 				exit_tab(mini, 127);
 			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, mini);
-	}
-	else
-		ft_exec_cmd(cmd, mini, head);
+	// }
+	// else
+	// 	ft_exec_cmd(cmd, mini, head);
 }
 
 // Called by Pipex or ft_one_cmd.
