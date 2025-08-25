@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 14:18:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/25 14:23:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127);
 		}
 	}
-	if (pid != 0)
-		wait(NULL);
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
 }
@@ -75,7 +73,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (pid == 0)
 	{
 		ft_open_fd(cmd);
-		if (cmd->fd_infile != -1)
+		if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 		{
 			if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 				exit_fd(cmd->fd_infile, mini);
@@ -88,7 +86,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else
 			if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 				exit_fd(cmd->outpipe, mini);
-		if (cmd->fd_outfile != -1)
+		if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 		{
 			if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 				exit_fd(cmd->fd_outfile, mini);
@@ -104,8 +102,6 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127);
 		}
 	}
-	if (pid != 0)
-		wait(NULL);
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
 }
