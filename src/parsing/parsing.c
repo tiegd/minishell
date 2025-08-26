@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 17:33:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:25:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,12 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	{
 		new_tab = malloc(2 * sizeof(char *));
 		new_tab[0] = one_line_path(paths);
-		// printf(RED"path = %s\n"RESET, new_tab[0]);
-		// return (NULL);
 	}
 	else
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
-		while (i < nb_path)
+		while (paths[i] != NULL)
 		{
 			j = 0;
 			size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
@@ -138,7 +136,6 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 		}
 	}
 	free_split(paths, nb_path, head);
-	// free_double_tab(paths, nb_path,);
 	return (new_tab);
 }
 

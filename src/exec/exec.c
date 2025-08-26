@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 17:36:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 12:00:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,31 @@
 
 // Check if the cmd exist with access().
 
-char	*ft_is_bin(char **paths, int nb_path, t_cmd *cmd, t_mini *mini)
+char	*ft_is_bin(t_cmd *cmd, t_mini *mini)
 {
 	int		i;
 
 	i = 0;
-	while (i <= nb_path)
+	while (cmd->paths[i] != NULL)
 	{
-		if (access(paths[i], F_OK) == 0)
-			return (paths[i]);
+		// printf("cmd->paths[%d] = %s\n", i, cmd->paths[i]);
+		if (access(cmd->paths[i], F_OK) == 0)
+			return (cmd->paths[i]);
 		i++;
 	}
-	if (errno == 14)
-	{
-		printf("minishell: %s: command not found\n", cmd->args[0]);
-		exit_tab(mini, 127);
-	}
+	printf("errno = %d\n", errno);
 	if (errno == 2)
 	{
-		printf("minishell: %s: No such file or directory\n", paths[0]);
-		exit_tab(mini, 127);
+		printf("minishell: %s: command not found\n", cmd->args[0]);
+		// exit_tab(mini, 127);
+		mini->exit_status = 127;
 	}
+	// if (errno == 2)
+	// {
+	// 	printf("minishell: %s: No such file or directory\n", cmd->paths[0]);
+	// 	// exit_tab(mini, 127);
+	// 	mini->exit_status = 127;
+	// }
 	return (NULL);
 }
 
@@ -89,6 +93,7 @@ void	ft_redir(t_cmd *cmd, t_mini *mini)
 		exit_tab(mini, 1);
 	}
 }
+// Restore stdin and stdout.
 
 void	ft_dup_out(t_cmd *cmd, int *dup_std)
 {
@@ -98,14 +103,29 @@ void	ft_dup_out(t_cmd *cmd, int *dup_std)
 		dup2(dup_std[1], STDOUT_FILENO);
 }
 
+// Extract the $PATH in env to a char**.
+
+void extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+{
+	char	*line;
+	int		nb_path;
+	
+	line = ft_path_line(mini->env, head);
+	cmd->paths = gb_split(line, ':', head);
+	nb_path = ft_nb_path(cmd->paths);
+	cmd->paths = ft_add_cmd(cmd->paths, nb_path, mini->cmd, head);
+	manage_error_exec(mini->cmd, mini, cmd->paths);
+}
+
 // Run only one command with ft_exec_cmd.
 
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
-	int	pid;
-	int	dup_std[2];
+	int		pid;
+	int		dup_std[2];
 
-	if (!is_builtin(cmd->args[0]))
+	extract_path(cmd, mini, head);
+	if (ft_is_bin(cmd, mini))
 	{
 		pid = fork();
 		if (pid == -1)
@@ -133,25 +153,16 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
-	char	**paths;
-	char	*line;
-	int		nb_path;
-
 	if (cmd->args[0])
 	{
-		line = ft_path_line(mini->env, head);
-		paths = gb_split(line, ':', head);
-		nb_path = ft_nb_path(paths);
-		paths = ft_add_cmd(paths, nb_path, cmd, head);
-		manage_error_exec(cmd, mini, paths);
 		if (is_builtin(cmd->args[0]))
 		{
 			if (!ft_exec_builtin(cmd, mini, head))
 				return (false);
 		}
-		else if (ft_is_bin(paths, nb_path, cmd, mini))
+		else if (ft_is_bin(cmd, mini))
 		{
-			cmd->pathname = ft_is_bin(paths, nb_path, cmd, mini);
+			cmd->pathname = ft_is_bin(cmd, mini);
 			if (!execve(cmd->pathname, cmd->args, mini->env))
 				return (false);
 		}

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/25 13:31:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:30:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
+	char			**paths;
 	t_redir			*infiles;
 	t_redir			*outfiles;
 	int				type;

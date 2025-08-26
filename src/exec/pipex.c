@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 17:46:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 12:01:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	dup_std[0] = dup(STDIN_FILENO);
 	dup_std[1] = dup(STDOUT_FILENO);
+	extract_path(cmd, mini, head);
 	if(pipe(pipefd) == -1)
 		exit_tab(mini, EXIT_FAILURE);
 	pid = fork();
@@ -72,6 +73,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	dup_std[0] = dup(STDIN_FILENO);
 	dup_std[1] = dup(STDOUT_FILENO);
+	extract_path(cmd, mini, head);
 	if (pipe(pipefd) == -1)
 		exit_tab(mini, EXIT_FAILURE);
 	pid = fork();
@@ -124,6 +126,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	dup_std[0] = dup(STDIN_FILENO);
 	dup_std[1] = dup(STDOUT_FILENO);
+	extract_path(cmd, mini, head);
 	pid_last = fork();
 	if (pid_last == -1)
 		exit_tab(mini, EXIT_FAILURE);
