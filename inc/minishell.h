@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 12:00:10 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:52:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 // void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
-char	*ft_is_bin(t_cmd *cmd, t_mini *mini);
+void	ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
@@ -204,7 +204,7 @@ void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 // void	ft_fd_to_pipe(t_cmd *cmd);
 void	ft_fd_to_pipe(t_mini *mini);
-void	ft_dup_out(t_cmd *cmd, int *dup_std);
+void	ft_dup_out(t_cmd *cmd, t_mini *mini);
 
 /*------------EXIT------------*/
 

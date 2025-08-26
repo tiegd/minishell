@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 11:30:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:32:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_cmd
 	char			**paths;
 	t_redir			*infiles;
 	t_redir			*outfiles;
+	// int				dup_std[2];
 	int				type;
 	char			*pathname;
 	char			*expend;
@@ -77,6 +78,8 @@ typedef struct s_mini
 	t_cmd		*cmd;
 	t_token		*token;
 	t_gmalloc	*gmalloc;
+	int			dup_std[2];
+	int			nb_pipe;
 	int			exit_status;
 	char		**env;
 }t_mini;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/26 11:25:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:33:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ void	open_for_each_cmd(t_cmd **head, t_mini *mini)
 int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
-	int		nb_pipe;
+	// int		nb_pipe;
 	char	**prompt;
 	// int 	fd_here_doc;
 
@@ -339,9 +339,11 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	open_for_each_cmd(&mini->cmd, mini);
-	nb_pipe = ft_count_pipe(&mini->token);
-	if (nb_pipe > 0)
-		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);
+	mini->nb_pipe = ft_count_pipe(&mini->token);
+	// extract_path(mini->cmd, mini, &mini->gmalloc);
+	// mini->cmd->pathname = ft_is_bin(mini->cmd, mini);
+	if (mini->nb_pipe > 0)
+		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	return (0);
