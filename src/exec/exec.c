@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/26 18:35:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 19:06:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	ft_redir(t_cmd *cmd, t_mini *mini)
 	else if (cmd->fd_infile == -1)
 	{
 		printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-		exit_tab(mini, 1);
+		if (!is_builtin(cmd->args[0]))
+			exit_tab(mini, 1);
+		mini->exit_status = 1;
 	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
@@ -83,8 +85,10 @@ void	ft_redir(t_cmd *cmd, t_mini *mini)
 	}
 	else if (cmd->fd_outfile == -1)
 	{
-		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
-		exit_tab(mini, 1);
+		printf("minishell: %s: Permission denied\n", cmd->outfiles->filename);
+		if (!is_builtin(cmd->args[0]))
+			exit_tab(mini, 1);
+		mini->exit_status = 1;
 	}
 }
 // Restore stdin and stdout.
@@ -147,17 +151,15 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
-	// int res_access = access(cmd->pathname, F_OK);
-
 	if (cmd->args[0])
 	{
 		if (is_builtin(cmd->args[0]))
 		{
+			if (cmd->fd_infile == -1 || cmd->fd_outfile == -1)
+				return (false);
 			if (!ft_exec_builtin(cmd, mini, head))
 				return (false);
 			ft_dup_out(cmd, mini);
-			// if (mini->nb_pipe > 0)
-			// 	exit(0);
 		}
 		else if (!is_builtin(cmd->args[0]) && access(cmd->pathname, F_OK) == 0)
 		{
@@ -165,7 +167,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 				return (false);
 		}
 		if (mini->nb_pipe > 0)
-				exit(0);
+			exit(0);
 	}
 	return (true);
 }
