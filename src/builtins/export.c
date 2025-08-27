@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/22 11:34:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/26 10:59:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char	**ft_export(char **old_env, char *new_variable, t_gmalloc **head)
 	int		i;
 	char	**new_env;
 
-	if (isalnum(new_variable[0]))
+	if (ft_isdigit(new_variable[0]))
 	{
 		print_not_valid_identifier(new_variable);
 		return (old_env);

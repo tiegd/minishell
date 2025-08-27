@@ -92,7 +92,7 @@ gerer le fait que lors de export ou unset on ne peut pas mettre comme premier ca
 
 Bien checker toutes les erreurs de syntaxe possible. ✅
 
-Faire les signaux.
+Faire les signaux. 
 
 Commencer a checker les erreurs de HERE_DOC possible dans le parsing + commencer à en mettre un en place. ✅
 
@@ -106,4 +106,9 @@ Pour $ lorsqu'il est tout seul sans variable dénvironnement le traiter comme un
 
 Checker lorsque minishell est en mode interactif à ce que des qu'il y a une erreur de syntaxe quitter le programme. ✅
 
-Ouvrir les fd même si c'est un built-in.
+Ouvrir les fd même si c'est un built-in. ✅
+
+Ouvrir tous les here doc avant de fork. ✅
+
+Checker le echo $/ afficher $/ pas juste /
+

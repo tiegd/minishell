@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/22 14:28:54 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:09:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 /*creer une nouveau noeud commande pour la list chainé*/
 t_cmd *new_cmd(t_gmalloc **gmalloc)
 {
-	// int		i;
 	t_cmd	*new;
 
-	// i = 0;
 	new = gb_malloc(sizeof(t_cmd), gmalloc);
 	if (!new)
 		return (NULL);
-	// new->args = NULL;
+	new->fd_infile = 0;
+	new->fd_outfile = 1;
 	new->outfiles = NULL;
 	new->infiles = NULL;
 	new->next = NULL;
@@ -118,6 +117,7 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	cmd->args[i] = NULL;
 }
 
+/*initialiser chaque commande en les divisant par pipe*/
 t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
 {
 	t_cmd	*head;
@@ -137,63 +137,6 @@ t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
 	}
 	return (head);
 }
-
-// /*initialiser chaque commande en les séparants par pipe*/
-// t_cmd	*ft_init_cmd(t_token *token)
-// {
-// 	t_cmd	*head;
-// 	t_cmd	*cmd;
-// 	int		i;
-// 	int		n_args;
-
-// 	head = NULL;
-// 	n_args = count_args(token);
-// 	while (token && token->next != NULL)
-// 	{
-// 		i = 0;
-// 		cmd = new_cmd();
-// 		if (!cmd) //secu
-// 		{
-// 			perror(malloc);
-// 			free_list(token);
-// 			return (NULL);
-// 		}
-// 		cmd->args = ft_calloc(n_args + 1, sizeof(char *));
-// 		if (!cmd->args) //secu
-// 		{
-// 			perror(malloc);
-// 			free_list(token);
-// 			return (NULL);
-// 		}
-// 		while (token && token->next != NULL && token->type != PIPE)
-// 		{
-// 			if (token->type == OUTPUT || token->type == APPEND)
-// 			{
-// 				cmd->outfiles = add_redir(cmd->outfiles, token);
-// 				token = token->next->next;
-// 			}
-// 			else if (token->type == HERE_DOC || token->type == INPUT)
-// 			{
-// 				cmd->infiles = add_redir(cmd->infiles, token);
-// 				token = token->next->next;
-// 			}
-// 			else
-// 			{
-// 				cmd->args[i] = ft_strdup(token->content);
-// 				i++;
-// 				token = token->next;
-// 			}
-// 		}
-// 		cmd->args[i] = NULL;
-// 		cmd_add_back(&head, cmd);
-// 		if (token)
-// 			token = token->next;
-// 		else 
-// 			break;
-// 	}
-// 	return (head);
-// }
-
 
 // /*remplir chaques paramètre d'un nouvelle commande*/
 // t_cmd *new_cmd(t_cmd *cmd, t_token *token)

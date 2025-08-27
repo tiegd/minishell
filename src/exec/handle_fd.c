@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 10:21:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 14:22:22 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
+	(void)mini;
+	(void)head;
 	if (cmd->infiles == NULL)
 		cmd->fd_infile = 0;
 	while (cmd->infiles != NULL)
 	{
 		if (cmd->infiles->type == HERE_DOC)
-			cmd->fd_infile = here_doc(mini, cmd->infiles->filename, head);
+			cmd->fd_infile = cmd->fd_here_doc;
+			// cmd->fd_infile = here_doc(mini, cmd->infiles->filename, head);
 		else
 			cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
@@ -36,7 +39,10 @@ void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 void	ft_open_outfile(t_cmd *cmd)
 {
 	if (cmd->outfiles == NULL)
-		cmd->fd_outfile = 0;
+	{
+		cmd->fd_outfile = 1;
+		return ;
+	}
 	while (cmd->outfiles != NULL)
 	{
 		if (cmd->outfiles->type == OUTPUT)
@@ -56,8 +62,7 @@ void	ft_open_outfile(t_cmd *cmd)
 
 void	ft_open_fd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
-	cmd->fd_infile = 0;
-	cmd->fd_outfile = 0;
+	// if (cmd->fd_infile == 0)
 	ft_open_infile(cmd, mini, head);
 	ft_open_outfile(cmd);
 }

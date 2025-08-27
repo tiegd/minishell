@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 15:38:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/26 09:07:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ int	is_append(char c, char d)
 int	is_here_doc(char c, char d)
 {
 	if (c == '<' && d == '<')
-		return (1);
-	return (0);
-}
-
-int	is_special(char c)
-{
-	if (c == '<' || c == '>' || c == '|')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 10:22:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 15:43:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		close(pipefd[1]);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
+			
 			ft_close_fd(cmd, pipefd);
 			exit_tab(mini, 127);
 		}
@@ -170,4 +171,6 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 		i++;
 		cmd = cmd->next;
 	}
+	if (sig_flag != 0)
+		write(STDOUT_FILENO, "\n", 1);
 }

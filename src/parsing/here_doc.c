@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/22 12:05:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 16:11:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 
 	had_quote = false;
 	file_name = generate_rand_name_file(head);
-	// printf("eof = %s\n", eof);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
 		had_quote = true;
 		eof = delete_quote(eof);
 	}
-	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
+	if ((here_doc = open(file_name, O_WRONLY | O_CREAT, 0664)) == -1)
 		return (-1);
 	while ((line = readline(">")) != NULL)
 	{
@@ -108,6 +107,7 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 		return (-1);
 	if ((here_doc = open(file_name, O_RDONLY)) == -1)
 		return (-1);
-	unlink(file_name);
+	if (unlink(file_name))
+		return (-1);
 	return (here_doc);
 }

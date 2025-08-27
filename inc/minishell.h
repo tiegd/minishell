@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/22 09:51:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 14:59:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,6 @@
 
 /*---------TOKEN---------*/
 
-// #define	CMD 10			//	cat ls grep etc..
-// #define	VAR 20 			//	$SOMETHING
-// #define	PIPE 30 		//	|
-// #define	INPUT 40 		//	<
-// #define	OUTPUT 50 		//	>
-// #define	APPEND 60		//	>>
-// #define	HERE_DOC 70		//	<<
-// #define PATH 80 			//	path/
-// #define ARGS 90			//	something
-// #define BUILTIN 100		//	cd pwd env etc..
-
 #define SQ 39
 #define DQ 34
 #define BS 92
@@ -63,10 +52,12 @@ enum e_types
 	PATH,
 };
 
+extern int	sig_flag;
 /*----------PARSING----------*/
 
 int 	ft_parsing(char *input, t_mini *mini);
 int		syntax_error(char *prompt);
+int 	char_not_required(char *prompt);
 // int		ft_check_prompt(char *input);
 char	**ft_multi_split(char *s, t_gmalloc **head);
 int		ft_count_word(char *s);
@@ -87,6 +78,13 @@ char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(t_gmalloc **head);
 
+/*--------SIGNALS-----------*/
+
+void	handle_sig(int sig);
+void	set_sig_action(void);
+void	unblock_sig_quit(void);
+void	block_sig_quit(void);
+
 /*--------HERE_DOC----------*/
 
 int		here_doc(t_mini *mini, char *eof, t_gmalloc **head);
@@ -98,7 +96,6 @@ t_token	*ft_lst_last(t_token *lst);
 t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head);
 t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head);
 void	ft_print_lst(t_token *lst);
-
 char	*lexing_input(char *input);
 int		is_ws(char c);
 
@@ -192,6 +189,7 @@ void	free_redir(t_redir *redir, t_gmalloc **head);
 char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head);
 void	free_cmd(t_cmd *cmd, t_gmalloc **head);
 void	ft_lstfree(t_token *lst, t_gmalloc **head);
+void	print_not_valid_identifier(char *str);	
 
 /*------------FD------------*/
 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/22 12:02:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:09:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@ int	is_opt_cd(char	*option)
 	else
 		return (0);
 }
+
+// if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
+// {
+// 	path = expend("$HOME", env, head, mini);
+// 	if (path[0] == '\0')
+// 	{
+// 		ft_putstr_fd(args[i], 2);
+// 		ft_putstr_fd(": HOME not set", 2);
+// 	}
+// 	if (chdir(path) == -1)
+// 	{
+// 		free(path);
+// 		perror("error with chdir");
+// 	}
+// 	free(path);
+// }
 
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 {
@@ -38,22 +54,7 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 		mini->exit_status = 1;
 		return ;
 	}
-	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
-	{
-		path = expend("$HOME", env, head, mini);
-		if (path[0] == '\0')
-		{
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd(": HOME not set", 2);
-		}
-		if (chdir(path) == -1)
-		{
-			free(path);
-			perror("error with chdir");
-		}
-		free(path);
-	}
-	else if (!is_opt_cd(args[i + 1]) && nb_var(args) > 3) //regarder si il y a trop d'argument
+	if (!is_opt_cd(args[i + 1]) && nb_var(args) > 3) //regarder si il y a trop d'argument
 	{
 		ft_putstr_fd("cd : too many arguments\n", 2);
 		return ;

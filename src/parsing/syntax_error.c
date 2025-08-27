@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/23 10:09:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:17:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*Liste des caractères qu'on ne doit pas traiter :  ( ) \ & * ............*/ 
-
-int	not_required(char c)
-{
-	if (c == '(')
-		return (1);
-	if (c == ')')
-		return (1);
-	if (c == BS)
-		return (1);
-	if (c == '&')
-		return (1);
-	if (c == '*')
-		return (1);
-	return (0);
-}
-
-/*checker si il y a un caractere hors sujet et si il n'est pas compris entre quote*/
-int char_not_required(char *prompt)
-{
-	int i;
-	int	sq;
-	int	dq;
-
-	i = 0;
-	sq = 0;
-	dq = 0;
-	while (prompt[i])
-	{
-		if (prompt[i] == SQ)
-			sq++;
-		if (prompt[i] == DQ)
-			dq++;
-		if (not_required(prompt[i]) && sq % 2 == 0 && dq % 2 == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 int	is_operator(char c)
 {
@@ -58,7 +18,6 @@ int	is_operator(char c)
 		return (1);
 	return (0);
 }
-
 
 /*checker si il y a quelque chose avant un opérateur*/
 int	before_operator(char *prompt)
@@ -102,13 +61,23 @@ int	unclosed_quote(char *prompt)
 	return (0);
 }
 
-int	empty_redir(char *prompt)
+int	skip_ws_isalnum(char *prompt)
 {
 	int	i;
 
 	i = 0;
 	while (prompt[i] && (is_ws(prompt[i]) || exp_isalnum(prompt[i])))
 		i++;
+	return (i);
+}
+
+int	empty_redir(char *prompt)
+{
+	int	i;
+
+	i = skip_ws_isalnum(prompt);
+	// while (prompt[i] && (is_ws(prompt[i]) || exp_isalnum(prompt[i])))
+	// 	i++;
 	while (prompt[i])
 	{
 		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
@@ -116,7 +85,6 @@ int	empty_redir(char *prompt)
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			// if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
 			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]))
 				return (1);
 		}

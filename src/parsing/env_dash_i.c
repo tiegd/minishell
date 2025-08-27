@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:59:16 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 10:20:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/26 08:59:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ char	**env_dash_i(t_gmalloc **head)
 	char	*pwd;
 	
 	i = 0;
-	new_env = malloc(sizeof(char *) * 4);
+	new_env = malloc(sizeof(char *) * 3);
 	if (!new_env)
 		return (NULL);
 	pwd = getcwd(NULL, 0);
+	new_env[i] = gb_strjoin_custom("PWD=", pwd, head);
 	new_env[i] = gb_strdup(pwd, head);
 	i++;
 	new_env[i] = NULL;

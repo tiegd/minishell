@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 15:06:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:41:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	wait_children(pid_t pid_last, t_mini *mini)
 	waitpid(pid_last, &status, 0);
 	if (WIFEXITED(status) != 0)
 		mini->exit_status = WEXITSTATUS(status);
+	if (sig_flag == 2)
+		mini->exit_status = 131;
+	if (sig_flag == 1)
+		mini->exit_status = 130;
 	while (1)
 	{
 		if (wait(NULL) == -1)

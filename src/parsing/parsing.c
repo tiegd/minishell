@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/22 12:15:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 15:09:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*ft_add_suf(int j, char *str, char *args)
 	i = 0;
 	str[j] = '/';
 	j++;
-	// if (args[0] == '/' && args[1] == 'b' && args[2] == 'i' && args[3] == 'n' && args[4] == '/')
-	// 	i = 5;
 	while (args[i])
 	{
 		str[j] = args[i];
@@ -90,7 +88,6 @@ char	*one_line_path(char **paths)
 		if (count <= 2)
 			i++;
 	}
-	// printf("count = %d, i = %d\n", count, i);
 	new_tab = malloc((i + 1) * sizeof (char));
 	while (j < i)
 	{
@@ -102,7 +99,6 @@ char	*one_line_path(char **paths)
 }
 
 // Add the cmd at the end of each path.
-
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 {
 	char	**new_tab;
@@ -116,8 +112,6 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	{
 		new_tab = malloc(2 * sizeof(char *));
 		new_tab[0] = one_line_path(paths);
-		// printf(RED"path = %s\n"RESET, new_tab[0]);
-		// return (NULL);
 	}
 	else
 	{
@@ -181,100 +175,6 @@ int	ft_nb_path(char **path)
 	return (i);
 }
 
-// void	ft_multi_cmd(lst)
-// {
-// 	int	nb_path;
-// 	int	i;
-
-// 	nb_path = 0;
-// 	i = 0;
-// 	while (paths[i])
-// 	{
-// 		while (paths[i] && paths[i] == ':')
-// 			i++;
-// 		if (paths[i] && paths[i] != ':')
-// 			nb_path++;
-// 		while (paths[i] && paths[i] != ':')
-// 			i++;
-// 	}
-// 	return (nb_path);
-// }
-
-// char	**ft_clean_path(char **double_tab, int nb_path)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < nb_path)
-// 	{
-// 		free(double_tab[i]);
-// 		i++;
-// 	}
-// 	free(double_tab);
-// 	return (NULL);
-// }
-
-// char	*ft_add_suf(t_token *lst, int j, char *str)
-// {
-// 	int	k;
-
-// 	k = 0;
-// 	str[j] = '/';
-// 	j++;
-// 	while (lst->content[k])
-// 	{
-// 		str[j] = lst->content[k];
-// 		k++;
-// 		j++;
-// 	}
-// 	str[j] = '\0';
-// 	return (str);
-// }
-
-// // Add the cmd at the end of each path.
-// char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
-// {
-// 	char	**new_tab;
-// 	int		size_cmd;
-// 	int		size_line;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	size_cmd = (int)ft_strlen(lst->content) + 1;
-// 	new_tab = malloc((nb_path + 1) * sizeof(char *));
-// 	while (i < nb_path)
-// 	{
-// 		j = 0;
-// 		size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
-// 		new_tab[i] = malloc(size_line * sizeof(char));
-// 		while (paths[i][j])
-// 		{
-// 			new_tab[i][j] = paths[i][j];
-// 			j++;
-// 		}
-// 		new_tab[i] = ft_add_suf(lst, j, new_tab[i]);
-// 		i++;
-// 	}
-// 	ft_clean_path(paths, nb_path);
-// 	return (new_tab);
-// }
-
-// // Check if the cmd exist with access().
-// char	*ft_is_bin(char **paths, int nb_path)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i <= nb_path)
-// 	{
-// 		if (access(paths[i], F_OK) == 0)
-// 			return (paths[i]);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
 int	prompt_is_empty(char *input)
 {
 	int	i;
@@ -289,42 +189,38 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
-// void	open_for_each_redir(t_redir **head, t_mini *mini)
-// {
-// 	t_redir	*temp;
+void	open_for_each_redir(t_redir **head, t_mini *mini)
+{
+	t_redir	*temp;
 
-// 	temp = *head;
-// 	while (temp != NULL)
-// 	{
-// 		if (temp->type == HERE_DOC)
-// 			{
-// 				temp->filename = here_doc(mini, temp->filename, &mini->gmalloc);
-// 				// printf("filename = %s\n", temp->filename);
-// 			}	
-// 			temp = temp->next;
-// 	}
-// }
+	temp = *head;
+	while (temp != NULL)
+	{
+		if (temp->type == HERE_DOC)
+			{
+				mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+			}
+			temp = temp->next;
+	}
+}
 
-// void	open_for_each_cmd(t_cmd **head, t_mini *mini)
-// {
-// 	t_cmd *temp;
+void	open_for_each_cmd(t_cmd **head, t_mini *mini)
+{
+	t_cmd *temp;
 	
-// 	// if (!head || !*head)
-// 	// 	return ;
-// 	temp = *head;
-// 	while (temp != NULL)
-// 	{
-// 		open_for_each_redir(&temp->infiles, mini);
-// 		temp = temp->next;
-// 	}
-// }
+	temp = *head;
+	while (temp != NULL)
+	{
+		open_for_each_redir(&temp->infiles, mini);
+		temp = temp->next;
+	}
+}
 
 int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
 	int		nb_pipe;
 	char	**prompt;
-	// int 	fd_here_doc;
 
 	mini->cmd = NULL;
 	if (prompt_is_empty(input))
@@ -333,18 +229,14 @@ int	ft_parsing(char *input, t_mini *mini)
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
-		// print_tab_char(prompt);
 	prompt = ft_multi_split(input, &mini->gmalloc);
-	// print_tab_char(prompt);
-	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
-	ft_print_lst(mini->token);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	// ft_print_cmd(mini->cmd);
-	// open_for_each_cmd(&mini->cmd, mini);
+	open_for_each_cmd(&mini->cmd, mini);
 	nb_pipe = ft_count_pipe(&mini->token);
+	unblock_sig_quit();
 	if (nb_pipe > 0)
 		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);
 	else
