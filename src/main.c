@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/27 16:00:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 17:16:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,6 @@ int	main(int ac, char **av, char **env)
 	set_sig_action();
 	block_sig_quit();
 	init_mini(&mini, env);
-	// mini.gmalloc = NULL;
-	// if (!*env || !env)
-	// 	mini.env = env_dash_i(&mini.gmalloc);
-	// else
-	// 	mini.env = dup_env(env, &mini.gmalloc);
-	// mini.exit_status = 0;
 	while (1)
 	{
 		sig_flag = 0;

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 09:09:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 16:14:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		count_args(t_token	*token)
 	return (count);
 }
 
-/*initialiser chaque commande en les séparants par pipe*/
+/*initialiser chaque commande en séparant les infiles des arguments*/
 static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 {
 	int	i;
@@ -137,45 +137,3 @@ t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
 	}
 	return (head);
 }
-
-// /*remplir chaques paramètre d'un nouvelle commande*/
-// t_cmd *new_cmd(t_cmd *cmd, t_token *token)
-// {
-// 	int		i;
-// 	t_cmd	*new;
-// 	t_cmd	*temp;
-
-// 	i = 0;
-// 	new = malloc(sizeof(t_cmd));
-// 	if (!new)
-// 		return (NULL);
-// 	new->outfiles = NULL;
-// 	new->infiles = NULL;
-
-// 	while (token->next != NULL || token->type != PIPE)
-// 	{
-// 		if (token->type == OUTPUT || token->type == APPEND)
-// 		{
-// 			new->outfiles = add_redir(new->outfiles, token);
-// 			token = token->next->next;
-// 		}
-// 		else if (token->type == HERE_DOC || token->type == INPUT)
-// 		{
-// 			new->infiles = add_redir(new->infiles, token);
-// 			token = token->next->next;
-// 		}
-// 		else
-// 		{
-// 			new->args[i] = ft_strdup(token->content);
-// 			i++;
-// 			token = token->next;
-// 		}
-// 	}
-// 	if (!cmd)
-// 		return (new);
-// 	temp = cmd;
-// 	while(temp->next != NULL)
-// 		temp = temp->next;
-// 	temp->next = new;
-// 	return (temp);
-// }

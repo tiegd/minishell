@@ -112,3 +112,4 @@ Ouvrir tous les here doc avant de fork. ✅
 
 Checker le echo $/ afficher $/ pas juste /
 
+ls | < = Renvoyer une erreur de syntaxe.

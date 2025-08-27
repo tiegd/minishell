@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 11:39:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 19:27:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ int	is_eof(char	*prev)
 
 	i = 0;
 	here_doc = false;
-	while (prev[i])
+	while (prev && prev[i])
 	{
 		if (is_here_doc(prev[i], prev[i + 1]))
 		{
 			here_doc = true;
 			i += 2;
 		}
-		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]) || prev[i] == '$'))
+		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]))) //|| prev[i] == '$' || prev[i] == '?'))
 			i++;
 		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
 		{
@@ -115,13 +115,13 @@ int	is_eof(char	*prev)
 				return(0);
 			i++;
 		}
+		i++;
 	}
 	if (here_doc == true)
 		return (1);
 	return (0);
 }
 
-// void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
 void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *mini)
 {
 	int		i;
@@ -135,6 +135,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *m
 	{
 		if (ft_strchr(isolated[i], '$') && isolated[i][1])
 		{
+			printf("isolated [i] = %s\n", isolated[i]);
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
 			{
 				isolated[i] = expend(isolated[i], env, &mini->gmalloc, mini);

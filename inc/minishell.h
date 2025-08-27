@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 14:59:57 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 18:34:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		exp_isalnum_question_mark(int c);
 void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd);
 char	**ft_export(char **old_env, char *str, t_gmalloc **head);
-void	pwd(int fd);
+void	pwd(int fd, t_mini *mini);
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini);
 char	**unset(char *var, char **old_env, t_gmalloc **head);
 char	**loop_unset(char **env, char **args, t_gmalloc **head);

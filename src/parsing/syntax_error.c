@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 09:17:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 16:18:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	empty_redir(char *prompt)
 	int	i;
 
 	i = skip_ws_isalnum(prompt);
-	// while (prompt[i] && (is_ws(prompt[i]) || exp_isalnum(prompt[i])))
-	// 	i++;
 	while (prompt[i])
 	{
 		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
@@ -107,8 +105,6 @@ int	syntax_error(char *prompt)
 		return (1);
 	if (before_operator(prompt))
 		return (1);
-	// if (after_operator(prompt))
-	// 	return (1);
 	if (empty_redir(prompt))
 		return (1);
 	if (unclosed_quote(prompt))

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/27 15:42:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 18:33:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "cd"))
 		cd(cmd->args, mini->env, head, mini); //malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
-		pwd(STDOUT_FILENO);
+		pwd(STDOUT_FILENO, mini);
 	if (ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
 		print_export(mini->env, head);
 	if (ft_strcmp(cmd->args[0], "export"))
