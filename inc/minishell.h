@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 15:52:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:05:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
 void 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	print_error(t_mini *mini, char *filename, char *error, int exit_status);
 
 /*------------PIPEX------------*/
 
@@ -198,8 +199,8 @@ void	ft_lstfree(t_token *lst, t_gmalloc **head);
 /*------------FD------------*/
 
 void	ft_init_fd(t_token *lst);
-void	ft_open_fd(t_cmd *cmd);
-void	ft_open_infile(t_cmd *cmd);
+int		ft_open_fd(t_cmd *cmd, t_mini *mini);
+int		ft_open_infile(t_cmd *cmd, t_mini *mini);
 void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 // void	ft_fd_to_pipe(t_cmd *cmd);

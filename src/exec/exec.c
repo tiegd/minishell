@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/27 09:58:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:14:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	ft_is_bin(t_cmd *cmd, t_mini *mini)
 		}
 		i++;
 	}
-	if (errno == 2)
+	// if (errno == 2 && cmd->fd_infile != -1)
+	if (errno == 2 && cmd->error == 1)//ft_open_infile(cmd, mini) == 1)
 	{
-		printf(RED"minishell: %s: command not found\n"RESET, cmd->args[0]);
+		printf("minishell: %s: command not found\n", cmd->args[0]);
 		mini->exit_status = 127;
 	}
 	return;
@@ -64,7 +65,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 void	redir_one(t_cmd *cmd, t_mini *mini)
 {
-	ft_open_fd(cmd);
+	// ft_open_fd(cmd, mini);
 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
@@ -72,7 +73,6 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 	}
 	else if (cmd->fd_infile == -1)
 	{
-		// printf(RED"minishell: %s: No such file or directory\n"RESET, cmd->infiles->filename);
 		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
 		if (!is_builtin(cmd->args[0]))
 			exit_tab(mini, 1);
@@ -108,12 +108,15 @@ void extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	char	*line;
 	int		nb_path;
-	
+
 	line = ft_path_line(mini->env, head);
 	cmd->paths = gb_split(line, ':', head);
 	nb_path = ft_nb_path(cmd->paths);
-	cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
-	manage_error_exec(mini->cmd, mini, cmd->paths);
+	if (cmd->args[0])
+	{
+		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
+		manage_error_exec(mini->cmd, mini, cmd->paths);
+	}
 }
 
 // Run only one command with ft_exec_cmd.
@@ -122,6 +125,9 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int		pid;
 
+	// if (!ft_open_infile(cmd, mini))
+	if (!ft_open_fd(cmd, mini))
+		return ;
 	extract_path(cmd, mini, head);
 	if (!is_builtin(cmd->args[0]))
 	{
@@ -151,23 +157,19 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
-	if (cmd->args[0])
+	if (is_builtin(cmd->args[0]))
 	{
-		if (is_builtin(cmd->args[0]))
-		{
-			if (cmd->fd_infile == -1 || cmd->fd_outfile == -1)
-				return (false);
-			if (!ft_exec_builtin(cmd, mini, head))
-				return (false);
-			ft_dup_out(cmd, mini);
-		}
-		else if (!is_builtin(cmd->args[0]) && access(cmd->pathname, F_OK) == 0)
-		{
-			if (!execve(cmd->pathname, cmd->args, mini->env))
-				return (false);
-		}
-		if (mini->nb_pipe > 0)
-			exit(0);
+		if (!ft_exec_builtin(cmd, mini, head))
+			return (false);
+		ft_dup_out(cmd, mini);
+		mini->exit_status = 0;
 	}
+	else if (!is_builtin(cmd->args[0]) && access(cmd->pathname, F_OK) == 0)
+	{
+		if (!execve(cmd->pathname, cmd->args, mini->env))
+			return (false);
+	}
+	if (mini->nb_pipe > 0)
+		exit(0);
 	return (true);
 }

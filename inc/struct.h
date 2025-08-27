@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 18:32:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 13:43:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_cmd
 	char			**paths;
 	t_redir			*infiles;
 	t_redir			*outfiles;
-	// int				dup_std[2];
 	int				type;
 	char			*pathname;
 	char			*expend;
@@ -51,7 +50,6 @@ typedef struct s_cmd
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
 	int				error;
-	// int				pid;
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 12:59:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:15:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths)
 		}
 	}
 	return ;
+}
+
+void	print_error(t_mini *mini, char *filename, char *error, int exit_status)
+{
+	printf(RED"minishell: %s: %s\n"RESET, filename, error);
+	exit_tab(mini, exit_status);
 }
