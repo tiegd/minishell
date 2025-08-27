@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/26 19:06:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 09:58:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_is_bin(t_cmd *cmd, t_mini *mini)
 	}
 	if (errno == 2)
 	{
-		printf("minishell: %s: command not found\n", cmd->args[0]);
+		printf(RED"minishell: %s: command not found\n"RESET, cmd->args[0]);
 		mini->exit_status = 127;
 	}
 	return;
@@ -62,7 +62,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	return (1);
 }
 
-void	ft_redir(t_cmd *cmd, t_mini *mini)
+void	redir_one(t_cmd *cmd, t_mini *mini)
 {
 	ft_open_fd(cmd);
 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
@@ -72,7 +72,8 @@ void	ft_redir(t_cmd *cmd, t_mini *mini)
 	}
 	else if (cmd->fd_infile == -1)
 	{
-		printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+		// printf(RED"minishell: %s: No such file or directory\n"RESET, cmd->infiles->filename);
+		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
 		if (!is_builtin(cmd->args[0]))
 			exit_tab(mini, 1);
 		mini->exit_status = 1;
@@ -122,16 +123,15 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int		pid;
 
 	extract_path(cmd, mini, head);
-	ft_is_bin(cmd, mini);
-	// if (cmd->pathname != NULL)
 	if (!is_builtin(cmd->args[0]))
 	{
+		ft_is_bin(cmd, mini);
 		pid = fork();
 		if (pid == -1)
 			exit_tab(mini, 127);
 		if (pid == 0)
 		{
-			ft_redir(cmd, mini);
+			redir_one(cmd, mini);
 			if (!ft_exec_cmd(cmd, mini, head))
 				exit_tab(mini, 127);
 			ft_close_fd(cmd, 0);
@@ -142,7 +142,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		mini->dup_std[0] = dup(STDIN_FILENO);
 		mini->dup_std[1] = dup(STDOUT_FILENO);
-		ft_redir(cmd, mini);
+		redir_one(cmd, mini);
 		ft_exec_cmd(cmd, mini, head);
 	}
 }
