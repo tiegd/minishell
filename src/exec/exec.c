@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 15:30:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:32:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 
 	i = 0;
 	cmd->pathname = NULL;
-	if (cmd->args[0][0] == '.' || cmd->args[0][0] == '/')
+	if (cmd->args[0][0] == '.')
 		return (0);
 	while (cmd->paths[i] != NULL)
 	{
@@ -32,10 +32,19 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 		}
 		i++;
 	}
+	printf("errno = %d\n", errno);
 	if (errno == 2 && mini->nb_pipe == 0)
 	{
-		put_error(mini, cmd->args[0], "command not found", 127);
-		return (0);
+		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) != 0)
+		{
+			put_error(mini, cmd->args[0], "No such file or directory", 127);
+			return (0);
+		}
+		else if (cmd->args[0][0] != '/')
+		{
+			put_error(mini, cmd->args[0], "command not found", 127);
+			return (0);
+		}
 	}
 	return (0);
 }
