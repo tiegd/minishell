@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 16:31:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 20:18:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ char	*generate_rand_name_file(t_gmalloc **head)
 	int		i;
 
 	i = 0;
-	fd = open("/dev/urandom", O_RDONLY);
+	// fd = open("/dev/urandom", O_RDONLY);
 	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
 		return (NULL);
 	if (read(fd, urand, 6) == -1)
+	{
+		close(fd);
 		return (NULL);
+	}
 	close(fd);
 	while (i < 6)
 	{
@@ -120,7 +123,8 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 	bool	had_quote;
 
 	had_quote = false;
-	file_name = generate_rand_name_file(head);
+	if ((file_name = generate_rand_name_file(head)) == NULL)
+		return (-1);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
 		had_quote = true;

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 18:10:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 20:45:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	gb_free_all(t_gmalloc **head);
 
 /*------------CLEAN------------*/
 
+void	close_fds(int infile, int outfile);
 void	free_token(t_token *lst, t_gmalloc **head);
 void	free_redir(t_redir *redir, t_gmalloc **head);
 char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head);

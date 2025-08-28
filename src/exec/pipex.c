@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 14:28:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 20:52:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,10 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		redir_last_pipe(mini, cmd);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
-			ft_close_fd(cmd, 0);
+			// ft_close_fd(cmd, 0);
 			exit_tab(mini, 127);
 		}
-		close(cmd->outpipe);
+		// close(cmd->outpipe);
 	}
 	close(cmd->outpipe);
 	wait_children(pid_last, mini);
@@ -194,6 +194,7 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 			middle_pipe(cmd, mini, head);
 		if (i < nb_pipe)
 			cmd->next->outpipe = cmd->outpipe;
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		i++;
 		cmd = cmd->next;
 	}

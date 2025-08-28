@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 18:10:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 20:50:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <errno.h>
 
 // Check if the cmd exist with access().
-
 int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 {
 	int		i;
@@ -50,7 +49,6 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 }
 
 // Run the cmd if it's a builtin.
-
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
@@ -74,7 +72,6 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 }
 
 // Do redir if we have an infile or outfile.
-
 void	redir_one(t_cmd *cmd, t_mini *mini)
 {
 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
@@ -144,11 +141,12 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (pid == 0)
 		{
 			redir_one(cmd, mini);
+			// close_fds(cmd->fd_infile, cmd->fd_outfile);
 			if (!ft_exec_cmd(cmd, mini, head))
 				exit_tab(mini, 127);
-			ft_close_fd(cmd, 0);
 		}
 		wait_children(pid, mini);
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		if (sig_flag != 0)
 			write(STDOUT_FILENO, "\n", 1);
 	}
@@ -158,12 +156,14 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		mini->dup_std[1] = dup(STDOUT_FILENO);
 		redir_one(cmd, mini);
 		ft_exec_cmd(cmd, mini, head);
+		// close_fds(cmd->fd_infile, cmd->fd_outfile);
 	}
 }
 
 // Called by Pipex or ft_one_cmd.
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
+	close_fds(cmd->fd_infile, cmd->fd_outfile);
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
