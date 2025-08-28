@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:05:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:49:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 }
 
 // Called by Pipex or ft_one_cmd.
-
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (is_builtin(cmd->args[0]))
@@ -168,8 +167,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	}
 	else if (!is_builtin(cmd->args[0]) && access(cmd->pathname, F_OK) == 0)
 	{
-		if (!execve(cmd->pathname, cmd->args, mini->env))
-			return (false);
+		execve(cmd->pathname, cmd->args, mini->env);
 	}
 	if (mini->nb_pipe > 0)
 		exit(0);

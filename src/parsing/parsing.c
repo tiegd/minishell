@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:10:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:05:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,29 +189,39 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
-void	open_for_each_redir(t_redir **head, t_mini *mini)
+int	open_for_each_redir(t_redir **head, t_mini *mini)
 {
 	t_redir	*temp;
 
 	temp = *head;
+	mini->cmd->fd_here_doc = 0;
 	while (temp != NULL)
 	{
 		if (temp->type == HERE_DOC)
+		{
+			mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+			if (mini->cmd->fd_here_doc <= 0)
 			{
-				mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+				if (mini->cmd->fd_here_doc == -1)
+				{
+					mini->exit_status = 1;
+					ft_putstr_fd("error occured during the creation of HERE_DOC", 2);
+				}
+				return (-1);
 			}
-			temp = temp->next;
+		}
+		temp = temp->next;
 	}
 }
 
-void	open_for_each_cmd(t_cmd **head, t_mini *mini)
+int	open_for_each_cmd(t_cmd **head, t_mini *mini)
 {
 	t_cmd *temp;
 	
 	temp = *head;
 	while (temp != NULL)
 	{
-		open_for_each_redir(&temp->infiles, mini);
+		if (open_for_each_redir(&temp->infiles, mini) != 0);
 		temp = temp->next;
 	}
 }
@@ -233,7 +243,8 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	open_for_each_cmd(&mini->cmd, mini);
+	if (open_for_each_cmd(&mini->cmd, mini))
+		return (0);
 	unblock_sig_quit();
 	mini->nb_pipe = ft_count_pipe(&mini->token);
 	if (mini->nb_pipe > 0)

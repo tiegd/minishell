@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 16:18:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 10:41:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	unclosed_quote(char *prompt)
 	return (0);
 }
 
+/*skip all the white space and the alpha numeric character*/
 int	skip_ws_isalnum(char *prompt)
 {
 	int	i;
@@ -83,7 +84,7 @@ int	empty_redir(char *prompt)
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]))
+			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]) || is_special(prompt[i]))
 				return (1);
 		}
 		else if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))

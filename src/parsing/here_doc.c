@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 16:11:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:53:42 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,18 @@ int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 		return (-1);
 	while ((line = readline(">")) != NULL)
 	{
+		if (sig_flag == 1)
+		{
+			mini->exit_status = 130;
+			return (-2);
+		}
 		if (ft_strcmp(line, eof))
 			break ;
 		if (ft_strchr(line, '$') && had_quote == false)
 			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, here_doc);
 		ft_putchar_fd('\n', here_doc);
+		free(line);
 	}
 	if (close(here_doc) == -1)
 		return (-1);
