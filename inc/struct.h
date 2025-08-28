@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 10:02:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:17:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_cmd
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
 	int				fd_here_doc;
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
-	int				error;
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 10:02:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 14:30:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 // void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
-void	ft_is_bin(t_cmd *cmd, t_mini *mini);
+int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
@@ -168,7 +168,8 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
 void 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-void	print_error(t_mini *mini, char *filename, char *error, int exit_status);
+void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
+void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
 
 /*------------PIPEX------------*/
 
@@ -202,7 +203,7 @@ void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 // void	ft_fd_to_pipe(t_cmd *cmd);
 void	ft_fd_to_pipe(t_mini *mini);
-void	ft_dup_out(t_cmd *cmd, t_mini *mini);
+void	ft_dup_out(t_mini *mini);
 
 /*------------EXIT------------*/
 

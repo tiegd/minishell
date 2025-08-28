@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 10:08:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:00:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *m
 	{
 		if (ft_strchr(isolated[i], '$') && isolated[i][1])
 		{
-			printf("isolated [i] = %s\n", isolated[i]);
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
 			{
 				isolated[i] = expend(isolated[i], env, &mini->gmalloc, mini);

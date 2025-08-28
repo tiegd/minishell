@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:10:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:43:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
+		new_tab[nb_path] = NULL;
 		while (paths[i] != NULL)
 		{
 			j = 0;
