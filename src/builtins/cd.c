@@ -3,88 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/07 14:19:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:16:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_opt_cd(char	*option)
+int		check_args(char **args)
 {
-	if (ft_strcmp(option, "-P"))
-		return (1);
-	else if (ft_strcmp(option, "-L"))
-		return (1);
+	if (!args[1]) //regarder si cd possede bien un argument
+	{
+		ft_putstr_fd("cd : need a relative or absolute path\n", 2);
+	}
+	else if (nb_var(args) > 2) //regarder si il y a trop d'argument
+	{
+		ft_putstr_fd("cd : too many arguments\n", 2);
+	}
 	else
 		return (0);
+	return (1);
 }
 
-
+void	getcwd_or_chdir_failed(char **args, t_mini *mini)
+{
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(args[1], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	mini->exit_status = 1;
+}
 
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int		i;
 	char	*path;
 	char	*old_path;
+	(void)env;
 
 	i = 0;
-
-	path = NULL;
 	old_path = getcwd(NULL, 0);
-	if (!args || !ft_strcmp(args[i], "cd")) //regarder si args existe et si le 1er argument est bien cd 
-		return ;
-	if (args[i] && nb_var(args) == 1) //regarder si la commande entré est uniquement cd sans arguments.
-	{
-		path = expend("$HOME", env, head, mini);
-		if (path[0] == '\0')
-		{
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd(": HOME not set", 2);
-		}
-		if (chdir(path) == -1)
-		{
-			free(path);
-			perror("error with chdir");
-		}
-		free(path);
-	}
-	else if (!is_opt_cd(args[i + 1]) && nb_var(args) > 3) //regarder si il y a trop d'argument
-	{
-		ft_putstr_fd("cd : too many arguments", 2);
-		return ;
-	}
-	else if (args[i] && args[i + 1][0] == '-' && args[i + 1][1] == '\0') //regarder si l'option est - 
-	{
-		path = expend("$OLDPWD", env, head, mini);
-		// printf("path $OLDPWD = %s\n", path);
-		if (path[0] == '\0')
-		{
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd(": OLDPWD not set\n", 2);
-		}
-		if (chdir(path) == -1)
-		{
-			perror("error with chdir");
-			gfree(path, head);
-		}
-		pwd(1);
-		gfree(path, head);
-	}
+	if (!old_path)
+		getcwd_or_chdir_failed(args, mini);
+	if (check_args(args))
+		mini->exit_status = 1;
 	else
 	{
-		// printf("args[i + 1] = %s\n", args[i + 1]);
-		if (chdir(args[i + 1]) == -1)
+		if (args[i + 1][0] != '/' && old_path)
 		{
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd(" : No such file or directory\n", 2);
-			// ft_putstr_fd(args[i + 1], 2);
+			path = gb_strjoin_custom(old_path, "/", head);
+			path = gb_strjoin_custom(path, args[i + 1], head);
 		}
+		else
+			path = gb_strdup(args[i + 1], head);
+		if (chdir(path) == -1)
+			getcwd_or_chdir_failed(args, mini);
 	}
-	old_path = ft_strjoin("OLDPWD=", old_path);
-	env = ft_export(env, old_path, head);
-	// if (!path)
-	// 	free(path);
+	free(old_path);
 }

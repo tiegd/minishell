@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 15:14:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:08:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*extract_variable(char *str, int *i, t_gmalloc **head)
 	start = *i;
 	if (str[*i] == '$')
 		(*i)++;
-	while (str[*i] && exp_isalnum(str[*i]))
+	while (str[*i] && exp_isalnum_question_mark(str[*i]))
 		(*i)++;
 	if (*i > start)
 	{
@@ -100,7 +100,7 @@ int	is_eof(char	*prev)
 
 	i = 0;
 	here_doc = false;
-	while (prev[i])
+	while (prev && prev[i])
 	{
 		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i])))
 			i++;
@@ -109,7 +109,7 @@ int	is_eof(char	*prev)
 			here_doc = true;
 			i += 2;
 		}
-		else
+		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]))) //|| prev[i] == '$' || prev[i] == '?'))
 			i++;
 		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
 		{
@@ -117,56 +117,38 @@ int	is_eof(char	*prev)
 				return(0);
 			i++;
 		}
+		i++;
 	}
 	if (here_doc == true)
 		return (1);
 	return (0);
 }
 
-// void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_gmalloc **head)
 void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *mini)
 {
 	int		i;
 	int 	index;
+	int		j;
 
 	i = 0;
+	j = 0;
 	index = 0;
 	while(isolated[i])
 	{
-		if (strchr(isolated[i], '$'))
+		if (ft_strchr(isolated[i], '$') && isolated[i][1])
 		{
-			if (quote_dollars[index] == DQ && !is_eof(isolated[i - 1]))
+			printf("isolated [i] = %s\n", isolated[i]);
+			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
+			{
 				isolated[i] = expend(isolated[i], env, &mini->gmalloc, mini);
+			}
 			index++;
 		}
 		i++;
+		j = 1;
 	}
 	return (isolated);
 }
-
-// void	*expend_each_var(char **isolated, char **env, int *quote_dollars, bool *malloc_error)
-// {
-// 	int		i;
-// 	int 	index;
-
-// 	i = 0;
-// 	index = 0;
-// 	while(isolated[i])
-// 	{
-// 		if (strchr(isolated[i], '$') && quote_dollars[index] == DQ)
-// 		{
-// 			isolated[i] = expend(isolated[i], env);
-// 			if (!isolated[i] && (*malloc_error) == true)
-// 			{
-// 				free_all(isolated);
-// 				return (NULL);
-// 			}
-// 			index++;
-// 		}
-// 		i++;
-// 	}
-// 	return (isolated);
-// }
 
 int	count_dollars(char *prompt)
 {
@@ -261,10 +243,7 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	int		*quote_dollars;
 
 	isolated = split_parts(prompt, &mini->gmalloc);
-	// if (!isolated)
-	// 	return (NULL);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
-	// print_tab_int(quote_dollars);
 	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
 	// print_tab_char(isolated);
 	if (!isolated)
@@ -272,10 +251,5 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	gfree(quote_dollars, &mini->gmalloc);
 	final = join_parts(isolated, &mini->gmalloc);
 	gfree(isolated, &mini->gmalloc);
-	// if (!final)
-	// {
-	// 	free_all(isolated);
-	// 	return (NULL);
-	// }
 	return (final);
 }

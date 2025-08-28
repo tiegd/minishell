@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/08 15:16:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:02:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
+	char			**paths;
 	t_redir			*infiles;
 	t_redir			*outfiles;
 	int				type;
@@ -47,6 +48,7 @@ typedef struct s_cmd
 	int				outpipe;
 	int				fd_infile; //initialiser a STDIN si pas de redirection
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
+	int				fd_here_doc;
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
 	int				error;
 	bool			valid;
@@ -75,8 +77,18 @@ typedef struct s_mini
 	t_cmd		*cmd;
 	t_token		*token;
 	t_gmalloc	*gmalloc;
+	int			dup_std[2];
+	int			nb_pipe;
 	int			exit_status;
 	char		**env;
 }t_mini;
+
+typedef struct s_sort
+{
+	int	i;
+	int	j;
+	int	j_min;
+	int	len;
+}t_sort;
 
 #endif

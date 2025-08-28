@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 15:09:02 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:46:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	count_size(int n)
 	return (i);
 }
 
-char		*ft_itoa(int nb)
+char	*gb_itoa(int nb, t_gmalloc **head)
 {
 	char	*dest;
 	int		count;
@@ -77,14 +77,14 @@ char		*ft_itoa(int nb)
 	i = 0;
 	if (n < 0 || count == 0)
 		count++;
-	if (!(dest = malloc((count + 1) * sizeof(char))))
-		return (NULL);
+	dest = gb_malloc(((count + 1) * sizeof(char)), head);
 	if (n < 0)
 	{
 		n *= -1;
 		dest[0] = '-';
 		i++;
 	}
+	dest[count] = '\0';
 	while (count > i)
 	{
 		count--;
@@ -99,6 +99,7 @@ char	*extract_env(char *temp, char **env, t_gmalloc **head, t_mini *mini)
 {
 	int	i;
 	char *extract;
+	(void)mini;
 
 	i = 0;
 	while (env[i] != NULL)
@@ -108,8 +109,6 @@ char	*extract_env(char *temp, char **env, t_gmalloc **head, t_mini *mini)
 			extract = env_result(env[i], head);
 			return (extract);
 		}
-		if (temp[i] == '?')
-			return (ft_itoa(mini->exit_status));
 		i++;
 	}
 	return (NULL);
@@ -170,6 +169,30 @@ renvoie un char* ou NULL si la variable n'est pas trouvé.*/
 // 	return (expend);
 // }
 
+char	*expend_exit_status(char *arg, t_gmalloc **head, t_mini *mini)
+{
+	char	*res;
+	char	*exit_status;
+	int		total_len;
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = 1;
+	exit_status = gb_itoa(mini->exit_status, head);
+	total_len = ft_strlen(arg) + ft_strlen(exit_status) - 1;
+	res = gb_malloc((total_len + 1) * sizeof(char), head);
+	while (exit_status[i])
+	{
+		res[i] = exit_status[i];
+		i++;
+	}
+	while (arg[j])
+		res[i++] = arg[j++];
+	res[i] = '\0';
+	return (res);
+}
+
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 {
 	// int	i;
@@ -183,6 +206,11 @@ char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 		arg++;
 	if (*arg == '$')
 		arg++;
+	if (*arg == '?')
+	{
+		expend = expend_exit_status(arg, head, mini);
+		return (expend);
+	}
 	expend = extract_env(arg, env, head, mini);
 	if (!expend)
 	{

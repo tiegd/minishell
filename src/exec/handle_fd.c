@@ -6,34 +6,46 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/07 11:36:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:06:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_open_infile(t_cmd *cmd)
+int	ft_open_infile(t_cmd *cmd, t_mini *mini)
 {
+	(void)mini;
 	if (cmd->infiles == NULL)
+	{
 		cmd->fd_infile = 0;
+		return (1);
+	}
 	while (cmd->infiles != NULL)
 	{
+		if (access(cmd->infiles->filename, F_OK) != 0)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+			cmd->error = 1;
+			mini->exit_status = 1;
+			return (0);
+		}
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
-			return ;
+			return (1);
 		if (cmd->infiles->next != NULL)
 		{
 			if (close(cmd->fd_infile) == -1)
-				return ;
+				return (1);
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
+	return (1);
 }
 
 void	ft_open_outfile(t_cmd *cmd)
 {
 	if (cmd->outfiles == NULL)
-		cmd->fd_outfile = -1;
+		cmd->fd_outfile = 1;
 	while (cmd->outfiles != NULL)
 	{
 		if (cmd->outfiles->type == OUTPUT)
@@ -51,42 +63,14 @@ void	ft_open_outfile(t_cmd *cmd)
 	}
 }
 
-void	ft_open_fd(t_cmd *cmd)
+int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 {
 	cmd->fd_infile = 0;
-	cmd->fd_outfile = 0;
-	ft_open_infile(cmd);
+	cmd->fd_outfile = 1;
 	ft_open_outfile(cmd);
-}
-
-// void	ft_fd_to_pipe(t_cmd *cmd)
-// {
-// 	ft_open_fd(cmd);
-// 	if (cmd->fd_infile != -1)
-// 	{
-// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-// 			exit_fd(cmd->fd_infile, cmd);
-// 	}
-// 	if (cmd->fd_outfile != -1)
-// 	{
-// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-// 			exit_fd(cmd->fd_outfile, cmd);
-// 	}
-// }
-
-void	ft_fd_to_pipe(t_mini *mini)
-{
-	ft_open_fd(mini->cmd);
-	if (mini->cmd->fd_infile != -1)
-	{
-		if (dup2(mini->cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(mini->cmd->fd_infile, mini);
-	}
-	if (mini->cmd->fd_outfile != -1)
-	{
-		if (dup2(mini->cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(mini->cmd->fd_outfile, mini);
-	}
+	if (ft_open_infile(cmd, mini) == 0)
+		return (0);
+	return (1);
 }
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)

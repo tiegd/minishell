@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 14:14:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:10:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*ft_add_suf(int j, char *str, char *args)
 	i = 0;
 	str[j] = '/';
 	j++;
-	// if (args[0] == '/' && args[1] == 'b' && args[2] == 'i' && args[3] == 'n' && args[4] == '/')
-	// 	i = 5;
 	while (args[i])
 	{
 		str[j] = args[i];
@@ -90,7 +88,6 @@ char	*one_line_path(char **paths)
 		if (count <= 2)
 			i++;
 	}
-	// printf("count = %d, i = %d\n", count, i);
 	new_tab = malloc((i + 1) * sizeof (char));
 	while (j < i)
 	{
@@ -102,8 +99,7 @@ char	*one_line_path(char **paths)
 }
 
 // Add the cmd at the end of each path.
-
-char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
+char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 {
 	char	**new_tab;
 	int		size_cmd;
@@ -112,22 +108,21 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 	int		j;
 
 	i = 0;
-	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
+	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')	// int		nb_pipe;
+
 	{
 		new_tab = malloc(2 * sizeof(char *));
 		new_tab[0] = one_line_path(paths);
-		// printf(RED"path = %s\n"RESET, new_tab[0]);
-		// return (NULL);
 	}
 	else
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
-		new_tab = malloc((nb_path + 1) * sizeof(char *));
-		while (i < nb_path)
+		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
+		while (paths[i] != NULL)
 		{
 			j = 0;
 			size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
-			new_tab[i] = malloc(size_line * sizeof(char));
+			new_tab[i] = gb_malloc((size_line * sizeof(char)), head);
 			while (paths[i][j])
 			{
 				new_tab[i][j] = paths[i][j];
@@ -137,11 +132,11 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd)
 			i++;
 		}
 	}
-	// free_double_tab(paths, nb_path,);
+	free_split(paths, nb_path, head);
 	return (new_tab);
 }
 
-char	*ft_path_line(char **env)
+char	*ft_path_line(char **env, t_gmalloc **head)
 {
 	int		i;
 	int		j;
@@ -155,7 +150,7 @@ char	*ft_path_line(char **env)
 		{
 			j = 0;
 			len = ft_strlen(env[i]) - 5;
-			path = malloc((len + 1) * sizeof(char));
+			path = gb_malloc(((len + 1) * sizeof(char)), head);
 			while (env[i][j + 5])
 			{
 				path[j] = env[i][j + 5];
@@ -180,100 +175,6 @@ int	ft_nb_path(char **path)
 	return (i);
 }
 
-// void	ft_multi_cmd(lst)
-// {
-// 	int	nb_path;
-// 	int	i;
-
-// 	nb_path = 0;
-// 	i = 0;
-// 	while (paths[i])
-// 	{
-// 		while (paths[i] && paths[i] == ':')
-// 			i++;
-// 		if (paths[i] && paths[i] != ':')
-// 			nb_path++;
-// 		while (paths[i] && paths[i] != ':')
-// 			i++;
-// 	}
-// 	return (nb_path);
-// }
-
-// char	**ft_clean_path(char **double_tab, int nb_path)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < nb_path)
-// 	{
-// 		free(double_tab[i]);
-// 		i++;
-// 	}
-// 	free(double_tab);
-// 	return (NULL);
-// }
-
-// char	*ft_add_suf(t_token *lst, int j, char *str)
-// {
-// 	int	k;
-
-// 	k = 0;
-// 	str[j] = '/';
-// 	j++;
-// 	while (lst->content[k])
-// 	{
-// 		str[j] = lst->content[k];
-// 		k++;
-// 		j++;
-// 	}
-// 	str[j] = '\0';
-// 	return (str);
-// }
-
-// // Add the cmd at the end of each path.
-// char	**ft_add_cmd(t_token *lst, char **paths, int nb_path)
-// {
-// 	char	**new_tab;
-// 	int		size_cmd;
-// 	int		size_line;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	size_cmd = (int)ft_strlen(lst->content) + 1;
-// 	new_tab = malloc((nb_path + 1) * sizeof(char *));
-// 	while (i < nb_path)
-// 	{
-// 		j = 0;
-// 		size_line = (int)ft_strlen(paths[i]) + size_cmd + 1;
-// 		new_tab[i] = malloc(size_line * sizeof(char));
-// 		while (paths[i][j])
-// 		{
-// 			new_tab[i][j] = paths[i][j];
-// 			j++;
-// 		}
-// 		new_tab[i] = ft_add_suf(lst, j, new_tab[i]);
-// 		i++;
-// 	}
-// 	ft_clean_path(paths, nb_path);
-// 	return (new_tab);
-// }
-
-// // Check if the cmd exist with access().
-// char	*ft_is_bin(char **paths, int nb_path)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i <= nb_path)
-// 	{
-// 		if (access(paths[i], F_OK) == 0)
-// 			return (paths[i]);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
 int	prompt_is_empty(char *input)
 {
 	int	i;
@@ -297,9 +198,8 @@ void	open_for_each_redir(t_redir **head, t_mini *mini)
 	{
 		if (temp->type == HERE_DOC)
 			{
-				temp->filename = here_doc(mini, temp->filename, &mini->gmalloc);
-				// printf("filename = %s\n", temp->filename);
-			}	
+				mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+			}
 			temp = temp->next;
 	}
 }
@@ -308,8 +208,6 @@ void	open_for_each_cmd(t_cmd **head, t_mini *mini)
 {
 	t_cmd *temp;
 	
-	// if (!head || !*head)
-	// 	return ;
 	temp = *head;
 	while (temp != NULL)
 	{
@@ -321,9 +219,7 @@ void	open_for_each_cmd(t_cmd **head, t_mini *mini)
 int	ft_parsing(char *input, t_mini *mini)
 {
 	int		len_tab;
-	int		nb_pipe;
 	char	**prompt;
-	// int 	fd_here_doc;
 
 	mini->cmd = NULL;
 	if (prompt_is_empty(input))
@@ -332,18 +228,16 @@ int	ft_parsing(char *input, t_mini *mini)
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
 		input = handle_env_var(input, mini);
-	// print_tab_char(prompt);
 	prompt = ft_multi_split(input, &mini->gmalloc);
-	// print_tab_char(prompt);
-	// printf("ERROR\n");
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	open_for_each_cmd(&mini->cmd, mini);
-	nb_pipe = ft_count_pipe(&mini->token);
-	if (nb_pipe > 0)
-		pipex(mini->cmd, mini, nb_pipe, &mini->gmalloc);
+	unblock_sig_quit();
+	mini->nb_pipe = ft_count_pipe(&mini->token);
+	if (mini->nb_pipe > 0)
+		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	return (0);

@@ -1,0 +1,5 @@
+mkdir dir1
+cd dir1
+mkdir dir2
+cd dir2
+rm -rf ../../dir1

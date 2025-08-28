@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/15 12:53:00 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/22 10:00:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_token	*ft_handle_quote(t_token *token)
 	temp = token;
 	while (token)
 	{
-		if (ft_strchr(token->content, DQ) || ft_strchr(token->content, SQ))
+		if ((ft_strchr(token->content, DQ) || ft_strchr(token->content, SQ)) && token->type != HERE_DOC)
 		{
 			token->content = delete_quote(token->content);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/22 14:29:54 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:59:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,12 @@ char	**ft_export(char **old_env, char *new_variable, t_gmalloc **head)
 {
 	int		i;
 	char	**new_env;
-	// char	*exp;
-	// char	**var_env_tab;
 
+	if (ft_isdigit(new_variable[0]))
+	{
+		print_not_valid_identifier(new_variable);
+		return (old_env);
+	}
 	new_env = envdup(old_env, head); //duplique l'environnement dans un nouveau tableau de string
 	i = 0;
 	//on regarde si la variable existe déjà et si oui on la remplace par la nouvelle

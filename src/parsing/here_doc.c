@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/28 16:24:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/27 16:11:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*generate_rand_name_file(t_gmalloc **head)
 		i++;
 	}
 	urand[i] = '\0';
-	file_name = gb_strjoin_custom("fd_here_doc/sh-thd-", (char *)urand, head);
+	file_name = gb_strjoin_custom("sh-thd-", (char *)urand, head);
 	// file_name = gb_strjoin_custom("fd_here_doc/", file_name, head);
 	return (file_name);
 }
@@ -41,7 +41,6 @@ char	*generate_rand_name_file(t_gmalloc **head)
 // {
 // 	int		fd;
 // 	char	*file_name;
-
 // 	file_name = generate_rand_name_file(head);
 // 	// printf("file_name = %s\n", file_name);
 // 	// if (file_name == NULL)
@@ -54,27 +53,61 @@ char	*generate_rand_name_file(t_gmalloc **head)
 // 	return (fd);
 // }
 
-char	*here_doc(t_mini *mini, char *eof, t_gmalloc **head)
+// char	*here_doc(t_mini *mini, char *eof, t_gmalloc **head)
+// {
+// 	char	*line;
+// 	char	*file_name;
+// 	int		here_doc;
+
+// 	file_name = generate_rand_name_file(head);
+// 	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
+// 	{
+// 		perror("error with open occured\n");
+// 		return (NULL);
+// 	}
+// 	while ((line = readline(">")) != NULL)
+// 	{
+// 		if (ft_strcmp(line, eof))
+// 			break ;
+// 		if (ft_strchr(line, '$') && (ft_strchr(eof, DQ) || ft_strchr (eof, SQ)))
+// 			line = handle_env_var_for_here_doc(line, mini);
+// 		ft_putstr_fd(line, here_doc);
+// 		ft_putchar_fd('\n', here_doc);
+// 	}
+// 	close(here_doc);
+// 	return (file_name);
+// }
+
+int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 {
 	char	*line;
 	char	*file_name;
 	int		here_doc;
+	bool	had_quote;
 
+	had_quote = false;
 	file_name = generate_rand_name_file(head);
-	if ((here_doc = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0664)) == -1)
+	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
-		perror("error with open occured\n");
-		return (NULL);	
+		had_quote = true;
+		eof = delete_quote(eof);
 	}
+	if ((here_doc = open(file_name, O_WRONLY | O_CREAT, 0664)) == -1)
+		return (-1);
 	while ((line = readline(">")) != NULL)
 	{
 		if (ft_strcmp(line, eof))
 			break ;
-		if (ft_strchr(line, '$') && (ft_strchr(eof, DQ) || ft_strchr (eof, SQ)))
+		if (ft_strchr(line, '$') && had_quote == false)
 			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, here_doc);
 		ft_putchar_fd('\n', here_doc);
 	}
-	close(here_doc);
-	return (file_name);
+	if (close(here_doc) == -1)
+		return (-1);
+	if ((here_doc = open(file_name, O_RDONLY)) == -1)
+		return (-1);
+	if (unlink(file_name))
+		return (-1);
+	return (here_doc);
 }

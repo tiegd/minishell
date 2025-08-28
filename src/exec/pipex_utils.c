@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/20 15:23:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:07:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ int	ft_count_pipe(t_token **token)
 void	wait_children(pid_t pid_last, t_mini *mini)
 {
 	int	status;
-	
+
 	waitpid(pid_last, &status, 0);
 	if (WIFEXITED(status) != 0)
 		mini->exit_status = WEXITSTATUS(status);
-	printf("mini->exit_status = %d\n", mini->exit_status);
+	if (sig_flag == 2)
+		mini->exit_status = 131;
+	if (sig_flag == 1)
+		mini->exit_status = 130;
 	while (1)
 	{
 		if (wait(NULL) == -1)
