@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 13:05:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:42:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,13 +205,14 @@ int	open_for_each_redir(t_redir **head, t_mini *mini)
 				if (mini->cmd->fd_here_doc == -1)
 				{
 					mini->exit_status = 1;
-					ft_putstr_fd("error occured during the creation of HERE_DOC", 2);
+					ft_putstr_fd("error occured during the creation of here document\n", 2);
 				}
 				return (-1);
 			}
 		}
 		temp = temp->next;
 	}
+	return (0);
 }
 
 int	open_for_each_cmd(t_cmd **head, t_mini *mini)
@@ -221,9 +222,11 @@ int	open_for_each_cmd(t_cmd **head, t_mini *mini)
 	temp = *head;
 	while (temp != NULL)
 	{
-		if (open_for_each_redir(&temp->infiles, mini) != 0);
+		if (open_for_each_redir(&temp->infiles, mini) != 0)
+			return (-1);
 		temp = temp->next;
 	}
+	return (0);
 }
 
 int	ft_parsing(char *input, t_mini *mini)
@@ -243,7 +246,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	if (open_for_each_cmd(&mini->cmd, mini))
+	if (open_for_each_cmd(&mini->cmd, mini) != 0)
 		return (0);
 	unblock_sig_quit();
 	mini->nb_pipe = ft_count_pipe(&mini->token);

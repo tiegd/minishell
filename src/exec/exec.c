@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 13:07:15 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:08:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
 		print_export(mini->env, head);
 	if (ft_strcmp(cmd->args[0], "export"))
-		mini->env = loop_export(mini->env, cmd->args, head);
+		mini->env = loop_export(mini->env, cmd->args, mini, head);
 	if (ft_strcmp(cmd->args[0], "unset"))
 		mini->env = loop_unset(mini->env, cmd->args, head);
 	if (ft_strcmp(cmd->args[0], "env"))
@@ -120,7 +120,6 @@ void extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 }
 
 // Run only one command with ft_exec_cmd.
-
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int		pid;
