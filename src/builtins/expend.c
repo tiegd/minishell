@@ -45,6 +45,7 @@ char	*env_result(char *env, t_gmalloc **head)
 		i++;
 	env += i;
 	res = gb_strdup(env, head);
+	
 	return (res);
 }
 

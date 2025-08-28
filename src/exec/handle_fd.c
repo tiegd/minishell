@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 11:03:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:10:46 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int	ft_open_infile(t_cmd *cmd, t_mini *mini)
 	{
 		if (access(cmd->infiles->filename, F_OK) != 0)
 		{
-			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
-			cmd->error = 1;
-			mini->exit_status = 1;
+			put_error(mini, cmd->infiles->filename, "No such file or directory", 1);
 			return (0);
 		}
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);

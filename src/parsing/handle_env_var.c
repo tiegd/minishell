@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 17:52:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:11:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,7 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	isolated = split_parts(prompt, &mini->gmalloc);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
+	// print_tab_char(isolated);
 	if (!isolated)
 		return (NULL);
 	gfree(quote_dollars, &mini->gmalloc);

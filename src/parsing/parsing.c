@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 15:42:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:11:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*ft_add_suf(int j, char *str, char *args)
 	i = 0;
 	str[j] = '/';
 	j++;
+	if (args[0] == '/' && args[1] == 'b' && args[2] == 'i' && args[3] == 'n' && args[4] == '/')
+		i += 5;
 	while (args[i])
 	{
 		str[j] = args[i];
@@ -108,8 +110,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	int		j;
 
 	i = 0;
-	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')	// int		nb_pipe;
-
+	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
 	{
 		new_tab = malloc(2 * sizeof(char *));
 		new_tab[0] = one_line_path(paths);
@@ -118,6 +119,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
+		new_tab[nb_path] = NULL;
 		while (paths[i] != NULL)
 		{
 			j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_lib.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/04 17:23:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/20 15:13:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*gb_strdup(const char *s, t_gmalloc **gmalloc)
 
 	i = 0;
 	len = ft_strlen(s);
-	dest = gb_malloc(sizeof(char) * len + 1, gmalloc);
+	dest = gb_malloc(sizeof(char) * (len + 1), gmalloc);
 	while (s[i] != '\0')
 	{
 		dest[i] = s[i];

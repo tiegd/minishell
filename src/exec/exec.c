@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 18:08:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:10:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,38 @@
 
 // Check if the cmd exist with access().
 
-void	ft_is_bin(t_cmd *cmd, t_mini *mini)
+int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 {
 	int		i;
 
 	i = 0;
 	cmd->pathname = NULL;
+	if (cmd->args[0][0] == '.')
+		return (0);
 	while (cmd->paths[i] != NULL)
 	{
 		if (access(cmd->paths[i], F_OK) == 0)
 		{
 			cmd->pathname = cmd->paths[i];
-			return;
+			return (1);
 		}
 		i++;
 	}
-	// if (errno == 2 && cmd->fd_infile != -1)
-	if (errno == 2 && cmd->error == 1)//ft_open_infile(cmd, mini) == 1)
+	printf("errno = %d\n", errno);
+	if (errno == 2 && mini->nb_pipe == 0)
 	{
-		printf("minishell: %s: command not found\n", cmd->args[0]);
-		mini->exit_status = 127;
+		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) != 0)
+		{
+			put_error(mini, cmd->args[0], "No such file or directory", 127);
+			return (0);
+		}
+		else if (cmd->args[0][0] != '/')
+		{
+			put_error(mini, cmd->args[0], "command not found", 127);
+			return (0);
+		}
 	}
-	return;
+	return (0);
 }
 
 // Run the cmd if it's a builtin.
@@ -63,9 +73,10 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	return (1);
 }
 
+// Do redir if we have an infile or outfile.
+
 void	redir_one(t_cmd *cmd, t_mini *mini)
 {
-	// ft_open_fd(cmd, mini);
 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
@@ -73,33 +84,29 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 	}
 	else if (cmd->fd_infile == -1)
 	{
-		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
+		put_error(mini, cmd->infiles->filename, "Permission denied", 1);
 		if (!is_builtin(cmd->args[0]))
 			exit_tab(mini, 1);
-		mini->exit_status = 1;
 	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
-
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
 	}
 	else if (cmd->fd_outfile == -1)
 	{
-		printf("minishell: %s: Permission denied\n", cmd->outfiles->filename);
+		put_error(mini, cmd->infiles->filename, "Permission denied", 1);
 		if (!is_builtin(cmd->args[0]))
 			exit_tab(mini, 1);
-		mini->exit_status = 1;
 	}
 }
+
 // Restore stdin and stdout.
 
-void	ft_dup_out(t_cmd *cmd, t_mini *mini)
+void	ft_dup_out(t_mini *mini)
 {
-	if (cmd->fd_infile != 0)
-		dup2(mini->dup_std[0], STDIN_FILENO);
-	if (cmd->fd_outfile != 1)
-		dup2(mini->dup_std[1], STDOUT_FILENO);
+	dup2(mini->dup_std[0], STDIN_FILENO);
+	dup2(mini->dup_std[1], STDOUT_FILENO);
 }
 
 // Extract the $PATH in env to a char**.
@@ -124,13 +131,13 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int		pid;
 
-	// if (!ft_open_infile(cmd, mini))
 	if (!ft_open_fd(cmd, mini))
 		return ;
 	extract_path(cmd, mini, head);
 	if (!is_builtin(cmd->args[0]))
 	{
-		ft_is_bin(cmd, mini);
+		if (!ft_is_bin(cmd, mini))
+			return;
 		pid = fork();
 		if (pid == -1)
 			exit_tab(mini, 127);
@@ -161,12 +168,13 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
 			return (false);
-		ft_dup_out(cmd, mini);
+		ft_dup_out(mini);
 		mini->exit_status = 0;
 	}
-	else if (!is_builtin(cmd->args[0]) && access(cmd->pathname, F_OK) == 0)
+	else if (!is_builtin(cmd->args[0]))
 	{
 		execve(cmd->pathname, cmd->args, mini->env);
+		exit(127);
 	}
 	if (mini->nb_pipe > 0)
 		exit(0);
