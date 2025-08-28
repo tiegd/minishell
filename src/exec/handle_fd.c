@@ -3,46 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/25 14:22:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 10:06:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_open_infile(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+int	ft_open_infile(t_cmd *cmd, t_mini *mini)
 {
 	(void)mini;
-	(void)head;
 	if (cmd->infiles == NULL)
+	{
 		cmd->fd_infile = 0;
+		return (1);
+	}
 	while (cmd->infiles != NULL)
 	{
-		if (cmd->infiles->type == HERE_DOC)
-			cmd->fd_infile = cmd->fd_here_doc;
-			// cmd->fd_infile = here_doc(mini, cmd->infiles->filename, head);
-		else
-			cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
+		if (access(cmd->infiles->filename, F_OK) != 0)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->infiles->filename);
+			cmd->error = 1;
+			mini->exit_status = 1;
+			return (0);
+		}
+		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
-			return ;
+			return (1);
 		if (cmd->infiles->next != NULL)
 		{
 			if (close(cmd->fd_infile) == -1)
-				return ;
+				return (1);
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
+	return (1);
 }
 
 void	ft_open_outfile(t_cmd *cmd)
 {
 	if (cmd->outfiles == NULL)
-	{
 		cmd->fd_outfile = 1;
-		return ;
-	}
 	while (cmd->outfiles != NULL)
 	{
 		if (cmd->outfiles->type == OUTPUT)
@@ -60,41 +63,14 @@ void	ft_open_outfile(t_cmd *cmd)
 	}
 }
 
-void	ft_open_fd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 {
-	// if (cmd->fd_infile == 0)
-	ft_open_infile(cmd, mini, head);
+	cmd->fd_infile = 0;
+	cmd->fd_outfile = 1;
 	ft_open_outfile(cmd);
-}
-
-// void	ft_fd_to_pipe(t_cmd *cmd)
-// {
-// 	ft_open_fd(cmd);
-// 	if (cmd->fd_infile != -1)
-// 	{
-// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-// 			exit_fd(cmd->fd_infile, cmd);
-// 	}
-// 	if (cmd->fd_outfile != -1)
-// 	{
-// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-// 			exit_fd(cmd->fd_outfile, cmd);
-// 	}
-// }
-
-void	ft_fd_to_pipe(t_mini *mini)
-{
-	ft_open_fd(mini->cmd, mini, &mini->gmalloc);
-	if (mini->cmd->fd_infile != -1)
-	{
-		if (dup2(mini->cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(mini->cmd->fd_infile, mini);
-	}
-	if (mini->cmd->fd_outfile != -1)
-	{
-		if (dup2(mini->cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(mini->cmd->fd_outfile, mini);
-	}
+	if (ft_open_infile(cmd, mini) == 0)
+		return (0);
+	return (1);
 }
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)

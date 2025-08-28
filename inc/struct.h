@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/25 16:34:09 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 10:02:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
+	char			**paths;
 	t_redir			*infiles;
 	t_redir			*outfiles;
 	int				type;
@@ -76,6 +77,8 @@ typedef struct s_mini
 	t_cmd		*cmd;
 	t_token		*token;
 	t_gmalloc	*gmalloc;
+	int			dup_std[2];
+	int			nb_pipe;
 	int			exit_status;
 	char		**env;
 }t_mini;
