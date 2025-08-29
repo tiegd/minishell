@@ -32,7 +32,6 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 		}
 		i++;
 	}
-	printf("errno = %d\n", errno);
 	if (errno == 2 && mini->nb_pipe == 0)
 	{
 		if (cmd->args[0][0] == '/' && access(cmd->args[0], F_OK) != 0)
