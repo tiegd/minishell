@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 20:45:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/29 12:10:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,10 @@ int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
-void 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
+int		check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
@@ -193,7 +194,8 @@ void	free_redir(t_redir *redir, t_gmalloc **head);
 char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head);
 void	free_cmd(t_cmd *cmd, t_gmalloc **head);
 void	ft_lstfree(t_token *lst, t_gmalloc **head);
-void	print_not_valid_identifier(char *str);	
+void	print_not_valid_identifier(char *str);
+void	print_no_such_file(char *str);
 
 /*------------FD------------*/
 

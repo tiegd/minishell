@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 18:11:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/29 08:56:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,35 +128,9 @@ int	is_eof(char	*prev)
 
 	if (skip_and_check_quotes(&i, prev))
 		return (0);
-	// while (prev[i])
-	// {
-	// 	if (prev[i] == SQ)
-	// 	{
-	// 		i++;
-	// 		while (prev[i] && prev[i] != SQ)
-	// 			i++;
-	// 		if (prev[i] == '\0')
-	// 		{
-	// 			quote_unclosed = true;
-	// 			break ;
-	// 		}
-	// 	}
-	// 	if (prev[i] == DQ)
-	// 	{
-	// 		i++;
-	// 		while (prev[i] && prev[i] != DQ)
-	// 			i++;
-	// 		if (prev[i] == '\0')
-	// 		{
-	// 			quote_unclosed = true;
-	// 			break ;
-	// 		}
-	// 	}
-	// 	i++;
-	// }
 	if (i > 1)
 	{
-		while (i >= 0)
+		while (i > 0)
 		{
 			if (is_here_doc(prev[i], prev[i - 1]))
 				return (1);

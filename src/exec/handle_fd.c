@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 18:10:46 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/29 06:43:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	ft_open_outfile(t_cmd *cmd)
 		if (cmd->outfiles->type == APPEND)
 			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (cmd->fd_outfile < 0)
+		{
+			// printf("filename = %s\n", cmd->outfiles->filename);
+			// cmd->outfile_name = ft_strdup(cmd->outfiles->filename);
 			return ;
+		}
 		if (cmd->outfiles->next != NULL)
 		{
 			if (close(cmd->fd_outfile) == -1)

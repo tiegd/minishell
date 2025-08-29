@@ -127,3 +127,7 @@ sinon on expend le $ vide.
 Creer une fonction qui permettrais d'exit tout en disant qu'il y a un big crash 
 sur une fonction de base genre "close" ou "write" ce qui sortirais du programme.(a voir)
 
+Checker dans l'enfant si la commande existe ou pas et exit le processus si elle n'existe pas.
+
+Faire attention au fds en cas de here doc et de pipe car toute les commandes ne connaisse pas les here doc ouvert, faire un tab de int de here doc et close en fonction de la commande.
+

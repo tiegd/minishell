@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 18:11:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/29 11:30:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,33 +138,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	return (new_tab);
 }
 
-char	*ft_path_line(char **env, t_gmalloc **head)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*path;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			j = 0;
-			len = ft_strlen(env[i]) - 5;
-			path = gb_malloc(((len + 1) * sizeof(char)), head);
-			while (env[i][j + 5])
-			{
-				path[j] = env[i][j + 5];
-				j++;
-			}
-			path[j] = '\0';
-			return (path);
-		}
-		i++;
-	}
-	return (NULL);
-}
 
 int	ft_nb_path(char **path)
 {
@@ -196,7 +170,6 @@ int	open_for_each_redir(t_redir **head, t_mini *mini)
 	t_redir	*temp;
 
 	temp = *head;
-	mini->cmd->fd_here_doc = 0;
 	while (temp != NULL)
 	{
 		if (temp->type == HERE_DOC)
