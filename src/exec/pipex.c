@@ -85,7 +85,7 @@ static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
 	}
-	if (cmd->fd_outfile == -1)
+	else if (cmd->fd_outfile == -1)
 		put_exit_error(mini, cmd->outfiles->filename, "Permission denied", 1);
 	else
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
