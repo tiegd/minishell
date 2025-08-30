@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/08/26 11:26:11 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/08/29 14:28:39 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
+CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3 -o3
 
 INCLUDE = inc
 
@@ -47,11 +47,13 @@ SRC =	main.c \
 		clean/free.c \
 		clean/garbage_collector.c \
 		clean/print_error.c \
+		clean/close_fd.c \
 		exec/manage_error.c	\
 		exec/exec.c	\
 		exec/handle_fd.c \
 		exec/pipex.c \
 		exec/pipex_utils.c \
+		exec/check_cmd.c \
 		parsing/print_for_help.c \
 		parsing/env_dash_i.c \
 		parsing/handle_env_var.c \

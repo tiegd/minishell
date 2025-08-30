@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 15:09:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/29 06:43:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	ft_open_outfile(t_cmd *cmd)
 		if (cmd->outfiles->type == APPEND)
 			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (cmd->fd_outfile < 0)
+		{
+			// printf("filename = %s\n", cmd->outfiles->filename);
+			// cmd->outfile_name = ft_strdup(cmd->outfiles->filename);
 			return ;
+		}
 		if (cmd->outfiles->next != NULL)
 		{
 			if (close(cmd->fd_outfile) == -1)
@@ -66,6 +70,11 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 	cmd->fd_infile = 0;
 	cmd->fd_outfile = 1;
 	ft_open_outfile(cmd);
+	if (cmd->fd_here_doc != 0)
+	{
+		cmd->fd_infile = cmd->fd_here_doc;
+		return (1);
+	}
 	if (ft_open_infile(cmd, mini) == 0)
 		return (0);
 	return (1);

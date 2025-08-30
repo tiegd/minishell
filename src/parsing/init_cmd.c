@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 16:14:48 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/29 06:45:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 		return (NULL);
 	new->fd_infile = 0;
 	new->fd_outfile = 1;
+	new->fd_here_doc = 0;
 	new->outfiles = NULL;
 	new->infiles = NULL;
 	new->next = NULL;

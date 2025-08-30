@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 13:00:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/08/29 08:56:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,31 @@ char	**split_parts(char *prompt, t_gmalloc **head)
 	return (parts);
 }
 
+int	skip_and_check_quotes(int *i, char *prev)
+{
+	while (prev[*i])
+	{
+		if (prev[*i] == SQ)
+		{
+			(*i)++;
+			while (prev[*i] && prev[*i] != SQ)
+				(*i)++;
+			if (prev[*i] == '\0')
+				return (true);
+		}
+		if (prev[*i] == DQ)
+		{
+			(*i)++;
+			while (prev[*i] && prev[*i] != DQ)
+				(*i)++;
+			if (prev[*i] == '\0')
+				return (true);
+		}
+		(*i)++;
+	}
+	return (false);
+}
+
 /*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
 int	is_eof(char	*prev)
 {
@@ -100,29 +125,50 @@ int	is_eof(char	*prev)
 
 	i = 0;
 	here_doc = false;
-	while (prev && prev[i])
+
+	if (skip_and_check_quotes(&i, prev))
+		return (0);
+	if (i > 1)
 	{
-		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i])))
-			i++;
-		if (is_here_doc(prev[i], prev[i + 1]))
+		while (i > 0)
 		{
-			here_doc = true;
-			i += 2;
+			if (is_here_doc(prev[i], prev[i - 1]))
+				return (1);
+			i--;
 		}
-		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]))) //|| prev[i] == '$' || prev[i] == '?'))
-			i++;
-		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
-		{
-			if (!is_quote(prev[i]) && !is_ws(prev[i]))
-				return(0);
-			i++;
-		}
-		i++;
 	}
-	if (here_doc == true)
-		return (1);
 	return (0);
 }
+
+// /*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
+// int	is_eof(char	*prev)
+// {
+// 	int	i;
+// 	bool here_doc;
+
+// 	i = 0;
+// 	here_doc = false;
+// 	while (prev && prev[i])
+// 	{
+// 		if (is_here_doc(prev[i], prev[i + 1]))
+// 		{
+// 			here_doc = true;
+// 			i += 2;
+// 		}
+// 		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]))) //|| prev[i] == '$' || prev[i] == '?'))
+// 			i++;
+// 		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
+// 		{
+// 			if (!is_quote(prev[i]) && !is_ws(prev[i]))
+// 				return(0);
+// 			i++;
+// 		}
+// 		i++;
+// 	}
+// 	if (here_doc == true)
+// 		return (1);
+// 	return (0);
+// }
 
 void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *mini)
 {
@@ -135,7 +181,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *m
 	index = 0;
 	while(isolated[i])
 	{
-		if (ft_strchr(isolated[i], '$') && isolated[i][1])
+		if (ft_strchr(isolated[i], '$')) //&& isolated[i][1])
 		{
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
 			{
