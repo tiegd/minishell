@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/29 12:06:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:04:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int		pid;
 
 	if (!ft_open_fd(cmd, mini))
-		return ;
+		return ;	
 	if (!is_builtin(cmd->args[0]))
 	{
 		if (!check_cmd(cmd, mini, head))
@@ -139,7 +139,6 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		mini->dup_std[1] = dup(STDOUT_FILENO);
 		redir_one(cmd, mini);
 		ft_exec_cmd(cmd, mini, head);
-		// printf("fd_infile = %d\n", cmd->fd_infile);
 	}
 }
 

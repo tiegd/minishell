@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/29 06:43:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:04:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_open_outfile(t_cmd *cmd)
 			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (cmd->fd_outfile < 0)
 		{
-			// printf("filename = %s\n", cmd->outfiles->filename);
 			// cmd->outfile_name = ft_strdup(cmd->outfiles->filename);
 			return ;
 		}
@@ -82,24 +81,24 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
-	if (cmd->fd_infile >= 0)
+	if (cmd->fd_infile != 0)
 	{
 		if (close(cmd->fd_infile) == -1)
 			return (0);
 	}
-	if (cmd->fd_outfile >= 0)
+	if (cmd->fd_outfile != 0)
 	{
 		if (close(cmd->fd_outfile) == -1)
 			return (0);
 	}
 	if (pipefd != 0)
 	{
-		if (pipefd[0] >= 0 )
+		if (pipefd[0] != 0 )
 		{
 			if (close(pipefd[0]) == -1)
 			return (0);
 		}
-		if (pipefd[1] >= 0)
+		if (pipefd[1] != 0)
 		{
 			if (close(pipefd[1]) == -1)
 			return (0);
