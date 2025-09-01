@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/29 12:09:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:36:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
 		manage_error_exec(mini->cmd, mini, cmd->paths);
+		if (mini->exit_status == 126)
+			return (0);
 	}
 	return (1);
 }
@@ -123,8 +125,8 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		cmd->pathname = cmd->args[0];
 		if (!check_access_cmd(mini, cmd))
 			return (0);
-		else
-			return (1);
+		// else
+		// 	return (1);
 	}
 	/*Si il n'y a pas de '/' on check si path existe
 	et on test avec chaque pour voir lequel est le bon, 
@@ -137,6 +139,8 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		// 	return (0);
 		return (1);
 	}
+	else
+		return (0);
 	/*On regarde si pathname existe et est executable(renvoyer une erreur en fonction).*/
 	if (!check_access_cmd(mini, cmd))
 		return (0);

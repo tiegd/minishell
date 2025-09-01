@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/01 11:04:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:21:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_open_infile(t_cmd *cmd, t_mini *mini)
 		}
 		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
 		if (cmd->fd_infile < 0)
-			return (1);
+			return (0);
 		if (cmd->infiles->next != NULL)
 		{
 			if (close(cmd->fd_infile) == -1)
-				return (1);
+				return (0);
 		}
 		cmd->infiles = cmd->infiles->next;
 	}
@@ -79,8 +79,28 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 	return (1);
 }
 
+// int	ft_open_fd(t_cmd *cmd, t_mini *mini)
+// {
+// 	cmd->fd_infile = 0;
+// 	cmd->fd_outfile = 1;
+// 	if (ft_open_infile(cmd, mini) == 0)
+// 	{
+// 		ft_open_outfile(cmd);
+// 		return (1);
+// 	}
+// 	else
+// 		return (0);
+// 	if (cmd->fd_here_doc != 0)
+// 	{
+// 		cmd->fd_infile = cmd->fd_here_doc;
+// 		return (1);
+// 	}
+// 	return (1);
+// }
+
 int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
+	printf(GREEN"pipefd[0] = %d;\npipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
 	if (cmd->fd_infile != 0)
 	{
 		if (close(cmd->fd_infile) == -1)

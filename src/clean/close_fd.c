@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/01 11:18:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:58:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	close_fds(int infile, int outfile)
 		if (close(outfile) == -1)
 			exit(1);
 	}
+	
 }
