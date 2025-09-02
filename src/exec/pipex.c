@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:08:05 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:41:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,10 @@ static void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			exit_fd(cmd->fd_infile, mini);
 	}
-	else if (cmd->fd_infile == -1)
-	{
-		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
-		exit_tab(mini, 1);
-	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
-	}
-	else if (cmd->fd_outfile == -1)
-	{
-		printf("minishell: %s: Permission denied\n", cmd->outfiles->filename);
-		exit_tab(mini, 1);
 	}
 	else
 	{
@@ -50,26 +40,29 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	
 	if(pipe(pipefd) == -1)
-		exit_tab(mini, EXIT_FAILURE);
+		exit_tab(mini, EXIT_FAILURE, pipefd);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1);
+			exit_tab(mini, 1, pipefd);
+		if (!check_cmd(cmd, mini, head))
+			exit_tab(mini, mini->exit_status, pipefd);
 		redir_first_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
-			
 			ft_close_fd(cmd, pipefd);
-			exit_tab(mini, 127);
+			exit_tab(mini, 127, pipefd);
 		}
 	}
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
+	close(pipefd[0]);
 }
 
 static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
@@ -79,12 +72,6 @@ static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			exit_fd(cmd->fd_infile, mini);
 	}
-	else if (cmd->fd_infile == -1)
-		print_error(mini, cmd->infiles->filename, "Permission denied", 1);
-	// {
-	// 	printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
-	// 	exit_tab(mini, 1);
-	// }
 	else
 		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
 			exit_fd(cmd->outpipe, mini);
@@ -93,12 +80,6 @@ static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
 	}
-	if (cmd->fd_outfile == -1)
-		print_error(mini, cmd->outfiles->filename, "Permission denied", 1);
-	// {
-	// 	printf("minishell: %s: Permission denied\n", cmd->outfiles->filename);
-	// 	exit_tab(mini, 1);
-	// }
 	else
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			exit_fd(pipefd[1], mini);
@@ -112,25 +93,30 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int	pipefd[2];
 
 	if (pipe(pipefd) == -1)
-		exit_tab(mini, EXIT_FAILURE);
+		exit_tab(mini, EXIT_FAILURE, pipefd);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1);
+			exit_tab(mini, 1, pipefd);
+		if (!check_cmd(cmd, mini, head))
+			exit_tab(mini, mini->exit_status, pipefd);
 		redir_middle_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
+		close(cmd->outpipe);
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			ft_close_fd(cmd, pipefd);
-			exit_tab(mini, 127);
+			exit_tab(mini, 127, pipefd);
 		}
 	}
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
+	close(cmd->outpipe);
 }
 
 static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
@@ -139,11 +125,6 @@ static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			exit_fd(cmd->fd_infile, mini);
-	}
-	else if (cmd->fd_infile == -1)
-	{
-		printf("minishell: %s: Permission denied\n", cmd->infiles->filename);
-		exit_tab(mini, 1);
 	}
 	else
 	{
@@ -155,11 +136,6 @@ static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
 	}
-	else if (cmd->fd_outfile == -1)
-	{
-		printf("minishell: %s: Permission denied\n", cmd->outfiles->filename);
-		exit_tab(mini, 1);
-	}
 }
 
 // Run the the command and redirect the output to the terminal.
@@ -167,23 +143,28 @@ static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
 static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid_last;
+	// int pipefd[2];
 
+	// if (pipe(pipefd) == -1)
+	// 	exit_tab(mini, EXIT_FAILURE);
 	pid_last = fork();
 	if (pid_last == -1)
-		exit_tab(mini, EXIT_FAILURE);
-	printf("Simon la comoucha\n");
-	printf("pid_last = %d\n", pid_last);
+		exit_tab(mini, EXIT_FAILURE, 0);
 	if (pid_last == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1);
+			exit_tab(mini, 1, 0);
+		if (!check_cmd(cmd, mini, head))
+			exit_tab(mini, mini->exit_status, 0);
 		redir_last_pipe(mini, cmd);
+		close(cmd->outpipe);
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
-			ft_close_fd(cmd, 0);
-			exit_tab(mini, 127);
+			// ft_close_fd(cmd, 0);
+			exit_tab(mini, 127, 0);
 		}
-		close(cmd->outpipe);
+		// close(cmd->outpipe);
 	}
 	close(cmd->outpipe);
 	wait_children(pid_last, mini);
@@ -196,12 +177,12 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 	int	i;
 
 	i = 0;
-	mini->dup_std[0] = dup(STDIN_FILENO);
-	mini->dup_std[1] = dup(STDOUT_FILENO);
+	// mini->dup_std[0] = dup(STDIN_FILENO);
+	// mini->dup_std[1] = dup(STDOUT_FILENO);
 	while (cmd)
 	{
-		extract_path(cmd, mini, head);
-		ft_is_bin(cmd, mini);
+		// extract_path(cmd, mini, head);
+		// ft_is_bin(cmd, mini);
 		if (i == 0)
 			first_pipe(cmd, mini, head);
 		else if (i == nb_pipe)
@@ -210,8 +191,10 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 			middle_pipe(cmd, mini, head);
 		if (i < nb_pipe)
 			cmd->next->outpipe = cmd->outpipe;
+		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		i++;
 		cmd = cmd->next;
+		usleep(50);
 	}
 	if (sig_flag != 0)
 		write(STDOUT_FILENO, "\n", 1);

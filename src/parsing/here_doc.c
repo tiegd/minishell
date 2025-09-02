@@ -6,11 +6,24 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 16:11:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 20:18:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	dir_is_valid(const char *dirname)
+{
+	DIR *dir;
+
+	if ((dir = opendir(dirname)) != NULL)
+	{
+		closedir(dir);
+		return (1);
+	}
+	else
+		return (0);
+}
 
 char	*generate_rand_name_file(t_gmalloc **head)
 {
@@ -20,11 +33,14 @@ char	*generate_rand_name_file(t_gmalloc **head)
 	int		i;
 
 	i = 0;
-	fd = open("/dev/urandom", O_RDONLY);
+	// fd = open("/dev/urandom", O_RDONLY);
 	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
 		return (NULL);
 	if (read(fd, urand, 6) == -1)
+	{
+		close(fd);
 		return (NULL);
+	}
 	close(fd);
 	while (i < 6)
 	{
@@ -33,7 +49,8 @@ char	*generate_rand_name_file(t_gmalloc **head)
 	}
 	urand[i] = '\0';
 	file_name = gb_strjoin_custom("sh-thd-", (char *)urand, head);
-	// file_name = gb_strjoin_custom("fd_here_doc/", file_name, head);
+	if (dir_is_valid("/tmp"))
+		file_name = gb_strjoin_custom("/tmp/", file_name, head);
 	return (file_name);
 }
 
@@ -78,36 +95,56 @@ char	*generate_rand_name_file(t_gmalloc **head)
 // 	return (file_name);
 // }
 
+int	sig_int_received(t_mini *mini, int here_doc, int here_doc_copy)
+{
+	close(here_doc);
+	close(here_doc_copy);
+	mini->exit_status = 130;
+	return (-2);
+}
+
+int	open_here_doc(int *here_doc, int *here_doc_copy, char *file_name)
+{
+	if ((*here_doc = open(file_name, O_WRONLY | O_CREAT, 0664)) == -1)
+		return (-1);
+	if ((*here_doc_copy = open(file_name, O_RDONLY)) == -1)
+		return (-1);
+	if (unlink(file_name))
+		return (-1);
+	return (0);
+}
+
 int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 {
 	char	*line;
 	char	*file_name;
 	int		here_doc;
+	int		here_doc_copy;
 	bool	had_quote;
 
 	had_quote = false;
-	file_name = generate_rand_name_file(head);
+	if ((file_name = generate_rand_name_file(head)) == NULL)
+		return (-1);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
 		had_quote = true;
 		eof = delete_quote(eof);
 	}
-	if ((here_doc = open(file_name, O_WRONLY | O_CREAT, 0664)) == -1)
+	if (open_here_doc(&here_doc, &here_doc_copy, file_name) == -1)
 		return (-1);
 	while ((line = readline(">")) != NULL)
 	{
+		if (sig_flag == 1)
+			return (sig_int_received(mini, here_doc, here_doc_copy));
 		if (ft_strcmp(line, eof))
 			break ;
 		if (ft_strchr(line, '$') && had_quote == false)
 			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, here_doc);
 		ft_putchar_fd('\n', here_doc);
+		free(line);
 	}
 	if (close(here_doc) == -1)
 		return (-1);
-	if ((here_doc = open(file_name, O_RDONLY)) == -1)
-		return (-1);
-	if (unlink(file_name))
-		return (-1);
-	return (here_doc);
+	return (here_doc_copy);
 }

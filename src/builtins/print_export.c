@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:10:02 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/21 13:59:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/28 19:43:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,21 @@ void	print_export(char **env, t_gmalloc **head)
 
 	i = 0;
 	sort_env(env, head);
+	// print_tab_char(env);
 	while (env[i])
 	{
 		j = 0;
-		ft_printf("export ");
-		while (env[i][j] != '=')
+		ft_putstr_fd("export ", 1);
+		while (env[i][j] && env[i][j] != '=')
 			ft_putchar_fd(env[i][j++], 1);
-		ft_putchar_fd(env[i][j++], 1);
-		ft_putchar_fd('"', 1);
-		while (env[i][j])
+		if (env[i][j] != '\0')
+		{
 			ft_putchar_fd(env[i][j++], 1);
-		ft_putchar_fd('"', 1);
+			ft_putchar_fd('"', 1);
+			while (env[i][j])
+				ft_putchar_fd(env[i][j++], 1);
+			ft_putchar_fd('"', 1);
+		}
 		ft_putchar_fd('\n', 1);
 		i++;
 	}

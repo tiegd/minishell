@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 16:18:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 08:58:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	unclosed_quote(char *prompt)
 	return (0);
 }
 
+/*skip all the white space and the alpha numeric character*/
 int	skip_ws_isalnum(char *prompt)
 {
 	int	i;
@@ -71,6 +72,28 @@ int	skip_ws_isalnum(char *prompt)
 	return (i);
 }
 
+// void	skip_double_quote(char *prompt, int	*i)
+// {
+// 	(*i)++;
+// 	while (prompt[*i] && prompt[*i] != DQ)
+// 	{
+// 		(*i)++;
+// 	}
+// 	if (prompt[*i] == DQ)
+// 		(*i)++;
+// }
+
+void	skip_quotes(char *prompt, int	*i, int quote)
+{
+	(*i)++;
+	while (prompt[*i] && prompt[*i] != quote)
+	{
+		(*i)++;
+	}
+	if (prompt[*i] == quote)
+		(*i)++;
+}
+
 int	empty_redir(char *prompt)
 {
 	int	i;
@@ -78,26 +101,96 @@ int	empty_redir(char *prompt)
 	i = skip_ws_isalnum(prompt);
 	while (prompt[i])
 	{
-		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+		if (prompt[i] == SQ)
+			skip_quotes(prompt, &i, SQ);
+		if (prompt[i] == DQ)
+			skip_quotes(prompt, &i, DQ);
+		if(is_operator(prompt[i])) //&& !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
 		{
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]))
+			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n')
 				return (1);
 		}
-		else if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
+		if (is_redir(prompt[i]))
 		{
-			i += 2;
+			if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
+				i += 2;
+			else
+				i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n' || is_redir(prompt[i]))
 				return (1);
 		}
-		i++;
+		if (prompt[i])
+			i++;
 	}
 	return (0);
 }
+
+// int	empty_redir(char *prompt)
+// {
+// 	int	i;
+
+// 	i = skip_ws_isalnum(prompt);
+// 	while (prompt[i])
+// 	{
+// 		if (prompt[i] == SQ)
+// 			skip_quotes(prompt, &i, SQ);
+// 		if (prompt[i] == DQ)
+// 			skip_quotes(prompt, &i, DQ);
+// 		if(is_special(prompt[i])) //&& !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+// 		{
+// 			if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
+// 				i += 2;
+// 			else
+// 				i++;
+// 			while (prompt[i] && is_ws(prompt[i]))
+// 				i++;
+// 			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n')
+// 				return (1);
+			
+// 		}
+// 		if (prompt[i])
+// 			i++;
+// 	}
+// 	return (0);
+// }
+
+// int	empty_redir(char *prompt)
+// {
+// 	int	i;
+// 	int	
+
+// 	i = skip_ws_isalnum(prompt);
+// 	while (prompt[i])
+// 	{
+// 		if (prompt[i] == SQ)
+// 			skip_single_quote(prompt, &i);
+// 		if (prompt[i] == DQ)
+// 			skip_single_quote(prompt, &i);
+// 		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+// 		{
+// 			i++;
+// 			while (prompt[i] && is_ws(prompt[i]))
+// 				i++;
+// 			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]) || is_special(prompt[i]))
+// 				return (1);
+// 		}
+// 		else if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
+// 		{
+// 			i += 2;
+// 			while (prompt[i] && is_ws(prompt[i]))
+// 				i++;
+// 			if (prompt[i] == '\0' || prompt[i] == '\n' || is_special(prompt[i]) || is_operator(prompt[i]))
+// 				return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	syntax_error(char *prompt)
 {
@@ -105,9 +198,9 @@ int	syntax_error(char *prompt)
 		return (1);
 	if (before_operator(prompt))
 		return (1);
-	if (empty_redir(prompt))
-		return (1);
 	if (unclosed_quote(prompt))
+		return (1);
+	if (empty_redir(prompt))
 		return (1);
 	return (0);
 }

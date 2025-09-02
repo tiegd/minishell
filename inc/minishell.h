@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 10:02:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:38:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 // void	ft_lstfree(t_token *lst);
 // bool	ft_first_word(t_token *lst);
-void	ft_is_bin(t_cmd *cmd, t_mini *mini);
+int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
@@ -137,18 +137,19 @@ int		is_special(char c);
 int		is_ws(char c);
 int		exp_isalnum(int c);
 int		exp_isalnum_question_mark(int c);
+int		is_redir(char c);
 
 /*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd);
-char	**ft_export(char **old_env, char *str, t_gmalloc **head);
+char	**ft_export(char **old_env, char *str, t_mini *mini, t_gmalloc **head);
 void	pwd(int fd, t_mini *mini);
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini);
 char	**unset(char *var, char **old_env, t_gmalloc **head);
 char	**loop_unset(char **env, char **args, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
-char	**loop_export(char **env, char **args, t_gmalloc **head);
+char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head);
 void	ft_exit(char **args, int exit_status, t_gmalloc **head);
 void	print_export(char **env, t_gmalloc **head);
 
@@ -167,8 +168,10 @@ int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
-void 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-void	print_error(t_mini *mini, char *filename, char *error, int exit_status);
+int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
+void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
+int		check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
@@ -186,12 +189,14 @@ void	gb_free_all(t_gmalloc **head);
 
 /*------------CLEAN------------*/
 
+void	close_fds(int infile, int outfile);
 void	free_token(t_token *lst, t_gmalloc **head);
 void	free_redir(t_redir *redir, t_gmalloc **head);
 char	**free_double_tab(char **tab, int nb_agrs, t_gmalloc **head);
 void	free_cmd(t_cmd *cmd, t_gmalloc **head);
 void	ft_lstfree(t_token *lst, t_gmalloc **head);
-void	print_not_valid_identifier(char *str);	
+void	print_not_valid_identifier(char *str);
+void	print_no_such_file(char *str);
 
 /*------------FD------------*/
 
@@ -202,14 +207,14 @@ void	ft_open_outfile(t_cmd *cmd);
 int	    ft_close_fd(t_cmd *cmd, int *pipefd);
 // void	ft_fd_to_pipe(t_cmd *cmd);
 void	ft_fd_to_pipe(t_mini *mini);
-void	ft_dup_out(t_cmd *cmd, t_mini *mini);
+void	ft_dup_out(t_mini *mini);
 
 /*------------EXIT------------*/
 
 // void	exit_pid_error(int *pipefd, t_cmd *cmd);
 void	exit_pid_error(int *pipefd, t_mini *mini);
 // void	exit_tab(t_cmd *cmd, int code);
-void	exit_tab(t_mini *mini, int code);
+void	exit_tab(t_mini *mini, int code, int *pipefd);
 // void	exit_fd(int fd, t_cmd *cmd);
 void	exit_fd(int fd, t_mini *mini);
 int		str_return(const char *str, int exit_status, t_mini *mini);

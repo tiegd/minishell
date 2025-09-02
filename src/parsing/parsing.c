@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:10:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:41:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*ft_add_suf(int j, char *str, char *args)
 	i = 0;
 	str[j] = '/';
 	j++;
+	if (args[0] == '/' && args[1] == 'b' && args[2] == 'i' && args[3] == 'n' && args[4] == '/')
+		i += 5;
 	while (args[i])
 	{
 		str[j] = args[i];
@@ -108,8 +110,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	int		j;
 
 	i = 0;
-	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')	// int		nb_pipe;
-
+	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
 	{
 		new_tab = malloc(2 * sizeof(char *));
 		new_tab[0] = one_line_path(paths);
@@ -118,6 +119,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	{
 		size_cmd = (int)ft_strlen(cmd->args[0]) + 1;
 		new_tab = gb_malloc(((nb_path + 1) * sizeof(char *)), head);
+		new_tab[nb_path] = NULL;
 		while (paths[i] != NULL)
 		{
 			j = 0;
@@ -136,33 +138,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	return (new_tab);
 }
 
-char	*ft_path_line(char **env, t_gmalloc **head)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*path;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			j = 0;
-			len = ft_strlen(env[i]) - 5;
-			path = gb_malloc(((len + 1) * sizeof(char)), head);
-			while (env[i][j + 5])
-			{
-				path[j] = env[i][j + 5];
-				j++;
-			}
-			path[j] = '\0';
-			return (path);
-		}
-		i++;
-	}
-	return (NULL);
-}
 
 int	ft_nb_path(char **path)
 {
@@ -189,7 +165,7 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
-void	open_for_each_redir(t_redir **head, t_mini *mini)
+int	open_for_each_redir(t_redir **head, t_mini *mini)
 {
 	t_redir	*temp;
 
@@ -197,23 +173,35 @@ void	open_for_each_redir(t_redir **head, t_mini *mini)
 	while (temp != NULL)
 	{
 		if (temp->type == HERE_DOC)
+		{
+			mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+			if (mini->cmd->fd_here_doc <= 0)
 			{
-				mini->cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+				if (mini->cmd->fd_here_doc == -1)
+				{
+					mini->exit_status = 1;
+					ft_putstr_fd("error occured during the creation of here document\n", 2);
+				}
+				return (-1);
 			}
-			temp = temp->next;
+		}
+		temp = temp->next;
 	}
+	return (0);
 }
 
-void	open_for_each_cmd(t_cmd **head, t_mini *mini)
+int	open_for_each_cmd(t_cmd **head, t_mini *mini)
 {
 	t_cmd *temp;
 	
 	temp = *head;
 	while (temp != NULL)
 	{
-		open_for_each_redir(&temp->infiles, mini);
+		if (open_for_each_redir(&temp->redir, mini) != 0)
+			return (-1);
 		temp = temp->next;
 	}
+	return (0);
 }
 
 int	ft_parsing(char *input, t_mini *mini)
@@ -233,7 +221,8 @@ int	ft_parsing(char *input, t_mini *mini)
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	open_for_each_cmd(&mini->cmd, mini);
+	if (open_for_each_cmd(&mini->cmd, mini) != 0)
+		return (0);
 	unblock_sig_quit();
 	mini->nb_pipe = ft_count_pipe(&mini->token);
 	if (mini->nb_pipe > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 10:02:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 09:56:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
-	char			**paths;
-	t_redir			*infiles;
-	t_redir			*outfiles;
+	char			**paths; //array of string that include path + cmd
+	t_redir			*redir;
+	// t_redir			*infiles;
+	// t_redir			*outfiles;
 	int				type;
 	char			*pathname;
 	char			*expend;
@@ -50,7 +51,6 @@ typedef struct s_cmd
 	int				fd_outfile; //initialiser a STDOUT si pas de redirection
 	int				fd_here_doc;
 	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
-	int				error;
 	bool			valid;
 	bool			is_env_var; //si c'est une variable d'environnement.
 	bool			malloc_error;

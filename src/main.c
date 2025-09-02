@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 10:03:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:38:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	check_interactive_mode();
+	// check_interactive_mode();
 	set_sig_action();
 	block_sig_quit();
 	init_mini(&mini, env);
@@ -66,11 +66,20 @@ int	main(int ac, char **av, char **env)
 	{
 		sig_flag = 0;
 		block_sig_quit();
-		line = readline("miniprout >>");
-		if (sig_flag == 1)
+		if (isatty(STDIN_FILENO) != 0)
 		{
-			mini.exit_status = 130;
-			continue ;
+			
+			line = readline("miniprout >>");
+			if (sig_flag == 1)
+			{
+				mini.exit_status = 130;
+				continue ;
+			}
+		}
+		else
+		{
+			line = get_next_line(STDIN_FILENO);
+			line = ft_strtrim(line, "\n");
 		}
 		if (!line)
 			ft_exit(NULL, 0, &mini.gmalloc);

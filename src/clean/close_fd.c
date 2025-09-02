@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 13:07:33 by gaducurt         ###   ########.fr       */
+/*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/09/01 12:58:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(char **args, int exit_status, t_gmalloc **head)
+void	close_fds(int infile, int outfile)
 {
-	int arg_count;
-
-	arg_count = ft_nb_path(args);
-	if (arg_count > 1)
+	if (infile > 0)
 	{
-		ft_putstr_fd("exit : too many arguments", 2);
-		return ;
+		if (close(infile) == -1)
+			exit(1);
 	}
-	// printf("exit\n");
-	gb_free_all(head);
-	exit(exit_status);
+	if (outfile > 1)
+	{
+		if (close(outfile) == -1)
+			exit(1);
+	}
+	
 }

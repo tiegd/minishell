@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/21 15:32:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:18:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 // 	exit(code);
 // }
 
-void	exit_tab(t_mini *mini, int code)
+void	exit_tab(t_mini *mini, int code, int *pipefd)
 {
+	ft_close_fd(mini->cmd, pipefd);
 	gb_free_all(&mini->gmalloc);
 	exit(code);
 }
@@ -60,7 +61,6 @@ void	exit_fd(int fd, t_mini *mini)
 		close(fd);
 	gb_free_all(&mini->gmalloc);
 	mini->exit_status = 1;
-	// printf("%d\n", mini->exit_status);
 	exit(EXIT_FAILURE);
 }
 
@@ -74,7 +74,6 @@ void	exit_malloc_error(t_gmalloc *head, int exit_status)
 int	str_return(const char *str, int exit_status, t_mini *mini)
 {
 	printf("%s", str);
-	// gb_free_all(&mini->gmalloc);
 	mini->exit_status = exit_status;
 	return(0);
 }
