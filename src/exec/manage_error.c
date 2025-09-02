@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/01 16:18:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 09:56:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
-	exit_tab(mini, exit_status);
+	exit_tab(mini, exit_status, 0);
 }
 
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status)

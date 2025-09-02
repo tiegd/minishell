@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/01 13:58:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 09:57:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,13 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 // 	exit(code);
 // }
 
-void	exit_tab(t_mini *mini, int code)
+void	exit_tab(t_mini *mini, int code, int *pipefd)
 {
+	if (pipefd != 0)
+	{
+		close(pipefd[0]);
+		close(pipefd[1]);
+	}
 	gb_free_all(&mini->gmalloc);
 	exit(code);
 }
