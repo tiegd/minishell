@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:39:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 20:47:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, mini);
+			exit_fd(cmd, mini, 0);
 	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, mini);
+			exit_fd(cmd, mini, 0);
 	}
 }
 // // Do redir if we have an infile or outfile.
@@ -134,6 +134,8 @@ void	ft_dup_out(t_mini *mini)
 {
 	dup2(mini->dup_std[0], STDIN_FILENO);
 	dup2(mini->dup_std[1], STDOUT_FILENO);
+	close(mini->dup_std[0]);
+	close(mini->dup_std[1]);
 }
 
 // Run only one command with ft_exec_cmd.
@@ -179,7 +181,6 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (!ft_exec_builtin(cmd, mini, head))
 			return (false);
 		ft_dup_out(mini);
-		mini->exit_status = 0;
 	}
 	else if (!is_builtin(cmd->args[0]))
 	{

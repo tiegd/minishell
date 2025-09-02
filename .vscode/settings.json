@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"signal.h": "c",
 		"stdbool.h": "c",
-		"question": "c"
+		"question": "c",
+		"prompt": "cpp"
 	}
 }

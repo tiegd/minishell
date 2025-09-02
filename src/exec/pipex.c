@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:41:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 18:28:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 	if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	else
 	{
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			exit_fd(pipefd[1], mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 }
 
@@ -62,7 +62,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	}
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
-	close(pipefd[0]);
+	// close(pipefd[0]);
 }
 
 static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
@@ -70,19 +70,19 @@ static void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 	if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	else
 		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
-			exit_fd(cmd->outpipe, mini);
+			exit_fd(cmd, mini, pipefd);
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	else
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-			exit_fd(pipefd[1], mini);
+			exit_fd(cmd, mini, pipefd);
 }
 
 // Run a middle command and redirect the output to the following command.
@@ -115,26 +115,26 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		}
 	}
 	close(pipefd[1]);
-	cmd->outpipe = pipefd[0];
 	close(cmd->outpipe);
+	cmd->outpipe = pipefd[0];
 }
 
-static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
+static void	redir_last_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)
 {
 	if (cmd->fd_infile != -1 && cmd->fd_infile != 0)
 	{
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
-			exit_fd(cmd->fd_infile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	else
 	{
 		if (dup2(cmd->outpipe, STDIN_FILENO) == -1)
-			exit_fd(cmd->outpipe, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
-			exit_fd(cmd->fd_outfile, mini);
+			exit_fd(cmd, mini, pipefd);
 	}
 }
 
@@ -143,10 +143,7 @@ static void	redir_last_pipe(t_mini *mini, t_cmd *cmd)
 static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int	pid_last;
-	// int pipefd[2];
 
-	// if (pipe(pipefd) == -1)
-	// 	exit_tab(mini, EXIT_FAILURE);
 	pid_last = fork();
 	if (pid_last == -1)
 		exit_tab(mini, EXIT_FAILURE, 0);
@@ -156,15 +153,15 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 1, 0);
 		if (!check_cmd(cmd, mini, head))
 			exit_tab(mini, mini->exit_status, 0);
-		redir_last_pipe(mini, cmd);
+		redir_last_pipe(mini, cmd, 0);
 		close(cmd->outpipe);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
+		// ft_close_fd(cmd, 0);
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
-			// ft_close_fd(cmd, 0);
+			ft_close_fd(cmd, 0);
 			exit_tab(mini, 127, 0);
 		}
-		// close(cmd->outpipe);
 	}
 	close(cmd->outpipe);
 	wait_children(pid_last, mini);

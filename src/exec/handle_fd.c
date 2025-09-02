@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:40:25 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 18:11:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ int	ft_close_fd(t_cmd *cmd, int *pipefd)
 	if (cmd->fd_outfile != 1)
 	{
 		if (close(cmd->fd_outfile) == -1)
+			return (0);
+	}
+	if (cmd->outpipe != -1)
+	{
+		if (close(cmd->outpipe) == -1)
 			return (0);
 	}
 	if (pipefd != 0)
