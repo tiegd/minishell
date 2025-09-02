@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/29 12:06:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 13:21:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,53 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
 			exit_fd(cmd->fd_infile, mini);
 	}
-	else if (cmd->fd_infile == -1)
-	{
-		put_error(mini, cmd->infiles->filename, "Permission denied", 1);
-		if (!is_builtin(cmd->args[0]))
-			exit_tab(mini, 1);
-	}
 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
 	{
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd->fd_outfile, mini);
 	}
-	else if (cmd->fd_outfile == -1)
-	{
-		put_error(mini, cmd->outfiles->filename, "Permission denied", 1);
-		if (!is_builtin(cmd->args[0]))
-			exit_tab(mini, 1);
-	}
 }
+// // Do redir if we have an infile or outfile.
+// void	redir_one(t_cmd *cmd, t_mini *mini)
+// {
+// 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
+// 	{
+// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+// 			exit_fd(cmd->fd_infile, mini);
+// 	}
+// 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
+// 	{
+// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+// 			exit_fd(cmd->fd_outfile, mini);
+// 	}
+// }
+
+// // Do redir if we have an infile or outfile.
+// void	redir_one(t_cmd *cmd, t_mini *mini)
+// {
+// 	if (cmd->fd_infile != -1 &&  cmd->fd_infile != 0)
+// 	{
+// 		if (dup2(cmd->fd_infile, STDIN_FILENO) == -1)
+// 			exit_fd(cmd->fd_infile, mini);
+// 	}
+// 	else if (cmd->fd_infile == -1)
+// 	{
+// 		put_error(mini, cmd->infiles->filename, "Permission denied", 1);
+// 		if (!is_builtin(cmd->args[0]))
+// 			exit_tab(mini, 1);
+// 	}
+// 	if (cmd->fd_outfile != -1 && cmd->fd_outfile != 1)
+// 	{
+// 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
+// 			exit_fd(cmd->fd_outfile, mini);
+// 	}
+// 	else if (cmd->fd_outfile == -1)
+// 	{
+// 		put_error(mini, cmd->outfiles->filename, "Permission denied", 1);
+// 		if (!is_builtin(cmd->args[0]))
+// 			exit_tab(mini, 1);
+// 	}
+// }
 
 // Restore stdin and stdout.
 
@@ -139,7 +168,6 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		mini->dup_std[1] = dup(STDOUT_FILENO);
 		redir_one(cmd, mini);
 		ft_exec_cmd(cmd, mini, head);
-		// printf("fd_infile = %d\n", cmd->fd_infile);
 	}
 }
 

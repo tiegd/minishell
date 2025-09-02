@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/07/15 11:29:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 10:01:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
-		free_redir(tmp->infiles, head);
-		free_redir(tmp->outfiles, head);
+		free_redir(tmp->redir, head);
+		// free_redir(tmp->, head);
 		free_double_tab(tmp->args, tmp->nb_agrs, head);
 		gfree(tmp->pathname, head);
 		gfree(tmp, head);

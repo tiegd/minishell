@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 19:16:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/30 13:59:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ int		check_args(char **args)
 	return (1);
 }
 
-void	getcwd_or_chdir_failed(char **args, t_mini *mini)
+void	getcwd_failed(void)
+{
+	ft_putstr_fd("cd: error retrieving current directory: \
+getcwd: cannot access parent directories: No such file or directory\n", 2);
+}
+
+void	chdir_failed(char **args, t_mini *mini)
 {
 	ft_putstr_fd("cd: ", 2);
 	ft_putstr_fd(args[1], 2);
@@ -45,7 +51,7 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 	i = 0;
 	old_path = getcwd(NULL, 0);
 	if (!old_path)
-		getcwd_or_chdir_failed(args, mini);
+		getcwd_failed();
 	if (check_args(args))
 		mini->exit_status = 1;
 	else
@@ -58,7 +64,7 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 		else
 			path = gb_strdup(args[i + 1], head);
 		if (chdir(path) == -1)
-			getcwd_or_chdir_failed(args, mini);
+			chdir_failed(args, mini);
 	}
 	free(old_path);
 }

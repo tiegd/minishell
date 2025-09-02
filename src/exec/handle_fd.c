@@ -6,76 +6,80 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/29 06:43:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 13:31:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_open_infile(t_cmd *cmd, t_mini *mini)
+/*Open input redirection & check permission and existence*/
+int	open_infile(t_cmd *cmd, t_mini *mini)
 {
-	(void)mini;
-	if (cmd->infiles == NULL)
+	int	fd_infile;
+	
+	fd_infile = 0;
+	if (access(cmd->redir->filename, F_OK) != 0)
 	{
-		cmd->fd_infile = 0;
-		return (1);
+		put_error(mini, cmd->redir->filename, "No such file or directory", 1);
+		return (-1);
 	}
-	while (cmd->infiles != NULL)
+	if (access(cmd->redir->filename, R_OK) != 0)
 	{
-		if (access(cmd->infiles->filename, F_OK) != 0)
-		{
-			put_error(mini, cmd->infiles->filename, "No such file or directory", 1);
-			return (0);
-		}
-		cmd->fd_infile = open(cmd->infiles->filename, O_RDONLY);
-		if (cmd->fd_infile < 0)
-			return (1);
-		if (cmd->infiles->next != NULL)
-		{
-			if (close(cmd->fd_infile) == -1)
-				return (1);
-		}
-		cmd->infiles = cmd->infiles->next;
+		put_error(mini, cmd->redir->filename, "Permission denied", 1);
+		return (-1);
 	}
-	return (1);
+	fd_infile = open(cmd->redir->filename, O_RDONLY);
+	return (fd_infile);
 }
 
-void	ft_open_outfile(t_cmd *cmd)
+int	open_outfile(t_cmd *cmd, t_mini *mini)
 {
-	if (cmd->outfiles == NULL)
-		cmd->fd_outfile = 1;
-	while (cmd->outfiles != NULL)
+	int	fd_outfile;
+
+	fd_outfile = 0;
+	if (cmd->redir->type == OUTPUT)
+		fd_outfile = open(cmd->redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (cmd->redir->type == APPEND)
+		fd_outfile = open(cmd->redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (fd_outfile < 0)
+		put_error(mini, cmd->redir->filename, "Permission denied", 1);
+	return (fd_outfile);
+}
+
+int	open_redir(t_cmd *cmd, t_mini *mini)
+{
+	while (cmd->redir != NULL)
 	{
-		if (cmd->outfiles->type == OUTPUT)
-			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (cmd->outfiles->type == APPEND)
-			cmd->fd_outfile = open(cmd->outfiles->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		if (cmd->fd_outfile < 0)
+		if (cmd->redir->type == INPUT)
 		{
-			// printf("filename = %s\n", cmd->outfiles->filename);
-			// cmd->outfile_name = ft_strdup(cmd->outfiles->filename);
-			return ;
+			if ((cmd->fd_infile = open_infile(cmd, mini)) == -1)
+				return (0);
 		}
-		if (cmd->outfiles->next != NULL)
+		else if (cmd->redir->type == HERE_DOC)
+			cmd->fd_infile = cmd->fd_here_doc;
+		else if (cmd->redir->type == OUTPUT || cmd->redir->type == APPEND)
 		{
-			if (close(cmd->fd_outfile) == -1)
-				return ;
+			if ((cmd->fd_outfile = open_outfile(cmd, mini)) == -1)
+				return (0);
 		}
-		cmd->outfiles = cmd->outfiles->next;
+		if (cmd->redir->next != NULL && cmd->fd_infile > 0 && (cmd->redir->next->type == INPUT 
+			|| cmd->redir->next->type == HERE_DOC))
+			close(cmd->fd_infile);
+		else if (cmd->redir->next != NULL && (cmd->redir->next->type == OUTPUT 
+			|| cmd->redir->next->type == APPEND) && cmd->fd_outfile > 1)
+			close(cmd->fd_outfile);
+		cmd->redir = cmd->redir->next;
 	}
+	return (1);
 }
 
 int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 {
 	cmd->fd_infile = 0;
 	cmd->fd_outfile = 1;
-	ft_open_outfile(cmd);
-	if (cmd->fd_here_doc != 0)
-	{
-		cmd->fd_infile = cmd->fd_here_doc;
+	if (!cmd->redir)
 		return (1);
-	}
-	if (ft_open_infile(cmd, mini) == 0)
+	if (!open_redir(cmd, mini))
 		return (0);
 	return (1);
 }

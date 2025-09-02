@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/29 06:45:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 10:54:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 	new->fd_infile = 0;
 	new->fd_outfile = 1;
 	new->fd_here_doc = 0;
-	new->outfiles = NULL;
-	new->infiles = NULL;
+	new->redir = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -90,6 +89,7 @@ int		count_args(t_token	*token)
 	return (count);
 }
 
+
 /*initialiser chaque commande en séparant les infiles des arguments*/
 static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 {
@@ -98,14 +98,10 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	i = 0;
 	while (*token != NULL && (*token)->type != PIPE)
 	{
-		if ((*token)->type == OUTPUT || (*token)->type == APPEND)
+		if ((*token)->type == OUTPUT || (*token)->type == APPEND 
+		|| (*token)->type == HERE_DOC || (*token)->type == INPUT)
 		{
-			cmd->outfiles = add_redir(cmd->outfiles, *token, head);
-			*token = (*token)->next->next;
-		}
-		else if ((*token)->type == HERE_DOC || (*token)->type == INPUT)
-		{
-			cmd->infiles = add_redir(cmd->infiles, *token, head);
+			cmd->redir = add_redir(cmd->redir, *token, head);
 			*token = (*token)->next->next;
 		}
 		else
@@ -117,6 +113,34 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	}
 	cmd->args[i] = NULL;
 }
+
+// /*initialiser chaque commande en séparant les infiles des arguments*/
+// static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (*token != NULL && (*token)->type != PIPE)
+// 	{
+// 		if ((*token)->type == OUTPUT || (*token)->type == APPEND)
+// 		{
+// 			cmd->outfiles = add_redir(cmd->outfiles, *token, head);
+// 			*token = (*token)->next->next;
+// 		}
+// 		else if ((*token)->type == HERE_DOC || (*token)->type == INPUT)
+// 		{
+// 			cmd->infiles = add_redir(cmd->infiles, *token, head);
+// 			*token = (*token)->next->next;
+// 		}
+// 		else
+// 		{
+// 			cmd->args[i] = gb_strdup((*token)->content, head);
+// 			i++;
+// 			*token = (*token)->next;
+// 		}
+// 	}
+// 	cmd->args[i] = NULL;
+// }
 
 /*initialiser chaque commande en les divisant par pipe*/
 t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)

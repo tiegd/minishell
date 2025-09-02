@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 15:30:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 08:58:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,15 @@ int	empty_redir(char *prompt)
 			skip_quotes(prompt, &i, SQ);
 		if (prompt[i] == DQ)
 			skip_quotes(prompt, &i, DQ);
-		if(is_special(prompt[i]) && !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+		if(is_operator(prompt[i])) //&& !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+		{
+			i++;
+			while (prompt[i] && is_ws(prompt[i]))
+				i++;
+			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n')
+				return (1);
+		}
+		if (is_redir(prompt[i]))
 		{
 			if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
 				i += 2;
@@ -113,7 +121,7 @@ int	empty_redir(char *prompt)
 				i++;
 			while (prompt[i] && is_ws(prompt[i]))
 				i++;
-			if (prompt[i] == '\0' || prompt[i] == '\n' || is_operator(prompt[i]) || is_special(prompt[i]))
+			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n' || is_redir(prompt[i]))
 				return (1);
 		}
 		if (prompt[i])
@@ -121,6 +129,35 @@ int	empty_redir(char *prompt)
 	}
 	return (0);
 }
+
+// int	empty_redir(char *prompt)
+// {
+// 	int	i;
+
+// 	i = skip_ws_isalnum(prompt);
+// 	while (prompt[i])
+// 	{
+// 		if (prompt[i] == SQ)
+// 			skip_quotes(prompt, &i, SQ);
+// 		if (prompt[i] == DQ)
+// 			skip_quotes(prompt, &i, DQ);
+// 		if(is_special(prompt[i])) //&& !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+// 		{
+// 			if (is_append(prompt[i], prompt[i + 1]) || is_here_doc(prompt[i], prompt[i + 1]))
+// 				i += 2;
+// 			else
+// 				i++;
+// 			while (prompt[i] && is_ws(prompt[i]))
+// 				i++;
+// 			if (is_operator(prompt[i]) || prompt[i] == '\0' || prompt[i] == '\n')
+// 				return (1);
+			
+// 		}
+// 		if (prompt[i])
+// 			i++;
+// 	}
+// 	return (0);
+// }
 
 // int	empty_redir(char *prompt)
 // {

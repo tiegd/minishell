@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/29 12:09:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/30 13:35:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,13 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 /*Verify if the cmd can be executed, return 1 if it can or 0 if it can´t*/
 int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
+	if (!cmd->args[0])
+		return (0);
 	/*On check si il y a un '/' comme ca on a juste a regarder si il existe et si il est executable.*/
 	if (ft_strchr(cmd->args[0], '/'))
 	{
 		cmd->pathname = cmd->args[0];
+		// manage_error_exec(mini->cmd, mini, cmd->paths);
 		if (!check_access_cmd(mini, cmd))
 			return (0);
 		else

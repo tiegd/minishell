@@ -114,6 +114,8 @@ Checker le echo $/ afficher $/ pas juste / (optionnel)
 
 ls | < = Renvoyer une erreur de syntaxe. ✅
 
+ls | < out = Renvoyer une erreur de syntaxe uniquement si il y a rien après la redirection ✅
+
 Gerer les controles ^C pendant le here doc. ✅
 
 Modifier le ft_putstr_fd pour que write ecrive la ligne d'un coup pas une lettre par une lettre.
@@ -131,3 +133,13 @@ Checker dans l'enfant si la commande existe ou pas et exit le processus si elle 
 
 Faire attention au fds en cas de here doc et de pipe car toute les commandes ne connaisse pas les here doc ouvert, faire un tab de int de here doc et close en fonction de la commande.
 
+Corriger "> out" commande vide, doit creer le fichier.
+
+a > out doit renvoyer command not found si le path existe sinon doit renvoyer is a directory si le dossier a existe.
+
+< test > out3 doit pas segfault.
+
+Arreter d'open a partir du moment ou un fichier n'est pas ouvrable. 
+(au lieux de separer les infiles ou outfile tous mettre dans la liste chaîné et mettre le type juste).
+
+Faire en sorte que si un here doc foire ne pas quitter le programme.

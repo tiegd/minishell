@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/29 11:30:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 10:12:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int	open_for_each_cmd(t_cmd **head, t_mini *mini)
 	temp = *head;
 	while (temp != NULL)
 	{
-		if (open_for_each_redir(&temp->infiles, mini) != 0)
+		if (open_for_each_redir(&temp->redir, mini) != 0)
 			return (-1);
 		temp = temp->next;
 	}

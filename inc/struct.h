@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/29 08:25:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 09:56:30 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef struct s_cmd
 {
 	char			**args;
 	char			**paths; //array of string that include path + cmd
-	t_redir			*infiles;
-	t_redir			*outfiles;
+	t_redir			*redir;
+	// t_redir			*infiles;
+	// t_redir			*outfiles;
 	int				type;
 	char			*pathname;
 	char			*expend;
