@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:21:48 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 13:39:47 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,20 +142,20 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int		pid;
 
 	if (!ft_open_fd(cmd, mini))
-		return ;
+		return ;	
 	if (!is_builtin(cmd->args[0]))
 	{
 		if (!check_cmd(cmd, mini, head))
 			return ;
 		pid = fork();
 		if (pid == -1)
-			exit_tab(mini, 127);
+			exit_tab(mini, 127, 0);
 		if (pid == 0)
 		{
 			redir_one(cmd, mini);
 			close_fds(cmd->fd_infile, cmd->fd_outfile);
 			if (!ft_exec_cmd(cmd, mini, head))
-				exit_tab(mini, 127);
+				exit_tab(mini, 127, 0);
 		}
 		wait_children(pid, mini);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);

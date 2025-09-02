@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:31:02 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 13:40:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,45 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 	return (1);
 }
 
+// int	ft_open_fd(t_cmd *cmd, t_mini *mini)
+// {
+// 	cmd->fd_infile = 0;
+// 	cmd->fd_outfile = 1;
+// 	if (ft_open_infile(cmd, mini) == 0)
+// 	{
+// 		ft_open_outfile(cmd);
+// 		return (1);
+// 	}
+// 	else
+// 		return (0);
+// 	if (cmd->fd_here_doc != 0)
+// 	{
+// 		cmd->fd_infile = cmd->fd_here_doc;
+// 		return (1);
+// 	}
+// 	return (1);
+// }
+
 int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
-	if (cmd->fd_infile >= 0)
+	if (cmd->fd_infile != 0)
 	{
 		if (close(cmd->fd_infile) == -1)
 			return (0);
 	}
-	if (cmd->fd_outfile >= 0)
+	if (cmd->fd_outfile != 1)
 	{
 		if (close(cmd->fd_outfile) == -1)
 			return (0);
 	}
 	if (pipefd != 0)
 	{
-		if (pipefd[0] >= 0 )
+		if (pipefd[0] != 0 )
 		{
 			if (close(pipefd[0]) == -1)
 			return (0);
 		}
-		if (pipefd[1] >= 0)
+		if (pipefd[1] != 0)
 		{
 			if (close(pipefd[1]) == -1)
 			return (0);
