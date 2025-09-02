@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/20 16:46:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 17:06:33 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,40 @@ int		strcmp_until_char(char *s1, char *s2, char c)
 	return (0);
 }
 
+char	*add_double_quote(char *res, t_gmalloc **head)
+{
+	int	i;
+	int	len;
+	int	j;
+	char *temp;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(res);
+	temp = gb_malloc((len + 3) * sizeof(char), head);
+	temp[i] = '"';
+	i++;
+	while (res[j])
+		temp[i++] = res[j++];
+	temp[i++] = '"';
+	temp[i] = '\0';
+	return (temp);
+}
+
+int	has_special(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (is_special(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /*récupère le resultat d'une variable d'environnement*/
 char	*env_result(char *env, t_gmalloc **head)
 {
@@ -45,7 +79,8 @@ char	*env_result(char *env, t_gmalloc **head)
 		i++;
 	env += i;
 	res = gb_strdup(env, head);
-	
+	if (has_special(res))
+		res = add_double_quote(res, head);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 13:39:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 14:12:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		// 	return (0);
 		return (1);
 	}
-	else
-		return (0);
+	// else
+	// 	return (0);
 	/*On regarde si pathname existe et est executable(renvoyer une erreur en fonction).*/
 	if (!check_access_cmd(mini, cmd))
 		return (0);

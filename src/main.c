@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:38:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 18:07:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	main(int ac, char **av, char **env)
 		if (isatty(STDIN_FILENO) != 0)
 		{
 			
-			line = readline("miniprout >>");
+			// printf("[%d] ", mini.exit_status);
+			line = readline("minishiasse ~ ");
 			if (sig_flag == 1)
 			{
 				mini.exit_status = 130;

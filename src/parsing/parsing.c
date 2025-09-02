@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 13:41:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:18:53 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,11 @@ int	ft_parsing(char *input, t_mini *mini)
 	if (syntax_error(input))
 		return (str_return("minishell : syntax error\n", 2, mini));
 	if	(ft_strchr(input, '$'))
+	{
 		input = handle_env_var(input, mini);
+		if (!input || input[0] == '\0')
+			return (0);
+	}
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);

@@ -143,3 +143,5 @@ Arreter d'open a partir du moment ou un fichier n'est pas ouvrable.
 (au lieux de separer les infiles ou outfile tous mettre dans la liste chaîné et mettre le type juste).
 
 Faire en sorte que si un here doc foire ne pas quitter le programme.
+
+Not valid identifier for export : ^ ! ~

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 20:00:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:43:10 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		env_var_cmp(char *s1, char *s2)
 			return (0);
 		i++;
 	}
-	if (s1[i - 1] - s2[i - 1] == 0)
+	if (s1[i - 1] - s2[i - 1] == 0 && s1[i] - s2[i] == 0)
 		return (1);
 	return (0);
 }
@@ -185,7 +185,6 @@ char	**ft_export(char **old_env, char *new_variable, t_mini *mini, t_gmalloc **h
 		i++;
 	}
 	i = nb_var(old_env);
-	// printf("new variable = %s\n", new_variable);
 	new_env[i] = gb_strdup(new_variable, head);
 	new_env[i + 1] = NULL;
 	gfree(new_variable, head);

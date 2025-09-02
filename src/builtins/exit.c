@@ -3,26 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 13:07:33 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:51:24 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(char **args, int exit_status, t_gmalloc **head)
+int	is_sign(char c)
+{
+	if (c == '-' || c == '+')
+		return (1);	
+	else
+		return (0);
+}
+
+int	check_exit_argument(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i] && is_ws(arg[i]))
+		i++;
+	if (arg[i] && is_sign(arg[i]))
+		i++;
+	if (arg[i] && !ft_isalnum(arg[i]))
+		return (1);
+	while (arg[i] && ft_isalnum(arg[i]))
+		i++;
+	while (arg[i])
+	{
+		if (!is_ws(arg[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	check_limits(long long n, char *arg, t_gmalloc **head)
+{
+	if (n > INT_MAX || n < INT_MIN)
+	{
+		print_error_exit_arg(arg);
+		gb_free_all(head);
+		exit(2);
+	}
+}
+
+int	atoi_exit(char *nptr, t_gmalloc **head)
+{
+	int					i;
+	unsigned long long	n;
+	int					sign;
+
+	i = 0;
+	n = 0;
+	sign = 1;
+	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (is_sign(nptr[i]))
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (nptr[i] && ft_isdigit(nptr[i]))
+	{
+		n = n * 10 + (nptr[i] - 48);
+		check_limits(n, nptr, head);
+		i++;
+	}
+	if (n > 256)
+		n = n % 256;
+	if (sign == -1)
+		n = 256 - n;
+	return ((unsigned char)n * sign);
+}
+
+void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
 	arg_count = ft_nb_path(args);
-	if (arg_count > 1)
+	printf("exit\n");
+	if (arg_count > 2)
 	{
-		ft_putstr_fd("exit : too many arguments", 2);
+		ft_putstr_fd("minishell: exit : too many arguments", 2);
+		mini->exit_status = 1;
 		return ;
 	}
-	// printf("exit\n");
+	if (check_exit_argument(args[1]) == 1)
+	{
+		print_error_exit_arg(args[1]);
+		gb_free_all(head);
+		exit(2);
+	}
+	if (arg_count > 1)
+	{
+		mini->exit_status = ft_atoi(args[1]);
+	}
 	gb_free_all(head);
-	exit(exit_status);
+	exit(mini->exit_status);
 }

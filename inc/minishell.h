@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 13:38:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 21:48:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ char	**unset(char *var, char **old_env, t_gmalloc **head);
 char	**loop_unset(char **env, char **args, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
 char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head);
-void	ft_exit(char **args, int exit_status, t_gmalloc **head);
+void	ft_exit(char **args, t_mini *mini, t_gmalloc **head);
 void	print_export(char **env, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
@@ -197,6 +197,7 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head);
 void	ft_lstfree(t_token *lst, t_gmalloc **head);
 void	print_not_valid_identifier(char *str);
 void	print_no_such_file(char *str);
+void	print_error_exit_arg(char *str);
 
 /*------------FD------------*/
 
