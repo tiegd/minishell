@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 09:56:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:22:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	if (pipe(pipefd) == -1)
 		exit_tab(mini, EXIT_FAILURE, pipefd);
-	// printf(GREEN"pipefd[0] = %d;\npipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, mini);
@@ -123,7 +122,6 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(mini, 127, pipefd);
 		}
 	}
-	printf(GREEN"pipefd[0] = %d;\npipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
 	close(pipefd[1]);
 	cmd->outpipe = pipefd[0];
 	close(cmd->outpipe);

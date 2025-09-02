@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/01 16:21:40 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:19:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,5 @@ int	ft_parsing(char *input, t_mini *mini)
 		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
-	printf("exit_status = %d\n", mini->exit_status);
 	return (0);
 }

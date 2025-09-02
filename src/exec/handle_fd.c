@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/01 14:21:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:17:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,12 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
-	printf(GREEN"pipefd[0] = %d;\npipefd[1] = %d\n"RESET, pipefd[0], pipefd[1]);
 	if (cmd->fd_infile != 0)
 	{
 		if (close(cmd->fd_infile) == -1)
 			return (0);
 	}
-	if (cmd->fd_outfile != 0)
+	if (cmd->fd_outfile != 1)
 	{
 		if (close(cmd->fd_outfile) == -1)
 			return (0);

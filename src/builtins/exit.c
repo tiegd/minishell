@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/05 16:40:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:07:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_exit(char **args, int exit_status, t_gmalloc **head)
 		ft_putstr_fd("exit : too many arguments", 2);
 		return ;
 	}
-	printf("exit\n");
+	// printf("exit\n");
 	gb_free_all(head);
 	exit(exit_status);
 }
