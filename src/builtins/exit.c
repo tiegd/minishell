@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 21:51:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:06:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	check_limits(long long n, char *arg, t_gmalloc **head)
 int	atoi_exit(char *nptr, t_gmalloc **head)
 {
 	int					i;
-	unsigned long long	n;
+	long long			n;
 	int					sign;
 
 	i = 0;
@@ -79,30 +79,31 @@ int	atoi_exit(char *nptr, t_gmalloc **head)
 		n = n % 256;
 	if (sign == -1)
 		n = 256 - n;
-	return ((unsigned char)n * sign);
+	return ((unsigned char)n);
 }
 
 void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
-	arg_count = ft_nb_path(args);
-	printf("exit\n");
-	if (arg_count > 2)
+	if (args && *args)
 	{
-		ft_putstr_fd("minishell: exit : too many arguments", 2);
-		mini->exit_status = 1;
-		return ;
-	}
-	if (check_exit_argument(args[1]) == 1)
-	{
-		print_error_exit_arg(args[1]);
-		gb_free_all(head);
-		exit(2);
-	}
-	if (arg_count > 1)
-	{
-		mini->exit_status = ft_atoi(args[1]);
+		arg_count = ft_nb_path(args);
+		printf("exit\n");
+		if (arg_count > 2)
+		{
+			ft_putstr_fd("minishell: exit : too many arguments", 2);
+			mini->exit_status = 1;
+			return ;
+		}
+		if (check_exit_argument(args[1]) == 1)
+		{
+			print_error_exit_arg(args[1]);
+			gb_free_all(head);
+			exit(2);
+		}
+		if (arg_count > 1)
+			mini->exit_status = atoi_exit(args[1], head);
 	}
 	gb_free_all(head);
 	exit(mini->exit_status);

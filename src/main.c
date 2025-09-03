@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 18:07:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 08:58:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	main(int ac, char **av, char **env)
 		block_sig_quit();
 		if (isatty(STDIN_FILENO) != 0)
 		{
-			
-			// printf("[%d] ", mini.exit_status);
 			line = readline("minishiasse ~ ");
 			if (sig_flag == 1)
 			{
@@ -83,7 +81,7 @@ int	main(int ac, char **av, char **env)
 			line = ft_strtrim(line, "\n");
 		}
 		if (!line)
-			ft_exit(NULL, 0, &mini.gmalloc);
+			ft_exit(NULL, &mini, &mini.gmalloc);
 		if (*line)
 			add_history(line);
 		if (ft_parsing(line, &mini))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 10:20:37 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:22:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	put_error(t_mini *mini, char *filename, char *error, int exit_status)
 	mini->exit_status = exit_status;
 }
 
-void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths)
+void    manage_error_exec(t_cmd *cmd, t_mini *mini) //, char **paths)
 {
 	struct stat	buf;
 	
 	if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
-		put_error(mini, paths[0], "Is a directory", 126);
+		put_error(mini, cmd->args[0], "Is a directory", 126);
 	if (cmd->args[0][0] == '.' && cmd->args[0][1] == '\0')
 		put_error(mini, cmd->args[0], "filename argument required", 2);
 	else if (stat(cmd->args[0], &buf) == 0)

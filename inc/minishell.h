@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 21:48:02 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:23:29 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int	    is_builtin(char *content);
 int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
+void    manage_error_exec(t_cmd *cmd, t_mini *mini); //, char **paths);
 int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);

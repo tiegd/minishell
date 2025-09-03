@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 17:43:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:15:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,24 @@ int		env_var_cmp(char *s1, char *s2)
 
 int	is_valid_identifier(char *variable, t_mini *mini)
 {
+	int	i;
+
+	i = 0;
 	if (ft_isdigit(variable[0]) || !exp_isalnum(variable[0]))
 	{
 		mini->exit_status = 1;
 		print_not_valid_identifier(variable);
 		return (0);
 	}
-	if(variable[0] == '$' && !exp_isalnum(variable[1]))
+	while (variable[i] && variable[i] != '=')
 	{
-		mini->exit_status = 1;
-		print_not_valid_identifier(variable);
-		return (0);
+		if(!exp_isalnum(variable[i]))
+		{
+			mini->exit_status = 1;
+			print_not_valid_identifier(variable);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
