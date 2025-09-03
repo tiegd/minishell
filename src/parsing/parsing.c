@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 15:42:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:12:38 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 bool	ft_is_pipe(t_token *lst)
 {
-	t_token	*tmp;
 	int		i;
+	t_token	*tmp;
 
 	tmp = lst;
 	while (tmp->next)
@@ -82,7 +82,6 @@ char	*one_line_path(char **paths)
 	i = 0;
 	j = 0;
 	count = 0;
-	
 	while (paths[0][i] && count <= 2)
 	{
 		if (paths[0][i] == '/')
@@ -221,14 +220,12 @@ int	ft_parsing(char *input, t_mini *mini)
 			return (0);
 	}
 	prompt = ft_multi_split(input, &mini->gmalloc);
-	print_tab_char(prompt);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	if (open_for_each_cmd(&mini->cmd, mini) != 0)
 		return (0);
-	// ft_print_cmd(mini->cmd);
 	unblock_sig_quit();
 	mini->nb_pipe = ft_count_pipe(&mini->token);
 	if (mini->nb_pipe > 0)

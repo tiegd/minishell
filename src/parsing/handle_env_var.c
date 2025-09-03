@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 18:24:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:45:27 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,36 +140,6 @@ int	is_eof(char	*prev)
 	return (0);
 }
 
-// /*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
-// int	is_eof(char	*prev)
-// {
-// 	int	i;
-// 	bool here_doc;
-
-// 	i = 0;
-// 	here_doc = false;
-// 	while (prev && prev[i])
-// 	{
-// 		if (is_here_doc(prev[i], prev[i + 1]))
-// 		{
-// 			here_doc = true;
-// 			i += 2;
-// 		}
-// 		while (prev[i] && (is_ws(prev[i]) || exp_isalnum(prev[i]))) //|| prev[i] == '$' || prev[i] == '?'))
-// 			i++;
-// 		while (prev[i] && (is_quote(prev[i]) || is_ws(prev[i])))
-// 		{
-// 			if (!is_quote(prev[i]) && !is_ws(prev[i]))
-// 				return(0);
-// 			i++;
-// 		}
-// 		i++;
-// 	}
-// 	if (here_doc == true)
-// 		return (1);
-// 	return (0);
-// }
-
 void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *mini)
 {
 	int		i;
@@ -181,7 +151,7 @@ void	*expend_each_var(char **isolated, char **env, int *quote_dollars, t_mini *m
 	index = 0;
 	while(isolated[i])
 	{
-		if (ft_strchr(isolated[i], '$')) //&& isolated[i][1])
+		if (ft_strchr(isolated[i], '$'))
 		{
 			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
 			{
@@ -286,6 +256,7 @@ char	*join_parts(char **str_tab, t_gmalloc **head)
 		res = gb_strjoin_custom(res, str_tab[i], head);
 		i++;
 	}
+	gfree(str_tab, head);
 	return (res);
 }
 

@@ -6,13 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 09:14:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 11:27:08 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:11:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*Liste des caractères qu'on ne doit pas traiter :  ( ) \ & * ............*/ 
+/*Liste des caractères qu'on ne doit pas traiter :  ( ) \ & *   */
 static int	not_required(char c)
 {
 	if (c == '(')
@@ -28,10 +28,11 @@ static int	not_required(char c)
 	return (0);
 }
 
-/*checker si il y a un caractere hors sujet et si il n'est pas compris entre quote*/
-int char_not_required(char *prompt)
+/*checker si il y a un caractere hors sujet 
+et si il n'est pas compris entre quote*/
+int	char_not_required(char *prompt)
 {
-	int i;
+	int	i;
 	int	sq;
 	int	dq;
 

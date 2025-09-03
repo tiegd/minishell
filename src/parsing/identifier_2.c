@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/26 09:07:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:10:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ int	exp_isalnum_question_mark(int c)
 	else
 		return (0);
 }
-
