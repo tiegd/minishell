@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 17:56:21 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:19:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	exit_malloc_error(t_gmalloc *head, int exit_status)
 	exit(exit_status);
 }
 
-int	str_return(const char *str, int exit_status, t_mini *mini)
+int	str_return(char *str, int exit_status, t_mini *mini)
 {
-	printf("%s", str);
+	ft_putstr_fd(str, 2);
 	mini->exit_status = exit_status;
 	return(0);
 }

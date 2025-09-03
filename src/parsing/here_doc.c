@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 13:45:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 16:59:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*generate_rand_name_file(t_gmalloc **head)
 	int		i;
 
 	i = 0;
-	// fd = open("/dev/urandom", O_RDONLY);
 	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
 		return (NULL);
 	if (read(fd, urand, 6) == -1)

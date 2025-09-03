@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:16 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/30 12:14:46 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:08:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int	is_quote(char c)
 /*retourne 1 si c'est un whitespace sinon 0*/
 int	is_ws(char c)
 {
-	if (c == 32 || c == 9) /*32 = space | 9 = /t*/
+	if (c == 32 || c == 9)
 		return (1);
 	return (0);
 }
+
 /*return 1 if it's a redirection or a pipe, else return 0*/
 int	is_special(char c)
 {

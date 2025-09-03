@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 15:01:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:22:09 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,23 @@ enum e_types
 };
 
 extern int	sig_flag;
+
 /*----------PARSING----------*/
 
 int 	ft_parsing(char *input, t_mini *mini);
 int		syntax_error(char *prompt);
 int 	char_not_required(char *prompt);
-// int		ft_check_prompt(char *input);
 char	**ft_multi_split(char *s, t_gmalloc **head);
 int		ft_count_word(char *s);
-// t_token	*ft_tab_to_lst(char **prompt, int len_tab);
 t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **head);
 int		ft_strcmp(char *s1, char *s2);
 t_token *ft_handle_quote(t_token *token);
 char	*handle_env_var(char *prompt, t_mini *mini);
-// void	ft_lstfree(t_token *lst);
-// bool	ft_first_word(t_token *lst);
 int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
 char	*ft_add_suf(int j, char *str, char *args);
 int	    ft_count_path(char *paths);
 bool	ft_is_pipe(t_token *lst);
-// void	define_type(t_token *lst);
 char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(t_gmalloc **head);
@@ -185,7 +181,6 @@ void	*gb_malloc(size_t size, t_gmalloc **lst);
 void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
 void	gfree(void *ptr, t_gmalloc **head);
 void	gb_free_all(t_gmalloc **head);
-// t_gmalloc	*gmalloc_last(t_gmalloc *lst);
 
 /*------------CLEAN------------*/
 
@@ -212,13 +207,10 @@ void	ft_dup_out(t_mini *mini);
 
 /*------------EXIT------------*/
 
-// void	exit_pid_error(int *pipefd, t_cmd *cmd);
 void	exit_pid_error(int *pipefd, t_mini *mini);
-// void	exit_tab(t_cmd *cmd, int code);
 void	exit_tab(t_mini *mini, int code, int *pipefd);
-// void	exit_fd(int fd, t_cmd *cmd);
 void	exit_fd(t_cmd *cmd, t_mini *mini, int *pipefd);
-int		str_return(const char *str, int exit_status, t_mini *mini);
+int		str_return(char *str, int exit_status, t_mini *mini);
 
 /*------------TEST------------*/
 

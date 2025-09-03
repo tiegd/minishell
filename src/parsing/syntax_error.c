@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 08:58:28 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:15:43 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	empty_redir(char *prompt)
 			skip_quotes(prompt, &i, SQ);
 		if (prompt[i] == DQ)
 			skip_quotes(prompt, &i, DQ);
-		if(is_operator(prompt[i])) //&& !is_append(prompt[i], prompt[i + 1]) && !is_here_doc(prompt[i], prompt[i + 1]))
+		if(is_operator(prompt[i]))
 		{
 			i++;
 			while (prompt[i] && is_ws(prompt[i]))
