@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 09:23:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 11:26:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,15 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (!cmd->args[0])
 		return (0);
 	/*On check si il y a un '/' comme ca on a juste a regarder si il existe et si il est executable.*/
-	if (ft_strchr(cmd->args[0], '/'))
+	if (ft_strchr(cmd->args[0], '/') || ft_strchr(cmd->args[0], '.'))
 	{
 		cmd->pathname = cmd->args[0];
-		// manage_error_exec(mini->cmd, mini, cmd->paths);
+		if (manage_error_exec(mini->cmd, mini))
+			return (0);
 		if (!check_access_cmd(mini, cmd))
 			return (0);
-		// else
-		// 	return (1);
+		else
+			return (1);
 	}
 	/*Si il n'y a pas de '/' on check si path existe
 	et on test avec chaque pour voir lequel est le bon, 

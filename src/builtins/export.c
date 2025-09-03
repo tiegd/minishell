@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 09:15:37 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:58:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,6 @@ char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head)
 		env = ft_export(env, args[i], mini, head);
 		i++;
 	}
+	mini->exit_status = 0;
 	return (env);
 }

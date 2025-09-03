@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 10:00:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:59:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 //recuperer la variable d'environnement et la print dans le fd passsé en paramètre.
-void	ft_env(char **env, int fd)
+void	ft_env(char **env, int fd, t_mini *mini)
 {
 	int	i;
 
@@ -27,4 +27,5 @@ void	ft_env(char **env, int fd)
 			printf("%s\n", env[i]);
 		i++;
 	}
+	mini->exit_status = 0;
 }

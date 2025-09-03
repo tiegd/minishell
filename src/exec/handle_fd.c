@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 18:11:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:50:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int	open_redir(t_cmd *cmd, t_mini *mini)
 			if ((cmd->fd_outfile = open_outfile(cmd, mini)) == -1)
 				return (0);
 		}
-		if (cmd->redir->next != NULL && cmd->fd_infile > 0 && (cmd->redir->next->type == INPUT 
-			|| cmd->redir->next->type == HERE_DOC))
+		if (cmd->redir->next != NULL && cmd->fd_infile > 0 && (cmd->redir->next->type == INPUT))//|| cmd->redir->next->type == HERE_DOC))
 			close(cmd->fd_infile);
 		else if (cmd->redir->next != NULL && (cmd->redir->next->type == OUTPUT 
 			|| cmd->redir->next->type == APPEND) && cmd->fd_outfile > 1)

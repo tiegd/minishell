@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:10:02 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 19:43:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:50:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ void	sort_env(char **env, t_gmalloc **head)
 	}
 }
 
-void	print_export(char **env, t_gmalloc **head)
+void	print_export(char **env, t_mini *mini, t_gmalloc **head)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	sort_env(env, head);
-	// print_tab_char(env);
 	while (env[i])
 	{
 		j = 0;
@@ -97,4 +96,5 @@ void	print_export(char **env, t_gmalloc **head)
 		ft_putchar_fd('\n', 1);
 		i++;
 	}
+	mini->exit_status = 0;
 }
