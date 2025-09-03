@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 15:19:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 19:40:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 		}
 	}
 	gb_free_all(head);
-	close(mini->dup_std[0]);
-	close(mini->dup_std[1]);
+	close_fds(mini->dup_std[0], mini->dup_std[1]);
+	// close(mini->dup_std[0]);
+	// close(mini->dup_std[1]);
 	exit(mini->exit_status);
 }
