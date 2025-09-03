@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 18:12:05 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:43:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,13 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			return ;
 		pid = fork();
 		if (pid == -1)
-			exit_tab(mini, cmd, 127, 0);
+			exit_tab(mini, 127, 0);
 		if (pid == 0)
 		{
 			redir_one(cmd, mini);
 			close_fds(cmd->fd_infile, cmd->fd_outfile);
 			if (!ft_exec_cmd(cmd, mini, head))
-				exit_tab(mini, cmd, 127, 0);
+				exit_tab(mini, 127, 0);
 		}
 		wait_children(pid, mini);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
