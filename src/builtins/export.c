@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/28 20:00:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:15:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,24 +122,31 @@ int		env_var_cmp(char *s1, char *s2)
 			return (0);
 		i++;
 	}
-	if (s1[i - 1] - s2[i - 1] == 0)
+	if (s1[i - 1] - s2[i - 1] == 0 && s1[i] - s2[i] == 0)
 		return (1);
 	return (0);
 }
 
 int	is_valid_identifier(char *variable, t_mini *mini)
 {
+	int	i;
+
+	i = 0;
 	if (ft_isdigit(variable[0]) || !exp_isalnum(variable[0]))
 	{
 		mini->exit_status = 1;
 		print_not_valid_identifier(variable);
 		return (0);
 	}
-	if(variable[0] == '$' && !exp_isalnum(variable[1]))
+	while (variable[i] && variable[i] != '=')
 	{
-		mini->exit_status = 1;
-		print_not_valid_identifier(variable);
-		return (0);
+		if(!exp_isalnum(variable[i]))
+		{
+			mini->exit_status = 1;
+			print_not_valid_identifier(variable);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
@@ -185,7 +192,6 @@ char	**ft_export(char **old_env, char *new_variable, t_mini *mini, t_gmalloc **h
 		i++;
 	}
 	i = nb_var(old_env);
-	// printf("new variable = %s\n", new_variable);
 	new_env[i] = gb_strdup(new_variable, head);
 	new_env[i + 1] = NULL;
 	gfree(new_variable, head);

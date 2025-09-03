@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 13:39:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:23:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (!(line = ft_path_line(mini->env, head)))
 	{
 		// put_error(mini, cmd->args[0], "No such file or directory", 127);
+		manage_error_exec(mini->cmd, mini); // , cmd->paths);
 		cmd->pathname = cmd->args[0];
 		return (0);
 	}
@@ -109,7 +110,7 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (cmd->args[0])
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
-		manage_error_exec(mini->cmd, mini, cmd->paths);
+		manage_error_exec(mini->cmd, mini); //, cmd->paths);
 		if (mini->exit_status == 126)
 			return (0);
 	}
@@ -142,8 +143,8 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		// 	return (0);
 		return (1);
 	}
-	else
-		return (0);
+	// else
+	// 	return (0);
 	/*On regarde si pathname existe et est executable(renvoyer une erreur en fonction).*/
 	if (!check_access_cmd(mini, cmd))
 		return (0);

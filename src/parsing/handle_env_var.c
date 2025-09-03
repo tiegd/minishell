@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/29 08:56:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/02 18:24:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,8 +223,6 @@ int	check_dollar_existence(char *prompt, int *i, char quote)
 			res = 1;
 		(*i)++;
 	}
-	if (prompt[*i] == quote)
-		(*i)++;
 	return (res);
 }
 
@@ -238,9 +236,19 @@ int	which_quote(char *prompt, int *index)
 			return (DQ);
 		}
 		if (prompt[*index] == DQ && check_dollar_existence(prompt, index, DQ))
+		{
+			while(prompt[*index] != DQ)
+				(*index)++;
+			(*index)++;
 			return (DQ);
+		}
 		if (prompt[*index] == SQ && check_dollar_existence(prompt, index, SQ))
+		{
+			while(prompt[*index] != SQ)
+				(*index)++;
+			(*index)++;
 			return (SQ);
+		}
 		(*index)++;
 	}
 	return (DQ);
@@ -290,10 +298,9 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	isolated = split_parts(prompt, &mini->gmalloc);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
-	// print_tab_char(isolated);
+	gfree(quote_dollars, &mini->gmalloc);
 	if (!isolated)
 		return (NULL);
-	gfree(quote_dollars, &mini->gmalloc);
 	final = join_parts(isolated, &mini->gmalloc);
 	gfree(isolated, &mini->gmalloc);
 	return (final);

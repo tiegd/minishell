@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 17:58:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 10:39:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ char	**unset(char *var, char **old_env, t_gmalloc **head);
 char	**loop_unset(char **env, char **args, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
 char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head);
-void	ft_exit(char **args, int exit_status, t_gmalloc **head);
+void	ft_exit(char **args, t_mini *mini, t_gmalloc **head);
 void	print_export(char **env, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
@@ -167,7 +167,7 @@ int	    is_builtin(char *content);
 int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-void    manage_error_exec(t_cmd *cmd, t_mini *mini, char **paths);
+void    manage_error_exec(t_cmd *cmd, t_mini *mini); //, char **paths);
 int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
@@ -197,6 +197,7 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head);
 void	ft_lstfree(t_token *lst, t_gmalloc **head);
 void	print_not_valid_identifier(char *str);
 void	print_no_such_file(char *str);
+void	print_error_exit_arg(char *str);
 
 /*------------FD------------*/
 

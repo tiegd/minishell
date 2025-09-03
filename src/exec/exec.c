@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 20:47:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 10:40:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "env"))
 		ft_env(mini->env, STDOUT_FILENO);
 	if (ft_strcmp(cmd->args[0], "exit"))
-		ft_exit(cmd->args, 0, head);
+		ft_exit(cmd->args, mini, head);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);
 	gfree(cmd, head);
 	return (1);
