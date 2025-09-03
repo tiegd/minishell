@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 11:05:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:01:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_print_cmd(t_cmd *lst)
 		while (lst->args[i] != NULL)
 		{
 			printf(RED"cmd[%d] = %s | type = %d\n"RESET, j, lst->args[i], lst->type);
+			printf("here_doc = %d\n", lst->fd_here_doc);
 			i++;
 		}
 		if (lst->redir != NULL)

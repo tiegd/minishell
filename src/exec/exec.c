@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 16:36:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:18:13 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,22 @@
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
+	{
 		ft_echo(cmd);
+		mini->exit_status = 0;
+	}
 	if (ft_strcmp(cmd->args[0], "cd"))
 		cd(cmd->args, mini->env, head, mini); //malloc_error);
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO, mini);
 	if (ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
-		print_export(mini->env, head);
+		print_export(mini->env, mini, head);
 	if (ft_strcmp(cmd->args[0], "export"))
 		mini->env = loop_export(mini->env, cmd->args, mini, head);
 	if (ft_strcmp(cmd->args[0], "unset"))
-		mini->env = loop_unset(mini->env, cmd->args, head);
+		mini->env = loop_unset(mini->env, cmd->args, mini, head);
 	if (ft_strcmp(cmd->args[0], "env"))
-		ft_env(mini->env, STDOUT_FILENO);
+		ft_env(mini->env, STDOUT_FILENO, mini);
 	if (ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(cmd->args, mini, head);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);
@@ -185,6 +188,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	else if (!is_builtin(cmd->args[0]))
 	{
 		execve(cmd->pathname, cmd->args, mini->env);
+		put_error(mini, cmd->args[0], "Command not found", 127);
 		exit(127);
 	}
 	if (mini->nb_pipe > 0)

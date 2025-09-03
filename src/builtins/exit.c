@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 09:06:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 15:19:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int	check_exit_argument(char *arg)
 	int	i;
 
 	i = 0;
+	if (arg[i] == '\0')
+		return (1);
 	while (arg[i] && is_ws(arg[i]))
 		i++;
 	if (arg[i] && is_sign(arg[i]))
 		i++;
-	if (arg[i] && !ft_isalnum(arg[i]))
+	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
-	while (arg[i] && ft_isalnum(arg[i]))
+	while (arg[i] && ft_isdigit(arg[i]))
 		i++;
 	while (arg[i])
 	{
@@ -86,25 +88,29 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
+	printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
-		printf("exit\n");
 		if (arg_count > 2)
 		{
-			ft_putstr_fd("minishell: exit : too many arguments", 2);
+			ft_putstr_fd("minishell: exit : too many arguments\n", 2);
 			mini->exit_status = 1;
 			return ;
 		}
-		if (check_exit_argument(args[1]) == 1)
-		{
-			print_error_exit_arg(args[1]);
-			gb_free_all(head);
-			exit(2);
-		}
 		if (arg_count > 1)
+		{
+			if (check_exit_argument(args[1]) == 1)
+			{
+				print_error_exit_arg(args[1]);
+				gb_free_all(head);
+				exit(2);
+			}
 			mini->exit_status = atoi_exit(args[1], head);
+		}
 	}
 	gb_free_all(head);
+	close(mini->dup_std[0]);
+	close(mini->dup_std[1]);
 	exit(mini->exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:06:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/27 18:34:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:47:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ getcwd: cannot access parent directories: No such file or directory\n", 2);
 	ft_putstr_fd(pwd, fd);
 	ft_putchar_fd('\n', fd);
 	free(pwd);
+	mini->exit_status = 0;
 }

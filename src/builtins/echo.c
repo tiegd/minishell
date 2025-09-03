@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/07 12:19:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:25:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_echo(t_cmd *cmd)
 	// j = 0;
 
 	with_option = false;
+	printf("|%s|\n", cmd->args[i]);
 	//verifier qu'il y a une option dans la commande.
 	if (cmd->args[i] && is_option(cmd->args[i]))
 		with_option = true;
@@ -102,4 +103,5 @@ void	ft_echo(t_cmd *cmd)
 	{
 		printf("\n");
 	}
+	
 }
