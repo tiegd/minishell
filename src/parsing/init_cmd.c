@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 10:54:40 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 20:10:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,13 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 		}
 		else
 		{
-			cmd->args[i] = gb_strdup((*token)->content, head);
+			if ((*token)->content[0] != '\0')
+				cmd->args[i] = gb_strdup((*token)->content, head);
+			// else
+			// {
+			// 	cmd->args[i] = gb_malloc(sizeof(char) + 1, head);
+			// 	cmd->args[i][0] = '\0';
+			// }
 			i++;
 			*token = (*token)->next;
 		}

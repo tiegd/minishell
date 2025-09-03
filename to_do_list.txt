@@ -151,3 +151,5 @@ Not valid identifier for export : ^ ! ~ ✅
 echo " "$?" " => espace en trop a checker
 
 cat << eof > out1 | cat << eof << eof <<eof > out2 => coucou2 dans out2
+
+l > " oui" | echo "" => segfault 
