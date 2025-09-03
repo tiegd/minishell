@@ -145,3 +145,9 @@ Arreter d'open a partir du moment ou un fichier n'est pas ouvrable.
 Faire en sorte que si un here doc foire ne pas quitter le programme. ✅
 
 Not valid identifier for export : ^ ! ~ ✅
+
+./ = is a directory.
+
+echo " "$?" " => espace en trop a checker
+
+cat << eof > out1 | cat << eof << eof <<eof > out2 => coucou2 dans out2

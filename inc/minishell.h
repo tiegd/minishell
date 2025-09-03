@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 17:52:55 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:11:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,16 @@ int		is_redir(char c);
 /*--------BUILT-IN--------*/
 
 void	ft_echo(t_cmd *cmd);
-void	ft_env(char **env, int fd);
+void	ft_env(char **env, int fd, t_mini *mini);
 char	**ft_export(char **old_env, char *str, t_mini *mini, t_gmalloc **head);
 void	pwd(int fd, t_mini *mini);
 void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini);
 char	**unset(char *var, char **old_env, t_gmalloc **head);
-char	**loop_unset(char **env, char **args, t_gmalloc **head);
+char	**loop_unset(char **env, char **args, t_mini *mini, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
 char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head);
 void	ft_exit(char **args, t_mini *mini, t_gmalloc **head);
-void	print_export(char **env, t_gmalloc **head);
+void	print_export(char **env, t_mini *mini, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
 
@@ -167,7 +167,7 @@ int	    is_builtin(char *content);
 int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-void    manage_error_exec(t_cmd *cmd, t_mini *mini); //, char **paths);
+int		manage_error_exec(t_cmd *cmd, t_mini *mini); //, char **paths);
 int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);

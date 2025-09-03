@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 19:05:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 14:57:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**unset(char *var, char **old_env, t_gmalloc **head)
 	return (new_env);
 }
 
-char	**loop_unset(char **env, char **args, t_gmalloc **head)
+char	**loop_unset(char **env, char **args, t_mini *mini, t_gmalloc **head)
 {
 	int	i;
 
@@ -51,6 +51,7 @@ char	**loop_unset(char **env, char **args, t_gmalloc **head)
 		env = unset(args[i], env, head);
 		i++;
 	}
+	mini->exit_status = 0;
 	return (env);
 }
 

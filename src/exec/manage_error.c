@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 17:55:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:12:20 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,27 @@ void	put_error(t_mini *mini, char *filename, char *error, int exit_status)
 	mini->exit_status = exit_status;
 }
 
-void    manage_error_exec(t_cmd *cmd, t_mini *mini) //, char **paths)
+int    manage_error_exec(t_cmd *cmd, t_mini *mini) //, char **paths)
 {
 	struct stat	buf;
 	
 	if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
+	{
 		put_error(mini, cmd->args[0], "Is a directory", 126);
+		return (1);
+	}
 	if (cmd->args[0][0] == '.' && cmd->args[0][1] == '\0')
+	{
 		put_error(mini, cmd->args[0], "filename argument required", 2);
+		return (1);
+	}
 	else if (stat(cmd->args[0], &buf) == 0)
 	{
 		if (S_ISDIR(buf.st_mode))
+		{
 			put_error(mini, cmd->args[0], "Is a directory", 126);
+			return (1);
+		}
 	}
-	return ;
+	return (0);
 }
