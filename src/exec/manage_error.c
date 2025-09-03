@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 09:22:39 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:55:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
-	exit_tab(mini, exit_status, 0);
+	exit_tab(mini, mini->cmd, exit_status, 0);
 }
 
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status)

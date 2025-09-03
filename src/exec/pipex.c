@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 16:35:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:59:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	
 	if(pipe(pipefd) == -1)
-		exit_tab(mini, EXIT_FAILURE, pipefd);
+		exit_tab(mini, cmd, EXIT_FAILURE, pipefd);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1, pipefd);
 		if (!check_cmd(cmd, mini, head))
-			exit_tab(mini, mini->exit_status, pipefd);
+			exit_tab(mini, cmd, mini->exit_status, pipefd);
 		redir_first_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
@@ -57,7 +56,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			ft_close_fd(cmd, pipefd);
-			exit_tab(mini, 127, pipefd);
+			exit_tab(mini, cmd, 127, pipefd);
 		}
 	}
 	close(pipefd[1]);
@@ -93,16 +92,16 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int	pipefd[2];
 
 	if (pipe(pipefd) == -1)
-		exit_tab(mini, EXIT_FAILURE, pipefd);
+		exit_tab(mini, cmd, EXIT_FAILURE, pipefd);
 	pid = fork();
 	if (pid == -1)
 		exit_pid_error(pipefd, mini);
 	if (pid == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1, pipefd);
+			exit_tab(mini, cmd, 1, pipefd);
 		if (!check_cmd(cmd, mini, head))
-			exit_tab(mini, mini->exit_status, pipefd);
+			exit_tab(mini, cmd, mini->exit_status, pipefd);
 		redir_middle_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
@@ -111,7 +110,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			ft_close_fd(cmd, pipefd);
-			exit_tab(mini, 127, pipefd);
+			exit_tab(mini, cmd, 127, pipefd);
 		}
 	}
 	close(pipefd[1]);
@@ -146,13 +145,13 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 	pid_last = fork();
 	if (pid_last == -1)
-		exit_tab(mini, EXIT_FAILURE, 0);
+		exit_tab(mini, cmd, EXIT_FAILURE, 0);
 	if (pid_last == 0)
 	{
 		if (!ft_open_fd(cmd, mini))
-			exit_tab(mini, 1, 0);
+			exit_tab(mini, cmd, 1, 0);
 		if (!check_cmd(cmd, mini, head))
-			exit_tab(mini, mini->exit_status, 0);
+			exit_tab(mini, cmd, mini->exit_status, 0);
 		redir_last_pipe(mini, cmd, 0);
 		close(cmd->outpipe);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
@@ -160,7 +159,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (!ft_exec_cmd(cmd, mini, head))
 		{
 			ft_close_fd(cmd, 0);
-			exit_tab(mini, 127, 0);
+			exit_tab(mini, cmd, 127, 0);
 		}
 	}
 	close(cmd->outpipe);
@@ -174,12 +173,8 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 	int	i;
 
 	i = 0;
-	// mini->dup_std[0] = dup(STDIN_FILENO);
-	// mini->dup_std[1] = dup(STDOUT_FILENO);
 	while (cmd)
 	{
-		// extract_path(cmd, mini, head);
-		// ft_is_bin(cmd, mini);
 		if (i == 0)
 			first_pipe(cmd, mini, head);
 		else if (i == nb_pipe)
