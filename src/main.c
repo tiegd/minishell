@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 08:58:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/03 19:41:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	init_mini(t_mini *mini, char **env)
 	else
 		mini->env = dup_env(env, &mini->gmalloc);
 	mini->exit_status = 0;
+	mini->dup_std[0] = 0;
+	mini->dup_std[1] = 0;
 }
 
 int	main(int ac, char **av, char **env)
