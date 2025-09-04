@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 21:49:57 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:57:19 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,20 @@ int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
 int		check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	one_no_fork(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
-void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head);
+void	pipex(t_cmd *cmd, t_mini *mini,t_gmalloc **head);
 int		ft_count_pipe(t_token **token);
 void    wait_children(pid_t pid_last, t_mini *mini);
+
+/*------------REDIR------------*/
+
+void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_last_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_one(t_cmd *cmd, t_mini *mini);
 
 /*--------GARBAGE_COLLECTOR----*/
 
@@ -211,7 +219,7 @@ void	ft_dup_out(t_mini *mini);
 /*------------EXIT------------*/
 
 void	exit_pid_error(int *pipefd, t_mini *mini);
-void	exit_tab(t_mini *mini, int code, int *pipefd);
+void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd);
 void	exit_fd(t_cmd *cmd, t_mini *mini, int *pipefd);
 int		str_return(char *str, int exit_status, t_mini *mini);
 

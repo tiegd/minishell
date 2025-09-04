@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 22:12:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 23:47:34 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	}
 	unblock_sig_quit();
 	if (mini->nb_pipe > 0)
-		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
+		pipex(mini->cmd, mini, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	// printf("cmd->args = %s\n", mini->cmd->args[0]);

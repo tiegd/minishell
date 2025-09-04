@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 17:57:10 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:57:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 // 	exit(code);
 // }
 
-void	exit_tab(t_mini *mini, int code, int *pipefd)
+void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd)
 {
-	ft_close_fd(mini->cmd, pipefd);
+	ft_close_fd(cmd, pipefd);
 	gb_free_all(&mini->gmalloc);
 	exit(code);
 }

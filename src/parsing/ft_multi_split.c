@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 15:38:01 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 23:47:03 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ char	**ft_multi_split(char *s, t_gmalloc **head)
 	if (!check_empty_s(s, ' ', '\t'))
 		return (NULL);
 	nb_word = ft_count_word(s);
-	printf("count word = %d\n", nb_word);
+	// printf("nb world = %d\n", nb_word);
 	double_tab = gb_malloc((nb_word + 1) * sizeof(char *), head);
 	double_tab[nb_word] = NULL;
 	double_tab = ft_new_str(double_tab, s, nb_word, head);
