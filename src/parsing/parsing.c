@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 14:32:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:47:34 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,12 +221,12 @@ int	ft_parsing(char *input, t_mini *mini)
 			return (0);
 	}
 	prompt = ft_multi_split(input, &mini->gmalloc);
-	print_tab_char(prompt);
+	// print_tab_char(prompt);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(&mini->token);
 	mini->nb_pipe = ft_count_pipe(&mini->token);
-	ft_print_lst(mini->token);
+	// ft_print_lst(mini->token);
 	mini->cmd = ft_init_cmd(&mini->token, &mini->gmalloc);
 	if (open_for_each_cmd(&mini->cmd, mini) != 0)
 	{

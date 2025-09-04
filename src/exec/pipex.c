@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 14:53:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:43:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		free_redir(cmd->redir, head);
 		if (!check_cmd(cmd, mini, head))
 			exit_tab(mini, mini->exit_status, pipefd);
-		free_prompt(cmd->paths, head);
+		// free_prompt(cmd->paths, head);
 		redir_first_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);

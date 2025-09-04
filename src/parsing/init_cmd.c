@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 15:40:40 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:56:33 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 	new = gb_malloc(sizeof(t_cmd), gmalloc);
 	new->fd_infile = 0;
 	new->fd_outfile = 1;
+	new->outpipe = -1;
 	new->fd_here_doc = 0;
 	new->pathname = NULL;
 	new->paths = NULL;
