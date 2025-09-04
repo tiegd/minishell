@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 19:40:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 18:12:38 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
-		if (arg_count > 2)
-		{
-			ft_putstr_fd("minishell: exit : too many arguments\n", 2);
-			mini->exit_status = 1;
-			return ;
-		}
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
@@ -107,6 +101,12 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 				exit(2);
 			}
 			mini->exit_status = atoi_exit(args[1], head);
+		}
+		if (arg_count > 2)
+		{
+			ft_putstr_fd("minishell: exit : too many arguments\n", 2);
+			mini->exit_status = 1;
+			return ;
 		}
 	}
 	gb_free_all(head);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 19:35:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:13:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int    manage_error_exec(t_cmd *cmd, t_mini *mini)
 {
 	struct stat	buf;
 
-	if (!cmd->args[0])
+	if (!cmd->args[0] || cmd->args[0][0] == '\0')
 		return (0);
 	if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
 	{

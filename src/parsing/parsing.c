@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 17:47:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:12:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	int		j;
 
 	i = 0;
+	// if (cmd->args[0][0] == '\0')
+	// 	return (cmd->args);
 	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
 	{
 		new_tab = malloc(2 * sizeof(char *));

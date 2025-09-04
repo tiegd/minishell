@@ -139,17 +139,21 @@ a > out doit renvoyer command not found si le path existe sinon doit renvoyer is
 
 < test > out3 doit pas segfault. ✅
 
-Arreter d'open a partir du moment ou un fichier n'est pas ouvrable. 
-(au lieux de separer les infiles ou outfile tous mettre dans la liste chaîné et mettre le type juste).
+Arreter d'open a partir du moment ou un fichier n'est pas ouvrable. ✅
+(au lieux de separer les infiles ou outfile tous mettre dans la liste chaîné et mettre le type juste). ✅
 
 Faire en sorte que si un here doc foire ne pas quitter le programme. ✅
 
 Not valid identifier for export : ^ ! ~ ✅
 
-./ = is a directory.
+./ = is a directory. ✅
 
-echo " "$?" " => espace en trop a checker
+echo " "$?" " => espace en trop a checker ✅
 
-cat << eof > out1 | cat << eof << eof <<eof > out2 => coucou2 dans out2
+cat << eof > out1 | cat << eof << eof <<eof > out2 => coucou2 dans out2 ✅
 
-l > " oui" | echo "" => segfault 
+l > " oui" | echo "" => segfault  ✅
+
+$NOTHING => conditional jump ✅
+
+mettre a jour le path ou pas le créer quand c'est lancé sans environnement. 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 14:47:15 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 21:49:57 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	print_export(char **env, t_mini *mini, t_gmalloc **head);
 char	**free_split(char **double_tab, int nb_word, t_gmalloc **head);
 int		nb_var(char **env);
 int		strcmp_until_char(char *s1, char *s2, char c);
+int		env_var_cmp(char *s1, char *s2);
 
 /*--------EXEC--------*/
 

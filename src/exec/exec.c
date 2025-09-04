@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 14:48:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:09:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (!ft_open_fd(cmd, mini))
 		return ;
 	free_redir(cmd->redir, head);
+	// printf("args[0] == %s\n", cmd->args[0]);
 	if (!is_builtin(cmd->args[0]))
 	{
 		if (!check_cmd(cmd, mini, head))

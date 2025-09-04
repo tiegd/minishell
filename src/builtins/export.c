@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 14:58:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 21:39:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int		env_var_cmp(char *s1, char *s2)
 	}
 	if (s1[i - 1] - s2[i - 1] == 0 && s1[i] - s2[i] == 0)
 		return (1);
+	else if (s1[i - 1] - s2[i - 1] == 0 && s1[i] == '\0' && s2[i] == '=')
+		return (2);
 	return (0);
 }
 
@@ -175,17 +177,35 @@ char	**ft_export(char **old_env, char *new_variable, t_mini *mini, t_gmalloc **h
 	int		i;
 	char	**new_env;
 
-	if (!is_valid_identifier(new_variable, mini))// || is_empty_var(new_variable))
+	if (!is_valid_identifier(new_variable, mini)) // || is_empty_var(new_variable))
 		return (old_env);
 	new_env = envdup(old_env, head);
 	i = 0;
 	while (new_env[i])
 	{
-		if (env_var_cmp(new_env[i], new_variable))
+		if (env_var_cmp(new_env[i], new_variable) == 1)
+		{
+			if (!is_empty_var(new_variable))
+			{
+				gfree(new_env[i], head);
+				new_env[i] = gb_strdup(new_variable, head);
+			}
+			gfree(new_variable, head);
+			return (new_env);
+		}
+		else if (env_var_cmp(new_env[i], new_variable) == 2)
 		{
 			gfree(new_env[i], head);
 			if (!is_empty_var(new_variable))
+			{
+				gfree(new_env[i], head);
 				new_env[i] = gb_strdup(new_variable, head);
+			}
+			gfree(new_variable, head);
+			return (new_env);
+		}
+		else if (env_var_cmp(new_variable, new_env[i]) == 2)
+		{
 			gfree(new_variable, head);
 			return (new_env);
 		}

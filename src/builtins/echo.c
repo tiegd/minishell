@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 17:36:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 18:18:00 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ void	ft_echo(t_cmd *cmd)
 				else
 					printf("%s\n", cmd->args[i]);
 			}
-			//sinon printf l'argument avec un espace pour le prochain argument
-			else if (cmd->quote == 2)
-				printf("%s", cmd->args[i]);
 			else
 				printf("%s ", cmd->args[i]);
 			i++;
+			// //sinon printf l'argument avec un espace pour le prochain argument
+			// else if (cmd->quote == 2)
+			// 	printf("%s", cmd->args[i]);
 		}
 	}
 	// if (cmd->args[1][0] == '$' && cmd->args[1][1] == '?' && cmd->args[1][2] == '\0')
