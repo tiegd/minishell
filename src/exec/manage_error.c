@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 09:08:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 09:15:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int    manage_error_exec(t_cmd *cmd, t_mini *mini)
 		return (0);
 	if ((cmd->args[0][0] == '~' && cmd->args[0][1] == '\0') || cmd->args[0][1] == '+' || cmd->args[0][1] == '-')
 	{
-		// put_error(mini, cmd->args[0], "Is a directory", 126);
-		put_error(mini, cmd->args[0], "Is a directory", 126);
+		put_error(mini, cmd->paths[0], "Is a directory", 126);
 		return (1);
 	}
 	if (cmd->args[0][0] == '.' && cmd->args[0][1] == '\0')
