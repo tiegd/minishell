@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 07:32:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 08:09:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (cmd->args[0])
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
-		manage_error_exec(mini->cmd, mini); //, cmd->paths);
+		if (manage_error_exec(mini->cmd, mini) == 1) //, cmd->paths);
+			return (0);
 		if (mini->exit_status == 126)
 			return (0);
 	}
@@ -144,8 +145,8 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		// 	return (0);
 		return (1);
 	}
-	// else
-	// 	return (0);
+	else
+		return (0);
 	/*On regarde si pathname existe et est executable(renvoyer une erreur en fonction).*/
 	if (!check_access_cmd(mini, cmd))
 		return (0);

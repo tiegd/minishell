@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 19:40:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 07:44:47 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
-	printf("exit\n");
+	// printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
