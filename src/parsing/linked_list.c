@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/26 09:09:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:50:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 	int		i;
 
 	new = gb_malloc(sizeof(t_token), head);
-	if (!new)
-		return (ft_lstfree(lst, head), NULL);
 	new->content = gb_malloc((len + 1) * sizeof(char), head);
-	if (!new->content)
-		return (free(new), NULL);
 	i = -1;
 	while (++i < len)
 		new->content[i] = s[i];
@@ -129,21 +125,43 @@ void	define_type(t_token *lst)
 // 	}
 // }
 
+
 // Move each element of the prompt in a linked list.
 t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
 {
 	t_token	*lst;
 	int		i;
 	int		len;
+	(void)len_tab;
 	
 	i = 0;
 	lst = NULL;
-	while (i < len_tab)
+	while (prompt[i])
 	{
 		len = ft_strlen(prompt[i]);
 		lst = ft_lst_addback(lst, prompt[i], len, head);
 		i++;
 	}
+	// free_prompt(prompt, head);
 	define_type(lst);
 	return (lst);
 }
+
+// // Move each element of the prompt in a linked list.
+// t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
+// {
+// 	t_token	*lst;
+// 	int		i;
+// 	int		len;
+	
+// 	i = 0;
+// 	lst = NULL;
+// 	while (i < len_tab)
+// 	{
+// 		len = ft_strlen(prompt[i]);
+// 		lst = ft_lst_addback(lst, prompt[i], len, head);
+// 		i++;
+// 	}
+// 	define_type(lst);
+// 	return (lst);
+// }

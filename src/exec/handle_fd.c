@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 13:50:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 11:09:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,16 @@ int	open_redir(t_cmd *cmd, t_mini *mini)
 
 int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 {
+	t_redir *temp;
+
 	cmd->fd_infile = 0;
 	cmd->fd_outfile = 1;
 	if (!cmd->redir)
 		return (1);
+	temp = cmd->redir;
 	if (!open_redir(cmd, mini))
 		return (0);
+	free_redir(temp, &mini->gmalloc);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 17:45:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 17:31:04 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ char	**split_parts(char *prompt, t_gmalloc **head)
 	{
 		extract = extract_text(prompt, &i, head);
 		if (extract)
+		{
 			parts[index++] = extract;
+		}
 		extract = extract_variable(prompt, &i, head);
 		if (extract)
+		{
 			parts[index++] = extract;
+		}
 	}
 	parts[index] = NULL;
 	return (parts);
@@ -269,10 +273,14 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	isolated = split_parts(prompt, &mini->gmalloc);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
+	printf("nb_args = %d\n", nb_var(isolated));
+	printf("isolated : \n");
+	print_tab_char(isolated);
 	gfree(quote_dollars, &mini->gmalloc);
 	if (!isolated)
 		return (NULL);
 	final = join_parts(isolated, &mini->gmalloc);
-	gfree(isolated, &mini->gmalloc);
+	// free_prompt(isolated, &mini->gmalloc);
+	// free(prompt);
 	return (final);
 }

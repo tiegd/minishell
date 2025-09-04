@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 20:05:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:35:32 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head)
 	return (strtemp);
 }
 
-char	*gb_strdup(const char *s, t_gmalloc **gmalloc)
+char	*gb_strdup(char *s, t_gmalloc **gmalloc)
 {
 	int		i;
 	int		len;
@@ -50,6 +50,7 @@ char	*gb_strdup(const char *s, t_gmalloc **gmalloc)
 		i++;
 	}
 	dest[i] = '\0';
+	// gfree(s, gmalloc);
 	return (dest);
 }
 

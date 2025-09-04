@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 17:22:09 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:47:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int		syntax_error(char *prompt);
 int 	char_not_required(char *prompt);
 char	**ft_multi_split(char *s, t_gmalloc **head);
 int		ft_count_word(char *s);
-t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **head);
+t_cmd	*ft_init_cmd(t_token **token, t_gmalloc **head);
 int		ft_strcmp(char *s1, char *s2);
-t_token *ft_handle_quote(t_token *token);
+t_token *ft_handle_quote(t_token **token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
@@ -113,10 +113,10 @@ void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
 /*--garbage_collector_lib--*/
 
 char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head);
-char	*gb_strdup(const char *s, t_gmalloc **gmalloc);
+char	*gb_strdup(char *s, t_gmalloc **gmalloc);
 char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head);
 char	*gb_itoa(int nb, t_gmalloc **head);
-char	**gb_split(char const *s, char c, t_gmalloc **head);
+char	**gb_split(char *s, char c, t_gmalloc **head);
 
 /*---random--------*/
 
@@ -161,7 +161,7 @@ int		strcmp_until_char(char *s1, char *s2, char c);
 
 int	    is_builtin(char *content);
 int		ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
-bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid);
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 int		manage_error_exec(t_cmd *cmd, t_mini *mini); //, char **paths);
 int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
@@ -193,6 +193,8 @@ void	ft_lstfree(t_token *lst, t_gmalloc **head);
 void	print_not_valid_identifier(char *str);
 void	print_no_such_file(char *str);
 void	print_error_exit_arg(char *str);
+char	**free_prompt(char **double_tab, t_gmalloc **head);
+void	free_one_cmd(t_cmd *cmd, t_gmalloc **head);
 
 /*------------FD------------*/
 

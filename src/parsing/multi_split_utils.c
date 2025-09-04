@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/07/19 11:53:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 13:09:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	count_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (0);
 	while (tab[i])
 		i++;
 	return (i);

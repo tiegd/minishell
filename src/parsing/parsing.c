@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 19:49:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:32:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_add_suf(int j, char *str, char *args)
 	return (str);
 }
 
-char	*one_line_path(char **paths)
+char	*one_line_path(char **paths, t_gmalloc **head)
 {
 	char	*new_tab;
 	int		i;
@@ -89,7 +89,7 @@ char	*one_line_path(char **paths)
 		if (count <= 2)
 			i++;
 	}
-	new_tab = malloc((i + 1) * sizeof (char));
+	new_tab = gb_malloc((i + 1) * sizeof (char), head);
 	while (j < i)
 	{
 		new_tab[j] = paths[0][j];
@@ -112,7 +112,8 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
 	{
 		new_tab = malloc(2 * sizeof(char *));
-		new_tab[0] = one_line_path(paths);
+		new_tab[0] = one_line_path(paths, head);
+		new_tab[1] = NULL;
 	}
 	else
 	{
@@ -133,7 +134,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 			i++;
 		}
 	}
-	free_split(paths, nb_path, head);
+	free_prompt(paths, head);
 	return (new_tab);
 }
 
@@ -220,18 +221,24 @@ int	ft_parsing(char *input, t_mini *mini)
 			return (0);
 	}
 	prompt = ft_multi_split(input, &mini->gmalloc);
+	print_tab_char(prompt);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
-	mini->token = ft_handle_quote(mini->token);
-	ft_print_lst(mini->token);
-	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	if (open_for_each_cmd(&mini->cmd, mini) != 0)
-		return (0);
-	unblock_sig_quit();
+	mini->token = ft_handle_quote(&mini->token);
 	mini->nb_pipe = ft_count_pipe(&mini->token);
+	ft_print_lst(mini->token);
+	mini->cmd = ft_init_cmd(&mini->token, &mini->gmalloc);
+	if (open_for_each_cmd(&mini->cmd, mini) != 0)
+	{
+		free_cmd(mini->cmd, &mini->gmalloc);
+		return (0);
+	}
+	unblock_sig_quit();
 	if (mini->nb_pipe > 0)
 		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
+	// printf("cmd->args = %s\n", mini->cmd->args[0]);
+	free_cmd(mini->cmd, &mini->gmalloc);
 	return (0);
 }

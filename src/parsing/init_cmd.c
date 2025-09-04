@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 20:10:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:40:40 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 	t_cmd	*new;
 
 	new = gb_malloc(sizeof(t_cmd), gmalloc);
-	if (!new)
-		return (NULL);
 	new->fd_infile = 0;
 	new->fd_outfile = 1;
 	new->fd_here_doc = 0;
+	new->pathname = NULL;
+	new->paths = NULL;
 	new->redir = NULL;
 	new->next = NULL;
 	return (new);
@@ -149,22 +149,25 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 // }
 
 /*initialiser chaque commande en les divisant par pipe*/
-t_cmd	*ft_init_cmd(t_token *token, t_gmalloc **gmalloc)
+t_cmd	*ft_init_cmd(t_token **token, t_gmalloc **gmalloc)
 {
 	t_cmd	*head;
 	t_cmd	*cmd;
+	t_token *token_head;
 	int		n_args;
 
 	head = NULL;
-	n_args = count_args(token);
-	while (token)
+	n_args = count_args(*token);
+	token_head = *token;
+	while (*token)
 	{
 		cmd = new_cmd(gmalloc);
 		cmd->args = gb_malloc((n_args + 1) * sizeof(char *), gmalloc);
-		handle_cmd_args(cmd, &token, gmalloc);
+		handle_cmd_args(cmd, token, gmalloc);
 		cmd_add_back(&head, cmd);
-		if (token)
-			token = token->next;
+		if (*token)
+			(*token) = (*token)->next;
 	}
+	free_token(token_head, gmalloc);
 	return (head);
 }

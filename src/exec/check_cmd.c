@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 11:26:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:50:13 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ int extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		return (0);
 	}
 	cmd->paths = gb_split(line, ':', head);
+	// print_tab_char(cmd->paths);
 	nb_path = ft_nb_path(cmd->paths);
+	// printf("nb_path = %d\n", nb_path);
 	if (cmd->args[0])
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/02 10:01:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:47:07 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 // Free all of the list (token).
 
-void	ft_lstfree(t_token *lst, t_gmalloc **head)
+void	free_token(t_token *lst, t_gmalloc **head)
 {
 	t_token	*tmp;
+	int i = 1;
 
 	if (lst)
 	{
 		while (lst)
 		{
+			// printf("token free = %d\n", i);
 			tmp = lst;
     		lst = lst->next;
 	    	gfree(tmp->content, head);
 		    gfree(tmp, head);
+			i++;
 		}
 	}
 }
@@ -36,11 +39,15 @@ void	free_redir(t_redir *redir, t_gmalloc **head)
 {
 	t_redir	*tmp;
 
-	while (redir->next)
+	if (redir)
 	{
-		tmp = redir;
-		redir = redir->next;
-		gfree(tmp, head);
+		while (redir)
+		{
+			tmp = redir;
+			redir = redir->next;
+			gfree(tmp->filename, head);
+			gfree(tmp, head);
+		}
 	}
 }
 
@@ -66,14 +73,28 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 {
 	t_cmd	*tmp;
 
-	while (cmd->next)
+	while (cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
-		free_redir(tmp->redir, head);
-		// free_redir(tmp->, head);
-		free_double_tab(tmp->args, tmp->nb_agrs, head);
-		gfree(tmp->pathname, head);
+		if (tmp->args)
+			free_prompt(tmp->args, head);
+		// if (tmp->paths)
+		// 	free_prompt(tmp->paths, head);
+		if (tmp->pathname)
+			gfree(tmp->pathname, head);
 		gfree(tmp, head);
+	}
+}
+
+void	free_one_cmd(t_cmd *cmd, t_gmalloc **head)
+{
+	if (cmd)
+	{
+		if (cmd->args)
+			free_prompt(cmd->args, head);
+		if (cmd->pathname)
+			gfree(cmd->pathname, head);
+		gfree(cmd, head);
 	}
 }

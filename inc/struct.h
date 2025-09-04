@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 09:56:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:12:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_cmd
 	// t_redir			*outfiles;
 	int				type;
 	char			*pathname;
-	char			*expend;
+	// char			*expend;
 	int				nb_agrs;
 	int				outpipe;
 	int				fd_infile; //initialiser a STDIN si pas de redirection

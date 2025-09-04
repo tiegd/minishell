@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 10:40:17 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:53:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		if (!ft_open_fd(cmd, mini))
 			exit_tab(mini, 1, pipefd);
+		free_redir(cmd->redir, head);
 		if (!check_cmd(cmd, mini, head))
 			exit_tab(mini, mini->exit_status, pipefd);
+		free_prompt(cmd->paths, head);
 		redir_first_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
-		if (!ft_exec_cmd(cmd, mini, head))
+		if (!ft_exec_cmd(cmd, mini, head, pid))
 		{
 			ft_close_fd(cmd, pipefd);
 			exit_tab(mini, 127, pipefd);
@@ -101,14 +103,16 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		if (!ft_open_fd(cmd, mini))
 			exit_tab(mini, 1, pipefd);
+		free_redir(cmd->redir, head);
 		if (!check_cmd(cmd, mini, head))
 			exit_tab(mini, mini->exit_status, pipefd);
+		// free_prompt(cmd->paths, head);
 		redir_middle_pipe(mini, cmd, pipefd);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		close(cmd->outpipe);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
-		if (!ft_exec_cmd(cmd, mini, head))
+		if (!ft_exec_cmd(cmd, mini, head, pid))
 		{
 			ft_close_fd(cmd, pipefd);
 			exit_tab(mini, 127, pipefd);
@@ -151,13 +155,15 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		if (!ft_open_fd(cmd, mini))
 			exit_tab(mini, 1, 0);
+		free_redir(cmd->redir, head);
 		if (!check_cmd(cmd, mini, head))
 			exit_tab(mini, mini->exit_status, 0);
+		// free_prompt(cmd->paths, head);
 		redir_last_pipe(mini, cmd, 0);
 		close(cmd->outpipe);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		// ft_close_fd(cmd, 0);
-		if (!ft_exec_cmd(cmd, mini, head))
+		if (!ft_exec_cmd(cmd, mini, head, pid_last))
 		{
 			ft_close_fd(cmd, 0);
 			exit_tab(mini, 127, 0);
@@ -191,7 +197,7 @@ void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head)
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		i++;
 		cmd = cmd->next;
-		usleep(50);
+		usleep(300);
 	}
 	if (sig_flag != 0)
 		write(STDOUT_FILENO, "\n", 1);
