@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 07:33:14 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 10:58:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	// check_interactive_mode();
+	check_interactive_mode();
 	set_sig_action();
 	block_sig_quit();
 	init_mini(&mini, env);
@@ -68,20 +68,20 @@ int	main(int ac, char **av, char **env)
 	{
 		sig_flag = 0;
 		block_sig_quit();
-		if (isatty(STDIN_FILENO) != 0)
-		{
-			line = readline("minishiasse ~ ");
+		// if (isatty(STDIN_FILENO) != 0)
+		// {
+			line = readline("Jean-minishell Jarre ~ ");
 			if (sig_flag == 1)
 			{
 				mini.exit_status = 130;
 				continue ;
 			}
-		}
-		else
-		{
-			line = get_next_line(STDIN_FILENO);
-			line = ft_strtrim(line, "\n");
-		}
+		// }
+		// else
+		// {
+		// 	line = get_next_line(STDIN_FILENO);
+		// 	line = ft_strtrim(line, "\n");
+		// }
 		if (!line)
 			ft_exit(NULL, &mini, &mini.gmalloc);
 		if (*line)

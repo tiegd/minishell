@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 09:15:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:19:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int    manage_error_exec(t_cmd *cmd, t_mini *mini)
 		put_error(mini, cmd->args[0], "filename argument required", 2);
 		return (1);
 	}
-	else if (stat(cmd->args[0], &buf) == 0)
+	else if (stat(cmd->args[0], &buf) == 0 && ft_strchr(cmd->args[0], '/'))
 	{
 		if (S_ISDIR(buf.st_mode))
 		{

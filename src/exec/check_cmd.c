@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 08:09:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:29:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ int	check_access_pathname(t_mini *mini, char *args)
 /*check accessibility of cmd, return 1 if the file is exist and if it has permission, 0 if not*/
 int	check_access_cmd(t_mini *mini, t_cmd *cmd)
 {
+	if (cmd->args[0][0] == '.')
+	{
+		put_error(mini, cmd->args[0], "Command not found", 127);
+		return (0);
+	}
 	if (access(cmd->args[0], F_OK) != 0)
 		put_error(mini, cmd->args[0], "No such file or directory", 127);
 	else if (access(cmd->args[0], X_OK) != 0)
