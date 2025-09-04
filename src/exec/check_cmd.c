@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 13:31:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:30:51 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ it has permission, 0 if not*/
 
 int	check_access_cmd(t_mini *mini, t_cmd *cmd)
 {
-	if (cmd->args[0][0] == '.')
+	if (cmd->args[0][0] == '.' && cmd->args[0][1] != '/')
 	{
 		put_error(mini, cmd->args[0], "Command not found", 127);
 		return (0);
