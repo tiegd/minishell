@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
+#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/03 17:50:27 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/04 13:30:19 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,8 @@ SRC =	main.c \
 		exec/pipex.c \
 		exec/pipex_utils.c \
 		exec/check_cmd.c \
+		exec/redir.c \
+		exec/path.c \
 		parsing/print_for_help.c \
 		parsing/env_dash_i.c \
 		parsing/handle_env_var.c \

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 06:44:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:53:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	unblock_sig_quit();
 	mini->nb_pipe = ft_count_pipe(&mini->token);
 	if (mini->nb_pipe > 0)
-		pipex(mini->cmd, mini, mini->nb_pipe, &mini->gmalloc);
+		pipex(mini->cmd, mini, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/08/28 14:11:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 13:57:11 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	wait_children(pid_t pid_last, t_mini *mini)
 {
 	int	status;
 
-	// status = 0;
 	waitpid(pid_last, &status, 0);
 	if (WIFEXITED(status) != 0)
 		mini->exit_status = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 07:37:03 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:00:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,16 @@ int		check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 
-void	pipex(t_cmd *cmd, t_mini *mini, int nb_pipe, t_gmalloc **head);
+void	pipex(t_cmd *cmd, t_mini *mini,t_gmalloc **head);
 int		ft_count_pipe(t_token **token);
 void    wait_children(pid_t pid_last, t_mini *mini);
+
+/*------------REDIR------------*/
+
+void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_last_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
+void	redir_one(t_cmd *cmd, t_mini *mini);
 
 /*--------GARBAGE_COLLECTOR----*/
 
