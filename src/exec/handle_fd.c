@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 13:51:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 22:47:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
 
 /*Open input redirection & check permission and existence*/
 int	open_infile(t_cmd *cmd, t_mini *mini)
@@ -90,13 +91,13 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 
 int	ft_close_fd(t_cmd *cmd, int *pipefd)
 {
-	if (cmd->fd_infile != 0)
+	if (cmd->fd_infile > 0)
 		if (close(cmd->fd_infile) == -1)
 			return (0);
-	if (cmd->fd_outfile != 1)
+	if (cmd->fd_outfile > 1)
 		if (close(cmd->fd_outfile) == -1)
 			return (0);
-	if (cmd->outpipe != -1)
+	if (cmd->outpipe > 0)
 		if (close(cmd->outpipe) == -1)
 			return (0);
 	if (pipefd != 0)

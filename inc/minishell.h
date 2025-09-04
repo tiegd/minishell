@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 12:00:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 22:45:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int 	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 void	put_exit_error(t_mini *mini, char *filename, char *error, int exit_status);
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status);
 int		check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
+void	one_no_fork(t_cmd *cmd, t_mini *mini, t_gmalloc **head);
 
 /*------------PIPEX------------*/
 

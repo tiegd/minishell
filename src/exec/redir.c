@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 13:57:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 22:43:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 		if (dup2(cmd->fd_outfile, STDOUT_FILENO) == -1)
 			exit_fd(cmd, mini, 0);
 	}
+}
+
+void	one_no_fork(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+{
+	mini->dup_std[0] = dup(STDIN_FILENO);
+	mini->dup_std[1] = dup(STDOUT_FILENO);
+	redir_one(cmd, mini);
+	ft_exec_cmd(cmd, mini, head);
 }
 
 void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)

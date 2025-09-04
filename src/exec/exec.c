@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 13:04:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 22:47:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int		pid;
 
 	if (!ft_open_fd(cmd, mini))
+	{
+		ft_close_fd(cmd, 0);
 		return ;
+	}
 	if (!is_builtin(cmd->args[0]))
 	{
 		if (!check_cmd(cmd, mini, head))
@@ -80,12 +83,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			write(STDOUT_FILENO, "\n", 1);
 	}
 	else
-	{
-		mini->dup_std[0] = dup(STDIN_FILENO);
-		mini->dup_std[1] = dup(STDOUT_FILENO);
-		redir_one(cmd, mini);
-		ft_exec_cmd(cmd, mini, head);
-	}
+		one_no_fork(cmd, mini, head);
 }
 
 // Called by Pipex or ft_one_cmd.
