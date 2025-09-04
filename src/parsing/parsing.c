@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/03 19:49:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/04 06:44:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
 	mini->token = ft_handle_quote(mini->token);
-	ft_print_lst(mini->token);
+	// ft_print_lst(mini->token);
 	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
 	if (open_for_each_cmd(&mini->cmd, mini) != 0)
 		return (0);

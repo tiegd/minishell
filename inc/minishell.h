@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 19:40:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/04 07:37:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ void	ft_dup_out(t_mini *mini);
 /*------------EXIT------------*/
 
 void	exit_pid_error(int *pipefd, t_mini *mini);
-void	exit_tab(t_mini *mini, int code, int *pipefd);
+void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd);
 void	exit_fd(t_cmd *cmd, t_mini *mini, int *pipefd);
 int		str_return(char *str, int exit_status, t_mini *mini);
 
