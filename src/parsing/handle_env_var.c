@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 17:35:25 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 10:22:07 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,8 @@ int	skip_and_check_quotes(int *i, char *prev)
 int	is_eof(char	*prev)
 {
 	int	i;
-	bool here_doc;
 
 	i = 0;
-	here_doc = false;
-
 	if (skip_and_check_quotes(&i, prev))
 		return (0);
 	if (i > 1)
@@ -277,7 +274,5 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	if (!isolated)
 		return (NULL);
 	final = join_parts(isolated, &mini->gmalloc);
-	// free_prompt(isolated, &mini->gmalloc);
-	// free(prompt);
 	return (final);
 }

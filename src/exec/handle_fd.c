@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 23:45:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 12:01:27 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 	cmd->fd_outfile = 1;
 	if (!cmd->redir)
 		return (1);
+	if (cmd->fd_here_doc == -2)
+		return (0);
 	temp = cmd->redir;
 	if (!open_redir(cmd, mini))
 		return (0);

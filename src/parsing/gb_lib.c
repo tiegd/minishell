@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_lib.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 14:35:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 12:25:26 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,27 @@ char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	gfree(s1, head);
+	return (str);
+}
+
+char	*gb_strjoin(char *s1, char *s2, t_gmalloc **head)
+{
+	int		tlen;
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	tlen = ft_strlen(s1) + ft_strlen(s2);
+	str = gb_malloc(sizeof(char) * tlen + 1, head);
+	if (str == 0)
+		return (NULL);
+	while (s1[j] != '\0')
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[i] = '\0';
 	return (str);
 }

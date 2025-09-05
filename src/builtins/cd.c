@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 19:15:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 12:27:16 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,24 @@ void	chdir_failed(char **args, t_mini *mini)
 	mini->exit_status = 1;
 }
 
-void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
+void	update_pwd(t_mini *mini, t_gmalloc **head)
+{
+	char	*new_pwd;
+	char	*final;
+
+	new_pwd = getcwd(NULL, 0);
+	if (!new_pwd)
+		return ;
+	final = gb_strjoin("PWD=", new_pwd, head);
+	gfree(new_pwd, head);
+	ft_export(mini->env, final, mini, head);
+}
+
+void	cd(char	**args, t_gmalloc **head, t_mini *mini)
 {
 	int		i;
 	char	*path;
 	char	*old_path;
-	(void)env;
 
 	i = 0;
 	old_path = getcwd(NULL, 0);
@@ -66,5 +78,6 @@ void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini)
 		if (chdir(path) == -1)
 			chdir_failed(args, mini);
 	}
+	update_pwd(mini, head);
 	free(old_path);
 }

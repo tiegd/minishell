@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 22:57:19 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 12:26:03 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	block_sig_quit(void);
 
 /*--------HERE_DOC----------*/
 
-int		here_doc(t_mini *mini, char *eof, t_gmalloc **head);
+int		create_here_doc(t_mini *mini, char *eof, t_gmalloc **head);
 char	*handle_env_var_for_here_doc(char *prompt, t_mini *mini);
 
 /*--------HANDLE-LIST----------*/
@@ -117,6 +117,7 @@ char	*gb_strdup(char *s, t_gmalloc **gmalloc);
 char	*gb_strjoin_custom(char *s1, char *s2, t_gmalloc **head);
 char	*gb_itoa(int nb, t_gmalloc **head);
 char	**gb_split(char *s, char c, t_gmalloc **head);
+char	*gb_strjoin(char *s1, char *s2, t_gmalloc **head);
 
 /*---random--------*/
 
@@ -141,7 +142,7 @@ void	ft_echo(t_cmd *cmd);
 void	ft_env(char **env, int fd, t_mini *mini);
 char	**ft_export(char **old_env, char *str, t_mini *mini, t_gmalloc **head);
 void	pwd(int fd, t_mini *mini);
-void	cd(char	**args, char **env, t_gmalloc **head, t_mini *mini);
+void	cd(char	**args, t_gmalloc **head, t_mini *mini);
 char	**unset(char *var, char **old_env, t_gmalloc **head);
 char	**loop_unset(char **env, char **args, t_mini *mini, t_gmalloc **head);
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);

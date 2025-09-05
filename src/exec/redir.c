@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 22:43:45 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:21:01 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	one_no_fork(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	mini->dup_std[0] = dup(STDIN_FILENO);
 	mini->dup_std[1] = dup(STDOUT_FILENO);
 	redir_one(cmd, mini);
-	ft_exec_cmd(cmd, mini, head);
+	ft_exec_cmd(cmd, mini, head, -1);
 }
 
 void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd)

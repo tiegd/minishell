@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 15:00:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 10:26:20 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **env)
 		block_sig_quit();
 		if (isatty(STDIN_FILENO) != 0)
 		{
-			line = readline("Jean-minishell Jarre ~ ");
+			line = readline("minicrotte ~ ");
 			if (sig_flag == 1)
 			{
 				mini.exit_status = 130;
