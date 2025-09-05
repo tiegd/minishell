@@ -6,7 +6,7 @@
 /*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 12:27:16 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:37:37 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		check_args(char **args)
 {
-	if (!args[1]) //regarder si cd possede bien un argument
+	if (!args[1])
 	{
 		ft_putstr_fd("cd : need a relative or absolute path\n", 2);
 	}
-	else if (nb_var(args) > 2) //regarder si il y a trop d'argument
+	else if (nb_var(args) > 2)
 	{
 		ft_putstr_fd("cd : too many arguments\n", 2);
 	}

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 16:07:26 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Find the last node of the list.
+
 t_token	*ft_lst_last(t_token *lst)
 {
 	if (!lst || !lst->next)
@@ -23,6 +24,7 @@ t_token	*ft_lst_last(t_token *lst)
 }
 
 // Add the new node at the end of the list.
+
 t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 {
 	t_token	*new;
@@ -48,6 +50,7 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 
  /* Verifie la commande entré en argument,
  renvoi 1 si c'est un builtin ou 0 si ca ne l'est pas*/
+ 
 int	is_builtin(char *content)
 {
 	if (content)
@@ -72,6 +75,7 @@ int	is_builtin(char *content)
 
 /*Defini le type de chaques tokens de la liste passé en argument
 et rempli la variable "type" de chaque noeud de la liste*/
+
 void	define_type(t_token *lst)
 {
 	while (lst != NULL)
@@ -125,8 +129,8 @@ void	define_type(t_token *lst)
 // 	}
 // }
 
-
 // Move each element of the prompt in a linked list.
+
 t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
 {
 	t_token	*lst;

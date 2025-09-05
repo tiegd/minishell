@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 13:13:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 16:06:19 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*delete_quote(char *str)
 }
 
 /*gère le cas des quotes dans un token et renvoie un pointeur sur le debut de la liste qui a été modifié*/
+
 t_token	*ft_handle_quote(t_token **token)
 {
 	t_token	*temp;

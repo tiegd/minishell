@@ -6,7 +6,7 @@
 /*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 12:48:46 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:37:15 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_strcmp(char *s1, char *s2)
 }
 
 //checker si c'est une option ou pas
+
 int	is_option(char	*str)
 {
 	int	i;

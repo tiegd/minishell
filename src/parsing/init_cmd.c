@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 22:08:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 16:07:02 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*remplir les redirections*/
+
 t_redir		*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 {
 	t_redir	*new;
@@ -50,6 +51,7 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 }
 
 /*creer une nouveau noeud commande pour la list chainé*/
+
 t_cmd *new_cmd(t_gmalloc **gmalloc)
 {
 	t_cmd	*new;
@@ -67,6 +69,7 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 }
 
 /*compte le nombre d'args qu'il y a dans le prompt rentré*/
+
 int		count_args(t_token	*token)
 {
 	int count;
@@ -150,6 +153,7 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 // }
 
 /*initialiser chaque commande en les divisant par pipe*/
+
 t_cmd	*ft_init_cmd(t_token **token, t_gmalloc **gmalloc)
 {
 	t_cmd	*head;

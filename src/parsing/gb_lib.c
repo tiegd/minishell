@@ -6,7 +6,7 @@
 /*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 12:25:26 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:05:42 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*gb_strdup(char *s, t_gmalloc **gmalloc)
 		i++;
 	}
 	dest[i] = '\0';
-	// gfree(s, gmalloc);
 	return (dest);
 }
 

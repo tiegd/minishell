@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 22:57:42 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 15:45:43 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	is_sign(char c)
 {
-	if (c == '-' || c == '+')
-		return (1);	
+	if (c == '-')
+		return (-1);
+	else if (c == '+')
+		return (1);
 	else
-		return (0);
+		return (1);
 }
 
 int	check_exit_argument(char *arg)
@@ -65,10 +67,9 @@ int	atoi_exit(char *nptr, t_gmalloc **head)
 	sign = 1;
 	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
 		i++;
-	if (is_sign(nptr[i]))
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		if (nptr[i] == '-')
-			sign = -1;
+		sign = is_sign(nptr[i]);
 		i++;
 	}
 	while (nptr[i] && ft_isdigit(nptr[i]))
@@ -88,7 +89,6 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
-	// printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
@@ -111,7 +111,5 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 	}
 	gb_free_all(head);
 	close_fds(mini->dup_std[0], mini->dup_std[1]);
-	// close(mini->dup_std[0]);
-	// close(mini->dup_std[1]);
 	exit(mini->exit_status);
 }

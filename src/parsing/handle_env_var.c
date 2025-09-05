@@ -6,7 +6,7 @@
 /*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 10:22:07 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:06:08 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	skip_and_check_quotes(int *i, char *prev)
 }
 
 /*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
+
 int	is_eof(char	*prev)
 {
 	int	i;

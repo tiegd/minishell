@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 21:39:48 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 16:00:52 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int		char_nb(char *str, char c)
 	return (count);
 }
 
-// /*avance jusqu'au séparateur et renvoie un char** de chaque spéparateur + la string qui suit*/
+// /*avance jusqu'au séparateur et renvoie un char** 
+// de chaque spéparateur + la string qui suit*/
 // char	**split_keep(char *str, char c)
 // {
 // 	int 	i;
@@ -93,6 +94,7 @@ int		char_nb(char *str, char c)
 // }
 
 /*duplique la variable d'environnement passé en paramètre et renvoie un char** ou NULL si il y a une erreur */
+
 char	**envdup(char **old_env, t_gmalloc **head)
 {
 	int		i;
@@ -110,7 +112,9 @@ char	**envdup(char **old_env, t_gmalloc **head)
 	new_env[i] = NULL;
 	return (new_env);
 }
+
 //compare le nom de 2 variable d'environnement
+
 int		env_var_cmp(char *s1, char *s2)
 {
 	int	i;
@@ -167,41 +171,41 @@ int	is_empty_var(char *variable)
 	return (1);
 }
 
+void	replace_same_var(char *new_variable, char **new_env, int i, t_gmalloc **head)
+{
+	if (!is_empty_var(new_variable))
+	{
+		gfree(new_env[i], head);
+		new_env[i] = gb_strdup(new_variable, head);
+	}
+	gfree(new_variable, head);
+}
+
+void	handle_same_var(char *new_variable, char **new_env, int i, t_gmalloc **head)
+{
+	
+}
 /*on recupère la variable d'environnement et on y ajoute une nouvelle passé en argument
 duplique l'environnement dans un nouveau tableau de string
 on regarde si la variable existe déjà et si oui on la remplace par la nouvelle
 si elle existe on renvoit le nouvelle environnement avec la variable remplacé
 sinon juste ajouter la string au nouvel environnement*/
+
 char	**ft_export(char **old_env, char *new_variable, t_mini *mini, t_gmalloc **head)
 {
 	int		i;
 	char	**new_env;
 
-	if (!is_valid_identifier(new_variable, mini)) // || is_empty_var(new_variable))
+	if (!is_valid_identifier(new_variable, mini))
 		return (old_env);
 	new_env = envdup(old_env, head);
 	i = 0;
 	while (new_env[i])
 	{
-		if (env_var_cmp(new_env[i], new_variable) == 1)
+		if (env_var_cmp(new_env[i], new_variable) == 1 
+		|| env_var_cmp(new_env[i], new_variable) == 2)
 		{
-			if (!is_empty_var(new_variable))
-			{
-				gfree(new_env[i], head);
-				new_env[i] = gb_strdup(new_variable, head);
-			}
-			gfree(new_variable, head);
-			return (new_env);
-		}
-		else if (env_var_cmp(new_env[i], new_variable) == 2)
-		{
-			gfree(new_env[i], head);
-			if (!is_empty_var(new_variable))
-			{
-				gfree(new_env[i], head);
-				new_env[i] = gb_strdup(new_variable, head);
-			}
-			gfree(new_variable, head);
+			replace_same_var(new_variable, new_env, i, head);
 			return (new_env);
 		}
 		else if (env_var_cmp(new_variable, new_env[i]) == 2)
@@ -233,3 +237,49 @@ char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head)
 	mini->exit_status = 0;
 	return (env);
 }
+
+
+// char	**ft_export(char **old_env, char *new_variable, t_mini *mini, t_gmalloc **head)
+// {
+// 	int		i;
+// 	char	**new_env;
+
+// 	if (!is_valid_identifier(new_variable, mini)) // || is_empty_var(new_variable))
+// 		return (old_env);
+// 	new_env = envdup(old_env, head);
+// 	i = 0;
+// 	while (new_env[i])
+// 	{
+// 		if (env_var_cmp(new_env[i], new_variable) == 1)
+// 		{
+// 			if (!is_empty_var(new_variable))
+// 			{
+// 				gfree(new_env[i], head);
+// 				new_env[i] = gb_strdup(new_variable, head);
+// 			}
+// 			gfree(new_variable, head);
+// 			return (new_env);
+// 		}
+// 		else if (env_var_cmp(new_env[i], new_variable) == 2)
+// 		{
+// 			if (!is_empty_var(new_variable))
+// 			{
+// 				gfree(new_env[i], head);
+// 				new_env[i] = gb_strdup(new_variable, head);
+// 			}
+// 			gfree(new_variable, head);
+// 			return (new_env);
+// 		}
+// 		else if (env_var_cmp(new_variable, new_env[i]) == 2)
+// 		{
+// 			gfree(new_variable, head);
+// 			return (new_env);
+// 		}
+// 		i++;
+// 	}
+// 	i = nb_var(old_env);
+// 	new_env[i] = gb_strdup(new_variable, head);
+// 	new_env[i + 1] = NULL;
+// 	gfree(new_variable, head);
+// 	return (new_env);
+// }

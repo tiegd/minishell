@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 17:27:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 15:46:50 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char	*env_result(char *env, t_gmalloc **head)
 	char *res;
 
 	i = 0;
-	// res = NULL;
 	while (env[i] && env[i] != '=')
 		i++;
 	if (env[i] && env[i] == '=')
