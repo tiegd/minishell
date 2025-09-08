@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+         #
+#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/05 10:11:24 by amerzone         ###   ########.fr        #
+#    Updated: 2025/09/08 13:55:11 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3 #-fsanitize=address
 
 INCLUDE = inc
 

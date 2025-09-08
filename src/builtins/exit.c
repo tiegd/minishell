@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 15:45:43 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:15:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_sign(char c)
 	else if (c == '+')
 		return (1);
 	else
-		return (1);
+		return (0);
 }
 
 int	check_exit_argument(char *arg)
@@ -32,7 +32,10 @@ int	check_exit_argument(char *arg)
 	while (arg[i] && is_ws(arg[i]))
 		i++;
 	if (arg[i] && is_sign(arg[i]))
+	{
+		printf("error\n");
 		i++;
+	}
 	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
 	while (arg[i] && ft_isdigit(arg[i]))
@@ -89,6 +92,7 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
+	printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
