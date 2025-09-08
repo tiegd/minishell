@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 16:59:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 11:32:47 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,37 +113,87 @@ int	open_here_doc(int *here_doc, int *here_doc_copy, char *file_name)
 	return (0);
 }
 
-int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
+int		read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 {
 	char	*line;
-	char	*file_name;
-	int		here_doc;
-	int		here_doc_copy;
-	bool	had_quote;
 
-	had_quote = false;
+	while (1)
+	{
+		line = readline(">");
+		if (sig_flag == 1)
+			return (sig_int_received(mini, hd->here_doc, hd->here_doc_copy));
+		if (!line)
+		{
+			ft_putstr_fd("minishell: warning: delimited by end-of-file (wanted '", 2);
+			ft_putstr_fd(eof, 2);
+			ft_putstr_fd("')\n", 2);
+			break ;
+		}
+		if (ft_strcmp(line, eof))
+			break ;
+		if (ft_strchr(line, '$') && hd->had_quote == false)
+			line = handle_env_var_for_here_doc(line, mini);
+		ft_putstr_fd(line, hd->here_doc);
+		ft_putchar_fd('\n', hd->here_doc);
+		free(line);
+	}
+	return (0);
+}
+
+int	create_here_doc(t_mini *mini, char *eof, t_gmalloc **head)
+{
+	char		*file_name;
+	t_heredoc	hd;
+
+	hd.had_quote = false;
 	if ((file_name = generate_rand_name_file(head)) == NULL)
 		return (-1);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
 	{
-		had_quote = true;
+		hd.had_quote = true;
 		eof = delete_quote(eof);
 	}
-	if (open_here_doc(&here_doc, &here_doc_copy, file_name) == -1)
+	if (open_here_doc(&hd.here_doc, &hd.here_doc_copy, file_name) == -1)
 		return (-1);
-	while ((line = readline(">")) != NULL)
-	{
-		if (sig_flag == 1)
-			return (sig_int_received(mini, here_doc, here_doc_copy));
-		if (ft_strcmp(line, eof))
-			break ;
-		if (ft_strchr(line, '$') && had_quote == false)
-			line = handle_env_var_for_here_doc(line, mini);
-		ft_putstr_fd(line, here_doc);
-		ft_putchar_fd('\n', here_doc);
-		free(line);
-	}
-	if (close(here_doc) == -1)
+	if (read_here_doc(&hd, eof, mini) == -2)
+		return (-2);
+	if (close(hd.here_doc) == -1)
 		return (-1);
-	return (here_doc_copy);
+	return (hd.here_doc_copy);
 }
+
+/*here doc before */
+// int	here_doc(t_mini *mini, char *eof, t_gmalloc **head)
+// {
+// 	char	*line;
+// 	char	*file_name;
+// 	int		here_doc;
+// 	int		here_doc_copy;
+// 	bool	had_quote;
+
+// 	had_quote = false;
+// 	if ((file_name = generate_rand_name_file(head)) == NULL)
+// 		return (-1);
+// 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
+// 	{
+// 		had_quote = true;
+// 		eof = delete_quote(eof);
+// 	}
+// 	if (open_here_doc(&here_doc, &here_doc_copy, file_name) == -1)
+// 		return (-1);
+// 	while ((line = readline(">")) != NULL)
+// 	{
+// 		if (sig_flag == 1)
+// 			return (sig_int_received(mini, here_doc, here_doc_copy));
+// 		if (ft_strcmp(line, eof))
+// 			break ;
+// 		if (ft_strchr(line, '$') && had_quote == false)
+// 			line = handle_env_var_for_here_doc(line, mini);
+// 		ft_putstr_fd(line, here_doc);
+// 		ft_putchar_fd('\n', here_doc);
+// 		free(line);
+// 	}
+// 	if (close(here_doc) == -1)
+// 		return (-1);
+// 	return (here_doc_copy);
+// }

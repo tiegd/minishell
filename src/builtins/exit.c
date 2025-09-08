@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 07:44:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:45:43 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	is_sign(char c)
 {
-	if (c == '-' || c == '+')
-		return (1);	
+	if (c == '-')
+		return (-1);
+	else if (c == '+')
+		return (1);
 	else
-		return (0);
+		return (1);
 }
 
 int	check_exit_argument(char *arg)
@@ -65,10 +67,9 @@ int	atoi_exit(char *nptr, t_gmalloc **head)
 	sign = 1;
 	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
 		i++;
-	if (is_sign(nptr[i]))
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		if (nptr[i] == '-')
-			sign = -1;
+		sign = is_sign(nptr[i]);
 		i++;
 	}
 	while (nptr[i] && ft_isdigit(nptr[i]))
@@ -88,16 +89,9 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
-	// printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
-		if (arg_count > 2)
-		{
-			ft_putstr_fd("minishell: exit : too many arguments\n", 2);
-			mini->exit_status = 1;
-			return ;
-		}
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
@@ -108,10 +102,14 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 			}
 			mini->exit_status = atoi_exit(args[1], head);
 		}
+		if (arg_count > 2)
+		{
+			ft_putstr_fd("minishell: exit : too many arguments\n", 2);
+			mini->exit_status = 1;
+			return ;
+		}
 	}
 	gb_free_all(head);
 	close_fds(mini->dup_std[0], mini->dup_std[1]);
-	// close(mini->dup_std[0]);
-	// close(mini->dup_std[1]);
 	exit(mini->exit_status);
 }

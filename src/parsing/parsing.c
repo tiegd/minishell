@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 15:20:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:02:04 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_add_suf(int j, char *str, char *args)
 	return (str);
 }
 
-char	*one_line_path(char **paths)
+char	*one_line_path(char **paths, t_gmalloc **head)
 {
 	char	*new_tab;
 	int		i;
@@ -89,7 +89,7 @@ char	*one_line_path(char **paths)
 		if (count <= 2)
 			i++;
 	}
-	new_tab = malloc((i + 1) * sizeof (char));
+	new_tab = gb_malloc((i + 1) * sizeof (char), head);
 	while (j < i)
 	{
 		new_tab[j] = paths[0][j];
@@ -109,10 +109,13 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 	int		j;
 
 	i = 0;
+	// if (cmd->args[0][0] == '\0')
+	// 	return (cmd->args);
 	if (cmd->args[0][0] == '~' && cmd->args[0][1] == '\0')
 	{
 		new_tab = malloc(2 * sizeof(char *));
-		new_tab[0] = one_line_path(paths);
+		new_tab[0] = one_line_path(paths, head);
+		new_tab[1] = NULL;
 	}
 	else
 	{
@@ -133,7 +136,7 @@ char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head)
 			i++;
 		}
 	}
-	free_split(paths, nb_path, head);
+	free_prompt(paths, head);
 	return (new_tab);
 }
 
@@ -173,7 +176,7 @@ int	open_for_each_redir(t_redir **head, t_cmd *cmd,t_mini *mini)
 	{
 		if (temp->type == HERE_DOC)
 		{
-			cmd->fd_here_doc = here_doc(mini, temp->filename, &mini->gmalloc);
+			cmd->fd_here_doc = create_here_doc(mini, temp->filename, &mini->gmalloc);
 			if (cmd->fd_here_doc <= 0)
 			{
 				if (cmd->fd_here_doc == -1)
@@ -222,16 +225,19 @@ int	ft_parsing(char *input, t_mini *mini)
 	prompt = ft_multi_split(input, &mini->gmalloc);
 	len_tab = count_tab(prompt);
 	mini->token = ft_tab_to_lst(prompt, len_tab, &mini->gmalloc);
-	mini->token = ft_handle_quote(mini->token);
-	// ft_print_lst(mini->token);
-	mini->cmd = ft_init_cmd(mini->token, &mini->gmalloc);
-	if (open_for_each_cmd(&mini->cmd, mini) != 0)
-		return (0);
-	unblock_sig_quit();
+	mini->token = ft_handle_quote(&mini->token);
 	mini->nb_pipe = ft_count_pipe(&mini->token);
+	mini->cmd = ft_init_cmd(&mini->token, &mini->gmalloc);
+	if (open_for_each_cmd(&mini->cmd, mini) != 0)
+	{
+		free_cmd(mini->cmd, &mini->gmalloc);
+		return (0);
+	}
+	unblock_sig_quit();
 	if (mini->nb_pipe > 0)
 		pipex(mini->cmd, mini, &mini->gmalloc);
 	else
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
+	free_cmd(mini->cmd, &mini->gmalloc);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 17:06:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 15:46:50 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char	*env_result(char *env, t_gmalloc **head)
 	char *res;
 
 	i = 0;
-	// res = NULL;
 	while (env[i] && env[i] != '=')
 		i++;
 	if (env[i] && env[i] == '=')
@@ -230,29 +229,28 @@ char	*expend_exit_status(char *arg, t_gmalloc **head, t_mini *mini)
 
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 {
-	// int	i;
 	char *expend;
-	// int	start;
-	// int len;
-	// char *temp;
 
-	// i = 0;
 	while (*arg != '\0' && *arg != '$')
 		arg++;
 	if (*arg == '$')
 		arg++;
+	if (!*arg)
+		return (NULL);
 	if (*arg == '?')
 	{
 		expend = expend_exit_status(arg, head, mini);
+		gfree(arg, head);
 		return (expend);
 	}
 	expend = extract_env(arg, env, head, mini);
 	if (!expend)
 	{
-		expend = gb_malloc(sizeof(char) + 1, head);
-		expend[0] = '\0';
+		expend = gb_malloc(sizeof(char) + 2, head);
+		expend[0] = DQ;
+		expend[1] = DQ;
+		expend[2] = '\0';
 	}
-	// free(temp);
-	// free(arg);
+	gfree(arg, head);
 	return (expend);
 }

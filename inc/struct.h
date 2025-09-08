@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/02 09:56:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 10:45:16 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_cmd
 	// t_redir			*outfiles;
 	int				type;
 	char			*pathname;
-	char			*expend;
+	// char			*expend;
 	int				nb_agrs;
 	int				outpipe;
 	int				fd_infile; //initialiser a STDIN si pas de redirection
@@ -90,5 +90,12 @@ typedef struct s_sort
 	int	j_min;
 	int	len;
 }t_sort;
+
+typedef struct s_heredoc
+{
+	int		here_doc;
+	int		here_doc_copy;
+	bool	had_quote;
+}t_heredoc;
 
 #endif

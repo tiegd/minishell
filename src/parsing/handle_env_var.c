@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 17:45:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/05 16:06:08 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ char	**split_parts(char *prompt, t_gmalloc **head)
 	{
 		extract = extract_text(prompt, &i, head);
 		if (extract)
+		{
 			parts[index++] = extract;
+		}
 		extract = extract_variable(prompt, &i, head);
 		if (extract)
+		{
 			parts[index++] = extract;
+		}
 	}
 	parts[index] = NULL;
 	return (parts);
@@ -118,14 +122,12 @@ int	skip_and_check_quotes(int *i, char *prev)
 }
 
 /*creer une fonction qui va faire en sorte de checker si l'argument avant est un <<*/
+
 int	is_eof(char	*prev)
 {
 	int	i;
-	bool here_doc;
 
 	i = 0;
-	here_doc = false;
-
 	if (skip_and_check_quotes(&i, prev))
 		return (0);
 	if (i > 1)
@@ -273,6 +275,5 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	if (!isolated)
 		return (NULL);
 	final = join_parts(isolated, &mini->gmalloc);
-	gfree(isolated, &mini->gmalloc);
 	return (final);
 }

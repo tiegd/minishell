@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 13:57:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:05:21 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Count the number of '|' in the prompt.
+
 int	ft_count_pipe(t_token **token)
 {
 	t_token	*tmp;

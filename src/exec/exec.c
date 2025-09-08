@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 22:47:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:49:16 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		mini->exit_status = 0;
 	}
 	if (ft_strcmp(cmd->args[0], "cd"))
-		cd(cmd->args, mini->env, head, mini);
+		cd(cmd->args, head, mini);
 	if (ft_strcmp(cmd->args[0], "pwd"))
 		pwd(STDOUT_FILENO, mini);
 	if (ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
@@ -36,7 +36,6 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	if (ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(cmd->args, mini, head);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);
-	gfree(cmd, head);
 	return (1);
 }
 
@@ -50,11 +49,11 @@ void	ft_dup_out(t_mini *mini)
 	close(mini->dup_std[1]);
 }
 
-void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 {
 	redir_one(cmd, mini);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);
-	if (!ft_exec_cmd(cmd, mini, head))
+	if (!ft_exec_cmd(cmd, mini, head, pid))
 		exit_tab(cmd, mini, 127, 0);
 }
 
@@ -76,7 +75,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (pid == -1)
 			exit_tab(cmd, mini, 127, 0);
 		if (pid == 0)
-			launch_one_child(cmd, mini, head);
+			launch_one_child(cmd, mini, head, pid);
 		wait_children(pid, mini);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
 		if (sig_flag != 0)
@@ -87,13 +86,15 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 }
 
 // Called by Pipex or ft_one_cmd.
-bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 {
 	if (is_builtin(cmd->args[0]))
 	{
 		if (!ft_exec_builtin(cmd, mini, head))
 			return (false);
 		ft_dup_out(mini);
+		if (pid == 0)
+			gb_free_all(head);
 	}
 	else if (!is_builtin(cmd->args[0]))
 	{
