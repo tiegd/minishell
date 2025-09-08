@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 16:20:31 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:53:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	*gb_malloc(size_t size, t_gmalloc **lst)
 	memory = malloc(size);
 	if (!memory)
 	{
+		rl_clear_history();
 		gb_free_all(lst);
 		exit(1);
 	}
@@ -86,6 +87,7 @@ void	*gb_malloc(size_t size, t_gmalloc **lst)
 	if (!new)
 	{
 		free(memory);
+		rl_clear_history();
 		gb_free_all(lst);
 		exit(1);
 	}

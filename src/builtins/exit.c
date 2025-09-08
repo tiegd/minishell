@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:15:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:45:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int arg_count;
 
-	printf("exit\n");
+	// printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
@@ -115,5 +115,6 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 	}
 	gb_free_all(head);
 	close_fds(mini->dup_std[0], mini->dup_std[1]);
+	rl_clear_history();
 	exit(mini->exit_status);
 }
