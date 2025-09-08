@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gb_lib.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 16:05:42 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:06:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*gb_substr(char const *s, unsigned int start, size_t len, t_gmalloc **head)
+char	*gb_substr(char const *s, unsigned int start,
+					size_t len, t_gmalloc **head)
 {
 	size_t			i;
 	char			*strtemp;
@@ -96,4 +97,33 @@ char	*gb_strjoin(char *s1, char *s2, t_gmalloc **head)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
+}
+
+char	*gb_itoa(int nb, t_gmalloc **head)
+{
+	char	*dest;
+	int		count;
+	int		n;
+	int		i;
+
+	n = nb;
+	count = count_size(n);
+	i = 0;
+	if (n < 0 || count == 0)
+		count++;
+	dest = gb_malloc(((count + 1) * sizeof(char)), head);
+	if (n < 0)
+	{
+		n *= -1;
+		dest[0] = '-';
+		i++;
+	}
+	dest[count] = '\0';
+	while (count > i)
+	{
+		count--;
+		dest[count] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (dest);
 }

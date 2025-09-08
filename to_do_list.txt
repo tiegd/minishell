@@ -160,3 +160,5 @@ mettre a jour le path ou pas le créer quand c'est lancé sans environnement. �
 
 Si on en voit sigint au here doc il n'execute pas la commande ou le here doc se trouve 
 mais il execute quand meme la commande du pipe suivant.
+
+tester export bonjour=ca=va

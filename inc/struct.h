@@ -3,28 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 10:45:16 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 17:16:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
-#define STRUCT_H
+# define STRUCT_H
 
-#include <stdbool.h>
-
-// typedef struct s_env
-// {
-// 	char			*var;
-// 	struct s_env	*next;
-// }t_env;
+# include <stdbool.h>
 
 typedef struct s_token
 {
 	char			*content;
-	int 			type;
+	int				type;
 	struct s_token	*next;
 }					t_token;
 
@@ -38,22 +32,15 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;
-	char			**paths; //array of string that include path + cmd
+	char			**paths;
 	t_redir			*redir;
-	// t_redir			*infiles;
-	// t_redir			*outfiles;
 	int				type;
 	char			*pathname;
-	// char			*expend;
 	int				nb_agrs;
 	int				outpipe;
-	int				fd_infile; //initialiser a STDIN si pas de redirection
-	int				fd_outfile; //initialiser a STDOUT si pas de redirection
+	int				fd_infile;
+	int				fd_outfile;
 	int				fd_here_doc;
-	int				quote; //1 si c'est single quote | 2 si c'est double | 0 s'il y en a pas
-	bool			valid;
-	bool			is_env_var; //si c'est une variable d'environnement.
-	bool			malloc_error;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -61,7 +48,7 @@ typedef struct s_gmalloc
 {
 	void				*memory;
 	struct s_gmalloc	*next;
-}t_gmalloc;
+}						t_gmalloc;
 
 typedef struct s_input
 {
@@ -70,7 +57,7 @@ typedef struct s_input
 	int		count;
 	int		sq;
 	int		dq;
-}t_input;
+}			t_input;
 
 typedef struct s_mini
 {
@@ -81,7 +68,7 @@ typedef struct s_mini
 	int			nb_pipe;
 	int			exit_status;
 	char		**env;
-}t_mini;
+}				t_mini;
 
 typedef struct s_sort
 {
@@ -89,13 +76,13 @@ typedef struct s_sort
 	int	j;
 	int	j_min;
 	int	len;
-}t_sort;
+}		t_sort;
 
 typedef struct s_heredoc
 {
 	int		here_doc;
 	int		here_doc_copy;
 	bool	had_quote;
-}t_heredoc;
+}			t_heredoc;
 
 #endif

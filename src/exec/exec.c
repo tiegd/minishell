@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/05 11:49:16 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:16:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			launch_one_child(cmd, mini, head, pid);
 		wait_children(pid, mini);
 		close_fds(cmd->fd_infile, cmd->fd_outfile);
-		if (sig_flag != 0)
+		if (g_sig_flag != 0)
 			write(STDOUT_FILENO, "\n", 1);
 	}
 	else

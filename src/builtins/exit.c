@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 15:45:43 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:36:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	atoi_exit(char *nptr, t_gmalloc **head)
 
 void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
-	int arg_count;
+	int	arg_count;
 
 	if (args && *args)
 	{

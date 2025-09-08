@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 11:43:36 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 12:01:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	print_not_valid_identifier(char *str)
 {
-	ft_putstr_fd("minishell: export: '",2);
+	ft_putstr_fd("minishell: export: '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
 void	print_no_such_file(char *str)
 {
-	ft_putstr_fd("minishell: ",2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
 void	print_error_exit_arg(char *str)
 {
-	ft_putstr_fd("minishell: ",2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 }

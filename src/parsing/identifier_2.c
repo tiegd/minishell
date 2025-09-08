@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identifier_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 16:06:39 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:23:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	is_redir(char c)
 
 /*isalnum où le '_' est autorisé*/
 
-int	exp_isalnum(int c) 
+int	exp_isalnum(int c)
 {
 	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (1);

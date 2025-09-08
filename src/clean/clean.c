@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 14:47:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 12:02:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@
 void	free_token(t_token *lst, t_gmalloc **head)
 {
 	t_token	*tmp;
-	int i = 1;
 
 	if (lst)
 	{
 		while (lst)
 		{
-			// printf("token free = %d\n", i);
 			tmp = lst;
-    		lst = lst->next;
-	    	gfree(tmp->content, head);
-		    gfree(tmp, head);
-			i++;
+			lst = lst->next;
+			gfree(tmp->content, head);
+			gfree(tmp, head);
 		}
 	}
 }
@@ -79,8 +76,6 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 		cmd = cmd->next;
 		if (tmp->args)
 			free_prompt(tmp->args, head);
-		// if (tmp->paths)
-		// 	free_prompt(tmp->paths, head);
 		if (tmp->pathname)
 			gfree(tmp->pathname, head);
 		gfree(tmp, head);

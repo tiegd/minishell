@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 22:58:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:58:55 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,22 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 	cmd->pathname = NULL;
 	if (cmd->args[0][0] == '.')
 		return (0);
-	while (cmd->paths[i] != NULL)
+	if (cmd->paths)
 	{
-		if (access(cmd->paths[i], F_OK) == 0)
+		while (cmd->paths[i] != NULL)
 		{
-			if (access(cmd->paths[i], X_OK) != 0)
+			if (access(cmd->paths[i], F_OK) == 0)
 			{
-				put_error(mini, cmd->args[0], "Permission denied", 126);
-				return (0);
+				if (access(cmd->paths[i], X_OK) != 0)
+				{
+					put_error(mini, cmd->args[0], "Permission denied", 126);
+					return (0);
+				}
+				cmd->pathname = cmd->paths[i];
+				return (1);
 			}
-			cmd->pathname = cmd->paths[i];
-			return (1);
+			i++;
 		}
-		i++;
 	}
 	put_error(mini, cmd->args[0], "Command not found", 127);
 	return (0);

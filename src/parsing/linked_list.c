@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/05 16:07:26 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:52:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 	return (lst);
 }
 
- /* Verifie la commande entré en argument,
- renvoi 1 si c'est un builtin ou 0 si ca ne l'est pas*/
- 
+/* Checks the command entered as an argument.
+Returns 1 if it's a built-in command, or 0 if it's not.*/
+
 int	is_builtin(char *content)
 {
 	if (content)
@@ -73,8 +73,8 @@ int	is_builtin(char *content)
 	return (0);
 }
 
-/*Defini le type de chaques tokens de la liste passé en argument
-et rempli la variable "type" de chaque noeud de la liste*/
+/*Defines the type of each token in the list passed as an argument and 
+fills the "type" variable of each node in the list.*/
 
 void	define_type(t_token *lst)
 {
@@ -101,43 +101,14 @@ void	define_type(t_token *lst)
 	}
 }
 
-// /*Defini le type de chaques tokens de la liste passé en argument
-// et rempli la variable "type" de chaque noeud de la liste*/
-// void	define_type(t_token *lst)
-// {
-// 	while (lst != NULL)
-// 	{
-// 		if (ft_strcmp(lst->content, "|"))
-// 			lst->type = PIPE;
-// 		else if (ft_strcmp(lst->content, "<"))
-// 			lst->type = INPUT;
-// 		else if (ft_strcmp(lst->content, ">"))
-// 			lst->type = OUTPUT;
-// 		else if (ft_strcmp(lst->content, ">>"))
-// 			lst->type = APPEND;
-// 		else if (ft_strcmp(lst->content, "<<"))
-// 			lst->type = HERE_DOC;
-// 		else if (ft_strchr(lst->content, '$'))
-// 			lst->type = VAR;
-// 		else if (ft_strchr(lst->content, '/'))
-// 			lst->type = PATH;
-// 		else
-// 			lst->type = ARGS;
-// 		if (lst->type == HERE_DOC)
-// 			lst->next->type = HERE_DOC;
-// 		lst = lst->next;
-// 	}
-// }
-
 // Move each element of the prompt in a linked list.
 
-t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
+t_token	*tab_to_lst(char **prompt, t_gmalloc **head)
 {
 	t_token	*lst;
 	int		i;
 	int		len;
-	(void)len_tab;
-	
+
 	i = 0;
 	lst = NULL;
 	while (prompt[i])
@@ -146,26 +117,6 @@ t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
 		lst = ft_lst_addback(lst, prompt[i], len, head);
 		i++;
 	}
-	// free_prompt(prompt, head);
 	define_type(lst);
 	return (lst);
 }
-
-// // Move each element of the prompt in a linked list.
-// t_token	*ft_tab_to_lst(char **prompt, int len_tab, t_gmalloc **head)
-// {
-// 	t_token	*lst;
-// 	int		i;
-// 	int		len;
-	
-// 	i = 0;
-// 	lst = NULL;
-// 	while (i < len_tab)
-// 	{
-// 		len = ft_strlen(prompt[i]);
-// 		lst = ft_lst_addback(lst, prompt[i], len, head);
-// 		i++;
-// 	}
-// 	define_type(lst);
-// 	return (lst);
-// }

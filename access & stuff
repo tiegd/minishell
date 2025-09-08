@@ -1,6 +1,0 @@
-On check si il y a un '/' comme ca on a juste a regarder si il est accessible et si il est executable.
-
-Si il n'y a pas de '/' on check si il existe une array de path et on test avec chaque pour voir lequel est le bon.
-
-Si paths est null on copy l'argument dans pathname et 
-on regarde si il existe ou si il est executable(renvoyer une erreur en fonction).

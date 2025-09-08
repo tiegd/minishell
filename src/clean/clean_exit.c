@@ -6,25 +6,11 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 22:57:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 12:03:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	exit_pid_error(int *pipefd, t_cmd *cmd)
-// {
-// 	if (pipefd[0] > 0)
-// 		close(pipefd[0]);
-// 	if (pipefd[1] > 0)
-// 		close(pipefd[1]);
-// 	if (cmd->fd_infile > 0)
-// 		close(cmd->fd_outfile);
-// 	if (cmd->fd_outfile > 0)
-// 		close(cmd->fd_outfile);
-// 	perror("Error");
-// 	exit(EXIT_FAILURE);
-// }
 
 void	exit_pid_error(int *pipefd, t_mini *mini)
 {
@@ -40,13 +26,6 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 	perror("Error");
 	exit(EXIT_FAILURE);
 }
-
-// void	exit_tab(t_cmd *cmd, int code)
-// {
-// 	(void)cmd;
-// 	// free_cmd(cmd, head);
-// 	exit(code);
-// }
 
 void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd)
 {
@@ -74,5 +53,5 @@ int	str_return(char *str, int exit_status, t_mini *mini)
 {
 	ft_putstr_fd(str, 2);
 	mini->exit_status = exit_status;
-	return(0);
+	return (0);
 }

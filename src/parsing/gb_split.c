@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:02:30 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 14:50:03 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 12:04:34 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	**my_strdup(char **tabf, char const *s, char c, t_gmalloc **head)
 	int	index;
 	int	start;
 	int	j;
-	int word;
+	int	word;
 
 	i = 0;
 	j = 0;
@@ -76,6 +76,5 @@ char	**gb_split(char *s, char c, t_gmalloc **head)
 	tabf = gb_malloc((sizeof(char *) * (word + 1)), head);
 	tabf = my_strdup(tabf, s, c, head);
 	tabf[word] = NULL;
-	// free(s);
 	return (tabf);
 }
