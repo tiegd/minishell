@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 15:51:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/08 17:21:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	init_mini(t_mini *mini, char **env)
 int	main(int ac, char **av, char **env)
 {
 	char				*line;
-	char				*line_1;
+	// char				*line_1;
 	t_mini				mini;
 	(void)ac;
 	(void)av;
 
-	// check_interactive_mode();
+	check_interactive_mode();
 	set_sig_action();
 	block_sig_quit();
 	init_mini(&mini, env);
@@ -69,21 +69,21 @@ int	main(int ac, char **av, char **env)
 	{
 		sig_flag = 0;
 		block_sig_quit();
-		if (isatty(STDIN_FILENO) != 0)
-		{
-			line = readline("minicrotte ~ ");
+		// if (isatty(STDIN_FILENO) != 0)
+		// {
+			line = readline("minishell Drucker 8==D~ ");
 			if (sig_flag == 1)
 			{
 				mini.exit_status = 130;
 				continue ;
 			}
-		}
-		else
-		{
-			line_1 = get_next_line(STDIN_FILENO);
-			line = ft_strtrim(line_1, "\n");
-			free(line_1);
-		}
+		// }
+		// else
+		// {
+			// line_1 = get_next_line(STDIN_FILENO);
+			// line = ft_strtrim(line_1, "\n");
+			// free(line_1);
+		// }
 		if (!line)
 			ft_exit(NULL, &mini, &mini.gmalloc);
 		if (*line)
