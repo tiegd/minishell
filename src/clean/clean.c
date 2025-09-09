@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 14:47:07 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 08:25:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ void	free_token(t_token *lst, t_gmalloc **head)
 		{
 			// printf("token free = %d\n", i);
 			tmp = lst;
-    		lst = lst->next;
-	    	gfree(tmp->content, head);
-		    gfree(tmp, head);
-			i++;
+			lst = lst->next;
+			gfree(tmp->content, head);
+			gfree(tmp, head);
 		}
 	}
 }
@@ -79,8 +78,6 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 		cmd = cmd->next;
 		if (tmp->args)
 			free_prompt(tmp->args, head);
-		// if (tmp->paths)
-		// 	free_prompt(tmp->paths, head);
 		if (tmp->pathname)
 			gfree(tmp->pathname, head);
 		gfree(tmp, head);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:07:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:21:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_sign(char c)
 	else if (c == '+')
 		return (1);
 	else
-		return (0);
+		return (1);
 }
 
 int	check_exit_argument(char *arg)
@@ -90,7 +90,7 @@ int	atoi_exit(char *nptr, t_gmalloc **head)
 
 void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
-	int arg_count;
+	int	arg_count;
 
 	printf("exit\n");
 	if (args && *args)

@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   handle_sig_int.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 13:38:44 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:11:41 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/09/08 16:16:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	event_hook(void)
 {
-	size_t			s_len;
-	unsigned char	char1;
+	return (0);
+}
 
-	char1 = (unsigned char)c;
-	s_len = ft_strlen(s);
-	if (char1 == '\0')
-		return ((char *)&s[s_len]);
-	while (s_len > 0)
+void	handle_sig(int sig)
+{
+	if (sig == SIGINT)
 	{
-		if (s[s_len] == char1)
-			return ((char *)&s[s_len]);
-		s_len--;
+		g_sig_flag = 1;
+		rl_done = 1;
 	}
-	if (s[0] == char1)
-		return ((char *)&s[0]);
-	return (NULL);
+}
+
+void	set_sig_action(void)
+{
+	struct sigaction	sig_int;
+
+	ft_bzero(&sig_int, sizeof(sig_int));
+	sig_int.sa_handler = &handle_sig;
+	sigaction(SIGINT, &sig_int, NULL);
+	rl_event_hook = event_hook;
 }

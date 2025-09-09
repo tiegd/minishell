@@ -6,17 +6,18 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 16:27:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:02:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		skip_white_space(char *s, t_input *in)
+void	skip_white_space(char *s, t_input *in)
 {
 	if (is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
 	{
-		while (s[in->i] && is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
+		while (s[in->i] && is_ws(s[in->i])
+			&& in->sq % 2 == 0 && in->dq % 2 == 0)
 			(in->i)++;
 		in->index = in->i;
 	}

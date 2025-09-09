@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 16:07:02 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:35:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*remplir les redirections*/
 
-t_redir		*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
+static t_redir	*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 {
 	t_redir	*new;
 	t_redir	*temp;
@@ -33,7 +33,7 @@ t_redir		*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 }
 
 /*ajoute le nouveau noeud à la liste chainée*/
-void	cmd_add_back(t_cmd **head, t_cmd *new_node)
+static void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 {
 	t_cmd	*temp;
 
@@ -52,7 +52,7 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 
 /*creer une nouveau noeud commande pour la list chainé*/
 
-t_cmd *new_cmd(t_gmalloc **gmalloc)
+static t_cmd	*new_cmd(t_gmalloc **gmalloc)
 {
 	t_cmd	*new;
 
@@ -68,33 +68,8 @@ t_cmd *new_cmd(t_gmalloc **gmalloc)
 	return (new);
 }
 
-/*compte le nombre d'args qu'il y a dans le prompt rentré*/
-
-int		count_args(t_token	*token)
-{
-	int count;
-
-	count = 0;
-	while (token)
-	{
-		if (token->type == APPEND || token->type == HERE_DOC 
-			|| token->type == INPUT || token->type == OUTPUT)
-			token = token->next->next;
-		else if (token && token->type == PIPE)
-			token = token->next;
-		else if (token)
-		{
-			count++;
-			token = token->next;
-		}
-		else
-			break;
-	}
-	return (count);
-}
-
-
 /*initialiser chaque commande en séparant les infiles des arguments*/
+
 static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 {
 	int	i;
@@ -102,8 +77,8 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	i = 0;
 	while (*token != NULL && (*token)->type != PIPE)
 	{
-		if ((*token)->type == OUTPUT || (*token)->type == APPEND 
-		|| (*token)->type == HERE_DOC || (*token)->type == INPUT)
+		if ((*token)->type == OUTPUT || (*token)->type == APPEND
+			|| (*token)->type == HERE_DOC || (*token)->type == INPUT)
 		{
 			cmd->redir = add_redir(cmd->redir, *token, head);
 			*token = (*token)->next->next;
@@ -124,41 +99,13 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	cmd->args[i] = NULL;
 }
 
-// /*initialiser chaque commande en séparant les infiles des arguments*/
-// static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (*token != NULL && (*token)->type != PIPE)
-// 	{
-// 		if ((*token)->type == OUTPUT || (*token)->type == APPEND)
-// 		{
-// 			cmd->outfiles = add_redir(cmd->outfiles, *token, head);
-// 			*token = (*token)->next->next;
-// 		}
-// 		else if ((*token)->type == HERE_DOC || (*token)->type == INPUT)
-// 		{
-// 			cmd->infiles = add_redir(cmd->infiles, *token, head);
-// 			*token = (*token)->next->next;
-// 		}
-// 		else
-// 		{
-// 			cmd->args[i] = gb_strdup((*token)->content, head);
-// 			i++;
-// 			*token = (*token)->next;
-// 		}
-// 	}
-// 	cmd->args[i] = NULL;
-// }
-
 /*initialiser chaque commande en les divisant par pipe*/
 
-t_cmd	*ft_init_cmd(t_token **token, t_gmalloc **gmalloc)
+t_cmd	*init_cmd(t_token **token, t_gmalloc **gmalloc)
 {
 	t_cmd	*head;
 	t_cmd	*cmd;
-	t_token *token_head;
+	t_token	*token_head;
 	int		n_args;
 
 	head = NULL;

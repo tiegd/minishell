@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   identifier_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 13:38:44 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:11:41 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/09/08 14:05:10 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/09/08 14:28:52 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	is_operator(char c)
 {
-	size_t			s_len;
-	unsigned char	char1;
+	if (c == '|' || c == '&')
+		return (1);
+	return (0);
+}
 
-	char1 = (unsigned char)c;
-	s_len = ft_strlen(s);
-	if (char1 == '\0')
-		return ((char *)&s[s_len]);
-	while (s_len > 0)
+/*creer une fonction qui va faire en sorte de checker 
+si l'argument avant est un <<*/
+
+int	is_eof(char	*prev)
+{
+	int	i;
+
+	i = 0;
+	if (skip_and_check_quotes(&i, prev))
+		return (0);
+	if (i > 1)
 	{
-		if (s[s_len] == char1)
-			return ((char *)&s[s_len]);
-		s_len--;
+		while (i > 0)
+		{
+			if (is_here_doc(prev[i], prev[i - 1]))
+				return (1);
+			i--;
+		}
 	}
-	if (s[0] == char1)
-		return ((char *)&s[0]);
-	return (NULL);
+	return (0);
 }

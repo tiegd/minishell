@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/05 10:20:41 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:31:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ void	pipex(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		i++;
 		cmd = cmd->next;
 	}
-	if (sig_flag != 0)
+	if (g_sig_flag != 0)
 		write(STDOUT_FILENO, "\n", 1);
 }

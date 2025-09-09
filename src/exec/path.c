@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:28:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 14:54:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:30:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ int	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	int		nb_path;
 
 	line = ft_path_line(mini->env, head);
-	if (!(line))
+	if (!line)
 	{
-		manage_error_exec(mini->cmd, mini);
+		if (manage_error_exec(mini->cmd, mini) == 1)
+			return (0);
 		cmd->pathname = cmd->args[0];
-		return (0);
+		return (1);
 	}
 	cmd->paths = gb_split(line, ':', head);
 	nb_path = ft_nb_path(cmd->paths);

@@ -6,13 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 17:21:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:20:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	sig_flag = 0;
+int	g_sig_flag = 0;
 
 char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {
@@ -44,6 +44,7 @@ void	check_interactive_mode(void)
 void	init_mini(t_mini *mini, char **env)
 {
 	mini->gmalloc = NULL;
+	mini->cmd = NULL;
 	if (!*env || !env)
 		mini->env = env_dash_i(&mini->gmalloc);
 	else
@@ -67,17 +68,17 @@ int	main(int ac, char **av, char **env)
 	init_mini(&mini, env);
 	while (1)
 	{
-		sig_flag = 0;
+		g_sig_flag = 0;
 		block_sig_quit();
-		// if (isatty(STDIN_FILENO) != 0)
-		// {
-			line = readline("minishell Drucker 8==D~ ");
-			if (sig_flag == 1)
+		if (isatty(STDIN_FILENO) != 0)
+		{
+			line = readline("minicrotte ~ ");
+			if (g_sig_flag == 1)
 			{
 				mini.exit_status = 130;
 				continue ;
 			}
-		// }
+		}
 		// else
 		// {
 			// line_1 = get_next_line(STDIN_FILENO);
@@ -94,40 +95,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-
-// int	main(int ac, char **av, char **env)
-// {
-// 	struct sigaction	sa_ctrl_c;
-// 	// struct sigaction	sa_ctrl_d;
-// 	char				*line;
-// 	t_mini				mini;
-// 	(void)ac;
-// 	(void)av;
-
-// 	if (isatty(STDIN_FILENO) == 0)
-// 	{
-// 		ft_putstr_fd("Please launch minishell in interactive mode.\n", 2);
-// 		exit(1);
-// 	}
-	// sa_ctrl_c.sa_handler = &handle_ctrl_c;
-// 	sigemptyset(&sa_ctrl_c.sa_mask);
-// 	sa_ctrl_c.sa_flags = SA_RESTART;
-// 	mini.gmalloc = NULL;
-// 	if (!*env || !env)
-// 		mini.env = env_dash_i(&mini.gmalloc);
-// 	else
-// 		mini.env = dup_env(env, &mini.gmalloc);
-// 	sigaction(SIGINT, &sa_ctrl_c, NULL);
-// 	mini.exit_status = 0;
-// 	while ((line = readline(GREEN"minizeub > "RESET)) != NULL)
-// 	{
-// 		if (*line)
-// 			add_history(line);
-// 		if (ft_parsing(line, &mini))
-// 			return (1);
-// 		free(line);
-// 	}
-// 	if (!line)
-// 		ft_exit(NULL, 0, &mini.gmalloc);
-// 	return (0);
-// }

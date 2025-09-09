@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 15:37:55 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:21:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-//recuperer la variable d'environnement et la print dans le fd passsé en paramètre.
+/*recuperer la variable d'environnement et la print dans 
+le fd passsé en paramètre.*/
 
 void	ft_env(char **env, int fd, t_mini *mini)
 {

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 17:09:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:31:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Count the number of '|' in the prompt.
 
-int	ft_count_pipe(t_token **token)
+int	count_pipe(t_token **token)
 {
 	t_token	*tmp;
 	int		count;
@@ -35,15 +35,15 @@ void	wait_children(pid_t pid_last, t_mini *mini)
 	int	status;
 
 	waitpid(pid_last, &status, 0);
-	if (sig_flag == 0 && WIFEXITED(status) != 0)
+	if (WIFEXITED(status) != 0 && g_sig_flag == 0)
 		mini->exit_status = WEXITSTATUS(status);
-	if (sig_flag == 2)
-		mini->exit_status = 131;
-	if (sig_flag == 1)
-		mini->exit_status = 130;
 	while (1)
 	{
 		if (wait(NULL) == -1)
 			break ;
 	}
+	if (g_sig_flag == 2)
+		mini->exit_status = 131;
+	if (g_sig_flag == 1)
+		mini->exit_status = 130;
 }

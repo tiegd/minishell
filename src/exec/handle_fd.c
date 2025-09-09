@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/05 12:01:27 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:29:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	open_redir(t_cmd *cmd, t_mini *mini)
 
 int	ft_open_fd(t_cmd *cmd, t_mini *mini)
 {
-	t_redir *temp;
+	t_redir	*temp;
 
 	cmd->fd_infile = 0;
 	cmd->fd_outfile = 1;

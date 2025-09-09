@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   init_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 13:38:44 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:11:41 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/09/08 12:35:07 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/09/08 13:45:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	count_args(t_token	*token)
 {
-	size_t			s_len;
-	unsigned char	char1;
+	int	count;
 
-	char1 = (unsigned char)c;
-	s_len = ft_strlen(s);
-	if (char1 == '\0')
-		return ((char *)&s[s_len]);
-	while (s_len > 0)
+	count = 0;
+	while (token)
 	{
-		if (s[s_len] == char1)
-			return ((char *)&s[s_len]);
-		s_len--;
+		if (token->type == APPEND || token->type == HERE_DOC
+			|| token->type == INPUT || token->type == OUTPUT)
+			token = token->next->next;
+		else if (token && token->type == PIPE)
+			token = token->next;
+		else if (token)
+		{
+			count++;
+			token = token->next;
+		}
+		else
+			break ;
 	}
-	if (s[0] == char1)
-		return ((char *)&s[0]);
-	return (NULL);
+	return (count);
 }
