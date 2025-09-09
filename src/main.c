@@ -6,13 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 16:23:24 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:05:05 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_sig_flag = 0;
+int g_sig_flag = 0;
 
 char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {
@@ -62,7 +62,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	// check_interactive_mode();
+	check_interactive_mode();
 	set_sig_action();
 	block_sig_quit();
 	init_mini(&mini, env);

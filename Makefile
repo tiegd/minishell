@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/09 12:02:01 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/09 15:43:03 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ DEPS =   $(OBJ:.o=.d)
 all: .print_header $(BIN) libs $(NAME)
 
 libs:
-	$(MAKE) -C Libft
+	$(MAKE) -s -C Libft
 
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline

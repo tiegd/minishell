@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 17:10:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:46:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@ void	wait_children(pid_t pid_last, t_mini *mini)
 {
 	int	status;
 
+	status = 0;
 	waitpid(pid_last, &status, 0);
-	if (WIFEXITED(status) != 0 && g_sig_flag == 0)
+	if (WIFEXITED(status) != 0)
 		mini->exit_status = WEXITSTATUS(status);
+	if (g_sig_flag == 2)
+		mini->exit_status = 131;
+	if (g_sig_flag == 1)
+		mini->exit_status = 130;
+	block_sig_quit();
+	block_sig_int();
 	while (1)
 	{
 		if (wait(NULL) == -1)
 			break ;
 	}
-	if (g_sig_flag == 2)
-		mini->exit_status = 131;
-	if (g_sig_flag == 1)
-		mini->exit_status = 130;
+	set_sig_action();
 }

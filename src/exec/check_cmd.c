@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:58:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:55:02 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 /*Verify if the cmd can be executed, return 1 if it can or 0 if it can´t*/
 int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
+	if (is_builtin(cmd->args[0]))
+		return (1);
 	if (!cmd->args[0])
 		return (0);
 	if (ft_strchr(cmd->args[0], '/') || ft_strchr(cmd->args[0], '.'))

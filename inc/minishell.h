@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 09:59:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:31:43 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ enum e_types
 extern int	g_sig_flag;
 
 /*-----added-----------*/
+
 void	print_error_here_doc(char *eof);
 
 /*----------PARSING----------*/
@@ -78,6 +79,8 @@ char	**env_dash_i(t_gmalloc **head);
 /*--------SIGNALS-----------*/
 
 void	handle_sig(int sig);
+void	handle_quit(int sig);
+void	block_sig_int(void);
 void	set_sig_action(void);
 void	unblock_sig_quit(void);
 void	block_sig_quit(void);
