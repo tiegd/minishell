@@ -6,13 +6,13 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:22:29 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 18:25:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 08:25:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*one_line_path(char **paths, t_gmalloc **head)
+static char	*one_line_path(char **paths, t_gmalloc **head)
 {
 	char	*new_tab;
 	int		i;
@@ -39,7 +39,7 @@ char	*one_line_path(char **paths, t_gmalloc **head)
 	return (new_tab);
 }
 
-char	**is_home(char **paths, t_gmalloc **head)
+static char	**is_home(char **paths, t_gmalloc **head)
 {
 	char	**new_tab;
 

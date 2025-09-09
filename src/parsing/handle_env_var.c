@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:21:43 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:43:38 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	*fill_tab_quote(char *prompt, t_gmalloc **head)
 	return (tab);
 }
 
-char	*join_parts(char **str_tab, t_gmalloc **head)
+char	*join_parts(char **str_tab, int len_array, t_gmalloc **head)
 {
 	int		i;
 	char	*res;
@@ -81,7 +81,7 @@ char	*join_parts(char **str_tab, t_gmalloc **head)
 	i = 0;
 	res = gb_malloc(sizeof(char), head);
 	res[0] = '\0';
-	while (str_tab[i])
+	while (i < len_array)
 	{
 		res = gb_strjoin_custom(res, str_tab[i], head);
 		i++;
@@ -95,13 +95,15 @@ char	*handle_env_var(char *prompt, t_mini *mini)
 	char	**isolated;
 	char	*final;
 	int		*quote_dollars;
+	int		len_array;
 
 	isolated = split_parts(prompt, &mini->gmalloc);
+	len_array = count_tab(isolated);
 	quote_dollars = fill_tab_quote(prompt, &mini->gmalloc);
 	isolated = expend_each_var(isolated, mini->env, quote_dollars, mini);
 	gfree(quote_dollars, &mini->gmalloc);
 	if (!isolated)
 		return (NULL);
-	final = join_parts(isolated, &mini->gmalloc);
+	final = join_parts(isolated, len_array, &mini->gmalloc);
 	return (final);
 }

@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/08 18:29:56 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/09 12:02:01 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ SRC =	main.c \
 		exec/redir.c \
 		exec/path.c \
 		exec/add_cmd_to_path.c \
-		parsing/print_for_help.c \
 		parsing/env_dash_i.c \
 		parsing/handle_env_var.c \
 		parsing/handle_env_var_utils.c \
@@ -95,7 +94,7 @@ DEPS =   $(OBJ:.o=.d)
 all: .print_header $(BIN) libs $(NAME)
 
 libs:
-	$(MAKE) -s -C Libft
+	$(MAKE) -C Libft
 
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline

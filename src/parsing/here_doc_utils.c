@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:58:58 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 13:59:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:45:47 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	dir_is_valid(const char *dirname)
 	dir = opendir(dirname);
 	if (dir != NULL)
 	{
-		closedir(dir);
+		if (closedir(dir) == -1)
+			return (-1);
 		return (1);
 	}
 	else

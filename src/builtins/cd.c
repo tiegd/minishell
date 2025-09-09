@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 11:32:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:16:58 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	update_pwd(t_mini *mini, t_gmalloc **head)
 		return ;
 	final = gb_strjoin("PWD=", new_pwd, head);
 	gfree(new_pwd, head);
-	ft_export(mini->env, final, mini, head);
+	mini->env = ft_export(mini->env, final, mini, head);
 }
 
 void	cd(char	**args, t_gmalloc **head, t_mini *mini)

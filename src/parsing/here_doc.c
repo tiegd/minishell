@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:16:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:55:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	sig_int_received(t_mini *mini, int here_doc, int here_doc_copy)
 {
-	close(here_doc);
-	close(here_doc_copy);
+	if (close(here_doc) == -1)
+		return (-1);
+	if (close(here_doc_copy) == -1)
+		return (-1);
 	mini->exit_status = 130;
 	return (-2);
 }
@@ -44,14 +46,14 @@ int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 			return (sig_int_received(mini, hd->here_doc, hd->here_doc_copy));
 		if (!line)
 		{
-			ft_putstr_fd("minishell: warning: delimited \
-by end-of-file (wanted '", 2);
-			ft_putstr_fd(eof, 2);
-			ft_putstr_fd("')\n", 2);
+			print_error_here_doc(eof);
 			break ;
 		}
 		if (ft_strcmp(line, eof))
+		{
+			free(line);
 			break ;
+		}
 		if (ft_strchr(line, '$') && hd->had_quote == false)
 			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, hd->here_doc);
@@ -64,6 +66,7 @@ by end-of-file (wanted '", 2);
 int	create_here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 {
 	char		*file_name;
+	int			check_read;
 	t_heredoc	hd;
 
 	hd.had_quote = false;
@@ -77,8 +80,11 @@ int	create_here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 	}
 	if (open_here_doc(&hd.here_doc, &hd.here_doc_copy, file_name) == -1)
 		return (-1);
-	if (read_here_doc(&hd, eof, mini) == -2)
+	check_read = read_here_doc(&hd, eof, mini);
+	if (check_read == -2)
 		return (-2);
+	else if (check_read == -1)
+		return (-1);
 	if (close(hd.here_doc) == -1)
 		return (-1);
 	return (hd.here_doc_copy);
