@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:28:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:31:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		g_sig_flag = 0;
-		block_sig_quit();
 		line = readline("minishell Platini ~ ");
 		if (g_sig_flag == 1)
 		{

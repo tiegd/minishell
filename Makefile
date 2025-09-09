@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/09 13:09:35 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/09 17:51:14 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT)
 
 INCLUDE = inc
 
@@ -94,13 +94,10 @@ DEPS =   $(OBJ:.o=.d)
 all: .print_header $(BIN) libs $(NAME)
 
 libs:
-	$(MAKE) -C Libft
+	$(MAKE) -s -C Libft
 
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline
-
-# $(BIN)%.o: $(DIR_SRC)%.c | $(BIN)
-# 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BIN)%.o: $(DIR_SRC)%.c
 	@mkdir -p $(dir $@)
@@ -108,9 +105,6 @@ $(BIN)%.o: $(DIR_SRC)%.c
 
 $(BIN):
 	mkdir -p $(BIN)
-
-# %.o : %.c Makefile $(LIBS)
-# 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(MAKE) -s clean -C Libft

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:23:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:51:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ enum e_types
 extern int	g_sig_flag;
 
 /*-----added-----------*/
+
 void	print_error_here_doc(char *eof);
 
 /*--------SIGNALS-----------*/
 
 void	handle_sig(int sig);
+void	handle_quit(int sig);
+void	block_sig_int(void);
 void	set_sig_action(void);
 void	unblock_sig_quit(void);
 void	block_sig_quit(void);
