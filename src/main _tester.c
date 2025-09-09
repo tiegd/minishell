@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 12:14:14 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:06:45 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,37 @@ void	init_mini(t_mini *mini, char **env)
 	mini->dup_std[1] = 0;
 }
 
-void	init_start(t_mini *mini, char **env)
-{
-	check_interactive_mode();
-	set_sig_action();
-	block_sig_quit();
-	init_mini(mini, env);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char				*line;
+	// char				*line_1;
 	t_mini				mini;
+	(void)ac;
+	(void)av;
 
-	ac = 0;
-	av = NULL;
-	init_start(&mini, env);
+	check_interactive_mode();
+	set_sig_action();
+	block_sig_quit();
+	init_mini(&mini, env);
 	while (1)
 	{
 		g_sig_flag = 0;
 		block_sig_quit();
-		line = readline("minishell Platini ~ ");
-		if (g_sig_flag == 1)
+		if (isatty(STDIN_FILENO) != 0)
 		{
-			mini.exit_status = 130;
-			continue ;
+			line = readline("minishell Platini ~ ");
+			if (g_sig_flag == 1)
+			{
+				mini.exit_status = 130;
+				continue ;
+			}
 		}
+		// else
+		// {
+			// line_1 = get_next_line(STDIN_FILENO);
+			// line = ft_strtrim(line_1, "\n");
+			// free(line_1);
+		// }
 		if (!line)
 			ft_exit(NULL, &mini, &mini.gmalloc);
 		if (*line)

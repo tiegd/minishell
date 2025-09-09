@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 11:02:14 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:06:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini);
 char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head);
 void	ft_exit(char **args, t_mini *mini, t_gmalloc **head);
 void	print_export(char **env, t_mini *mini, t_gmalloc **head);
+void	exit_wrong_arg(char *args, t_gmalloc **head);
 
 /*--------BUILT-IN_UTILS--------*/
 

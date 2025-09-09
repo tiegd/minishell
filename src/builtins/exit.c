@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 10:03:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:05:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int	check_exit_argument(char *arg)
 	while (arg[i] && is_ws(arg[i]))
 		i++;
 	if (arg[i] && is_sign(arg[i]))
-	{
-		printf("error\n");
 		i++;
-	}
 	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
 	while (arg[i] && ft_isdigit(arg[i]))
@@ -101,11 +98,7 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
-			{
-				print_error_exit_arg(args[1]);
-				gb_free_all(head);
-				exit(2);
-			}
+				exit_wrong_arg(args[1], head);
 			mini->exit_status = atoi_exit(args[1], head);
 		}
 		if (arg_count > 2)
