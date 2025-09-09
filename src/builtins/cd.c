@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:10:22 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:51:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	update_pwd(t_mini *mini, t_gmalloc **head)
 	if (!new_pwd)
 		return ;
 	final = gb_strjoin("PWD=", new_pwd, head);
-	gfree(new_pwd, head);
+	free(new_pwd);
 	mini->env = ft_export(mini->env, final, mini, head);
 }
 

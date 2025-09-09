@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:28:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:30:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:51:00 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
 		if (manage_error_exec(mini->cmd, mini) == 1)
-			return (0);
-		if (mini->exit_status == 126)
 			return (0);
 	}
 	return (1);
