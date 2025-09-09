@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:47:50 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:32:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:14:21 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "builtins.h"
 
 char	*gb_substr(char const *s, unsigned int start,
 					size_t len, t_gmalloc **head)

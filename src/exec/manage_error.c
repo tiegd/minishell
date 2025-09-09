@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 09:56:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:43:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "clean.h"
 #include <sys/stat.h>
 
 void	put_exit_error(t_mini *mini, char *filename,

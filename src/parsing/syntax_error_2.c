@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 09:14:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:38:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:15:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 /*Liste des caractères qu'on ne doit pas traiter :  ( ) \ & *   */
 

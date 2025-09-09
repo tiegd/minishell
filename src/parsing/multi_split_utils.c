@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:35:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:10:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
 
 int	handle_special_char(char **tab, char *s, t_input *in, t_gmalloc **head)
 {

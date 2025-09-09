@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 14:51:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:00:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 /*check accessibility of pathname, return 1 if the file is exist and 
 if it has permission, 0 if not*/

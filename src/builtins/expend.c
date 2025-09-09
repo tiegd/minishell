@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:10:30 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:32:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
+#include "gblib.h"
 
 //extrait la variable d'environnement si elle existe, sinon renvoie NULL.
 

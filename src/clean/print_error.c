@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:10:59 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:42:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 
 void	print_not_valid_identifier(char *str)
 {

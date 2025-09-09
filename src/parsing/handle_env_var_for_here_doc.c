@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_for_here_doc.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 12:18:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:06:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
+#include "gblib.h"
 
 static void	*expend_each_var(char **isolated, char **env,
 							t_gmalloc **head, t_mini *mini)

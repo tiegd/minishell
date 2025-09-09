@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:11:17 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:04:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "builtins.h"
+#include "gblib.h"
 
 void	*expend_each_var(char **isolated, char **env,
 						int *quote_dollars, t_mini *mini)

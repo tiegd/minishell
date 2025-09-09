@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:23:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:29:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "builtins.h"
 
 /*compte le nombre de string dans un char** */
 

@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:35:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:07:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "clean.h"
+#include "parsing.h"
 
 /*remplir les redirections*/
 

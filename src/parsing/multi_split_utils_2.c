@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   multi_split_utils_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:02:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:11:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
 
 void	skip_white_space(char *s, t_input *in)
 {

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expend_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:41:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 11:59:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:33:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "parsing.h"
 
 // /*compare les strings jusqu'au caractère passé en paramètre*/
 

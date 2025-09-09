@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:24:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:36:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "exec.h"
+#include "clean.h"
 
 char	**unset(char *var, char **env, t_gmalloc **head)
 {

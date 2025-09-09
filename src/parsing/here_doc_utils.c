@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:58:58 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:11:26 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:15:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 #include <fcntl.h>
 #include <dirent.h>
 

@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 14:51:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:34:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
+#include "gblib.h"
+#include "builtins.h"
 
 int	check_args(char **args)
 {

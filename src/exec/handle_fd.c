@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 11:00:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:58:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
+#include "fd.h"
+#include "clean.h"
 #include <fcntl.h>
 
 /*Open input redirection & check permission and existence*/

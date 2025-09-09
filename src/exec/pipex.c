@@ -6,11 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 10:02:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:59:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "clean.h"
+#include "fd.h"
+#include "exec.h"
 
 // Run the first command and redirect the output to the following command.
 

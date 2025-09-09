@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:59:16 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 13:11:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:03:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 - "_" qui represente la dernière commande qu'on a fait*/
 
 #include "minishell.h"
+#include "gblib.h"
 
 char	**env_dash_i(t_gmalloc **head)
 {

@@ -6,11 +6,16 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 12:05:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:39:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "clean.h"
+#include "gblib.h"
+#include "builtins.h"
+#include "fd.h"
 #include <stdio.h>
 #include <readline/readline.h>
 

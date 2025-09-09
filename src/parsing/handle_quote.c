@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:33:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:13:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 static void	copy_dq(char *str, int *index, int *start)
 {
