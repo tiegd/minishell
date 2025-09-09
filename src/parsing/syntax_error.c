@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:39:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:47:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,6 @@ static int	empty_redir(char *prompt)
 	return (0);
 }
 
-int	syntax_error(char *prompt)
-{
-	if (char_not_required(prompt))
-		return (1);
-	if (before_operator(prompt))
-		return (1);
-	if (unclosed_quote(prompt))
-		return (1);
-	if (empty_redir(prompt))
-		return (1);
-	return (0);
-}
-
 static int	char_not_required(char *prompt)
 {
 	int	i;
@@ -116,3 +103,15 @@ static int	char_not_required(char *prompt)
 	return (0);
 }
 
+int	syntax_error(char *prompt)
+{
+	if (char_not_required(prompt))
+		return (1);
+	if (before_operator(prompt))
+		return (1);
+	if (unclosed_quote(prompt))
+		return (1);
+	if (empty_redir(prompt))
+		return (1);
+	return (0);
+}

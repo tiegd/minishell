@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:50:00 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:19:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:43:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,5 @@ typedef struct s_heredoc
 	int		here_doc_copy;
 	bool	had_quote;
 }			t_heredoc;
-
-typedef struct s_heredoc
-{
-	int		here_doc;
-	int		here_doc_copy;
-	bool	had_quote;
-}t_heredoc;
 
 #endif

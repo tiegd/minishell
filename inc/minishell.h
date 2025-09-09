@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:19:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:46:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ extern int	g_sig_flag;
 
 int		ft_parsing(char *input, t_mini *mini);
 char	**multi_split(char *s, t_gmalloc **head);
+int	open_for_each_cmd(t_cmd **head, t_mini *mini);
 
 /*----------token------------*/
 
