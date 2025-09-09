@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:05:05 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:56:55 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,11 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		g_sig_flag = 0;
-		block_sig_quit();
-		if (isatty(STDIN_FILENO) != 0)
+		line = readline("minicrotte ~ ");
+		if (g_sig_flag == 1)
 		{
-			line = readline("minicrotte ~ ");
-			if (g_sig_flag == 1)
-			{
-				mini.exit_status = 130;
-				continue ;
-			}
-		}
-		else
-		{
-			line_1 = get_next_line(STDIN_FILENO);
-			line = ft_strtrim(line_1, "\n");
-			free(line_1);
+			mini.exit_status = 130;
+			continue ;
 		}
 		if (!line)
 			ft_exit(NULL, &mini, &mini.gmalloc);
