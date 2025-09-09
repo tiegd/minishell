@@ -6,12 +6,11 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:29:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:02:54 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 
 // Run the cmd if it's a builtin.
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)

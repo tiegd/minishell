@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/04 23:45:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:56:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/stat.h>
-#include <errno.h>
 
 void	put_exit_error(t_mini *mini, char *filename,
 		char *error, int exit_status)

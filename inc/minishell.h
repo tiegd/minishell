@@ -6,32 +6,16 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:46:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:02:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <dirent.h>
-# include <limits.h>
-# include <fcntl.h>
 # include "libft.h"
 # include "struct.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <sys/wait.h>
-# include <signal.h>
-
-# define RED     "\033[31m"
-# define GREEN   "\033[32m"
-# define YELLOW  "\033[33m"
-# define RESET   "\033[0m"
-# define MAGENTA "\033[35m"
-# define CYAN    "\033[36m"
 
 /*---------TOKEN---------*/
 
@@ -221,6 +205,7 @@ void	redir_first_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
 void	redir_middle_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
 void	redir_last_pipe(t_mini *mini, t_cmd *cmd, int *pipefd);
 void	redir_one(t_cmd *cmd, t_mini *mini);
+int		is_close(t_cmd *cmd);
 
 /*--------GARBAGE_COLLECTOR----*/
 

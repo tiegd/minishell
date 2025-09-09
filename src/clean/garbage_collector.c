@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:29:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:02:36 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
 
 void	gb_free_all(t_gmalloc **head)
 {

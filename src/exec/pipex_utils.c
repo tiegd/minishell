@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:31:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:46:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 
 // Count the number of '|' in the prompt.
 

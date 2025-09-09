@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:20:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:46:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	g_sig_flag = 0;
 
@@ -72,7 +74,7 @@ int	main(int ac, char **av, char **env)
 		block_sig_quit();
 		if (isatty(STDIN_FILENO) != 0)
 		{
-			line = readline("minicrotte ~ ");
+			line = readline("minichibron 8==D~ ");
 			if (g_sig_flag == 1)
 			{
 				mini.exit_status = 130;

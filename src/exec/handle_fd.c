@@ -6,12 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:29:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:00:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
+#include <fcntl.h>
 
 /*Open input redirection & check permission and existence*/
 int	open_infile(t_cmd *cmd, t_mini *mini)
@@ -67,12 +67,8 @@ int	open_redir(t_cmd *cmd, t_mini *mini)
 			if (cmd->fd_outfile == -1)
 				return (0);
 		}
-		if (cmd->redir->next != NULL && cmd->fd_infile > 0
-			&& (cmd->redir->next->type == INPUT))
-			close(cmd->fd_infile);
-		else if (cmd->redir->next != NULL && (cmd->redir->next->type == OUTPUT
-				|| cmd->redir->next->type == APPEND) && cmd->fd_outfile > 1)
-			close(cmd->fd_outfile);
+		if (!is_close(cmd))
+			return (0);
 		cmd->redir = cmd->redir->next;
 	}
 	return (1);

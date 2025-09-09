@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_sig_int.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:16:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:54:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
+#include <readline/readline.h>
 
 int	event_hook(void)
 {

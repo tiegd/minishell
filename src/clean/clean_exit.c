@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:25:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:43:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
+// #include <readline/history.h>
 
 void	exit_pid_error(int *pipefd, t_mini *mini)
 {

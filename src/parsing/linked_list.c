@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 08:35:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:03:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_token	*tab_to_lst(char **prompt, t_gmalloc **head)
 	t_token	*lst;
 	int		i;
 	int		len;
+
 	i = 0;
 	lst = NULL;
 	while (prompt[i])
@@ -116,7 +117,6 @@ t_token	*tab_to_lst(char **prompt, t_gmalloc **head)
 		lst = ft_lst_addback(lst, prompt[i], len, head);
 		i++;
 	}
-	// free_prompt(prompt, head);
 	define_type(lst);
 	return (lst);
 }

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:58:58 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 13:59:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:51:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <fcntl.h>
+#include <dirent.h>
 
 static int	dir_is_valid(const char *dirname)
 {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handle_sig_quit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 16:16:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:53:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 void	handle_quit(int sig)
 {

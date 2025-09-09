@@ -6,11 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:21:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:03:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
+#include <readline/readline.h>
 
 int	is_sign(char c)
 {

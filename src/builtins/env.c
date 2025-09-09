@@ -6,11 +6,12 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:21:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:39:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 /*recuperer la variable d'environnement et la print dans 
 le fd passsé en paramètre.*/

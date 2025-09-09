@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   print_for_help.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 14:36:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 14:20:12 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:39:51 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 /*Print le tableau de chaine de caractère passé en argument*/
 void	print_tab_char(char **tab)
