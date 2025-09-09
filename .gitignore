@@ -1,0 +1,9 @@
+src/main.c
+misc/
+Makefile
+README.md
+.vscode/
+.gitignore
+minishell_tester
+valmini
+to_do_list.txt

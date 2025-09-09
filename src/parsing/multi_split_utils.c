@@ -1,0 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multi_split_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/09/09 17:10:25 by gaducurt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
+
+int	handle_special_char(char **tab, char *s, t_input *in, t_gmalloc **head)
+{
+	if (s[in->i] && is_special(s[in->i]) && !is_append(s[in->i], s[(in->i) + 1])
+		&& !is_here_doc(s[in->i], s[(in->i) + 1]))
+	{
+		(in->i)++;
+		tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
+		if (!tab[in->count])
+			return (0);
+		in->index = in->i;
+		(in->count)++;
+		skip_white_space(s, in);
+		return (1);
+	}
+	else if (s[in->i] && (is_append(s[in->i], s[(in->i) + 1])
+			|| is_here_doc(s[in->i], s[(in->i) + 1])))
+	{
+		(in->i) += 2;
+		tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
+		if (!tab[in->count])
+			return (0);
+		in->index = in->i;
+		(in->count)++;
+		skip_white_space(s, in);
+		return (1);
+	}
+	return (2);
+}
+
+void	skip_special_char(char *s, t_input *in)
+{
+	if (s[in->i] && is_special(s[in->i]) && !is_append(s[in->i], s[in->i + 1])
+		&& !is_here_doc(s[in->i], s[in->i + 1]))
+	{
+		(in->count)++;
+		(in->i)++;
+		if (s[in->i] && !is_special(s[in->i])
+			&& !is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
+			in->count++;
+	}
+	else if (s[in->i] && (is_append(s[in->i], s[in->i + 1])
+			|| is_here_doc(s[in->i], s[in->i + 1])))
+	{
+		(in->count)++;
+		(in->i) += 2;
+		if (s[in->i] && !is_special(s[in->i])
+			&& !is_ws(s[in->i]) && in->sq % 2 == 0 && in->dq % 2 == 0)
+			in->count++;
+	}
+	else
+		return ;
+}
+
+int	extract_token(char **tab, char *s, t_input *in, t_gmalloc **head)
+{
+	tab[in->count] = gb_substr(s, in->index, in->i - in->index, head);
+	if (!tab[in->count])
+		return (0);
+	in->index = in->i;
+	(in->count)++;
+	return (1);
+}
+
+int	check_empty_s(const char *s, char c, char d)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c || s[i] == d)
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int	count_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return (0);
+	while (tab[i])
+		i++;
+	return (i);
+}
