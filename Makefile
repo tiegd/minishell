@@ -6,7 +6,7 @@
 #    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/09 11:41:15 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/09 13:09:35 by gaducurt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ DEPS =   $(OBJ:.o=.d)
 all: .print_header $(BIN) libs $(NAME)
 
 libs:
-	$(MAKE) -s -C Libft
+	$(MAKE) -C Libft
 
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline

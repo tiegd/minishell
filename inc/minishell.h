@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 12:06:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:10:10 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ enum e_types
 
 extern int	g_sig_flag;
 
+/*-----added-----------*/
+void	print_error_here_doc(char *eof);
+
 /*----------PARSING----------*/
 
 int		ft_parsing(char *input, t_mini *mini);
 char	**multi_split(char *s, t_gmalloc **head);
-int	open_for_each_cmd(t_cmd **head, t_mini *mini);
+int		open_for_each_cmd(t_cmd **head, t_mini *mini);
 
 /*----------token------------*/
 
@@ -52,7 +55,6 @@ t_token	*handle_quote(t_token **token);
 char	*handle_env_var(char *prompt, t_mini *mini);
 int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
-char	*ft_add_suf(int j, char *str, char *args);
 char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(t_gmalloc **head);
@@ -75,8 +77,6 @@ char	*generate_rand_name_file(t_gmalloc **head);
 t_token	*ft_lst_last(t_token *lst);
 t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head);
 t_token	*tab_to_lst(char **prompt, t_gmalloc **head);
-char	*lexing_input(char *input);
-int		is_ws(char c);
 
 /*--------UTILS----------*/
 

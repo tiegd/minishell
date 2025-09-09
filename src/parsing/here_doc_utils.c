@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:58:58 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 09:51:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:11:26 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	dir_is_valid(const char *dirname)
 	dir = opendir(dirname);
 	if (dir != NULL)
 	{
-		closedir(dir);
+		if (closedir(dir) == -1)
+			return (-1);
 		return (1);
 	}
 	else

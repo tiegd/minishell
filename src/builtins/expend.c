@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:21:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:10:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ static char	*expend_exit_status(char *arg, t_gmalloc **head, t_mini *mini)
 	return (res);
 }
 
+char	*var_is_empty(t_gmalloc **head)
+{
+	char	*str;
+
+	str = gb_malloc(sizeof(char) + 2, head);
+	str[0] = DQ;
+	str[1] = DQ;
+	str[2] = '\0';
+	return (str);
+}
+
 char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 {
 	char	*expend;
@@ -65,7 +76,10 @@ char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 	if (*arg == '$')
 		arg++;
 	if (!*arg)
-		return (NULL);
+	{
+		expend = var_is_empty(head);
+		return (expend);
+	}
 	if (*arg == '?')
 	{
 		expend = expend_exit_status(arg, head, mini);
@@ -75,10 +89,8 @@ char	*expend(char *arg, char **env, t_gmalloc **head, t_mini *mini)
 	expend = extract_env(arg, env, head);
 	if (!expend)
 	{
-		expend = gb_malloc(sizeof(char) + 2, head);
-		expend[0] = DQ;
-		expend[1] = DQ;
-		expend[2] = '\0';
+		expend = var_is_empty(head);
+		return (expend);
 	}
 	gfree(arg, head);
 	return (expend);

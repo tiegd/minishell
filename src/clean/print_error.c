@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 12:05:36 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:10:59 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ void	exit_wrong_arg(char *args, t_gmalloc **head)
 	print_error_exit_arg(args);
 	gb_free_all(head);
 	exit(2);
+}
+
+void	print_error_here_doc(char *eof)
+{
+	ft_putstr_fd("minishell: warning: delimited by end-of-file (wanted '", 2);
+	ft_putstr_fd(eof, 2);
+	ft_putstr_fd("')\n", 2);
 }

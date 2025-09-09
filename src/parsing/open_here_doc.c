@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:27:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 18:27:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:38:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
 				{
 					mini->exit_status = 1;
 					ft_putstr_fd("error occured during \
-the creation of here document\n", 2);
+the creation of here document(s)\n", 2);
 				}
 				return (-1);
 			}
