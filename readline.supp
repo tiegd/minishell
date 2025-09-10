@@ -4,11 +4,3 @@
    ...
    obj:*/libreadline.so*
 }
-
-{
-   ignore_coreutils_reachable_leaks
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   obj:/usr/bin/*
-}

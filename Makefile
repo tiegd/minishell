@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/09 17:51:14 by gaducurt         ###   ########.fr        #
+#    Updated: 2025/09/09 19:02:36 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,6 @@ LIBFT = Libft
 GNL = Libft/gnl
 
 PRINTF = Libft/ft_printf
-
-MLX = minilibx-linux
-
-VECT = vector
 
 BIN = bin/
 			

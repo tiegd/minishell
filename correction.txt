@@ -1,0 +1,6 @@
+Verifier signal du ctrl \ 
+Quand ya une commande vide il y a des leaks variable vide ou "".
+Lorsqu'il y a une seule lettre en nom de variable unset ne marche pas -> 
+Checker les commandes avec des relatives paths genre ../../bin/ls -> changer la ligne qui dit que si c == . & c != /
+Invalid free quand il y a un ctrl D dans les here docs.
+Fichier temp qui reste ouvert si il y a plus 2 here.
