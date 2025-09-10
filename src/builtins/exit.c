@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 11:36:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:39:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "clean.h"
+#include "gblib.h"
+#include "builtins.h"
+#include "fd.h"
+#include <stdio.h>
+#include <readline/readline.h>
 
 int	is_sign(char c)
 {
@@ -89,17 +96,14 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int	arg_count;
 
+	printf("exit\n");
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
-			{
-				print_error_exit_arg(args[1]);
-				gb_free_all(head);
-				exit(2);
-			}
+				exit_wrong_arg(args[1], head);
 			mini->exit_status = atoi_exit(args[1], head);
 		}
 		if (arg_count > 2)
@@ -111,5 +115,6 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 	}
 	gb_free_all(head);
 	close_fds(mini->dup_std[0], mini->dup_std[1]);
+	rl_clear_history();
 	exit(mini->exit_status);
 }

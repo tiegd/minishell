@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 15:59:08 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:07:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "clean.h"
+#include "parsing.h"
 
 /*remplir les redirections*/
 

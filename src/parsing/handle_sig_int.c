@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_sig_int.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:31:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:53:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
+#include <readline/readline.h>
 
 int	event_hook(void)
 {
@@ -43,5 +45,4 @@ void	block_sig_int(void)
 	ft_bzero(&sig_int, sizeof(sig_int));
 	sig_int.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sig_int, NULL);
-	// rl_event_hook = event_hook;
 }

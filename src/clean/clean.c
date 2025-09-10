@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 12:02:39 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:41:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "clean.h"
 
 // Free all of the list (token).
 

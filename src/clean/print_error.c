@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 09:58:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:42:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 
 void	print_not_valid_identifier(char *str)
 {
@@ -31,6 +32,13 @@ void	print_error_exit_arg(char *str)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
+}
+
+void	exit_wrong_arg(char *args, t_gmalloc **head)
+{
+	print_error_exit_arg(args);
+	gb_free_all(head);
+	exit(2);
 }
 
 void	print_error_here_doc(char *eof)

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 10:55:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 13:11:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
+#include <fcntl.h>
 
 int	sig_int_received(t_mini *mini, int here_doc, int here_doc_copy)
 {

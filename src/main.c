@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 18:56:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:31:32 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
+#include "builtins.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int g_sig_flag = 0;
+int	g_sig_flag = 0;
 
 char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {
@@ -54,22 +59,26 @@ void	init_mini(t_mini *mini, char **env)
 	mini->dup_std[1] = 0;
 }
 
-int	main(int ac, char **av, char **env)
+void	init_start(t_mini *mini, char **env)
 {
-	char				*line;
-	char				*line_1;
-	t_mini				mini;
-	(void)ac;
-	(void)av;
-
 	check_interactive_mode();
 	set_sig_action();
 	block_sig_quit();
-	init_mini(&mini, env);
+	init_mini(mini, env);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	char				*line;
+	t_mini				mini;
+
+	ac = 0;
+	av = NULL;
+	init_start(&mini, env);
 	while (1)
 	{
 		g_sig_flag = 0;
-		line = readline("minicrotte ~ ");
+		line = readline("minishell Platini ~ ");
 		if (g_sig_flag == 1)
 		{
 			mini.exit_status = 130;

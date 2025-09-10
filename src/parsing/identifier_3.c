@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   identifier_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:05:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:28:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:13:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 int	is_operator(char c)
 {

@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:24:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:53:02 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
+#include "builtins.h"
+#include "fd.h"
+#include "exec.h"
+#include "clean.h"
+#include "gblib.h"
 
 // Run the cmd if it's a builtin.
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)

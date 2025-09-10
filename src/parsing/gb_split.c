@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gb_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:02:30 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 12:04:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:16:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 
 static int	is_sep(char const s, char c)
 {

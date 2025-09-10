@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   handle_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 18:30:31 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:58:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
+#include "exec.h"
+#include "fd.h"
+#include "clean.h"
+#include <fcntl.h>
 
 /*Open input redirection & check permission and existence*/
 int	open_infile(t_cmd *cmd, t_mini *mini)
@@ -67,12 +70,8 @@ int	open_redir(t_cmd *cmd, t_mini *mini)
 			if (cmd->fd_outfile == -1)
 				return (0);
 		}
-		if (cmd->redir->next != NULL && cmd->fd_infile > 0
-			&& (cmd->redir->next->type == INPUT))
-			close(cmd->fd_infile);
-		else if (cmd->redir->next != NULL && (cmd->redir->next->type == OUTPUT
-				|| cmd->redir->next->type == APPEND) && cmd->fd_outfile > 1)
-			close(cmd->fd_outfile);
+		if (!is_close(cmd))
+			return (0);
 		cmd->redir = cmd->redir->next;
 	}
 	return (1);

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 15:52:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:12:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 
 // Find the last node of the list.
 

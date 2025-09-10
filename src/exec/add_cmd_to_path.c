@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   add_cmd_to_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:22:29 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:25:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:03:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "clean.h"
 
 static char	*one_line_path(char **paths, t_gmalloc **head)
 {

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:10:02 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/03 14:50:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:40:31 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "exec.h"
 
 char	*gb_strdup_free_src(char *s, t_gmalloc **gmalloc)
 {

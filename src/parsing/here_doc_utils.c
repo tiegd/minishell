@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:58:58 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 10:45:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:15:38 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include <fcntl.h>
+#include <dirent.h>
 
 static int	dir_is_valid(const char *dirname)
 {

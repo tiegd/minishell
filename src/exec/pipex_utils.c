@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:34:15 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:46:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:53:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 
 // Count the number of '|' in the prompt.
 

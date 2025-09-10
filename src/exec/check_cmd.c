@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:55:02 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:52:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 /*check accessibility of pathname, return 1 if the file is exist and 
 if it has permission, 0 if not*/

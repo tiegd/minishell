@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 11:16:58 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:34:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
+#include "gblib.h"
+#include "builtins.h"
 
 int	check_args(char **args)
 {
@@ -50,7 +53,7 @@ void	update_pwd(t_mini *mini, t_gmalloc **head)
 	if (!new_pwd)
 		return ;
 	final = gb_strjoin("PWD=", new_pwd, head);
-	gfree(new_pwd, head);
+	free(new_pwd);
 	mini->env = ft_export(mini->env, final, mini, head);
 }
 

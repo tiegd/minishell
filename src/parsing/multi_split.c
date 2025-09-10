@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   multi_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 15:46:22 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:09:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
+#include "exec.h"
 
 static void	skip_quote(char *str, char quote, t_input *in)
 {

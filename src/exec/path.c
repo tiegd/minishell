@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:28:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 14:56:38 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:02:09 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "exec.h"
+#include "parsing.h"
 
 char	*ft_path_line(char **env, t_gmalloc **head)
 {
@@ -62,8 +65,6 @@ int	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	{
 		cmd->paths = ft_add_cmd(cmd->paths, nb_path, cmd, head);
 		if (manage_error_exec(mini->cmd, mini) == 1)
-			return (0);
-		if (mini->exit_status == 126)
 			return (0);
 	}
 	return (1);

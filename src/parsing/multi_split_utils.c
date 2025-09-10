@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   multi_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 13:50:28 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:10:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "gblib.h"
 
 int	handle_special_char(char **tab, char *s, t_input *in, t_gmalloc **head)
 {

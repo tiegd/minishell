@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 06:03:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 15:51:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:14:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 /*checker si il y a quelque chose avant un opérateur*/
 static int	before_operator(char *prompt)
@@ -80,9 +81,6 @@ static int	empty_redir(char *prompt)
 	}
 	return (0);
 }
-
-/*checker si il y a un caractere hors sujet 
-et si il n'est pas compris entre quote*/
 
 static int	char_not_required(char *prompt)
 {

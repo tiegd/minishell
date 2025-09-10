@@ -6,7 +6,11 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/09 15:43:03 by jpiquet          ###   ########.fr        #
+<<<<<<< HEAD
+#    Updated: 2025/09/09 19:02:36 by jpiquet          ###   ########.fr        #
+=======
+#    Updated: 2025/09/09 19:00:07 by gaducurt         ###   ########.fr        #
+>>>>>>> 7207776840d946bc99c05c4e005e29c97f2e29f6
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,19 +18,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT)
 
 INCLUDE = inc
 
 LIBFT = Libft
-
-GNL = Libft/gnl
-
-PRINTF = Libft/ft_printf
-
-MLX = minilibx-linux
-
-VECT = vector
 
 BIN = bin/
 			
@@ -99,18 +95,12 @@ libs:
 $(NAME): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) -lreadline
 
-# $(BIN)%.o: $(DIR_SRC)%.c | $(BIN)
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
 $(BIN)%.o: $(DIR_SRC)%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BIN):
 	mkdir -p $(BIN)
-
-# %.o : %.c Makefile $(LIBS)
-# 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(MAKE) -s clean -C Libft

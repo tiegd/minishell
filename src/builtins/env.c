@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 11:36:30 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:39:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 /*recuperer la variable d'environnement et la print dans 
 le fd passsé en paramètre.*/

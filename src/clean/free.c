@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:20:54 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/04 14:06:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:42:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
 
 char	**free_split(char **double_tab, int nb_word, t_gmalloc **head)
 {

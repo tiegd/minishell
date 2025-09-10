@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 09:14:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:34:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:15:18 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 /*Liste des caractères qu'on ne doit pas traiter :  ( ) \ & *   */
 

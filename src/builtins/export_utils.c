@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:50:19 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 18:31:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:31:24 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+#include "clean.h"
+#include "gblib.h"
 
 //compare le nom de 2 variable d'environnement
 

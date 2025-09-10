@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/05 10:21:01 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:00:51 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "clean.h"
+#include "exec.h"
 
 // Do redir if we have an infile or outfile.
 void	redir_one(t_cmd *cmd, t_mini *mini)

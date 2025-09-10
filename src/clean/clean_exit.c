@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/08 12:03:36 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:42:12 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "fd.h"
+#include <readline/readline.h>
 
 void	exit_pid_error(int *pipefd, t_mini *mini)
 {
@@ -24,6 +27,7 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 		close(mini->cmd->fd_outfile);
 	gb_free_all(&mini->gmalloc);
 	perror("Error");
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
 
@@ -31,6 +35,7 @@ void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd)
 {
 	ft_close_fd(cmd, pipefd);
 	gb_free_all(&mini->gmalloc);
+	rl_clear_history();
 	exit(code);
 }
 
@@ -39,6 +44,7 @@ void	exit_fd(t_cmd *cmd, t_mini *mini, int *pipefd)
 	ft_close_fd(cmd, pipefd);
 	gb_free_all(&mini->gmalloc);
 	mini->exit_status = 1;
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
 
@@ -46,6 +52,7 @@ void	exit_malloc_error(t_gmalloc *head, int exit_status)
 {
 	perror("malloc error\n");
 	gb_free_all(&head);
+	rl_clear_history();
 	exit(exit_status);
 }
 
