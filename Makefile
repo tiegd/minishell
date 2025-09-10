@@ -6,7 +6,11 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2025/09/09 19:02:36 by jpiquet          ###   ########.fr        #
+=======
+#    Updated: 2025/09/09 19:00:07 by gaducurt         ###   ########.fr        #
+>>>>>>> 7207776840d946bc99c05c4e005e29c97f2e29f6
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +23,6 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT)
 INCLUDE = inc
 
 LIBFT = Libft
-
-GNL = Libft/gnl
-
-PRINTF = Libft/ft_printf
 
 BIN = bin/
 			
