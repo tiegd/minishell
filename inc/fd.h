@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:10:26 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:15:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:28:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		ft_open_fd(t_cmd *cmd, t_mini *mini);
 int		ft_close_fd(t_cmd *cmd, int *pipefd);
 void	close_fds(int infile, int outfile);
 void	ft_dup_out(t_mini *mini);
+int		close_all_here_doc(int *here_doc_list);
 
 #endif

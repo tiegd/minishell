@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:53:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:32:45 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parsing.h"
 #include "exec.h"
 #include "clean.h"
+#include "fd.h"
 
 int	prompt_is_empty(char *input)
 {
@@ -68,6 +69,7 @@ int	ft_parsing(char *input, t_mini *mini)
 	}
 	unblock_sig_quit();
 	send_to_exec(mini);
+	close_all_here_doc(mini->here_doc_list);
 	free_cmd(mini->cmd, &mini->gmalloc);
 	return (0);
 }

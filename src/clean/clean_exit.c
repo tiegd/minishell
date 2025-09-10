@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:42:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:32:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	exit_pid_error(int *pipefd, t_mini *mini)
 void	exit_tab(t_cmd *cmd, t_mini *mini, int code, int *pipefd)
 {
 	ft_close_fd(cmd, pipefd);
+	close_all_here_doc(mini->here_doc_list);
 	gb_free_all(&mini->gmalloc);
 	rl_clear_history();
 	exit(code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:53:02 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:01:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 	{
 		execve(cmd->pathname, cmd->args, mini->env);
 		put_error(mini, cmd->args[0], "Command not found", 127);
+		gb_free_all(head);
 		exit(127);
 	}
 	if (mini->nb_pipe > 0)

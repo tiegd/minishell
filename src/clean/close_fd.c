@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 11:00:51 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:31:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 #include <readline/readline.h>
 
 void	close_fds(int infile, int outfile)
@@ -36,7 +37,8 @@ void	close_fds(int infile, int outfile)
 int	is_close(t_cmd *cmd)
 {
 	if (cmd->redir->next != NULL && cmd->fd_infile > 0
-		&& (cmd->redir->next->type == INPUT))
+		&& (cmd->redir->next->type == INPUT
+			|| cmd->redir->next->type == HERE_DOC))
 	{
 		if (close(cmd->fd_infile) == -1)
 			return (0);
@@ -48,4 +50,17 @@ int	is_close(t_cmd *cmd)
 			return (0);
 	}
 	return (1);
+}
+
+int	close_all_here_doc(int *here_doc_list)
+{
+	int	i;
+
+	i = 0;
+	while (here_doc_list[i] != 0)
+	{
+		close(here_doc_list[i]);
+		i++;
+	}
+	return (0);
 }

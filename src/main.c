@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 18:31:32 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 17:09:47 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_mini(t_mini *mini, char **env)
 {
 	mini->gmalloc = NULL;
 	mini->cmd = NULL;
+	mini->nb_here_doc = 0;
 	if (!*env || !env)
 		mini->env = env_dash_i(&mini->gmalloc);
 	else
@@ -63,7 +64,6 @@ void	init_start(t_mini *mini, char **env)
 {
 	check_interactive_mode();
 	set_sig_action();
-	block_sig_quit();
 	init_mini(mini, env);
 }
 
@@ -77,6 +77,7 @@ int	main(int ac, char **av, char **env)
 	init_start(&mini, env);
 	while (1)
 	{
+		block_sig_quit();
 		g_sig_flag = 0;
 		line = readline("minishell Platini ~ ");
 		if (g_sig_flag == 1)

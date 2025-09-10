@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:36:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:18:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**unset(char *var, char **env, t_gmalloc **head)
 	new_env = gb_malloc(sizeof(char *) * (nb_var(env) + 1), head);
 	while (env[i] != NULL)
 	{
-		if (env_var_cmp(env[i], var) == 1 || env_var_cmp(var, env[i]) == 2)
+		if (env_var_cmp(env[i], var) == 1 || env_var_cmp(env[i], var) == 2)
 		{
 			if (env)
 				i++;

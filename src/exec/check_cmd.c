@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:52:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:59:34 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 }
 
 /*Verify if the cmd can be executed, return 1 if it can or 0 if it can´t*/
+
 int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (is_builtin(cmd->args[0]))

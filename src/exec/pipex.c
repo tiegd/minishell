@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:53:15 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:28:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	first_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(cmd, mini, mini->exit_status, pipefd);
 		redir_first_pipe(mini, cmd, pipefd);
 		ft_close_fd(cmd, pipefd);
+		close_all_here_doc(mini->here_doc_list);
 		if (!ft_exec_cmd(cmd, mini, head, pid))
 		{
 			ft_close_fd(cmd, pipefd);
@@ -65,6 +66,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(cmd, mini, mini->exit_status, pipefd);
 		redir_middle_pipe(mini, cmd, pipefd);
 		ft_close_fd(cmd, pipefd);
+		close_all_here_doc(mini->here_doc_list);
 		if (!ft_exec_cmd(cmd, mini, head, pid))
 		{
 			ft_close_fd(cmd, pipefd);
@@ -93,6 +95,7 @@ static void	last_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(cmd, mini, mini->exit_status, 0);
 		redir_last_pipe(mini, cmd, 0);
 		ft_close_fd(cmd, 0);
+		close_all_here_doc(mini->here_doc_list);
 		if (!ft_exec_cmd(cmd, mini, head, pid_last))
 		{
 			ft_close_fd(cmd, 0);
