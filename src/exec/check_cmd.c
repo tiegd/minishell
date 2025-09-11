@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/10 13:59:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 10:56:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
+#include <stdio.h>
 
 /*check accessibility of pathname, return 1 if the file is exist and 
 if it has permission, 0 if not*/
@@ -67,6 +68,7 @@ int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 					return (0);
 				}
 				cmd->pathname = cmd->paths[i];
+				printf("path = %s\n", cmd->pathname);
 				return (1);
 			}
 			i++;
