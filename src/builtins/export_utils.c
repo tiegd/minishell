@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:50:19 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:31:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:05:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	env_var_cmp(char *s1, char *s2)
 			return (0);
 		i++;
 	}
-	if (i > 1 && s1[i - 1] - s2[i - 1] == 0 && s1[i] - s2[i] == 0)
+	if (i > 0 && s1[i - 1] - s2[i - 1] == 0 && s1[i] - s2[i] == 0)
 		return (1);
-	else if (i > 1 && s1[i - 1] - s2[i - 1] == 0
+	else if (i > 0 && s1[i - 1] - s2[i - 1] == 0
 		&& s1[i] == '\0' && s2[i] == '=')
 		return (2);
 	return (0);

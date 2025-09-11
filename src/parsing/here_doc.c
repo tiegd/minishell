@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/10 18:21:06 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:11:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 
 int	sig_int_received(t_mini *mini, int here_doc, int here_doc_copy)
 {
-	if (close(here_doc) == -1)
-		return (-1);
-	if (close(here_doc_copy) == -1)
-		return (-1);
+	close(here_doc);
+	close(here_doc_copy);
 	mini->exit_status = 130;
 	return (-2);
 }
@@ -85,9 +83,6 @@ int	create_here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 	check_read = read_here_doc(&hd, eof, mini);
 	if (check_read == -2)
 		return (-2);
-	else if (check_read == -1)
-		return (-1);
-	if (close(hd.here_doc) == -1)
-		return (-1);
+	close(hd.here_doc);
 	return (hd.here_doc_copy);
 }
