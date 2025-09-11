@@ -6,12 +6,11 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 13:53:13 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:23:15 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 #include <readline/readline.h>
 
 void	close_fds(int infile, int outfile)

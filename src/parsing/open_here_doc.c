@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:27:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/10 18:25:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 14:24:14 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "stdio.h"
 
 int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
 {
