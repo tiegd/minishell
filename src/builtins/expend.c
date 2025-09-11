@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:32:18 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:01:17 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "builtins.h"
 #include "gblib.h"
 
-//extrait la variable d'environnement si elle existe, sinon renvoie NULL.
+//extracts the environment variable if it exists, otherwise returns NULL.
 
 static char	*extract_env(char *temp, char **env, t_gmalloc **head)
 {

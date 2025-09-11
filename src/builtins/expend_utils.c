@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:41:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:33:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:00:49 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "gblib.h"
 #include "parsing.h"
 
-// /*compare les strings jusqu'au caractère passé en paramètre*/
+/*compares strings up to the character passed as a parameter*/
 
 int	strcmp_until_char(char *s1, char *s2, char c)
 {
@@ -68,7 +68,7 @@ int	has_special(char *str)
 	return (0);
 }
 
-/*récupère le resultat d'une variable d'environnement*/
+/*retrieves the result of an environment variable*/
 
 char	*env_result(char *env, t_gmalloc **head)
 {

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:29:12 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:21:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "gblib.h"
 #include "builtins.h"
 
-/*compte le nombre de string dans un char** */
+// Count the number of strings in a char**.
 
 int	nb_var(char **env)
 {
@@ -28,8 +28,8 @@ int	nb_var(char **env)
 	return (i);
 }
 
-/*duplique la variable d'environnement passé en paramètre 
-et renvoie un char** ou NULL si il y a une erreur */
+/*Duplicate the environement variable passed in params en return a char**
+or NULL if there is an erreor.*/
 
 char	**envdup(char **old_env, t_gmalloc **head)
 {
@@ -49,13 +49,8 @@ char	**envdup(char **old_env, t_gmalloc **head)
 	return (new_env);
 }
 
-/*on recupère la variable d'environnement 
-et on y ajoute une nouvelle passé en argument
-duplique l'environnement dans un nouveau tableau de string
-on regarde si la variable existe déjà 
-et si oui on la remplace par la nouvelle
-si elle existe on renvoit le nouvelle environnement avec la variable remplacé
-sinon juste ajouter la string au nouvel environnement*/
+/*Extract environement variable and duplicate in a new string tab.
+We replace it if it aleardy exists.*/
 
 char	**ft_export(char **env, char *new_var, t_mini *mini, t_gmalloc **head)
 {
@@ -79,9 +74,8 @@ char	**ft_export(char **env, char *new_var, t_mini *mini, t_gmalloc **head)
 	return (new_env);
 }
 
-/*d'abord expend si il y a des $ dan la variable d'environnement 
-et ensuite checker si elle existe deja 
-ou si on doit juste l'ajouter a l'environnement*/
+/*Expend if there is '$' in teh variable environement
+and check if it alreday to know if we need to add it to env.*/
 
 char	**loop_export(char **env, char **args, t_mini *mini, t_gmalloc **head)
 {

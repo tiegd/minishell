@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 10:51:32 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/10 18:28:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:51:33 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ static void	middle_pipe(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 			exit_tab(cmd, mini, 127, pipefd);
 		}
 	}
-	close(pipefd[1]);
-	close(cmd->outpipe);
+	close_both_fd(cmd->outpipe, pipefd[1]);
 	cmd->outpipe = pipefd[0];
 }
 

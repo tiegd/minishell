@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:17:38 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:09:43 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:45:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static char	**new_str(char **tab, char *s, int nb_word, t_gmalloc **head)
 }
 
 /*split the string under the bash rules, return an array of string*/
+
 char	**multi_split(char *s, t_gmalloc **head)
 {
 	int		nb_word;

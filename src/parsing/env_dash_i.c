@@ -6,15 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:59:16 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:03:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:28:36 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*bash recréer certaines variable d'environnement pour pouvoir fonctionner :
-
-- "PWD" (getcwd) pour savoir ou est ce qu'on se situe
-- "SHLVL" pour savoir a quel niveau du shell on se situe
-- "_" qui represente la dernière commande qu'on a fait*/
+/*Recreating of some environement variable for work correctly :
+- PWD : to find out in what directory we are.
+- SHLVL : to find out in what level of shell we are. 
+- _ : the option of the last simple command.*/
 
 #include "minishell.h"
 #include "gblib.h"

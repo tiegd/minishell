@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:06:08 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/05 16:03:49 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:22:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*print le path dans lequel on se situe actuellement*/
+/*Print the path where we are currently located */
+
 void	pwd(int fd, t_mini *mini)
 {
 	char	*pwd;

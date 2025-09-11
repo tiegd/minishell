@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:00:51 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:24:02 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "exec.h"
 
 // Do redir if we have an infile or outfile.
+
 void	redir_one(t_cmd *cmd, t_mini *mini)
 {
 	if (cmd->fd_infile != -1 && cmd->fd_infile != 0)

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:13:31 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 08:34:46 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:34:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_redir(char c)
 	return (0);
 }
 
-/*isalnum où le '_' est autorisé*/
+/*Same as isalnum when '_' is an autorised char.*/
 
 int	exp_isalnum(int c)
 {

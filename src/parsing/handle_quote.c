@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 11:25:12 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:13:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:32:53 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	copy_sq(char *str, int *index, int *start)
 	}
 }
 
-/*enleve les quotes en trop dans un token et retourne la nouvelle chaine*/
+/*Remove the excessive quotes in a token and return the new string.*/
+
 char	*delete_quote(char *str)
 {
 	int	start;
@@ -60,8 +61,8 @@ char	*delete_quote(char *str)
 	return (str);
 }
 
-/*gère le cas des quotes dans un token et renvoie un pointeur
-sur le debut de la liste qui a été modifié*/
+/*Handle the case of quotes in a token and retrun a pointer
+to the head of the modified list. */
 
 t_token	*handle_quote(t_token **token)
 {

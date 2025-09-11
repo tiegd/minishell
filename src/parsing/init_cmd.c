@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:22:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:07:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:44:40 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "clean.h"
 #include "parsing.h"
 
-/*remplir les redirections*/
+/*Fill the redirections.*/
 
 static t_redir	*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 {
@@ -35,7 +35,8 @@ static t_redir	*add_redir(t_redir *list, t_token *token, t_gmalloc **head)
 	return (list);
 }
 
-/*ajoute le nouveau noeud à la liste chainée*/
+/*Add the new node at the linked list.*/
+
 static void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 {
 	t_cmd	*temp;
@@ -53,7 +54,7 @@ static void	cmd_add_back(t_cmd **head, t_cmd *new_node)
 	temp->next = new_node;
 }
 
-/*creer une nouveau noeud commande pour la list chainé*/
+/*Creat a new cmd node at the linked list.*/
 
 static t_cmd	*new_cmd(t_gmalloc **gmalloc)
 {
@@ -71,7 +72,7 @@ static t_cmd	*new_cmd(t_gmalloc **gmalloc)
 	return (new);
 }
 
-/*initialiser chaque commande en séparant les infiles des arguments*/
+/*Init each command by separting the infiles from the arguments.*/
 
 static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 {
@@ -102,7 +103,7 @@ static void	handle_cmd_args(t_cmd *cmd, t_token **token, t_gmalloc **head)
 	cmd->args[i] = NULL;
 }
 
-/*initialiser chaque commande en les divisant par pipe*/
+/*Init each command by spliting at each pipe*/
 
 t_cmd	*init_cmd(t_token **token, t_gmalloc **gmalloc)
 {

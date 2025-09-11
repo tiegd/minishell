@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/10 14:01:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 13:23:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "gblib.h"
 
 // Run the cmd if it's a builtin.
+
 int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
@@ -62,6 +63,7 @@ void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 }
 
 // Run only one command with ft_exec_cmd.
+
 void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	int		pid;
@@ -90,6 +92,7 @@ void	ft_one_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 }
 
 // Called by Pipex or ft_one_cmd.
+
 bool	ft_exec_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 {
 	if (is_builtin(cmd->args[0]))

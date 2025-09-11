@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:50:19 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:31:24 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:02:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "clean.h"
 #include "gblib.h"
 
-//compare le nom de 2 variable d'environnement
+/*Compare the name of two environemnt variables*/
 
 int	env_var_cmp(char *s1, char *s2)
 {

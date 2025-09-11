@@ -6,15 +6,15 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 09:39:19 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:59:26 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-/*recuperer la variable d'environnement et la print dans 
-le fd passsé en paramètre.*/
+/*Retrieve the environment variable and print it in 
+the file descriptor passed as a parameter.*/
 
 void	ft_env(char **env, int fd, t_mini *mini)
 {

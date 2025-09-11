@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:05:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:13:33 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:35:51 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	is_operator(char c)
 	return (0);
 }
 
-/*creer une fonction qui va faire en sorte de checker 
-si l'argument avant est un <<*/
+//Check if the previous argument is a <<
 
 int	is_eof(char	*prev)
 {

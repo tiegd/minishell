@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/10 18:31:20 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 13:53:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,9 @@
 void	close_fds(int infile, int outfile)
 {
 	if (infile > 0)
-	{
-		if (close(infile) == -1)
-		{
-			rl_clear_history();
-			exit(1);
-		}
-	}
+		close(infile);
 	if (outfile > 1)
-	{
-		if (close(outfile) == -1)
-		{
-			rl_clear_history();
-			exit(1);
-		}
-	}
+		close(outfile);
 }
 
 int	is_close(t_cmd *cmd)
@@ -63,4 +51,10 @@ int	close_all_here_doc(int *here_doc_list)
 		i++;
 	}
 	return (0);
+}
+
+void	close_both_fd(int fd1, int fd2)
+{
+	close(fd1);
+	close(fd2);
 }

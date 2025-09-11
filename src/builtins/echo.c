@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 09:38:54 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:58:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-//checker si c'est une option ou pas
+//check if it's an option or not.
 
 int	is_option(char	*str)
 {
@@ -82,13 +82,14 @@ void	echo_print_args(char **args, int *i, bool with_option)
 		printf("\n");
 }
 
-/*verifier qu'il y a une option dans la commande.
-Tant que les options sont -n ou -nnnnnnn continuer jusqu'à l'argument suivant.
-Checker si il y a un autre argument, si il n'y en a pas dire que la commande 
-est valide mais renvoyer NULL.
-Si il y a encore des arguments les prints les un a la suite des autres avec 
-1 espace entre chaque regarder si c'est le dernier argument ou pas
-enlever le \n en fonction*/
+/*Check that there is an option in the command.
+As long as the options are -n or -nnnnnnn, continue to the next argument.
+Check if there is another argument; if there isn't, say that the command 
+is valid but return NULL.
+If there are still arguments, print them one after the other with 
+1 space between each one, check if it is the last argument or not,
+remove the \n accordingly.
+*/
 
 void	ft_echo(t_cmd *cmd)
 {
