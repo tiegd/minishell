@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:44:51 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 14:54:06 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:52:32 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	close_fds(int infile, int outfile)
 int	is_close(t_cmd *cmd)
 {
 	if (cmd->redir->next != NULL && cmd->fd_infile > 0
-		&& (cmd->redir->next->type == INPUT
-			|| cmd->redir->next->type == HERE_DOC))
+		&& (cmd->redir->next->type == INPUT))
 	{
 		if (close(cmd->fd_infile) == -1)
 			return (0);
