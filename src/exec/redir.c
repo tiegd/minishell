@@ -6,13 +6,15 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/11 13:24:02 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:36:48 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "clean.h"
 #include "exec.h"
+
+#include <stdio.h>
 
 // Do redir if we have an infile or outfile.
 
