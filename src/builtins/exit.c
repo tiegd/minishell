@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:39:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:11:44 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_sign(char c)
 	else if (c == '+')
 		return (1);
 	else
-		return (1);
+		return (0);
 }
 
 int	check_exit_argument(char *arg)
