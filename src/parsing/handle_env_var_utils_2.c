@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 12:20:04 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/08 14:41:05 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/22 16:25:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,19 @@ int	skip_and_check_quotes(int *i, char *prev)
 		(*i)++;
 	}
 	return (false);
+}
+
+int	is_alone(char **isolated, int i)
+{
+	if (ft_strcmp(isolated[i], "$"))
+	{
+		if (!isolated[i + 1])
+			return (1);
+		else if (is_ws(isolated[i + 1][0]))
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
 }

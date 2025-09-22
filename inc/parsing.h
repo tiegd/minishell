@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:54:07 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/10 17:11:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/22 16:32:15 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(t_gmalloc **head);
 int		count_here_doc(t_token **head, t_gmalloc **gb_head);
+int		is_alone(char **isolated, int i);
 
 /*--------IDENTIFIERS------*/
 

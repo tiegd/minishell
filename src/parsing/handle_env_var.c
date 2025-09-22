@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:04:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:32:46 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	*expend_each_var(char **isolated, char **env,
 	{
 		if (ft_strchr(isolated[i], '$'))
 		{
-			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j]))
+			if (quote_dollars[index] == DQ && !is_eof(isolated[i - j])
+				&& !is_alone(isolated, i))
 			{
 				isolated[i] = expend(isolated[i], env, &mini->gmalloc, mini);
 			}
