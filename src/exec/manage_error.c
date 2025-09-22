@@ -6,32 +6,37 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:43:38 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 20:10:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "clean.h"
+#include "gblib.h"
 #include <sys/stat.h>
 
 void	put_exit_error(t_mini *mini, char *filename,
 		char *error, int exit_status)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd("\n", 2);
+	char	*str;
+
+	str = gb_strjoin_custom("minishell: ", filename, &mini->gmalloc);
+	str = gb_strjoin_custom(str, ": ", &mini->gmalloc);
+	str = gb_strjoin_custom(str, error, &mini->gmalloc);
+	str = gb_strjoin_custom(str, "\n", &mini->gmalloc);
+	ft_putstr_fd(str, 2);
 	exit_tab(mini->cmd, mini, exit_status, 0);
 }
 
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd("\n", 2);
+	char	*str;
+
+	str = gb_strjoin_custom("minishell: ", filename, &mini->gmalloc);
+	str = gb_strjoin_custom(str, ": ", &mini->gmalloc);
+	str = gb_strjoin_custom(str, error, &mini->gmalloc);
+	str = gb_strjoin_custom(str, "\n", &mini->gmalloc);
+	ft_putstr_fd(str, 2);
 	mini->exit_status = exit_status;
 }
 
