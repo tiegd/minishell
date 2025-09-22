@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:39:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:11:37 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_sign(char c)
 	else if (c == '+')
 		return (1);
 	else
-		return (1);
+		return (0);
 }
 
 int	check_exit_argument(char *arg)
@@ -40,6 +40,7 @@ int	check_exit_argument(char *arg)
 		i++;
 	if (arg[i] && is_sign(arg[i]))
 		i++;
+	printf("2 arg[i] = %c\n", arg[i]);
 	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
 	while (arg[i] && ft_isdigit(arg[i]))

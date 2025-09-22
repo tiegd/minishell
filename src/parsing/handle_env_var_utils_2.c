@@ -6,11 +6,12 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 12:20:04 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/22 16:25:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/22 17:02:44 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 static int	check_dollar_existence(char *prompt, int *i, char quote)
 {

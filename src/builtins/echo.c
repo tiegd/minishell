@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 12:58:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/22 19:30:52 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	is_option(char	*str)
 	if (str[i] == '-')
 	{
 		i++;
+		if(str[i] == '\0')
+			return (0);
 		while (str[i] != '\0')
 		{
 			if (str[i] != 'n')
