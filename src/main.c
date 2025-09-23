@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 12:58:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:05:08 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ void	init_mini(t_mini *mini, char **env)
 	mini->dup_std[1] = 0;
 }
 
-void	init_start(t_mini *mini, char **env)
+void	init_start(t_mini *mini, char **env, int ac, char **av)
 {
+	ac = 0;
+	av = NULL;
 	check_interactive_mode();
 	set_sig_action();
 	init_mini(mini, env);
@@ -72,9 +74,7 @@ int	main(int ac, char **av, char **env)
 	char				*line;
 	t_mini				mini;
 
-	ac = 0;
-	av = NULL;
-	init_start(&mini, env);
+	init_start(&mini, env, ac, av);
 	while (1)
 	{
 		block_sig_quit();
