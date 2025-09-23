@@ -1,9 +1,0 @@
- 
-bin
-inc
-Libft
-Makefile
-minishell
-readlinesupp.txt
-src
-tests_minishell.txt
