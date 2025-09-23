@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 12:58:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:44:30 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	echo_print_args(char **args, int *i, bool with_option)
 			if (args[*i + 1] == NULL)
 			{
 				if (with_option == true)
-					printf("%s", args[*i]);
+					ft_putstr_fd(args[*i], STDOUT_FILENO);
 				else
 					printf("%s\n", args[*i]);
 			}

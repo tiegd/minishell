@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 09:33:41 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:00:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
-				exit_wrong_arg(args[1], head);
+				exit_wrong_arg(args[1], mini);
 			mini->exit_status = atoi_exit(args[1], head);
 		}
 		if (arg_count > 2)

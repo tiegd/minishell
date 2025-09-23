@@ -6,12 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 10:20:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:01:23 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "gblib.h"
+#include "fd.h"
 
 void	print_not_valid_identifier(char *str, t_mini *mini)
 {
@@ -40,10 +41,11 @@ void	print_error_exit_arg(char *str, t_gmalloc **head)
 	ft_putstr_fd(s, 2);
 }
 
-void	exit_wrong_arg(char *args, t_gmalloc **head)
+void	exit_wrong_arg(char *args, t_mini *mini)
 {
-	print_error_exit_arg(args, head);
-	gb_free_all(head);
+	close_both_fd(mini->dup_std[0], mini->dup_std[1]);
+	print_error_exit_arg(args, &mini->gmalloc);
+	gb_free_all(&mini->gmalloc);
 	exit(2);
 }
 
