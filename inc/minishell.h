@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:00:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:51:56 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,5 @@ int		skip_and_check_quotes(int *i, char *prev);
 /*---random--------*/
 
 int		count_tab(char **tab);
-
-/*------------TEST------------*/
-
-void	ft_print_lst(t_token *lst);
-void	ft_print_cmd(t_cmd *lst);
-void	print_tab_char(char **tab);
-void	ft_print_tab(char **path, int nb_path);
-void	print_tab_int(int *tab);
-void	ft_print_redir(t_redir *lst);
-void	ft_print_memory(t_gmalloc *lst);
 
 #endif
