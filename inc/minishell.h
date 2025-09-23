@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/10 18:26:25 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:38:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ extern int	g_sig_flag;
 
 /*-----added-----------*/
 
-void	print_error_here_doc(char *eof);
+void	print_error_here_doc(char *eof, t_mini *mini);
 
 /*--------SIGNALS-----------*/
 

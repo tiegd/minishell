@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/16 16:38:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:50:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 			return (sig_int_received(mini, hd->here_doc, hd->here_doc_copy));
 		if (!line)
 		{
-			print_error_here_doc(eof);
+			print_error_here_doc(eof, mini);
 			break ;
 		}
 		if (ft_strcmp(line, eof))

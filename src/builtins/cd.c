@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:34:53 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:15:37 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ getcwd: cannot access parent directories: No such file or directory\n", 2);
 
 void	chdir_failed(char **args, t_mini *mini)
 {
-	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(args[1], 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	char	*s;
+
+	s = gb_strjoin_custom("cd: ", args[1], &mini->gmalloc);
+	s = gb_strjoin_custom(s, ": No such file or directory\n", &mini->gmalloc);
+	ft_putstr_fd(s, 2);
 	mini->exit_status = 1;
 }
 

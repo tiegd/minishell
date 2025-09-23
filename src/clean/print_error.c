@@ -6,44 +6,53 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:42:56 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:20:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "gblib.h"
 
-void	print_not_valid_identifier(char *str)
+void	print_not_valid_identifier(char *str, t_mini *mini)
 {
-	ft_putstr_fd("minishell: export: '", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
+	char	*s;
+
+	s = gb_strjoin_custom("minishell: export: '", str, &mini->gmalloc);
+	s = gb_strjoin_custom(s, "': not a valid identifier\n", &mini->gmalloc);
+	ft_putstr_fd(s, 2);
 }
 
-void	print_no_such_file(char *str)
+void	print_no_such_file(char *str, t_mini *mini)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	char	*s;
+
+	s = gb_strjoin_custom("minishell: ", str, &mini->gmalloc);
+	s = gb_strjoin_custom(s, ": No such file or directory\n", &mini->gmalloc);
+	ft_putstr_fd(s, 2);
 }
 
-void	print_error_exit_arg(char *str)
+void	print_error_exit_arg(char *str, t_gmalloc **head)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
+	char	*s;
+
+	s = gb_strjoin_custom("minishell: ", str, head);
+	s = gb_strjoin_custom(s, ": numeric argument required\n", head);
+	ft_putstr_fd(s, 2);
 }
 
 void	exit_wrong_arg(char *args, t_gmalloc **head)
 {
-	print_error_exit_arg(args);
+	print_error_exit_arg(args, head);
 	gb_free_all(head);
 	exit(2);
 }
 
-void	print_error_here_doc(char *eof)
+void	print_error_here_doc(char *eof, t_mini *mini)
 {
-	ft_putstr_fd("minishell: warning: delimited by end-of-file (wanted '", 2);
-	ft_putstr_fd(eof, 2);
-	ft_putstr_fd("')\n", 2);
+	char	*s;
+
+	s = gb_strjoin_custom("minishell: warning: \
+		delimited by end-of-file (wanted '", eof, &mini->gmalloc);
+	s = gb_strjoin_custom(s, "')\n", &mini->gmalloc);
+	ft_putstr_fd(s, 2);
 }

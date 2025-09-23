@@ -6,13 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:57:23 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/16 16:36:48 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:35:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "clean.h"
 #include "exec.h"
+#include "fd.h"
 
 #include <stdio.h>
 
@@ -35,7 +36,17 @@ void	redir_one(t_cmd *cmd, t_mini *mini)
 void	one_no_fork(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	mini->dup_std[0] = dup(STDIN_FILENO);
+	if (mini->dup_std[0] == -1)
+	{
+		ft_close_fd(cmd, 0);
+		return ;
+	}
 	mini->dup_std[1] = dup(STDOUT_FILENO);
+	if (mini->dup_std[1] == -1)
+	{
+		ft_close_fd(cmd, 0);
+		return ;
+	}
 	redir_one(cmd, mini);
 	ft_exec_cmd(cmd, mini, head, -1);
 }

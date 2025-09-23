@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:39:34 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:33:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	check_limits(long long n, char *arg, t_gmalloc **head)
 {
 	if (n > INT_MAX || n < INT_MIN)
 	{
-		print_error_exit_arg(arg);
+		print_error_exit_arg(arg, head);
 		gb_free_all(head);
 		exit(2);
 	}
