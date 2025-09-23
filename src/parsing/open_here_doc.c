@@ -6,13 +6,13 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:27:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:02:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:44:26 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
+int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
 {
 	t_redir	*temp;
 

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:20:04 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:05:03 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,20 @@ static int	check_pathname(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 	return (0);
 }
 
+static int	only_points(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] && arg[i] != '.')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 /*Verify if the cmd can be executed, return 1 if it can or 0 if it can´t*/
 
 int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
@@ -90,6 +104,11 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		cmd->pathname = cmd->args[0];
 		if (manage_error_exec(mini->cmd, mini))
 			return (0);
+		if (only_points(cmd->args[0]))
+		{
+			put_error(mini, cmd->args[0], "Command not found", 127);
+			return (0);
+		}
 		if (!check_access_cmd(mini, cmd))
 			return (0);
 		else
