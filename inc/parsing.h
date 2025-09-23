@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:54:07 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 13:46:39 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:23:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 int		ft_parsing(char *input, t_mini *mini);
 char	**multi_split(char *s, t_gmalloc **head);
 int		open_for_each_cmd(t_cmd **head, t_mini *mini);
+char	*handle_env_var(char *prompt, t_mini *mini);
 
 /*----------token------------*/
 

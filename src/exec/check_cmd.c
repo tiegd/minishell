@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:15:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:20:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
-
-/*check accessibility of pathname, return 1 if the file is exist and 
-if it has permission, 0 if not*/
-
-static int	check_access_pathname(t_mini *mini, char *args)
-{
-	if (access(args, F_OK) != 0)
-		put_error(mini, args, "Command not found", 127);
-	else if (access(args, X_OK) != 0)
-		put_error(mini, args, "Permission denied", 126);
-	else
-		return (1);
-	return (0);
-}
 
 /*check accessibility of cmd, return 1 if the file is exist and if
 it has permission, 0 if not*/

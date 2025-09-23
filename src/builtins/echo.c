@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 13:17:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:25:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void	arg_empty(bool with_option)
 		ft_putstr_fd("\n", 1);
 }
 
-static void	echo_print_args(char **args, int *i, t_gmalloc **head, bool with_option)
+static void	echo_print_args(char **args, int *i, t_gmalloc **head,
+	bool with_option)
 {
 	if (args[(*i)] != NULL)
 	{

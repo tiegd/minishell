@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 13:53:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:26:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static t_token	*ft_lst_last(t_token *lst)
 
 // Add the new node at the end of the list.
 
-static t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
+static t_token	*ft_lst_addback(t_token *lst, char *s, int len,
+	t_gmalloc **head)
 {
 	t_token	*new;
 	t_token	*last;

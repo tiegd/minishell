@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 13:19:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:28:04 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	check_exit_argument(char *arg)
 		i++;
 	if (arg[i] && is_sign(arg[i]))
 		i++;
-	printf("2 arg[i] = %c\n", arg[i]);
 	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
 	while (arg[i] && ft_isdigit(arg[i]))

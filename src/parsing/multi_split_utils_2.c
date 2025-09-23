@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 16:26:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:00:25 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:24:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@ void	skip_white_space(char *s, t_input *in)
 			&& in->sq % 2 == 0 && in->dq % 2 == 0)
 			(in->i)++;
 		in->index = in->i;
-	}
-}
-
-static void	update_quotes(char c, int *sq, int *dq)
-{
-	if (is_sq(c))
-		(*sq)++;
-	else if (is_dq(c))
-		(*dq)++;
-}
-
-static void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq)
-{
-	while (s[*i] && (*sq % 2 == 1 || *dq % 2 == 1))
-	{
-		update_quotes(s[*i], sq, dq);
-		(*i)++;
 	}
 }
 

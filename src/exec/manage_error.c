@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 13:41:16 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:20:41 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include "clean.h"
 #include "gblib.h"
 #include <sys/stat.h>
-
-static void	put_exit_error(t_mini *mini, char *filename,
-		char *error, int exit_status)
-{
-	char	*str;
-
-	str = gb_strjoin_custom("minishell: ", filename, &mini->gmalloc);
-	str = gb_strjoin_custom(str, ": ", &mini->gmalloc);
-	str = gb_strjoin_custom(str, error, &mini->gmalloc);
-	str = gb_strjoin_custom(str, "\n", &mini->gmalloc);
-	ft_putstr_fd(str, 2);
-	exit_tab(mini->cmd, mini, exit_status, 0);
-}
 
 void	put_error(t_mini *mini, char *filename, char *error, int exit_status)
 {

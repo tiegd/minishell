@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 13:40:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:26:06 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static void	ft_dup_out(t_mini *mini)
 	close(mini->dup_std[1]);
 }
 
-static void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
+static void	launch_one_child(t_cmd *cmd, t_mini *mini,
+	t_gmalloc **head, int pid)
 {
 	redir_one(cmd, mini);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);
