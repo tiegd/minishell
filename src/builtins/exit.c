@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/22 17:11:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:52:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	check_limits(long long n, char *arg, t_gmalloc **head)
 {
 	if (n > INT_MAX || n < INT_MIN)
 	{
-		print_error_exit_arg(arg);
+		print_error_exit_arg(arg, head);
 		gb_free_all(head);
 		exit(2);
 	}
@@ -96,14 +96,15 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int	arg_count;
 
-	printf("exit\n");
+	if (mini->nb_pipe == 0)
+		ft_putstr_fd("exit\n", 1);
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
 		if (arg_count > 1)
 		{
 			if (check_exit_argument(args[1]) == 1)
-				exit_wrong_arg(args[1], head);
+				exit_wrong_arg(args[1], mini);
 			mini->exit_status = atoi_exit(args[1], head);
 		}
 		if (arg_count > 2)

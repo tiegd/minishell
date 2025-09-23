@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:50:19 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 14:20:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:00:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_valid_identifier(char *variable, t_mini *mini)
 	if (ft_isdigit(variable[0]) || !exp_isalnum(variable[0]))
 	{
 		mini->exit_status = 1;
-		print_not_valid_identifier(variable);
+		print_not_valid_identifier(variable, mini);
 		return (0);
 	}
 	while (variable[i] && variable[i] != '=')
@@ -52,7 +52,7 @@ int	is_valid_identifier(char *variable, t_mini *mini)
 		if (!exp_isalnum(variable[i]))
 		{
 			mini->exit_status = 1;
-			print_not_valid_identifier(variable);
+			print_not_valid_identifier(variable, mini);
 			return (0);
 		}
 		i++;

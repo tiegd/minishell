@@ -2,4 +2,4 @@ Makefile
 README.md
 .vscode/
 .gitignore
-to_do_list.txt
+tests_minishell.txt
