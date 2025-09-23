@@ -6,11 +6,13 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:00:33 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 12:00:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:40:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gblib.h"
+#include "builtins.h"
 
 void	update_pwd(t_mini *mini, t_gmalloc **head)
 {

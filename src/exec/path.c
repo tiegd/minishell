@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:28:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:02:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:47:11 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	extract_path(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		if (manage_error_exec(mini->cmd, mini) == 1)
 			return (0);
 		cmd->pathname = cmd->args[0];
-		return (1);
+		return (2);
 	}
 	cmd->paths = gb_split(line, ':', head);
 	nb_path = ft_nb_path(cmd->paths);
