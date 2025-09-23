@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 11:00:52 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:39:13 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_sign(char c)
 	else if (c == '+')
 		return (1);
 	else
-		return (1);
+		return (0);
 }
 
 int	check_exit_argument(char *arg)
@@ -96,7 +96,8 @@ void	ft_exit(char **args, t_mini *mini, t_gmalloc **head)
 {
 	int	arg_count;
 
-	printf("exit\n");
+	if (mini->nb_pipe == 0)
+		ft_putstr_fd("exit\n", 1);
 	if (args && *args)
 	{
 		arg_count = ft_nb_path(args);
