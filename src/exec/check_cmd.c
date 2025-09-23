@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 13:38:50 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:15:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,26 @@ static int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 	return (0);
 }
 
+static int	check_pathname(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+{
+	int	check_path;
+
+	check_path = extract_path(cmd, mini, head);
+	if (check_path == 1)
+	{
+		if (!ft_is_bin(cmd, mini))
+			return (0);
+		return (1);
+	}
+	else if (check_path == 2)
+	{
+		if (!check_access_cmd(mini, cmd))
+			return (0);
+		return (1);
+	}
+	return (0);
+}
+
 /*Verify if the cmd can be executed, return 1 if it can or 0 if it can´t*/
 
 int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
@@ -89,15 +109,7 @@ int	check_cmd(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 		else
 			return (1);
 	}
-	if (extract_path(cmd, mini, head))
-	{
-		if (!ft_is_bin(cmd, mini))
-			return (0);
+	if (check_pathname(cmd, mini, head))
 		return (1);
-	}
-	else
-		return (0);
-	if (!check_access_cmd(mini, cmd))
-		return (0);
-	return (1);
+	return (0);
 }
