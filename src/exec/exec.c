@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/11 13:23:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:08:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 void	ft_dup_out(t_mini *mini)
 {
-	dup2(mini->dup_std[0], STDIN_FILENO);
-	dup2(mini->dup_std[1], STDOUT_FILENO);
+	if (dup2(mini->dup_std[0], STDIN_FILENO) == -1)
+		exit_fd(mini->cmd, mini, 0);
+	if (dup2(mini->dup_std[1], STDOUT_FILENO) == -1)
+		exit_fd(mini->cmd, mini, 0);
 	close(mini->dup_std[0]);
 	close(mini->dup_std[1]);
 }
