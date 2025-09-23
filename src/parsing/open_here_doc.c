@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   open_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 18:27:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:02:11 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:44:12 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "fd.h"
 
 static int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
 {
@@ -33,7 +34,7 @@ static int	open_for_each_redir(t_redir **head, t_cmd *cmd, t_mini *mini)
 					ft_putstr_fd("error occured during \
 the creation of here document(s)\n", 2);
 				}
-				return (-1);
+				return (0);
 			}
 		}
 		temp = temp->next;
@@ -52,10 +53,17 @@ int	open_for_each_cmd(t_cmd **head, t_mini *mini)
 	{
 		if (open_for_each_redir(&temp->redir, temp, mini) != 0)
 			return (-1);
-		mini->here_doc_list[i] = temp->fd_here_doc;
+		if (temp->fd_here_doc > 0)
+		{
+			mini->here_doc_list[i] = temp->fd_here_doc;
+			i++;
+		}
+		else if (temp->fd_here_doc == -2)
+		{
+			close_all_here_doc(mini->here_doc_list);
+			return (-1);
+		}
 		temp = temp->next;
-		i++;
 	}
-	mini->here_doc_list[i] = 0;
 	return (0);
 }

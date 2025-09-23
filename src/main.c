@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 14:04:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:44:49 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ static void	check_interactive_mode(void)
 
 static void	init_mini(t_mini *mini, char **env)
 {
+	int	i;
+
+	i = 0;
 	mini->gmalloc = NULL;
 	mini->cmd = NULL;
 	mini->nb_here_doc = 0;
@@ -58,6 +61,11 @@ static void	init_mini(t_mini *mini, char **env)
 	mini->exit_status = 0;
 	mini->dup_std[0] = 0;
 	mini->dup_std[1] = 0;
+	while (i < 16)
+	{
+		mini->here_doc_list[i] = 0;
+		i++;
+	}
 }
 
 static void	init_start(t_mini *mini, char **env, int ac, char **av)
