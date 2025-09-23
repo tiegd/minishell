@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:28:59 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:02:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:41:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "exec.h"
 #include "parsing.h"
 
-char	*ft_path_line(char **env, t_gmalloc **head)
+static char	*ft_path_line(char **env, t_gmalloc **head)
 {
 	int		i;
 	int		j;

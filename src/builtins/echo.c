@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 12:59:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:17:58 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 //check if it's an option or not.
 
-int	is_option(char	*str)
+static int	is_option(char	*str)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ int	is_option(char	*str)
 	return (0);
 }
 
-void	arg_empty(bool with_option)
+static void	arg_empty(bool with_option)
 {
 	if (with_option == true)
 		return ;
@@ -63,7 +63,7 @@ void	arg_empty(bool with_option)
 		ft_putstr_fd("\n", 1);
 }
 
-void	echo_print_args(char **args, int *i, t_gmalloc **head, bool with_option)
+static void	echo_print_args(char **args, int *i, t_gmalloc **head, bool with_option)
 {
 	if (args[(*i)] != NULL)
 	{

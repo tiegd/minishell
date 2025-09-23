@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:41:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 10:28:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:21:34 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	strcmp_until_char(char *s1, char *s2, char c)
 	return (0);
 }
 
-char	*add_double_quote(char *res, t_gmalloc **head)
+static char	*add_double_quote(char *res, t_gmalloc **head)
 {
 	int		i;
 	int		len;
@@ -55,7 +55,7 @@ char	*add_double_quote(char *res, t_gmalloc **head)
 	return (temp);
 }
 
-int	has_special(char *str)
+static int	has_special(char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 10:10:02 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 16:40:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:26:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "gblib.h"
 #include "exec.h"
 
-char	*gb_strdup_free_src(char *s, t_gmalloc **gmalloc)
+static char	*gb_strdup_free_src(char *s, t_gmalloc **gmalloc)
 {
 	int		i;
 	int		len;
@@ -47,7 +47,7 @@ static int	real_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void	sort_env(char **env, t_gmalloc **head)
+static void	sort_env(char **env, t_gmalloc **head)
 {
 	char	*temp;
 	t_sort	sort;

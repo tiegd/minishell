@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:20:41 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 13:05:08 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:04:08 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	g_sig_flag = 0;
+volatile int	g_sig_flag = 0;
 
-char	**dup_env(char **old_env, t_gmalloc **gmalloc)
+static char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 {
 	int		i;
 	char	**new_env;
@@ -37,7 +37,7 @@ char	**dup_env(char **old_env, t_gmalloc **gmalloc)
 	return (new_env);
 }
 
-void	check_interactive_mode(void)
+static void	check_interactive_mode(void)
 {
 	if (isatty(STDIN_FILENO) == 0 || isatty(STDOUT_FILENO) == 0)
 	{
@@ -46,7 +46,7 @@ void	check_interactive_mode(void)
 	}
 }
 
-void	init_mini(t_mini *mini, char **env)
+static void	init_mini(t_mini *mini, char **env)
 {
 	mini->gmalloc = NULL;
 	mini->cmd = NULL;
@@ -60,7 +60,7 @@ void	init_mini(t_mini *mini, char **env)
 	mini->dup_std[1] = 0;
 }
 
-void	init_start(t_mini *mini, char **env, int ac, char **av)
+static void	init_start(t_mini *mini, char **env, int ac, char **av)
 {
 	ac = 0;
 	av = NULL;

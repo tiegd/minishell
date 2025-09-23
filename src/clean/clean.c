@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:53:27 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:41:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:33:19 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,5 @@ void	free_cmd(t_cmd *cmd, t_gmalloc **head)
 		if (tmp->pathname)
 			gfree(tmp->pathname, head);
 		gfree(tmp, head);
-	}
-}
-
-void	free_one_cmd(t_cmd *cmd, t_gmalloc **head)
-{
-	if (cmd)
-	{
-		if (cmd->args)
-			free_prompt(cmd->args, head);
-		if (cmd->pathname)
-			gfree(cmd->pathname, head);
-		gfree(cmd, head);
 	}
 }

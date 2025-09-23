@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/22 16:32:46 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:46:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*expend_each_var(char **isolated, char **env,
 	return (isolated);
 }
 
-int	count_dollars(char *prompt)
+static int	count_dollars(char *prompt)
 {
 	int	i;
 	int	count;
@@ -58,7 +58,7 @@ int	count_dollars(char *prompt)
 	return (count);
 }
 
-int	*fill_tab_quote(char *prompt, t_gmalloc **head)
+static int	*fill_tab_quote(char *prompt, t_gmalloc **head)
 {
 	int	i;
 	int	index;

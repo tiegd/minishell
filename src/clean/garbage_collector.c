@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:34:27 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 18:28:28 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:34:42 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	gfree(void *ptr, t_gmalloc **head)
 	}
 }
 
-void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new)
+static void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new)
 {
 	t_gmalloc	*temp;
 

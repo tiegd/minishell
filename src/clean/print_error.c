@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 11:01:23 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:07:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ void	print_not_valid_identifier(char *str, t_mini *mini)
 
 	s = gb_strjoin_custom("minishell: export: '", str, &mini->gmalloc);
 	s = gb_strjoin_custom(s, "': not a valid identifier\n", &mini->gmalloc);
-	ft_putstr_fd(s, 2);
-}
-
-void	print_no_such_file(char *str, t_mini *mini)
-{
-	char	*s;
-
-	s = gb_strjoin_custom("minishell: ", str, &mini->gmalloc);
-	s = gb_strjoin_custom(s, ": No such file or directory\n", &mini->gmalloc);
 	ft_putstr_fd(s, 2);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:18:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 10:30:04 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:22:35 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*expend_exit_status(char *arg, t_gmalloc **head, t_mini *mini)
 	return (res);
 }
 
-char	*var_is_empty(t_gmalloc **head)
+static char	*var_is_empty(t_gmalloc **head)
 {
 	char	*str;
 

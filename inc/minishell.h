@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:59:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 09:38:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:00:28 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ enum e_types
 	PATH,
 };
 
-extern int	g_sig_flag;
+extern volatile int	g_sig_flag;
 
 /*-----added-----------*/
 
@@ -46,7 +46,6 @@ void	print_error_here_doc(char *eof, t_mini *mini);
 /*--------SIGNALS-----------*/
 
 void	handle_sig(int sig);
-void	handle_quit(int sig);
 void	block_sig_int(void);
 void	set_sig_action(void);
 void	unblock_sig_quit(void);
@@ -60,8 +59,6 @@ char	*generate_rand_name_file(t_gmalloc **head);
 
 /*--------HANDLE-LIST----------*/
 
-t_token	*ft_lst_last(t_token *lst);
-t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head);
 t_token	*tab_to_lst(char **prompt, t_gmalloc **head);
 
 /*--------UTILS----------*/
@@ -76,13 +73,10 @@ int		extract_token(char **double_tab, char *s,
 int		handle_special_char(char **double_tab, char *s,
 			t_input *in, t_gmalloc **head);
 int		check_empty_s(const char *s, char c, char d);
-void	update_quotes(char c, int *sq, int *dq);
 char	*delete_quote(char *str);
 void	init_index(t_input *in);
 void	skip_special_char(char *s, t_input *in);
 void	skip_white_space(char *s, t_input *in);
-void	skip_alpha(char *s, int *sq, int *dq, int *i);
-void	skip_beetwen_quotes(char *s, int *i, int *sq, int *dq);
 int		skip_and_check_quotes(int *i, char *prev);
 
 /*---random--------*/

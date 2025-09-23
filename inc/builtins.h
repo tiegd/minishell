@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:54:17 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 12:58:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:32:46 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ void	exit_wrong_arg(char *args, t_mini *mini);
 /*expend utils*/
 
 int		strcmp_until_char(char *s1, char *s2, char c);
-char	*add_double_quote(char *res, t_gmalloc **head);
 char	*add_single_quote(char *res, t_gmalloc **head);
 int		has_single_quote(char *str);
 int		has_double_quote(char *str);
-int		has_special(char *str);
 char	*env_result(char *env, t_gmalloc **head);
 int		count_size(int n);
 int		which_quote(char *prompt, int *index);
@@ -49,9 +47,6 @@ char	**split_parts(char *prompt, t_gmalloc **head);
 
 int		env_var_cmp(char *s1, char *s2);
 int		is_valid_identifier(char *variable, t_mini *mini);
-int		is_empty_var(char *variable);
-void	replace_same_var(char *new_var, char **new_env,
-			int i, t_gmalloc **head);
 int		handle_same_var(char *new_var, char **new_env, int i, t_gmalloc **head);
 
 /*echo utils*/

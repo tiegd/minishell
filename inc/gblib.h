@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:55:45 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 17:22:58 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:34:57 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*gb_strjoin(char *s1, char *s2, t_gmalloc **head);
 /*--------GARBAGE_COLLECTOR----*/
 
 void	*gb_malloc(size_t size, t_gmalloc **lst);
-void	gmalloc_add_back(t_gmalloc **head, t_gmalloc *new);
 void	gfree(void *ptr, t_gmalloc **head);
 void	gb_free_all(t_gmalloc **head);
 char	*gb_itoa(int nb, t_gmalloc **head);

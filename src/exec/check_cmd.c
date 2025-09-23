@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:56:09 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 14:22:27 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:38:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*check accessibility of pathname, return 1 if the file is exist and 
 if it has permission, 0 if not*/
 
-int	check_access_pathname(t_mini *mini, char *args)
+static int	check_access_pathname(t_mini *mini, char *args)
 {
 	if (access(args, F_OK) != 0)
 		put_error(mini, args, "Command not found", 127);
@@ -30,7 +30,7 @@ int	check_access_pathname(t_mini *mini, char *args)
 /*check accessibility of cmd, return 1 if the file is exist and if
 it has permission, 0 if not*/
 
-int	check_access_cmd(t_mini *mini, t_cmd *cmd)
+static int	check_access_cmd(t_mini *mini, t_cmd *cmd)
 {
 	if (access(cmd->args[0], F_OK) != 0)
 		put_error(mini, cmd->args[0], "No such file or directory", 127);
@@ -42,7 +42,7 @@ int	check_access_cmd(t_mini *mini, t_cmd *cmd)
 }
 
 // Check if the cmd exist with access().
-int	ft_is_bin(t_cmd *cmd, t_mini *mini)
+static int	ft_is_bin(t_cmd *cmd, t_mini *mini)
 {
 	int		i;
 

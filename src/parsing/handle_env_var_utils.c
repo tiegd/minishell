@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:46:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:05:31 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:45:24 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 #include "gblib.h"
 
-int	count_part_to_join(char	*prompt)
+static int	count_part_to_join(char	*prompt)
 {
 	int	i;
 	int	count;
@@ -37,7 +37,7 @@ int	count_part_to_join(char	*prompt)
 	return (count);
 }
 
-char	*extract_text(char *str, int *i, t_gmalloc **head)
+static char	*extract_text(char *str, int *i, t_gmalloc **head)
 {
 	int		start;
 	char	*text;
@@ -53,7 +53,7 @@ char	*extract_text(char *str, int *i, t_gmalloc **head)
 	return (NULL);
 }
 
-char	*extract_variable(char *str, int *i, t_gmalloc **head)
+static char	*extract_variable(char *str, int *i, t_gmalloc **head)
 {
 	int		start;
 	char	*variable;

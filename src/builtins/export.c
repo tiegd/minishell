@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:21:24 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 13:21:29 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:25:07 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	nb_var(char **env)
 /*Duplicate the environement variable passed in params en return a char**
 or NULL if there is an erreor.*/
 
-char	**envdup(char **old_env, t_gmalloc **head)
+static char	**envdup(char **old_env, t_gmalloc **head)
 {
 	int		i;
 	int		env_len;

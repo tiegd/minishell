@@ -6,14 +6,14 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:53:44 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:48:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
 
-void	handle_quit(int sig)
+static void	handle_quit(int sig)
 {
 	if (sig == SIGQUIT)
 	{

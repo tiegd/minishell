@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:46:16 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 20:10:01 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:41:16 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "gblib.h"
 #include <sys/stat.h>
 
-void	put_exit_error(t_mini *mini, char *filename,
+static void	put_exit_error(t_mini *mini, char *filename,
 		char *error, int exit_status)
 {
 	char	*str;

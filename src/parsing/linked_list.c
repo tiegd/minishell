@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:01:04 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 16:27:39 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:53:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 // Find the last node of the list.
 
-t_token	*ft_lst_last(t_token *lst)
+static t_token	*ft_lst_last(t_token *lst)
 {
 	if (!lst || !lst->next)
 		return (lst);
@@ -27,7 +27,7 @@ t_token	*ft_lst_last(t_token *lst)
 
 // Add the new node at the end of the list.
 
-t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
+static t_token	*ft_lst_addback(t_token *lst, char *s, int len, t_gmalloc **head)
 {
 	t_token	*new;
 	t_token	*last;
@@ -78,7 +78,7 @@ int	is_builtin(char *content)
 /*Defines the type of each token in the list passed as an argument and 
 fills the "type" variable of each node in the list.*/
 
-void	define_type(t_token *lst)
+static void	define_type(t_token *lst)
 {
 	while (lst != NULL)
 	{

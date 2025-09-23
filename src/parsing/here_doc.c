@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 13:00:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:49:43 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	open_here_doc(int *here_doc, int *here_doc_copy, char *file_name)
 	return (0);
 }
 
-int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
+static int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 {
 	char	*line;
 

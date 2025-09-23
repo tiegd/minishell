@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 12:59:47 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:19:29 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 
-int	is_sign(char c)
+static int	is_sign(char c)
 {
 	if (c == '-')
 		return (-1);
@@ -29,7 +29,7 @@ int	is_sign(char c)
 		return (0);
 }
 
-int	check_exit_argument(char *arg)
+static int	check_exit_argument(char *arg)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ void	check_limits(long long n, char *arg, t_gmalloc **head)
 	}
 }
 
-int	atoi_exit(char *nptr, t_gmalloc **head)
+static int	atoi_exit(char *nptr, t_gmalloc **head)
 {
 	int					i;
 	long long			n;

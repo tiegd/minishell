@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:50:19 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 09:00:07 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:24:05 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_valid_identifier(char *variable, t_mini *mini)
 	return (1);
 }
 
-int	is_empty_var(char *variable)
+static int	is_empty_var(char *variable)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ int	is_empty_var(char *variable)
 	return (1);
 }
 
-void	replace_same_var(char *new_var, char **new_env, int i, t_gmalloc **head)
+static void	replace_same_var(char *new_var, char **new_env, int i, t_gmalloc **head)
 {
 	if (!is_empty_var(new_var))
 	{

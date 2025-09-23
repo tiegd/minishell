@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:18:49 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 12:58:49 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:16:27 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "gblib.h"
 #include "builtins.h"
 
-int	check_args(char **args)
+static int	check_args(char **args)
 {
 	if (!args[1])
 	{
@@ -30,7 +30,7 @@ int	check_args(char **args)
 	return (1);
 }
 
-void	getcwd_failed(void)
+static void	getcwd_failed(void)
 {
 	ft_putstr_fd("cd: error retrieving current directory: \
 getcwd: cannot access parent directories: No such file or directory\n", 2);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 17:02:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/11 11:44:09 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:05:52 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,6 @@ void	exit_fd(t_cmd *cmd, t_mini *mini, int *pipefd)
 	mini->exit_status = 1;
 	rl_clear_history();
 	exit(EXIT_FAILURE);
-}
-
-void	exit_malloc_error(t_gmalloc *head, int exit_status)
-{
-	perror("malloc error\n");
-	gb_free_all(&head);
-	rl_clear_history();
-	exit(exit_status);
 }
 
 int	str_return(char *str, int exit_status, t_mini *mini)

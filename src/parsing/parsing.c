@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:03:53 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/10 18:32:45 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:03:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "clean.h"
 #include "fd.h"
 
-int	prompt_is_empty(char *input)
+static int	prompt_is_empty(char *input)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ int	prompt_is_empty(char *input)
 	return (1);
 }
 
-void	send_to_exec(t_mini *mini)
+static void	send_to_exec(t_mini *mini)
 {
 	if (mini->nb_pipe > 0)
 		pipex(mini->cmd, mini, &mini->gmalloc);
@@ -38,7 +38,7 @@ void	send_to_exec(t_mini *mini)
 		ft_one_cmd(mini->cmd, mini, &mini->gmalloc);
 }
 
-void	tokenise_and_init_cmd_lst(char **prompt, t_mini *mini)
+static void	tokenise_and_init_cmd_lst(char **prompt, t_mini *mini)
 {
 	mini->token = tab_to_lst(prompt, &mini->gmalloc);
 	mini->token = handle_quote(&mini->token);

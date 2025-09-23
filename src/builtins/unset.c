@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 12:02:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 11:06:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:08:25 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 #include "gblib.h"
 #include "exec.h"
 #include "clean.h"

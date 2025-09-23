@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:50:22 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/23 12:59:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:40:01 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // Run the cmd if it's a builtin.
 
-int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
+static int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 {
 	if (ft_strcmp(cmd->args[0], "echo"))
 	{
@@ -46,7 +46,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_mini *mini, t_gmalloc **head)
 
 // Restore stdin and stdout.
 
-void	ft_dup_out(t_mini *mini)
+static void	ft_dup_out(t_mini *mini)
 {
 	if (dup2(mini->dup_std[0], STDIN_FILENO) == -1)
 		exit_fd(mini->cmd, mini, 0);
@@ -56,7 +56,7 @@ void	ft_dup_out(t_mini *mini)
 	close(mini->dup_std[1]);
 }
 
-void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
+static void	launch_one_child(t_cmd *cmd, t_mini *mini, t_gmalloc **head, int pid)
 {
 	redir_one(cmd, mini);
 	close_fds(cmd->fd_infile, cmd->fd_outfile);

@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:55:11 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/11 14:51:57 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:40:50 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 /*Open input redirection & check permission and existence*/
 
-int	open_infile(t_cmd *cmd, t_mini *mini)
+static int	open_infile(t_cmd *cmd, t_mini *mini)
 {
 	int	fd_infile;
 
@@ -37,7 +37,7 @@ int	open_infile(t_cmd *cmd, t_mini *mini)
 	return (fd_infile);
 }
 
-int	open_outfile(t_cmd *cmd, t_mini *mini)
+static int	open_outfile(t_cmd *cmd, t_mini *mini)
 {
 	int	fd_outfile;
 
@@ -53,7 +53,7 @@ int	open_outfile(t_cmd *cmd, t_mini *mini)
 	return (fd_outfile);
 }
 
-int	open_redir(t_cmd *cmd, t_mini *mini)
+static int	open_redir(t_cmd *cmd, t_mini *mini)
 {
 	while (cmd->redir != NULL)
 	{

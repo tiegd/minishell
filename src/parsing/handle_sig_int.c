@@ -6,7 +6,7 @@
 /*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:23:55 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/09 17:53:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:48:22 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <signal.h>
 #include <readline/readline.h>
 
-int	event_hook(void)
+static int	event_hook(void)
 {
 	return (0);
 }

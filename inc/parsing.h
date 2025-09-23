@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:54:07 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/22 16:32:15 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 13:46:39 by gaducurt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int		open_for_each_cmd(t_cmd **head, t_mini *mini);
 
 t_cmd	*init_cmd(t_token **token, t_gmalloc **head);
 t_token	*handle_quote(t_token **token);
-char	*handle_env_var(char *prompt, t_mini *mini);
-int		ft_is_bin(t_cmd *cmd, t_mini *mini);
 char	**ft_add_cmd(char **paths, int nb_path, t_cmd *cmd, t_gmalloc **head);
-char	*ft_path_line(char **env, t_gmalloc **head);
 int		ft_nb_path(char **path);
 char	**env_dash_i(t_gmalloc **head);
 int		count_here_doc(t_token **head, t_gmalloc **gb_head);
