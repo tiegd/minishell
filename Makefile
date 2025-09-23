@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
+#    By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/10 17:57:35 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/23 12:02:31 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,16 @@ DIR_SRC = src/
 
 SRC =	main.c \
 		builtins/echo.c \
+		builtins/echo_utils.c \
 		builtins/env.c \
 		builtins/export.c \
 		builtins/export_utils.c \
 		builtins/expend.c \
 		builtins/expend_utils.c \
+		builtins/expend_utils_2.c \
 		builtins/pwd.c \
 		builtins/cd.c \
+		builtins/cd_utils.c \
 		builtins/unset.c \
 		builtins/exit.c \
 		builtins/print_export.c \

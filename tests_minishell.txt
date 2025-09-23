@@ -2,16 +2,18 @@ format : test  /// attendu ///  votre
 
 echo - ///   "-"     ///  "" ✅
 
-echo -n lol > out /// rien print mains lol sans \n dans out /// print sortie standard et non dans out car usage de printf au lieu de ft_pustr
+echo -n lol > out /// rien print mains lol sans \n dans out /// print sortie standard et non dans out car usage de printf au lieu de ft_pustr ✅
 
-env | env leak : line de readline pas free (supposé) pareil qu'avec le test exitexport t="'" -> casse tout (invalid reads)
+env | env leak : line de readline pas free (supposé) pareil qu'avec le test exit ✅
 
-pas de maj de OLDPWD
+export t="'" -> casse tout (invalid reads) ✅
 
-dup() a proteger
+pas de maj de OLDPWD ✅
+
+dup() a proteger ✅
 
 exit "delamerde" dans minishell dans minishell (leak fd + mem(a def dans quels cas ces derniers adviennent))
 
 --------------------------------------
 
-attention output mix up (1: plusieurs writes dans le putstr/2: plusieurs putstr (cmd not found))
+attention output mix up (1: plusieurs writes dans le putstr /2: plusieurs putstr (cmd not found)) ✅

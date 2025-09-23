@@ -6,11 +6,12 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 14:02:52 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/22 19:30:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:04:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 #include <stdio.h>
 
 int	ft_strcmp(char *s1, char *s2)
@@ -41,7 +42,7 @@ int	is_option(char	*str)
 	if (str[i] == '-')
 	{
 		i++;
-		if(str[i] == '\0')
+		if (str[i] == '\0')
 			return (0);
 		while (str[i] != '\0')
 		{
@@ -57,12 +58,12 @@ int	is_option(char	*str)
 void	arg_empty(bool with_option)
 {
 	if (with_option == true)
-		printf("");
+		return ;
 	else
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }
 
-void	echo_print_args(char **args, int *i, bool with_option)
+void	echo_print_args(char **args, int *i, t_gmalloc **head, bool with_option)
 {
 	if (args[(*i)] != NULL)
 	{
@@ -71,17 +72,17 @@ void	echo_print_args(char **args, int *i, bool with_option)
 			if (args[*i + 1] == NULL)
 			{
 				if (with_option == true)
-					printf("%s", args[*i]);
+					ft_putstr_fd(args[*i], 1);
 				else
-					printf("%s\n", args[*i]);
+					print_with_new_line(args[*i], head);
 			}
 			else
-				printf("%s ", args[*i]);
+				print_with_space(args[*i], head);
 			(*i)++;
 		}
 	}
 	else
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }
 
 /*Check that there is an option in the command.
@@ -93,7 +94,7 @@ If there are still arguments, print them one after the other with
 remove the \n accordingly.
 */
 
-void	ft_echo(t_cmd *cmd)
+void	ft_echo(t_cmd *cmd, t_gmalloc **head)
 {
 	int		i;
 	bool	with_option;
@@ -109,5 +110,5 @@ void	ft_echo(t_cmd *cmd)
 		arg_empty(with_option);
 		return ;
 	}
-	echo_print_args(cmd->args, &i, with_option);
+	echo_print_args(cmd->args, &i, head, with_option);
 }

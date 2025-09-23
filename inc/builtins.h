@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 15:54:17 by gaducurt          #+#    #+#             */
-/*   Updated: 2025/09/09 16:18:47 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:03:01 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /*--------BUILT-IN--------*/
 
-void	ft_echo(t_cmd *cmd);
+void	ft_echo(t_cmd *cmd, t_gmalloc **head);
 void	ft_env(char **env, int fd, t_mini *mini);
 char	**ft_export(char **old_env, char *str, t_mini *mini, t_gmalloc **head);
 void	pwd(int fd, t_mini *mini);
@@ -36,6 +36,9 @@ void	exit_wrong_arg(char *args, t_gmalloc **head);
 
 int		strcmp_until_char(char *s1, char *s2, char c);
 char	*add_double_quote(char *res, t_gmalloc **head);
+char	*add_single_quote(char *res, t_gmalloc **head);
+int		has_single_quote(char *str);
+int		has_double_quote(char *str);
 int		has_special(char *str);
 char	*env_result(char *env, t_gmalloc **head);
 int		count_size(int n);
@@ -50,5 +53,15 @@ int		is_empty_var(char *variable);
 void	replace_same_var(char *new_var, char **new_env,
 			int i, t_gmalloc **head);
 int		handle_same_var(char *new_var, char **new_env, int i, t_gmalloc **head);
+
+/*echo utils*/
+
+void	print_with_new_line(char *s, t_gmalloc **head);
+void	print_with_space(char *s, t_gmalloc **head);
+
+/*cd utils*/
+
+void	update_pwd(t_mini *mini, t_gmalloc **head);
+void	update_oldpwd(char *old_path, t_mini *mini, t_gmalloc **head);
 
 #endif
