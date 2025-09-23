@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 09:50:08 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:00:14 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include <readline/readline.h>
 #include <fcntl.h>
 
-int	sig_int_received(t_mini *mini, int here_doc, int here_doc_copy)
+static int	sigint_hd(t_mini *mini, char *line, int here_doc, int here_doc_copy)
 {
+	free(line);
 	close(here_doc);
 	close(here_doc_copy);
 	mini->exit_status = 130;
@@ -43,7 +44,7 @@ int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 	{
 		line = readline(">");
 		if (g_sig_flag == 1)
-			return (sig_int_received(mini, hd->here_doc, hd->here_doc_copy));
+			return (sigint_hd(mini, line, hd->here_doc, hd->here_doc_copy));
 		if (!line)
 		{
 			print_error_here_doc(eof, mini);

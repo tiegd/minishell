@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:44:45 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 11:52:42 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:59:47 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	check_exit_argument(char *arg)
 		i++;
 	if (arg[i] && is_sign(arg[i]))
 		i++;
+	printf("2 arg[i] = %c\n", arg[i]);
 	if (arg[i] && !ft_isdigit(arg[i]))
 		return (1);
 	while (arg[i] && ft_isdigit(arg[i]))

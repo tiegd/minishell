@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expend_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:41:10 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 13:00:49 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/23 10:28:33 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "gblib.h"
 #include "parsing.h"
+#include "builtins.h"
 
 /*compares strings up to the character passed as a parameter*/
 
@@ -82,8 +83,10 @@ char	*env_result(char *env, t_gmalloc **head)
 		i++;
 	env += i;
 	res = gb_strdup(env, head);
-	if (has_special(res))
+	if (has_special(res) || has_single_quote(res))
 		res = add_double_quote(res, head);
+	else if (has_double_quote(res))
+		res = add_single_quote(res, head);
 	return (res);
 }
 
