@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 19:15:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/24 18:56:21 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static int	read_here_doc(t_heredoc *hd, char *eof, t_mini *mini)
 			free(line);
 			break ;
 		}
-		if (ft_strchr(line, '$') && hd->had_quote == false)
-			line = handle_env_var_for_here_doc(line, mini);
 		ft_putstr_fd(line, hd->here_doc);
 		ft_putchar_fd('\n', hd->here_doc);
 		free(line);
@@ -70,15 +68,11 @@ int	create_here_doc(t_mini *mini, char *eof, t_gmalloc **head)
 	int			check_read;
 	t_heredoc	hd;
 
-	hd.had_quote = false;
 	file_name = generate_rand_name_file(head);
 	if (!file_name)
 		return (-1);
 	if (ft_strchr(eof, DQ) || ft_strchr(eof, SQ))
-	{
-		hd.had_quote = true;
 		eof = delete_quote(eof);
-	}
 	if (open_here_doc(&hd.here_doc, &hd.here_doc_copy, file_name) == -1)
 		return (-1);
 	check_read = read_here_doc(&hd, eof, mini);

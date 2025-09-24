@@ -6,7 +6,7 @@
 #    By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:04:38 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/23 12:02:31 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/24 19:08:21 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -MMD -MP -I$(INCLUDE) -I$(LIBFT) -g3
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -I$(INCLUDE) -I$(LIBFT)
 
 INCLUDE = inc
 
@@ -58,7 +58,6 @@ SRC =	main.c \
 		parsing/handle_env_var.c \
 		parsing/handle_env_var_utils.c \
 		parsing/handle_env_var_utils_2.c \
-		parsing/handle_env_var_for_here_doc.c \
 		parsing/init_cmd.c \
 		parsing/init_cmd_utils.c \
 		parsing/parsing.c \

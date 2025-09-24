@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaducurt <gaducurt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 11:24:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 14:07:35 by gaducurt         ###   ########.fr       */
+/*   Updated: 2025/09/24 18:53:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_error_here_doc(char *eof, t_mini *mini)
 	char	*s;
 
 	s = gb_strjoin_custom("minishell: warning: \
-		delimited by end-of-file (wanted '", eof, &mini->gmalloc);
+delimited by end-of-file (wanted '", eof, &mini->gmalloc);
 	s = gb_strjoin_custom(s, "')\n", &mini->gmalloc);
 	ft_putstr_fd(s, 2);
 }
