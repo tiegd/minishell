@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:46:47 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/24 18:56:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 19:11:27 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	sigint_hd(t_mini *mini, char *line, int here_doc, int here_doc_copy)
 	return (-2);
 }
 
-int	open_here_doc(int *here_doc, int *here_doc_copy, char *file_name)
+static int	open_here_doc(int *here_doc, int *here_doc_copy, char *file_name)
 {
 	*here_doc = open(file_name, O_WRONLY | O_CREAT, 0664);
 	if (*here_doc == -1)
